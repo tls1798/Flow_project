@@ -1,0 +1,84 @@
+<div class="main-top">
+    <header class="header">
+        <!-- 우측 아이콘 -->
+        <div id="rightTopMenu" class="top-btns">
+            <button type="button" id="alarmTopButton" class="btn-alarm" data-toggle="tooltip" data-bs-placement="bottom" title="알림">
+                <i class="icon-alarm"></i>
+                <i id="alarmTopCount" class="label-alarm" style="display: none;">0</i>
+            </button>
+            <button type="button" id="accountTopButton" class="btn-profile"> 
+                <span id="ProfileImg" class="profile-area" style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);"></span>
+            </button>
+        </div>
+
+        <!-- 프로필 클릭 시 띄울 모달 -->
+        <ul id="accountLayer" class="modal-account" style="display: none;">
+            <li class="user-area">
+                <p class="user-img" style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);"></p>
+                <div class="user-info">
+                    <strong>지솔빈</strong>
+                </div>
+            </li>
+            <li id="logoutBtn">
+                <i class="icons-logout"></i>
+                로그아웃
+            </li>
+        </ul>
+    </header>
+</div>
+
+<script>
+    $(function(){
+        // 모달, 팝업 display:none -> false, block -> true
+        var profileModalBool = false;
+        var searchPopupBool = false;
+
+        // 프로필 사진 클릭 시 프로필 모달 띄우기
+        $(".btn-profile").click(function(){
+            if(!profileModalBool){
+                $(this).addClass('active');
+                $(".modal-account").css('display', 'block');
+                profileModalBool=!profileModalBool;
+
+                // html.click 동작시키지 않기 위해 작성
+                return false;
+            }
+        });
+
+        // 검색창 클릭 시 검색 팝업 띄우기
+        $(".main-search").click(function(){
+            if(!searchPopupBool){
+                $(".name-type-seach-popup").css('display', 'block');
+                searchPopupBool=!searchPopupBool;
+
+                // html.click 동작시키지 않기 위해 작성
+                return false;
+            }
+        });
+
+        
+        $('html').click(function(e) {
+            // 어디든 클릭하면 프로필 모달 display none
+            if(profileModalBool) {
+                $(this).removeClass('active');
+                $(".modal-account").css('display', 'none');
+                profileModalBool=!profileModalBool;
+            }
+
+            // 검색창 팝업 display none (검색창 팝업 클릭할 시엔 X)
+            if(searchPopupBool && !$(e.target).hasClass('search-popup')) {
+                $(".name-type-seach-popup").css('display', 'none');
+                searchPopupBool=!searchPopupBool;
+            }
+        });
+
+        // tooltip
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        const tooltipList = [...tooltipTriggerList].map(
+            tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl)
+        );
+        $('[data-toggle="tooltip"]').tooltip({
+            trigger : 'hover'
+        })
+    });
+</script>
