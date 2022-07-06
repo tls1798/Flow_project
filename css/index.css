@@ -1,0 +1,34 @@
+/* font import */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    min-width: 1280px;
+}
+
+/* 스크롤바 */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    padding-right: 10px;
+}
+::-webkit-scrollbar-button {
+    width: 7px;
+    height: 7px;
+}
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #999;
+    border: 1px solid #999;
+    border-radius: 50px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+    border: 0 none transparent;
+    border-radius: 53px;
+}
