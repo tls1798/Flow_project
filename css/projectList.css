@@ -1,0 +1,182 @@
+.project-group {
+    margin-left: -10px;
+}
+.project-home-wrap {
+    padding: 0 30px;
+}
+.small-style-wrap {
+    position: relative;
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* 즐겨찾기-참여중 섹션 나누기 */
+.section-1:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+.middle-line {
+    width: 100%;
+}
+.section-2 {
+    overflow: hidden;
+}
+.section-2.middle-line>p.project-class {
+    margin: 30px 0 10px 10px;
+}
+.section-1 .project-class {
+    margin: 0 0 10px 10px;
+    font-weight: 700;
+    font-size: 16px;
+    color: #333;
+}
+.section-2 p {
+    padding: 3px 0;
+}
+.project-board-wr {
+    position: relative;
+    max-width: 1170px;
+    margin: 0 auto;
+}
+
+/* 카드 */
+.project-item {
+    float: left;
+    margin: 9px;
+}
+.color-code-1 {
+    background: rgb(100,73,252);
+    border: solid 1px #a75fd6;
+}
+.left-menu-type-1 {
+    width: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    border-radius: 6px 0 0 6px;
+}
+.section-1 ul li {
+    width: 23%;
+    min-width: 229px;
+    max-width: 274px;
+    height: 180px;
+    padding: 15px 15px 15px 32px;
+    position: relative;
+    z-index: 1;
+    display: block;
+    border: 1px solid #ddd;
+    background: #fafafa;
+    border-radius: 6px;
+}
+.project-item {
+    cursor: pointer;
+}
+.left-menu-type-con {
+    float: left;
+}
+.section-1 ul li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #333;
+}
+.section-1 ul li a:hover {
+    border-color: #6449fc;
+    color: #6449fc;
+}
+.project-group .flow-content-txt {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.2;
+    height: 4em;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.project-ttl {
+    font-weight: 700;
+    vertical-align: middle;
+}
+.flow-content-txt {
+    font-size: 16px;
+    min-width: 190px;
+    max-width: 248px;
+    padding: 25px 0 0 0;
+    max-height: 74px;
+    overflow: hidden;
+}
+
+/* 즐겨찾기 아이콘 */
+.project-item .flow-content-star {
+    margin: 0;
+}
+.flow-content-star-un:hover {
+    background-image: url(https://flow.team/flow-renewal/assets/images/icons/icon_star_hover.png);
+}
+.flow-content-star {
+    background: url(https://flow.team/flow-renewal/assets/images/icons/icon_star_on.png) no-repeat;
+    background-size: 24px;
+    width: 24px;
+    height: 24px;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+.flow-content-star-un {
+    background: url(https://flow.team/flow-renewal/assets/images/icons/icon_star.png) no-repeat;
+    background-size: 24px;
+    width: 24px;
+    height: 24px;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+/* 참가인원 span */
+.flow-content-hm-txt {
+    display: inline-block;
+    position: relative;
+    margin-right: 3px;
+    vertical-align: middle;
+}
+.flow-content-b-c {
+    position: absolute;
+    bottom: 13px;
+    left: 34px;
+    right: 20px;
+}
+.flow-content-b-c i {
+    font-size: 12px;
+    color: #999;
+}
+.member-cnt {
+    display: inline-block;
+    margin: 2px 0 0 0;
+    font-family: Roboto;
+    font-size: 14px;
+    color: #999;
+    vertical-align: middle;
+}
+
+/* 알림 배지 */
+.flow-content-ct {
+    width: auto;
+    height: 28px;
+    line-height: 29px;
+    padding: 0 10px;
+    position: absolute;
+    top: -11px;
+    right: -10px;
+    border-radius: 200px;
+    background: #ff3532;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    font-family: Roboto;
+}

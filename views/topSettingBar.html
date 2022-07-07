@@ -1,75 +1,58 @@
-<!DOCTYPE html>
-<html lang="kr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="../css/topSettingBar.css">
-</head>
-<body>
-    
-    <div id="topSettingBar" class="main-header" style="display: block;">
-        <div id="mainTop" class="title-1" data-code="main" style="display: block;">
-            <div>내 프로젝트</div>
-        </div>
-    
-        <span id="allCollectionCount" class="js-collection-total-count js-collection-count top-task-num" style="display: block;"></span>
-        
-        <div id="detailTop" class="project-detail title-1" style="display: none;">
-            <div class="project-detail-header">
-                <div class="project-color-area">
-                    <i id="projectColor" class="project-color color-code-3"></i>
-                </div>
-                <div class="project-header-group">
-                    <div class="project-title-area">
-                        <div class="project-option-area">
-                            <button id="projectStar" class="bookmark-button unstar">
-                                <span class="blind">즐겨찾기</span>
-                            </button>
-                            <button id="detailSettingTopButton" class="set-btn">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <div id="detailSettingLayer" class="project-setup-wrap" style="display: none;">
-                                <div class="project-setup-header">
-                                    <span>프로젝트 번호</span>
-                                    <em id="detailSettingProjectSrno">1402344</em>
-                                </div>
-                                <ul id="detailSettingGroup" class="setup-group">
-                                    <li id="detailSettingProjectExitBtn">
-                                        <a href="#"> <i class="bi bi-box-arrow-in-left"></i>프로젝트 나가기</a>
-                                    </li>
-                                    <li id="detailSettingProjectUpdateBtn" style="display: block;">
-                                        <a href="#"> <i class="bi bi-pencil"></i>프로젝트 수정</a>
-                                    </li>
-                                    <li id="detailSettingProjectDeleteBtn" style="display: block;">
-                                        <a href="#"> <i class="bi bi-trash"></i>프로젝트 삭제</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <h3 id="projectTitle" class="project-title ellipsis js-mouseover" mouseover-text="플로우 프로젝트">플로우 프로젝트</h3>
-                        
-                    </div>
-                    <div class="project-description" style="display: block;">
-                        <p id="projectContents" class="description-text js-mouseover" mouseover-text="플로우 클론 코딩">플로우 클론 코딩</p>
-                        <!--<div class="tooltip-square"></div>-->
-                    </div>
-                </div>
-            </div>
-            <button id="openInviteLayerBtn" type="button" class="project-invite-button color-code-3" style="display: block;">
-                <i class="bi bi-person-plus"></i>초대하기
-            </button>
-        </div>
-    
+<div id="topSettingBar" class="main-header" style="display: block;">
+    <div id="mainTop" class="title-1" data-code="main" style="display: block;">
+        <div>내 프로젝트</div>
     </div>
 
-</body>
-</html>
+    <span id="allCollectionCount" class="js-collection-total-count js-collection-count top-task-num"
+        style="display: block;"></span>
+
+    <div id="detailTop" class="project-detail title-1" style="display: none;">
+        <div class="project-detail-header">
+            <div class="project-color-area">
+                <i id="projectColor" class="project-color color-code-3"></i>
+            </div>
+            <div class="project-header-group">
+                <div class="project-title-area">
+                    <div class="project-option-area">
+                        <button id="projectStar" class="bookmark-button unstar">
+                            <span class="blind">즐겨찾기</span>
+                        </button>
+                        <button id="detailSettingTopButton" class="set-btn">
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+                        <div id="detailSettingLayer" class="project-setup-wrap" style="display: none;">
+                            <div class="project-setup-header">
+                                <span>프로젝트 번호</span>
+                                <em id="detailSettingProjectSrno">1402344</em>
+                            </div>
+                            <ul id="detailSettingGroup" class="setup-group">
+                                <li id="detailSettingProjectExitBtn">
+                                    <a href="#"> <i class="bi bi-box-arrow-in-left"></i>프로젝트 나가기</a>
+                                </li>
+                                <li id="detailSettingProjectUpdateBtn" style="display: block;">
+                                    <a href="#"> <i class="bi bi-pencil"></i>프로젝트 수정</a>
+                                </li>
+                                <li id="detailSettingProjectDeleteBtn" style="display: block;">
+                                    <a href="#"> <i class="bi bi-trash"></i>프로젝트 삭제</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h3 id="projectTitle" class="project-title ellipsis js-mouseover" mouseover-text="플로우 프로젝트">플로우 프로젝트
+                    </h3>
+
+                </div>
+                <div class="project-description" style="display: block;">
+                    <p id="projectContents" class="description-text js-mouseover" mouseover-text="플로우 클론 코딩">플로우 클론 코딩
+                    </p>
+                    <!--<div class="tooltip-square"></div>-->
+                </div>
+            </div>
+        </div>
+        <button id="openInviteLayerBtn" type="button" class="project-invite-button color-code-3"
+            style="display: block;">
+            <i class="bi bi-person-plus"></i>초대하기
+        </button>
+    </div>
+
+</div>
