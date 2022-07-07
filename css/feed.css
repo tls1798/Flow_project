@@ -1,4 +1,4 @@
-#body-color {
+body {
     background-color: #F5F4F4;
 }
 
@@ -50,7 +50,9 @@ strong {
     padding: 0px;
 }
 
-
+.modal-backdrop {
+    z-index: -1;
+}
 
 ul li {
     list-style: none;
@@ -114,15 +116,22 @@ input {
 }
 
 .feedContents {
+    width: 100%;
     background-color: #F5F4F4;
     margin: 0px;
     padding: 0px;
+    display: flex;
+    padding-left: 10%;
+
 }
 
 .feedcontentsSize {
+    height: 929px;
+    max-width: 800px;
 
-    margin-left: 50px;
+    /* margin-left: 15%; */
     margin-top: 50px;
+
 }
 
 .card-header {
@@ -257,6 +266,10 @@ a:hover {
     margin-top: 10px;
     margin-bottom: 15px;
 
+}
+
+.posts-unchecked-sized {
+    min-width: 562px;
 }
 
 .txt-like {
@@ -442,8 +455,12 @@ a:hover {
 }
 
 /* 참가자 */
+.participant-size {
+    margin-left: 5%;
+}
 
 #participant {
+    width: 250px;
     overflow: hidden;
     margin-top: 10px;
     padding-top: 10px;

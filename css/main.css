@@ -1,0 +1,37 @@
+body {
+    min-width: 1280px;
+}
+
+/* 사이드바와 메인컨텐트 섹션 나누기 */
+.left-task {
+    display: inline;
+    float:left;
+}
+.main-act {
+    display: block;
+    position: absolute;
+}
+.main-container {
+    overflow: auto;
+    position: relative;
+    z-index: 0;
+    display: flex;
+    -webkit-box-flex: 1;
+    flex: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+}
+
+/* 프로젝트 리스트, 피드 */
+.main-content {
+    overflow: auto;
+    height: -webkit-calc(100% - 80px);
+    height: calc(100% - 80px);
+}
+.scroll-mask {
+    -webkit-mask-image: linear-gradient(to top,transparent,#000),linear-gradient(to left,transparent 7px,#000 7px);
+    -webkit-mask-size: 100% 20000px;
+    -webkit-mask-position: left bottom;
+    transition: mask-position .3s,-webkit-mask-position .3s;
+}
