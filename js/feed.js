@@ -25,9 +25,6 @@ $(function () {
     $('.dropdown-more').click(function () {
         $('.dropdown-hide').show()
     })
-    $('.dropdown-hide').onmouseout(function () {
-        $('.dropdown-hide').hide()
-    })
 
     // 댓글 script
     // 더보기 script

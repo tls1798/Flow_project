@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/alarmLayer.css">
+</head>
+<body>
+    
+    <article id="alarmLayer" class="side-wr" style="display: block;">
+        <div class="menu-top">
+            <strong>알림</strong>
+            <button class="btn-close-layer">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        <div class="side-contents">
+            <ul id="notReadFilter" class="tab-menu">
+                <li class="js-alarm js-unread on">미확인</li>
+                <li class="js-alarm js-read">전체</li>
+                <li id="readAllAlarm">모두읽음</li>
+            </ul>
+        
+            <!-- 알림 리스트 -->
+            <div class="name-setup-type-2 scroll-mask">
+                <ul id="alarmUl" scroll-direction="0">
+                    <li class="js-alarm-item on" colabo_srno="" colabo_commt_srno=""
+                        colabo_remark_srno="-1" alarm_action="" alarm_status="" toast_msg="신재승님의 글 등록">
+                        <div class="all-setup-picture-type-1"
+                            style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)" data=""></div>
+                        <div class="all-text-wrap-type-1">
+                            <div class="all-setup-section-type-1">
+                                <span>우리 프로젝트</span><em>곧</em>
+                            </div>
+                            <div class="all-text-wrap-type-2 alarm-tit-ellipsis">신재승님의 프론트 완성</div>
+                            <div class="all-text-wrap-type-3">미확인 알람</div>
+                        </div>
+                    </li>
+
+                    <li class="js-alarm-item" colabo_srno="" colabo_commt_srno=""
+                        colabo_remark_srno="-1" alarm_action="" alarm_status="">
+                        <div class="all-setup-picture-type-1"
+                            style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)" data=""></div>
+                        <div class="all-text-wrap-type-1">
+                            <div class="all-setup-section-type-1">
+                                <span>부산진역</span><em>6시간 뒤</em>
+                            </div>
+                            <div class="all-text-wrap-type-2 alarm-tit-ellipsis">지솔빈님의 퇴근</div>
+                            <div class="all-text-wrap-type-3">미확인 알람</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </article>
+
+    <script>
+        $(function(){
+            // 미확인, 전체 탭
+            $('.js-unread').click(function(){
+                $('.js-unread').addClass('on');
+                $('.js-read').removeClass('on');
+            });
+            $('.js-read').click(function(){
+                $('.js-read').addClass('on');
+                $('.js-unread').removeClass('on');
+            });
+
+            // 미확인 알림 클릭 시 removeClass('on')
+            $('.js-alarm-item').click(function(){
+                $(this).removeClass('on');
+                console.log(this, e);
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -22,16 +22,91 @@
     <link rel="stylesheet" href="../css/leftTask.css">
     <link rel="stylesheet" href="../css/feed.css">
     <link rel="stylesheet" href="../css/createProject.css">
+    <link rel="stylesheet" href="../css/alarmLayer.css">
 
 </head>
 
 <body>
+    
+    <div class="right-bar">
+        <article id="alarmLayer" class="side-wr alarmLayer" style="display: none;">
+            <div class="menu-top">
+                <strong>알림</strong>
+                <button class="btn-close-layer">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            <div class="side-contents">
+                <ul id="notReadFilter" class="tab-menu">
+                    <li class="js-alarm js-unread on">미확인</li>
+                    <li class="js-alarm js-read">전체</li>
+                    <li id="readAllAlarm">모두읽음</li>
+                </ul>
+            
+                <!-- 알림 리스트 -->
+                <div class="name-setup-type-2 scroll-mask">
+                    <ul id="alarmUl" scroll-direction="0">
+                        <li class="js-alarm-item on" colabo_srno="" colabo_commt_srno=""
+                            colabo_remark_srno="-1" alarm_action="" alarm_status="" toast_msg="신재승님의 글 등록">
+                            <div class="all-setup-picture-type-1"
+                                style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)" data=""></div>
+                            <div class="all-text-wrap-type-1">
+                                <div class="all-setup-section-type-1">
+                                    <span>우리 프로젝트</span><em>곧</em>
+                                </div>
+                                <div class="all-text-wrap-type-2 alarm-tit-ellipsis">신재승님의 프론트 완성</div>
+                                <div class="all-text-wrap-type-3">미확인 알람</div>
+                            </div>
+                        </li>
+    
+                        <li class="js-alarm-item" colabo_srno="" colabo_commt_srno=""
+                            colabo_remark_srno="-1" alarm_action="" alarm_status="">
+                            <div class="all-setup-picture-type-1"
+                                style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)" data=""></div>
+                            <div class="all-text-wrap-type-1">
+                                <div class="all-setup-section-type-1">
+                                    <span>부산진역</span><em>6시간 뒤</em>
+                                </div>
+                                <div class="all-text-wrap-type-2 alarm-tit-ellipsis">지솔빈님의 퇴근</div>
+                                <div class="all-text-wrap-type-3">미확인 알람</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+    </div>
+
     <!-- 상단바 -->
     <div class="top-header">
         <div class="main-top">
             <header class="header">
+                <div class="main-search-area cursor-pointer">
+                    <form id="searchPopupTopButton" class="main-search clearfix">
+                        <div class="main-search-box">
+                            <input type="text" class="cursor-pointer" placeholder="전체 검색" disabled>
+                        </div>
+                    </form>
+        
+                    <!-- 검색창 클릭 시 띄울 팝업-->
+                    <div id="searchPopupLayer" class="name-type-seach-popup search-popup" data-search-area-code="IN_TONG" style="top: 0px; right: -72%; display: none;">
+                        <div class="search-popup-header search-popup">
+                            <div class="search-popup-input search-popup">
+                                <i class="icon-search search-popup"></i>
+                                <input id="searchPopupInput" type="text" class="name-type-shift-txt search-popup" maxlength="20" autocomplete="off" placeholder="검색어를 입력해주세요">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 우측 아이콘 -->
                 <div id="rightTopMenu" class="top-btns">
+                    <!-- 채팅 기능 추후 구현 -->
+                    <button type="button" id="chattingTopButton" class="btn-chatting" mouseover-text="채팅">
+                        <i class="icon-chatting"></i>
+                        <i id="chatTopCount" class="label-chat" style="display: none;">0</i>
+                    </button>
+
                     <button type="button" id="alarmTopButton" class="btn-alarm" data-toggle="tooltip" data-bs-placement="bottom" title="알림">
                         <i class="icon-alarm"></i>
                         <i id="alarmTopCount" class="label-alarm" style="display: none;">0</i>
@@ -615,6 +690,9 @@
             $('#detailTop').css('display','none');
             $('#projectHomeLayer').css('display','block');
             $('#feedContainer').css('display','none');
+
+            if($('.project-home-wrap').css('display')=='none')
+                $('.main-container').css('background-color', 'gray');
         })
     </script>
 
@@ -624,7 +702,7 @@
     <script type="text/javascript" src="../js/feed.js"></script>
     <script type="text/javascript" src="../js/projectList.js"></script>
     <script type="text/javascript" src="../js/changeMainContainer.js"></script>
-    
+
 
 </body>
 </html>
