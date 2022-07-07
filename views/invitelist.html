@@ -24,13 +24,12 @@
 <body>
     <script>
         $(document).ready(function () {
-            $('#btn').click(function (e) {
-                e.preventDefault();
-                $('#myFullsizeModal').modal("show")
-            })
+
+            $('#myFullsizeModal').modal("show")
+
         })
     </script>
-    <button id="btn" style="float: right;">모달</button>
+
     <div class="modal fade" id="myFullsizeModal" tabindex="-1" role="dialog" aria-labelledby="myFullsizeModalLabel">
         <div class="modal-dialog modal-fullsize" role="document">
             <div class="modal-content modal-fullsize">

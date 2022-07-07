@@ -1,29 +1,37 @@
 <!DOCTYPE html>
 <html lang="kr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/topSettingBar.css">
+    <link rel="stylesheet" type="text/css" href="../css/feed.css">
 </head>
+
 <body>
-    
+
     <div id="topSettingBar" class="main-header" style="display: block;">
-        <div id="mainTop" class="title-1" data-code="main" style="display: block;">
+        <div id="mainTop" class="title-1" data-code="main" style="display: none;">
             <div>내 프로젝트</div>
         </div>
-    
-        <span id="allCollectionCount" class="js-collection-total-count js-collection-count top-task-num" style="display: block;"></span>
-        
-        <div id="detailTop" class="project-detail title-1" style="display: none;">
+
+        <span id="allCollectionCount" class="js-collection-total-count js-collection-count top-task-num"
+            style="display: none;"></span>
+
+        <div id="detailTop" class="project-detail title-1" style="display: block;">
             <div class="project-detail-header">
                 <div class="project-color-area">
                     <i id="projectColor" class="project-color color-code-3"></i>
@@ -55,21 +63,227 @@
                                 </ul>
                             </div>
                         </div>
-                        <h3 id="projectTitle" class="project-title ellipsis js-mouseover" mouseover-text="플로우 프로젝트">플로우 프로젝트</h3>
-                        
+                        <h3 id="projectTitle" class="project-title ellipsis js-mouseover" mouseover-text="플로우 프로젝트">플로우
+                            프로젝트</h3>
+
                     </div>
                     <div class="project-description" style="display: block;">
-                        <p id="projectContents" class="description-text js-mouseover" mouseover-text="플로우 클론 코딩">플로우 클론 코딩</p>
+                        <p id="projectContents" class="description-text js-mouseover" mouseover-text="플로우 클론 코딩">플로우 클론
+                            코딩</p>
                         <!--<div class="tooltip-square"></div>-->
                     </div>
                 </div>
             </div>
-            <button id="openInviteLayerBtn" type="button" class="project-invite-button color-code-3" style="display: block;">
+            <button id="openInviteLayerBtn" type="button" class="project-invite-button color-code-3"
+                style="display: block;">
                 <i class="bi bi-person-plus"></i>초대하기
             </button>
+            <script>
+                $(document).ready(function () {
+                    $('#openInviteLayerBtn').click(function (e) {
+                        e.preventDefault();
+                        $('#staticBackdrop').modal("show")
+                    })
+                    $('#invited-check').click(function (e) {
+                        e.preventDefault();
+                        $('#staticBackdrop').modal("hide")
+                        console.log('a')
+                        $('#myFullsizeModal').modal("show")
+                    })
+                })
+            </script>
         </div>
-    
-    </div>
 
+    </div>
+    <!-- 초대 모달 -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header detail-popup-header-1">
+                    <span class="invite-title ellipsis"><i class="project-color color-code-1"></i>플로우 프로젝트</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body checked-btn">
+                    <ul>
+                        <li><a id="invited-check" style="text-decoration: none;color: black;">
+                                <div> <img class="detail-popup-icon-2" src="../imgs/defaultprofile.png"></div>
+                                <div class="detail-popuplist-type-1"><span>참여자 초대하기</span><em>프로젝트를 함께했던 사람들을 초대할 수
+                                        있습니다</em></div>
+                            </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 라스트 모달 스크립트 -->
+    <script>$(document).ready(function () {
+            $('.selected-show').hide();
+            $('.checked-btn').click(function () {
+                $('.clicked-right').addClass('clicked-right-scroll')
+                    .prepend(`  
+                                                <li class="checked-btn">
+                                            <div style="height:50px;">
+                                                <a href="#" style="text-decoration: none;color: black;">
+                                                    <img class="detail-popup-icon-2" src="../imgs/defaultprofile.png"
+                                                        style="border-radius: 16px;margin-right: 5px;">
+                                                    <strong
+                                                        style="font-size: 13px;color:#555555;font-weight:700px;margin-top:15px; line-height:15px;">정창환</strong>
+                                                </a>
+                                            </div>
+                                        </li>
+                                                        `);
+
+                $('.clicked-right').show();
+                $('.plz-seclect-hide').hide();
+                $('.selected-show').show();
+            })
+            function clickedhandler(e) {
+                if (e.target.classList.value === 'checked-btn-background') {
+                    console.log(e.target.classList.value)
+                    $('#checked-div').removeClass('checked-btn-background')
+
+                }
+                else
+                    $('#checked-div').
+                        addClass('checked-btn-background')
+            }
+            $('#checked-div').click(function (e) {
+                console.log(e.target.classList.value)
+                clickedhandler(e)
+
+            });
+
+            $('.alldelete').click(function () {
+                $('.plz-seclect-hide').show();
+                $('.selected-show').hide();
+                $('.clicked-right').hide();
+            });
+        })
+    </script>
+    <!-- 리스트 모달 -->
+
+    <div class="modal fade" id="myFullsizeModal" tabindex="-1" role="dialog" aria-labelledby="myFullsizeModalLabel">
+        <div class="modal-dialog modal-fullsize" role="document">
+            <div class="modal-content modal-fullsize">
+                <div class="modal-header">
+                    <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z" />
+                        </svg></button>
+                    <h6 class="modal-title" id="myModalLabel" style="float:left">참여자 초대</h6>
+                    <button type="button" onclick="" class=" close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body container" style="padding: 0px">
+                    <div class="row">
+
+                        <div class="col-6 col-6-height" style="display: block">
+                            <div class="invite-input">
+                                <svg style="color:#555;margin-right: 10px;margin-left: 10px;"
+                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-search" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                </svg><input type="text" placeholder="이름,소속,전화번호 검색">
+                            </div>
+
+                            <ul class="list-border-right" style="margin-left: 5px">
+                                <li class="checked-btn">
+                                    <div id="checked-div" style="height:50px; padding:3px">
+                                        <a href="#" style="text-decoration: none;color: black;">
+                                            <div style="float:left;">
+                                                <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-check-circle"
+                                                        viewBox="0 0 16 16" style="margin-top: 10px;margin-right:15px;">
+                                                        <path
+                                                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                        <path
+                                                            d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                                                    </svg></button>
+                                            </div>
+                                            <img class="detail-popup-icon-2" src="../imgs/defaultprofile.png"
+                                                style="border-radius: 16px;margin-right: 5px;">
+
+                                            <strong
+                                                style="font-size: 13px;color:black;font-weight:700px;margin-top:15px; line-height:15px;">정창환</strong>
+
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="checked-btn">
+                                    <div id="checked-div" style="height:50px; padding:3px">
+                                        <a href="#" style="text-decoration: none;color: black;">
+                                            <div style="float:left;">
+                                                <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-check-circle"
+                                                        viewBox="0 0 16 16" style="margin-top: 10px;margin-right:15px;">
+                                                        <path
+                                                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                        <path
+                                                            d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                                                    </svg></button>
+                                            </div>
+                                            <img class="detail-popup-icon-2" src="../imgs/defaultprofile.png"
+                                                style="border-radius: 16px;margin-right: 5px;">
+
+                                            <strong
+                                                style="font-size: 13px;color:black;font-weight:700px;margin-top:15px; line-height:15px;">신재승</strong>
+
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="checked-btn">
+                                    <div id="checked-div" style="height:50px; padding:3px">
+                                        <a href="#" style="text-decoration: none;color: black;">
+                                            <div style="float:left;">
+                                                <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-check-circle"
+                                                        viewBox="0 0 16 16" style="margin-top: 10px;margin-right:15px;">
+                                                        <path
+                                                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                        <path
+                                                            d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                                                    </svg></button>
+                                            </div>
+                                            <img class="detail-popup-icon-2" src="../imgs/defaultprofile.png"
+                                                style="border-radius: 16px;margin-right: 5px;">
+
+                                            <strong
+                                                style="font-size: 13px;color:black;font-weight:700px;margin-top:15px; line-height:15px;">지솔빈</strong>
+
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="col-6 invite-border-bottom col-6-height">
+                            <span class="plz-seclect-hide">대상을 선택해주세요.</span>
+                            <div class="selected-show" style="width: 90%;">
+                                <strong>1건 선택</strong>
+                                <button class="alldelete" style="float:right"><span style="color: #6449fc;">전체
+                                        삭제</span></button>
+                            </div>
+                            <ul class="clicked-right">
+
+
+                            </ul>
+                        </div>
+
+                        <div class="modal-footer"
+                            style="margin: auto; justify-content : center; border-top: 1px solid #ddd; height:66px;padding: 0px; width: 646px;">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                style="background-color: white;color:black;width:182px;">취소</button>
+                            <button type="button" class="btn btn-primary"
+                                style="background-color: #6449fc;width:182px;">초대하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

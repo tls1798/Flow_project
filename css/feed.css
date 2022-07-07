@@ -50,9 +50,7 @@ strong {
     padding: 0px;
 }
 
-#participant {
-    background-color: #F5F4F4;
-}
+
 
 ul li {
     list-style: none;
@@ -72,6 +70,38 @@ input {
 .feedUl {
     margin: 0px;
     padding: 0px;
+}
+
+/* 드롭다운 */
+.modal-account li {
+    position: relative;
+    min-height: 19px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.modal-account .user-info strong {
+    display: block;
+    line-height: 21px;
+    color: #555;
+    max-width: 140px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modal-account li i {
+    margin: 0 4px 0 0;
+}
+
+.modal-account li:focus,
+.modal-account li:hover {
+    color: #6449fc;
+}
+
+.modal-account li:focus .icons-logout,
+.modal-account li:hover .icons-logout {
+    filter: opacity(0.6) drop-shadow(0 0 0 #6449fc);
 }
 
 /* 피드 */
@@ -95,11 +125,16 @@ input {
     margin-top: 50px;
 }
 
+.card-header {
+    margin: auto;
+}
 
 .card {
     width: 90%;
     margin-top: 20px;
+    min-width: 564px;
 }
+
 
 .ellipsis {
     overflow: hidden;
@@ -115,8 +150,20 @@ input {
 }
 
 /* 피드 글 카드 */
+a:hover {
+    color: #6449fc;
+}
+
 .dropdown-hide {
+    float: right;
+    width: 70px;
+    height: 80px;
     border: 1px solid black;
+}
+
+.dropdown-hide>ul {
+    padding: 12px;
+    margin: 0px;
 }
 
 .setup-group li a {
@@ -190,9 +237,17 @@ input {
     border-bottom: 1px solid #aaa;
 }
 
+.comment-form {
+    width: 90%;
+    float: right;
+
+}
+
 .post-comment-input {
     color: black;
-    width: 80%;
+    margin-left: 5px;
+    width: 95%;
+    height: 40px;
     padding: 10px;
 }
 
@@ -201,6 +256,7 @@ input {
     color: black;
     margin-top: 10px;
     margin-bottom: 15px;
+
 }
 
 .txt-like {
@@ -209,8 +265,8 @@ input {
 }
 
 .post-comment-margin {
-    margin-top: 3px;
-    color: #555555;
+
+    color: #555;
 }
 
 /* 모달 */
@@ -231,8 +287,8 @@ input {
 }
 
 .color-code-1 {
-    background: #ffb800;
-    border: solid 1px #ffb800;
+    background: rgb(100, 73, 252);
+    border: solid 1px rgb(100, 73, 252);
 }
 
 .detail-popup-header-1 {
@@ -351,6 +407,10 @@ input {
 
 }
 
+.like-hover:hover {
+    color: #6449fc;
+}
+
 .checked-btn-background {
     background: #d3d1e7;
 
@@ -379,4 +439,41 @@ input {
 .clicked-right-scroll {
     height: 470px;
     overflow-y: scroll;
+}
+
+/* 참가자 */
+
+#participant {
+    overflow: hidden;
+    margin-top: 10px;
+    padding-top: 10px;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    background: #fff;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    max-width: 280px;
+}
+
+.participant-title-area {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+    margin-top: 5px;
+    max-width: 270px;
+}
+
+.participant-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    margin-top: 5px;
+
+}
+
+.participant-footer {
+    background-color: rgb(119, 119, 119);
+
 }
