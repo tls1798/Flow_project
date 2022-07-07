@@ -1,0 +1,67 @@
+<section id="projectSection" class="project-template-layer intro-mode" tabindex="0">
+    <button id="projectSectionClose" class="button-close">
+        <i class="bi bi-x-lg"></i>
+    </button>
+    <article class="project-template-intro" style="display: flex;">
+        <div>
+            <section>
+                <h1>새 프로젝트를 만들어 보세요!</h1>
+                <p>
+                    프로젝트를 어떻게 만들지 선택해보세요.
+                </p>
+            </section>
+            <section>
+                <button id="createProjectButton" class="button-create-template">직접 만들기</button>
+            </section>
+        </div>
+    </article>
+
+    <article class="project-template-main" style="display: none;">
+        <header>
+            <button id="templateReturnButton" class="button-go-back">
+                <i class="bi bi-arrow-return-left"></i>
+                <span>뒤로</span>
+            </button>
+            <h1 class="js-template-header-title">프로젝트 만들기</h1>
+        </header>
+        <section>
+            <div class="project-template-cont">
+                <ul class="js-project-make-layer template-create-cont">
+                    <li>
+                        <input id="projectTitleInput" type="text" placeholder="제목을 입력하세요." maxlength="50"
+                            autocomplete="off" data-empty-msg="제목을 입력하세요." data-over-msg="50자 이내로 입력하세요."
+                            data-required-yn="Y">
+                        <textarea id="projectContentsInput" placeholder="프로젝트에 관한 설명 입력 (옵션)" data-required-yn="N"
+                            maxlength="10000"></textarea>
+                    </li>
+                    <li class="li-button-wrap">
+                        <button class="js-submit-project">프로젝트 만들기</button>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </article>
+</section>
+
+<script>
+    $(function(){
+        $('.button-close').click(function(){
+            $('#projectSection').parent().css('display', 'none');
+            $('.project-template-intro').css('display','flex');
+            $('.project-template-main').css('display','none');
+        });
+        $('.button-create-template').click(function(){
+            $('.project-template-intro').css('display','none');
+            $('.project-template-main').css('display','flex');
+        })
+        $('.button-go-back').click(function(){
+            $('.project-template-main').css('display','none');
+            $('.project-template-intro').css('display','flex');
+        })
+        $('.js-submit-project').click(function(){
+            $('#projectSection').parent().css('display', 'none');
+            $('.project-template-intro').css('display','flex');
+            $('.project-template-main').css('display','none');
+        });
+    });
+</script>
