@@ -7,6 +7,10 @@ body {
     font-family: "Noto Sans KR", 'Roboto', "Malgun Gothic", "맑은 고딕", helvetica, "Apple SD Gothic Neo", sans-serif;
 
 }
+a{
+    text-decoration: none;
+    color: rgb(153, 153, 153);
+}
 
 .padding0 {
     padding: 0px;
@@ -140,7 +144,7 @@ input {
     padding: 0px;
     display: flex;
     padding-left: 10%;
-
+    
 }
 
 .feedcontentsSize {
@@ -180,9 +184,9 @@ input {
 }
 
 /* 피드 글 카드 */
-a:hover {
+/* a:hover {
     color: #6449fc;
-}
+} */
 
 .dropdown-hide {
     float: right;
@@ -207,7 +211,6 @@ a:hover {
 }
 
 .feedHeader {
-
     margin: 15px;
 }
 
@@ -359,6 +362,11 @@ a:hover {
 }
 
 /* 모달 */
+.modal-body.container{
+    padding: 0px;
+}
+
+
 .detail-popup-header-1 span {
     font-size: 15px;
     font-weight: 700;
@@ -408,7 +416,17 @@ a:hover {
     border-radius: 6px;
     float: left;
 }
-
+#checked-div .detail-popup-icon-2{
+    border-radius: 16px;
+    margin-right: 5px;
+}
+.checked-strong{
+    font-size: 13px;
+    color:black;
+    font-weight:700px;
+    margin-top:15px; 
+    line-height:15px;
+}
 .detail-popuplist-type-1 span {
     display: block;
 }
@@ -517,6 +535,7 @@ a:hover {
 }
 
 .selected-show {
+    width: 90%;
     margin: 10px;
 }
 
