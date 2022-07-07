@@ -41,6 +41,10 @@ ul {
     padding: 0;
 }
 
+.floatleft {
+    float: left;
+}
+
 strong {
     font-weight: bold;
 }
@@ -106,6 +110,20 @@ input {
     filter: opacity(0.6) drop-shadow(0 0 0 #6449fc);
 }
 
+.invited-check {
+    text-decoration: none;
+    color: black;
+}
+
+.list-border-right {
+    margin-left: 5px;
+}
+
+#checked-div {
+    height: 50px;
+    padding: 3px;
+}
+
 /* 피드 */
 /* 프로필 사이즈 */
 .feedProfile {
@@ -136,6 +154,9 @@ input {
 
 .card-header {
     margin: auto;
+    width: 100%;
+    text-align: center;
+    display: inline-block;
 }
 
 .card {
@@ -225,9 +246,21 @@ a:hover {
     cursor: pointer;
 }
 
+.font555 {
+    color: #555;
+}
+
+.font999999 {
+    color: #999999;
+}
+
 .post-emoji-margin {
     margin-left: 5px;
 
+}
+
+.likemargin {
+    margin-left: 5px;
 }
 
 /* 피드 댓글 */
@@ -268,8 +301,51 @@ a:hover {
 
 }
 
+#posts-unchecked {
+    width: 90%;
+}
+
+#read-allposts {
+    float: right;
+}
+
+#unchecked-test {
+    display: flex;
+}
+
 .posts-unchecked-sized {
     min-width: 562px;
+    background-color: #f5e7e7;
+    border-radius: 5px;
+    border: 1px solid #ff6b6b;
+    margin-top: 10px;
+}
+
+#posts-ul-unchecked {
+    margin-top: 15px;
+    padding: 0px;
+}
+
+#posts-li-unchecked {
+    margin-left: 15px;
+    padding-bottom: 10px;
+}
+
+.unchecked-button {
+    float: right;
+    margin-right: 15px;
+    border: 1px solid #ff6b6b;
+    margin-right: 10px;
+    color: #ff6b6b;
+    background-color: white;
+    border-radius: 4px;
+    width: 40px;
+    padding: 3px;
+    margin-right: 15px;
+}
+
+.floatright {
+    float: right;
 }
 
 .txt-like {
@@ -454,16 +530,51 @@ a:hover {
     overflow-y: scroll;
 }
 
+.invite-cancle-button {
+    background-color: white;
+    color: black;
+    width: 182px;
+}
+
+.invite-button {
+    background-color: #6449fc;
+    width: 182px;
+}
+
 /* 참가자 */
+
 .participant-size {
     margin-left: 5%;
+    height: 400px;
+    margin-top: 30px;
+}
+
+.participant-marginleft {
+    margin-left: 5px;
+}
+
+.participant-margintop {
+    margin-top: 5px;
+}
+
+.participant-type {
+    border-top: 1px solid #c2c2c2;
+}
+
+.participant-span-margin {
+    margin-top: 15px;
+}
+
+.participant-list-margin {
+    margin-top: 5px;
+    margin-bottom: 15px
 }
 
 #participant {
     width: 250px;
     overflow: hidden;
     margin-top: 10px;
-    padding-top: 10px;
+    padding: 10px;
     border: 1px solid #ddd;
     -webkit-border-radius: 6px;
     border-radius: 6px;

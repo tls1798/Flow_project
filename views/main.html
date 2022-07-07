@@ -46,18 +46,18 @@
     <script>
         $(function () {
             $('#unchecked-test').click(function () {
-                $('#posts-ul-unchecked').prepend(`<li style="margin-left: 15px; margin-top: 15px;">
-                                                <div style="float:left">
-                                                    <img class="feedProfile" src="../imgs/defaultprofile.png">
-                                                </div>
-                                                <div>
-                                                    <strong>정창환</strong>
-                                                    <span class="date">1시간 전</span>
-    
-                                                </div>
-                                                <span>내용</span><button
-                                                    style="float:right;margin-right:15px; border:1px solid #ff6b6b; margin-right: 10px;color: #ff6b6b; background-color: white;border-radius: 4px; width: 40px;padding: 3px;">보기</button>
-                                            </li>`)
+                $('#posts-ul-unchecked').prepend(`<li style="margin-left: 15px; padding-bottom: 10px; ">
+                                    <div style="float:left">
+                                        <img class="feedProfile" src="../imgs/defaultprofile.png">
+                                    </div>
+                                    <div>
+                                        <strong>정창환</strong>
+                                        <span class="date">1시간 전</span>
+                                        <button
+                                            style="float:right;margin-right:15px; border:1px solid #ff6b6b; margin-right: 10px;color: #ff6b6b; background-color: white;border-radius: 4px; width: 40px;padding: 3px; margin-right: 15px;">보기</button>
+                                    </div>
+                                    <span>내용</span>
+                                </li>`)
             })
             $('#read-allposts').click(function () {
                 $('#posts-unchecked').hide()
@@ -302,7 +302,7 @@
                         </div>
                         <div class="modal-body checked-btn">
                             <ul>
-                                <li><a id="invited-check" style="text-decoration: none;color: black;">
+                                <li><a id="invited-check">
                                         <div> <img class="detail-popup-icon-2" src="../imgs/defaultprofile.png"></div>
                                         <div class="detail-popuplist-type-1"><span>참여자 초대하기</span><em>프로젝트를 함께했던 사람들을
                                                 초대할 수
@@ -326,7 +326,7 @@
                                     <path fill-rule="evenodd"
                                         d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z" />
                                 </svg></button>
-                            <h6 class="modal-title" id="myModalLabel" style="float:left">참여자 초대</h6>
+                            <h6 class="modal-title floatleft" id="myModalLabel">참여자 초대</h6>
                             <button type="button" onclick="" class=" close" data-dismiss="modal"
                                 aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         </div>
@@ -343,9 +343,9 @@
                                         </svg><input type="text" placeholder="이름,소속,전화번호 검색">
                                     </div>
 
-                                    <ul class="list-border-right" style="margin-left: 5px">
+                                    <ul class="list-border-right">
                                         <li class="checked-btn">
-                                            <div id="checked-div" style="height:50px; padding:3px">
+                                            <div id="checked-div">
                                                 <a href="#" style="text-decoration: none;color: black;">
                                                     <div style="float:left;">
                                                         <button><svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -367,52 +367,8 @@
                                                 </a>
                                             </div>
                                         </li>
-                                        <li class="checked-btn">
-                                            <div id="checked-div" style="height:50px; padding:3px">
-                                                <a href="#" style="text-decoration: none;color: black;">
-                                                    <div style="float:left;">
-                                                        <button><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor"
-                                                                class="bi bi-check-circle" viewBox="0 0 16 16"
-                                                                style="margin-top: 10px;margin-right:15px;">
-                                                                <path
-                                                                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                                <path
-                                                                    d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
-                                                            </svg></button>
-                                                    </div>
-                                                    <img class="detail-popup-icon-2" src="../imgs/defaultprofile.png"
-                                                        style="border-radius: 16px;margin-right: 5px;">
 
-                                                    <strong
-                                                        style="font-size: 13px;color:black;font-weight:700px;margin-top:15px; line-height:15px;">신재승</strong>
 
-                                                </a>
-                                            </div>
-                                        </li>
-                                        <li class="checked-btn">
-                                            <div id="checked-div" style="height:50px; padding:3px">
-                                                <a href="#" style="text-decoration: none;color: black;">
-                                                    <div style="float:left;">
-                                                        <button><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor"
-                                                                class="bi bi-check-circle" viewBox="0 0 16 16"
-                                                                style="margin-top: 10px;margin-right:15px;">
-                                                                <path
-                                                                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                                <path
-                                                                    d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
-                                                            </svg></button>
-                                                    </div>
-                                                    <img class="detail-popup-icon-2" src="../imgs/defaultprofile.png"
-                                                        style="border-radius: 16px;margin-right: 5px;">
-
-                                                    <strong
-                                                        style="font-size: 13px;color:black;font-weight:700px;margin-top:15px; line-height:15px;">지솔빈</strong>
-
-                                                </a>
-                                            </div>
-                                        </li>
                                     </ul>
 
                                 </div>
@@ -420,7 +376,7 @@
                                     <span class="plz-seclect-hide">대상을 선택해주세요.</span>
                                     <div class="selected-show" style="width: 90%;">
                                         <strong>1건 선택</strong>
-                                        <button class="alldelete" style="float:right"><span style="color: #6449fc;">전체
+                                        <button class="alldelete floatright"><span style="color: #6449fc;">전체
                                                 삭제</span></button>
                                     </div>
                                     <ul class="clicked-right">
@@ -452,7 +408,7 @@
                 <div class="feedcontentsSize">
                     <!-- 상단 글쓰기   -->
                     <div class="card">
-                        <div class="card-header" style="width: 100%;text-align: center; display: inline-block;">
+                        <div class="card-header">
                             <span>
                                 <svg xmlns=" http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-card-text" viewBox="0 0 16 16">
@@ -506,24 +462,22 @@
 
 
                     <!-- 미확인 -->
-                    <div id="posts-unchecked" style="width:90%;">
-                        <h4 class="section-title ellipsis">미확인</h4><button id="read-allposts" style="float:right">전체
-                            읽음</button><button id="unchecked-test" style="display: flex;">미확인 테스트
+                    <div id="posts-unchecked">
+                        <h4 class="section-title ellipsis">미확인</h4><button id="read-allposts">전체
+                            읽음</button><button id="unchecked-test">미확인 테스트
                             버튼</button>
-                        <div class="posts-unchecked-sized"
-                            style="background-color: #f5e7e7; border-radius: 5px;border:1px solid #ff6b6b; margin-top: 10px;">
-                            <ul id="posts-ul-unchecked" style="margin-top:15px;padding: 0px; ">
-                                <li style="margin-left: 15px; ">
-                                    <div style="float:left">
+                        <div class="posts-unchecked-sized">
+                            <ul id="posts-ul-unchecked">
+                                <li id="posts-li-unchecked">
+                                    <div class="floatleft">
                                         <img class="feedProfile" src="../imgs/defaultprofile.png">
                                     </div>
                                     <div>
                                         <strong>정창환</strong>
                                         <span class="date">1시간 전</span>
-
+                                        <button class="unchecked-button">보기</button>
                                     </div>
-                                    <span>내용</span><button
-                                        style="float:right;margin-right:15px; border:1px solid #ff6b6b; margin-right: 10px;color: #ff6b6b; background-color: white;border-radius: 4px; width: 40px;padding: 3px; margin: 5px;">보기</button>
+                                    <span>내용</span>
                                 </li>
 
                             </ul>
@@ -555,13 +509,13 @@
                                 <div class="card">
 
                                     <div class="feedHeader">
-                                        <img class="feedProfile" src="../imgs/defaultprofile.png" style="float: left">
-                                        <div class="feedheader_detail" style="float: left">
+                                        <img class="feedProfile floatleft" src="../imgs/defaultprofile.png">
+                                        <div class="feedheader_detail floatleft">
 
                                             <strong>정창환</strong><span class="date">2022-07-04
                                                 10:03</span>
                                         </div>
-                                        <div class="dropdown" style="float: right">
+                                        <div class="dropdown floatright">
                                             <!-- 상단고정 svg -->
                                             <!-- <button><svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" fill="currentColor" class="bi bi-pin"
@@ -594,7 +548,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body ">
-                                        <h4 class="post-title" style="font-weight: bold;">
+                                        <h4 class="post-title strong">
                                             청년IT전문가
                                             1기 실습 프로젝트
                                             안내</h4>
@@ -610,7 +564,7 @@
                                             감사합니다.</p>
 
                                         <div>
-                                            <div style="float:left; color: #555555;">
+                                            <div class="floatleft font555">
                                                 <button class="like-hover">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         fill="currentColor" class="bi bi-emoji-smile"
@@ -628,8 +582,7 @@
                                                                     d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
                                                             </svg> 북마크</button> -->
                                             </div>
-                                            <div style="float:right; color: #999999;">댓글 0 <button
-                                                    style=" color: #999999;">읽음
+                                            <div class="floatright font999999">댓글 0 <button class="font999999">읽음
                                                     3</button>
                                             </div>
                                         </div>
@@ -652,7 +605,7 @@
                                                                         placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
                                                                 </div> -->
                                                         <div>
-                                                            <div style="float:left">
+                                                            <div class="floatleft">
                                                                 <img class="feedProfile"
                                                                     src="../imgs/defaultprofile.png">
                                                             </div>
@@ -669,11 +622,9 @@
                                                                             d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
                                                                     </svg> 좋아요
                                                                 </button>
-                                                                <span class="txt-like" style="float:right"><button
-                                                                        class="like-hover post-comment-update-clicked "
-                                                                        style="margin-left: 5px">수정</button><button
-                                                                        class="like-hover comment-delete"
-                                                                        style="margin-left: 5px">삭제</button></span>
+                                                                <span class="txt-like floatright"><button
+                                                                        class="like-hover post-comment-update-clicked likemargin ">수정</button><button
+                                                                        class="like-hover comment-delete likemargin">삭제</button></span>
                                                             </div>
                                                             <div class="post-comment-margin" style="display:block">
                                                                 내용
@@ -702,7 +653,7 @@
                                                                         placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
                                                                 </div> -->
                                                         <div>
-                                                            <div style="float:left">
+                                                            <div class="floatleft">
                                                                 <img class="feedProfile"
                                                                     src="../imgs/defaultprofile.png">
                                                             </div>
@@ -719,11 +670,9 @@
                                                                             d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
                                                                     </svg> 좋아요
                                                                 </button>
-                                                                <span class="txt-like" style="float:right"><button
-                                                                        class="like-hover post-comment-update-clicked2 "
-                                                                        style="margin-left: 5px">수정</button><button
-                                                                        class="like-hover comment-delete2"
-                                                                        style="margin-left: 5px">삭제</button></span>
+                                                                <span class="txt-like floatright"><button
+                                                                        class="like-hover post-comment-update-clicked2  likemargin">수정</button><button
+                                                                        class="like-hover comment-delete2 likemargin">삭제</button></span>
                                                             </div>
                                                             <div class="post-comment-margin" style="display:block">
                                                                 내용2
@@ -746,228 +695,47 @@
                                     </div>
                                 </div>
                             </li>
-<li>
-    <div class="card">
 
-        <div class="feedHeader">
-            <img class="feedProfile" src="../imgs/defaultprofile.png" style="float: left">
-            <div class="feedheader_detail" style="float: left">
-
-                <strong>정창환</strong><span class="date">2022-07-04
-                    10:03</span>
-            </div>
-            <div class="dropdown" style="float: right">
-                <!-- 상단고정 svg -->
-                <!-- <button><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="16" fill="currentColor" class="bi bi-pin"
-                                                            viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M4.146.146A.5.5 0 0 1 4.5 0h7a.5.5 0 0 1 .5.5c0 .68-.342 1.174-.646 1.479-.126.125-.25.224-.354.298v4.431l.078.048c.203.127.476.314.751.555C12.36 7.775 13 8.527 13 9.5a.5.5 0 0 1-.5.5h-4v4.5c0 .276-.224 1.5-.5 1.5s-.5-1.224-.5-1.5V10h-4a.5.5 0 0 1-.5-.5c0-.973.64-1.725 1.17-2.189A5.921 5.921 0 0 1 5 6.708V2.277a2.77 2.77 0 0 1-.354-.298C4.342 1.674 4 1.179 4 .5a.5.5 0 0 1 .146-.354zm1.58 1.408-.002-.001.002.001zm-.002-.001.002.001A.5.5 0 0 1 6 2v5a.5.5 0 0 1-.276.447h-.002l-.012.007-.054.03a4.922 4.922 0 0 0-.827.58c-.318.278-.585.596-.725.936h7.792c-.14-.34-.407-.658-.725-.936a4.915 4.915 0 0 0-.881-.61l-.012-.006h-.002A.5.5 0 0 1 10 7V2a.5.5 0 0 1 .295-.458 1.775 1.775 0 0 0 .351-.271c.08-.08.155-.17.214-.271H5.14c.06.1.133.191.214.271a1.78 1.78 0 0 0 .37.282z" />
-                                                        </svg>s</button> -->
-
-                <button class="dropdown-more">⠇</button>
-            </div>
-            <div class="dropdown-hide">
-                <ul>
-                    <li class="setup-group li like-hover"><a href="#"> <svg xmlns="http://www.w3.org/2000/svg"
-                                width="16" height="16" fill="currentColor" class="bi bi-card-text" viewBox="0 0 16 16">
-                                <path
-                                    d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-                                <path
-                                    d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
-                            </svg>수정</a></li>
-                    <li class="setup-group li like-hover"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                <path
-                                    d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-                            </svg>삭제</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="card-body ">
-            <h4 class="post-title" style="font-weight: bold;">
-                청년IT전문가
-                1기 실습 프로젝트
-                안내</h4>
-
-            <p class="card-text post-content">안녕하세요.
-                인사팀 정창환입니다.
-
-                청년IT전문가 1기 실습 프로젝트의 원활한 진행을 위해
-                담당PM님과 교육생 간 소통할 수 있는 플로우를 개설하였으니,
-
-                궁금사항 및 공유사항 발생시 본 플로우를 통해 소통 바랍니다.
-
-                감사합니다.</p>
-
-            <div>
-                <div style="float:left; color: #555555;">
-                    <button class="like-hover">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-emoji-smile" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                            <path
-                                d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
-                        </svg> <span>좋아요</span></button>
-                    <!-- <button class="post-emoji-margin"><svg
-                                                                xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor" class="bi bi-bookmark"
-                                                                viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
-                                                            </svg> 북마크</button> -->
-                </div>
-                <div style="float:right; color: #999999;">댓글 0 <button style=" color: #999999;">읽음
-                        3</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-footer ">
-
-            <!-- <div class="post-comment">
-                                                    이전 댓글 더보기 (10)
-                                                </div> -->
-            <div class="post-comment-box">
-                <ul class="post-comment post-comment-more">
-
-                    <li class="post-comment-more-margin before-comment">
-                        <div>
-                            <!-- <div class="post-comment post-comment-update">
-                                                                    <img class="feedProfile"
-                                                                        src="../imgs/defaultprofile.png">
-                                                                    <input class="post-comment-input" type="text"
-                                                                        placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
-                                                                </div> -->
-                            <div>
-                                <div style="float:left">
-                                    <img class="feedProfile" src="../imgs/defaultprofile.png">
-                                </div>
-                                <div>
-                                    <strong>정창환</strong>
-                                    <span class="date">2022-07-04 10:03</span>
-                                    <button class="txt-like like-hover"><svg xmlns="http://www.w3.org/2000/svg"
-                                            width="16" height="16" fill="currentColor" class="bi bi-emoji-smile"
-                                            viewBox="0 0 16 16">
-                                            <path
-                                                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                            <path
-                                                d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
-                                        </svg> 좋아요
-                                    </button>
-                                    <span class="txt-like" style="float:right"><button
-                                            class="like-hover post-comment-update-clicked "
-                                            style="margin-left: 5px">수정</button><button
-                                            class="like-hover comment-delete"
-                                            style="margin-left: 5px">삭제</button></span>
-                                </div>
-                                <div class="post-comment-margin" style="display:block">
-                                    내용
-                                </div>
-                            </div>
-
-                        </div>
-                    </li>
-                    <!-- input li -->
-                    <li class="post-comment-more-margin post-comment-update">
-                        <div class="post-comment ">
-                            <img class="feedProfile" src="../imgs/defaultprofile.png">
-                            <form class="comment-form">
-                                <input class="post-comment-input" type="text" onkeypress="JavaScript:press(this.form)"
-                                    placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
-                            </form>
-                        </div>
-                    </li>
-                    <li class="post-comment-more-margin before-comment2">
-                        <div>
-                            <!-- <div class="post-comment post-comment-update">
-                                                                    <img class="feedProfile"
-                                                                        src="../imgs/defaultprofile.png">
-                                                                    <input class="post-comment-input" type="text"
-                                                                        placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
-                                                                </div> -->
-                            <div>
-                                <div style="float:left">
-                                    <img class="feedProfile" src="../imgs/defaultprofile.png">
-                                </div>
-                                <div>
-                                    <strong>정창환</strong>
-                                    <span class="date">2022-07-04 10:03</span>
-                                    <button class="txt-like like-hover"><svg xmlns="http://www.w3.org/2000/svg"
-                                            width="16" height="16" fill="currentColor" class="bi bi-emoji-smile"
-                                            viewBox="0 0 16 16">
-                                            <path
-                                                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                            <path
-                                                d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
-                                        </svg> 좋아요
-                                    </button>
-                                    <span class="txt-like" style="float:right"><button
-                                            class="like-hover post-comment-update-clicked2 "
-                                            style="margin-left: 5px">수정</button><button
-                                            class="like-hover comment-delete2"
-                                            style="margin-left: 5px">삭제</button></span>
-                                </div>
-                                <div class="post-comment-margin" style="display:block">
-                                    내용2
-                                </div>
-                            </div>
-
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="post-comment">
-                <img class="feedProfile" src="../imgs/defaultprofile.png">
-                <form class="comment-form">
-                    <input class="post-comment-input" type="text" onkeypress="JavaScript:press(this.form)"
-                        placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
-                </form>
-            </div>
-        </div>
-    </div>
-</li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- 참가자 섹션 -->
 
-                <div class="participant" style="height: 400px;margin-top: 30px;">
+                <div class="participant participant-size">
                     <div class="participant-title-area">
-                        <h4 class="participant-title">참여자<span style="margin-left:5px">1</span></h4>
+                        <h4 class="participant-title ">참여자<span class="participant-marginleft">1</span></h4>
                         <button>전체 보기</button>
                     </div>
-                    <div id="participant" style="padding: 10px;">
-                        <div style="background-color: white;margin:0px; min-height: 150px;">
+                    <div id="participant">
+                        <div>
                             <ul style="margin:5px; padding:0px;">
 
-                                <span style=" margin-top:15px;">프로젝트 관리자</span>
+                                <span class="participant-span-margin">프로젝트 관리자</span>
 
                                 <li style="margin-top:5px;margin-bottom: 15px; ">
                                     <img class="feedProfile" src="../imgs/defaultprofile.png">
                                     <strong>정창환</strong>
                                 </li>
-                                <div style="border-top: 1px solid #c2c2c2">
-                                    <span style=" margin-top:15px;">외부인</span>
+                                <div class="participant-type">
+                                    <span class="participant-span-margin">외부인</span>
                                 </div>
-                                <li style=" margin-top:5px; ">
+                                <li class="participant-margintop">
                                     <img class=" feedProfile" src="../imgs/defaultprofile.png">
                                     <strong>정창환</strong>
                                 </li>
-                                <li style=" margin-top:5px; ">
+                                <li class="participant-margintop">
                                     <img class=" feedProfile" src="../imgs/defaultprofile.png">
                                     <strong>정창환</strong>
                                 </li>
-                                <li style=" margin-top:5px; margin-bottom: 15px; ">
+                                <li class="participant-list-margin">
                                     <img class=" feedProfile" src="../imgs/defaultprofile.png">
                                     <strong>정창환</strong>
                                 </li>
-                                <div style="border-top: 1px solid #c2c2c2">
-                                    <span style=" margin-top:15px;">임직원</span>
+                                <div class="participant-type">
+                                    <span class="participant-span-margin">임직원</span>
                                 </div>
-                                <li style=" margin-top:5px; ">
+                                <li class="participant-margintop">
                                     <img class=" feedProfile" src="../imgs/defaultprofile.png">
                                     <strong>정창환</strong>
                                 </li>
