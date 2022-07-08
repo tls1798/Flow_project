@@ -1,9 +1,14 @@
+body {
+    background-color: #F5F4F4;
+}
+
 * {
     font-size: 14px;
     font-family: "Noto Sans KR", 'Roboto', "Malgun Gothic", "맑은 고딕", helvetica, "Apple SD Gothic Neo", sans-serif;
 
 }
-a{
+
+a {
     text-decoration: none;
     color: rgb(153, 153, 153);
 }
@@ -56,6 +61,7 @@ strong {
 
 .modal-backdrop {
     z-index: -1;
+    background-color: #F5F4F4;
 }
 
 ul li {
@@ -134,13 +140,13 @@ input {
 }
 
 .feedContents {
-    width: 100%;
+    width: 60%;
     background-color: #F5F4F4;
     margin: 0px;
     padding: 0px;
     display: flex;
-    padding-left: 10%;
-    
+    padding-left: 17%;
+
 }
 
 .feedcontentsSize {
@@ -152,11 +158,26 @@ input {
 
 }
 
+/* wrapper card 오른쪽 사이드 글보기 */
+.cardheight {
+    max-height: 900px;
+    height: 100%;
+}
+
 .card-header {
     margin: auto;
     width: 100%;
     text-align: center;
     display: inline-block;
+}
+
+.card-body {
+    padding: 15px 20px 20px 20px;
+}
+
+.card-text {
+    margin-bottom: 15px;
+    padding-top: 25px;
 }
 
 .card {
@@ -165,6 +186,28 @@ input {
     min-width: 564px;
 }
 
+.btn-go {
+    height: 35px;
+    line-height: 33px;
+    margin-right: 55px;
+    padding: 0 16px;
+    background: #fff;
+    border: 1px solid #999;
+    color: #555;
+    font-size: 13px;
+}
+
+
+#movePost.btn-go {
+    margin-right: 0;
+    min-width: 88px;
+    padding: 0;
+    color: #777;
+    font-weight: 700;
+    font-size: 13px;
+    border: none;
+    text-decoration: underline;
+}
 
 .ellipsis {
     overflow: hidden;
@@ -229,6 +272,7 @@ input {
     vertical-align: middle;
     word-break: break-word;
     margin-bottom: 5px;
+    padding-bottom: 5px;
 }
 
 
@@ -290,6 +334,8 @@ input {
     width: 95%;
     height: 40px;
     padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #c2c2c2;
 }
 
 .post-comment {
@@ -301,7 +347,7 @@ input {
 }
 
 #posts-unchecked {
-    width: 90%;
+    width: 100%;
 }
 
 #read-allposts {
@@ -358,7 +404,7 @@ input {
 }
 
 /* 모달 */
-.modal-body.container{
+.modal-body.container {
     padding: 0px;
 }
 
@@ -412,17 +458,20 @@ input {
     border-radius: 6px;
     float: left;
 }
-#checked-div .detail-popup-icon-2{
+
+#checked-div .detail-popup-icon-2 {
     border-radius: 16px;
     margin-right: 5px;
 }
-.checked-strong{
+
+.checked-strong {
     font-size: 13px;
-    color:black;
-    font-weight:700px;
-    margin-top:15px; 
-    line-height:15px;
+    color: black;
+    font-weight: 700px;
+    margin-top: 15px;
+    line-height: 15px;
 }
+
 .detail-popuplist-type-1 span {
     display: block;
 }
@@ -483,7 +532,7 @@ input {
     height: 100%;
     margin: auto;
     padding: 0;
-    opacity: 1;
+    opacity: 0.9;
 }
 
 .modal-content.modal-fullsize {
@@ -559,9 +608,10 @@ input {
 /* 참가자 */
 
 .participant-size {
-    margin-left: 5%;
+    margin-left: 20%;
     height: 400px;
     margin-top: 30px;
+    float: right;
 }
 
 .participant-marginleft {
@@ -586,8 +636,8 @@ input {
 }
 
 #participant {
-    width: 250px;
-    overflow: hidden;
+    width: 300px;
+
     margin-top: 10px;
     padding: 10px;
     border: 1px solid #ddd;
@@ -597,7 +647,7 @@ input {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    max-width: 280px;
+    max-width: 300px;
 }
 
 .participant-title-area {
@@ -605,7 +655,7 @@ input {
     justify-content: space-between;
     height: 30px;
     margin-top: 5px;
-    max-width: 270px;
+    max-width: 300px;
 }
 
 .participant-title {
@@ -619,4 +669,26 @@ input {
 .participant-footer {
     background-color: rgb(119, 119, 119);
 
+}
+
+/* 사이드 글보기 */
+.post-card-wrapper-side {
+    width: 704px;
+    height: 100%;
+    min-height: auto;
+    max-height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    overflow: hidden;
+    background: #f9f9f9;
+    background-color: #f9f9f9;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    border-left: 1px solid #ccc;
+    -webkit-box-shadow: -10px 10px 15px rgb(0 0 0 / 4%);
+    box-shadow: -10px 10px 15px rgb(0 0 0 / 4%);
+    float: right;
 }
