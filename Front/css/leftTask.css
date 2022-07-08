@@ -206,6 +206,10 @@ ul {
 }
 
 /* active, hover */
+.menu-group>li:hover {
+    color: #36cfbd;
+    cursor: pointer;
+}
 .menu-group>.flow-active>a, .menu-group>.flow-active>a [class^=ico-]::before, .menu-group>li a:hover [class^=ico-]::before {
     color: #36cfbd;
 }

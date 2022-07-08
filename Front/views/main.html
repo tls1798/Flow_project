@@ -8,13 +8,9 @@
     <title>플로우(flow) - 대한민국 No.1 올인원 협업툴</title>
 
     <!-- jquery, bootstrap, icon -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
     <!-- css -->
@@ -26,34 +22,104 @@
     <link rel="stylesheet" href="../css/leftTask.css">
     <link rel="stylesheet" href="../css/feed.css">
     <link rel="stylesheet" href="../css/createProject.css">
-
+    <link rel="stylesheet" href="../css/alarmLayer.css">
 
 </head>
 
 <body>
+    
+    <div class="right-bar">
+        <article id="alarmLayer" class="side-wr alarmLayer" style="display: none;">
+            <div class="menu-top">
+                <strong>알림</strong>
+                <button class="btn-close-layer">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            <div class="side-contents">
+                <ul id="notReadFilter" class="tab-menu">
+                    <li class="js-alarm js-unread on">미확인</li>
+                    <li class="js-alarm js-read">전체</li>
+                    <li id="readAllAlarm">모두읽음</li>
+                </ul>
+            
+                <!-- 알림 리스트 -->
+                <div class="name-setup-type-2 scroll-mask">
+                    <ul id="alarmUl" scroll-direction="0">
+                        <li class="js-alarm-item on" colabo_srno="" colabo_commt_srno=""
+                            colabo_remark_srno="-1" alarm_action="" alarm_status="" toast_msg="신재승님의 글 등록">
+                            <div class="all-setup-picture-type-1"
+                                style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)" data=""></div>
+                            <div class="all-text-wrap-type-1">
+                                <div class="all-setup-section-type-1">
+                                    <span>우리 프로젝트</span><em>곧</em>
+                                </div>
+                                <div class="all-text-wrap-type-2 alarm-tit-ellipsis">신재승님의 프론트 완성</div>
+                                <div class="all-text-wrap-type-3">미확인 알람</div>
+                            </div>
+                        </li>
+    
+                        <li class="js-alarm-item" colabo_srno="" colabo_commt_srno=""
+                            colabo_remark_srno="-1" alarm_action="" alarm_status="">
+                            <div class="all-setup-picture-type-1"
+                                style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)" data=""></div>
+                            <div class="all-text-wrap-type-1">
+                                <div class="all-setup-section-type-1">
+                                    <span>부산진역</span><em>6시간 뒤</em>
+                                </div>
+                                <div class="all-text-wrap-type-2 alarm-tit-ellipsis">지솔빈님의 퇴근</div>
+                                <div class="all-text-wrap-type-3">미확인 알람</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+    </div>
+
     <!-- 상단바 -->
     <div class="top-header">
         <div class="main-top">
             <header class="header">
+                <div class="main-search-area cursor-pointer">
+                    <form id="searchPopupTopButton" class="main-search clearfix">
+                        <div class="main-search-box">
+                            <input type="text" class="cursor-pointer" placeholder="전체 검색" disabled>
+                        </div>
+                    </form>
+        
+                    <!-- 검색창 클릭 시 띄울 팝업-->
+                    <div id="searchPopupLayer" class="name-type-seach-popup search-popup" data-search-area-code="IN_TONG" style="top: 0px; right: -72%; display: none;">
+                        <div class="search-popup-header search-popup">
+                            <div class="search-popup-input search-popup">
+                                <i class="icon-search search-popup"></i>
+                                <input id="searchPopupInput" type="text" class="name-type-shift-txt search-popup" maxlength="20" autocomplete="off" placeholder="검색어를 입력해주세요">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 우측 아이콘 -->
                 <div id="rightTopMenu" class="top-btns">
-                    <button type="button" id="alarmTopButton" class="btn-alarm" data-toggle="tooltip"
-                        data-bs-placement="bottom" title="알림">
+                    <!-- 채팅 기능 추후 구현 -->
+                    <button type="button" id="chattingTopButton" class="btn-chatting" mouseover-text="채팅">
+                        <i class="icon-chatting"></i>
+                        <i id="chatTopCount" class="label-chat" style="display: none;">0</i>
+                    </button>
+
+                    <button type="button" id="alarmTopButton" class="btn-alarm" data-toggle="tooltip" data-bs-placement="bottom" title="알림">
                         <i class="icon-alarm"></i>
                         <i id="alarmTopCount" class="label-alarm" style="display: none;">0</i>
                     </button>
-                    <button type="button" id="accountTopButton" class="btn-profile">
-                        <span id="ProfileImg" class="profile-area"
-                            style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);"></span>
+                    <button type="button" id="accountTopButton" class="btn-profile"> 
+                        <span id="ProfileImg" class="profile-area" style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);"></span>
                     </button>
                 </div>
-
+        
                 <!-- 프로필 클릭 시 띄울 모달 -->
                 <ul id="accountLayer" class="modal-account" style="display: none;">
                     <li class="user-area">
-                        <p class="user-img"
-                            style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);">
-                        </p>
+                        <p class="user-img" style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);"></p>
                         <div class="user-info">
                             <strong>지솔빈</strong>
                         </div>
@@ -89,15 +155,15 @@
                     </div>
                 </a>
                 <ul id="leftMenuUl" class="menu-group mgt-20">
-                    <li data-code="main" class="left-menu-item flow-active">
-                        <a href="#">
+                    <li class="left-menu-item left-menu-main flow-active">
+                        <a>
                             <i class="ico-home bi bi-house"></i>내 프로젝트
                             <em id="leftProjectHomeCount" class="project-total-count d-none"
                                 style="display: inline-block;">1</em>
                         </a>
                     </li>
-                    <li data-code="main" class="left-menu-item">
-                        <a href="#">
+                    <li class="left-menu-item left-menu-bookmark">
+                        <a>
                             <i class="ico-bookmark bi bi-bookmark"></i>북마크
                         </a>
                     </li>
@@ -105,113 +171,18 @@
             </div>
         </div>
     </div>
-    <div class="post-card-wrapper-side">
-        <div class="modal-header detail-popup-header-1" style="margin-top: 40px; background-color: #f9f9f9;color:#555">
-            <span class="invite-title ellipsis"><i class="project-color color-code-1"></i>플로우 프로젝트</span>
-            <button class="close-popup" style="float:right">X</button>
-        </div>
 
-        <div class="card cardheight" style="width:100%; margin-top: 10px;">
-
-            <div class="feedHeader">
-                <img class="feedProfile floatleft" src="../imgs/defaultprofile.png">
-                <div class="feedheader_detail floatleft">
-
-                    <strong>정창환</strong><span class="date">2022-07-04
-                        10:03</span>
-                </div>
-                <div class="dropdown floatright">
-                    <!-- 상단고정 svg -->
-                    <!-- <button><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor" class="bi bi-pin"
-                                                                viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M4.146.146A.5.5 0 0 1 4.5 0h7a.5.5 0 0 1 .5.5c0 .68-.342 1.174-.646 1.479-.126.125-.25.224-.354.298v4.431l.078.048c.203.127.476.314.751.555C12.36 7.775 13 8.527 13 9.5a.5.5 0 0 1-.5.5h-4v4.5c0 .276-.224 1.5-.5 1.5s-.5-1.224-.5-1.5V10h-4a.5.5 0 0 1-.5-.5c0-.973.64-1.725 1.17-2.189A5.921 5.921 0 0 1 5 6.708V2.277a2.77 2.77 0 0 1-.354-.298C4.342 1.674 4 1.179 4 .5a.5.5 0 0 1 .146-.354zm1.58 1.408-.002-.001.002.001zm-.002-.001.002.001A.5.5 0 0 1 6 2v5a.5.5 0 0 1-.276.447h-.002l-.012.007-.054.03a4.922 4.922 0 0 0-.827.58c-.318.278-.585.596-.725.936h7.792c-.14-.34-.407-.658-.725-.936a4.915 4.915 0 0 0-.881-.61l-.012-.006h-.002A.5.5 0 0 1 10 7V2a.5.5 0 0 1 .295-.458 1.775 1.775 0 0 0 .351-.271c.08-.08.155-.17.214-.271H5.14c.06.1.133.191.214.271a1.78 1.78 0 0 0 .37.282z" />
-                                                            </svg>s</button> -->
-
-                    <button id="movePost" class="btn-go">게시물 바로가기</button>
-                    <button class="dropdown-more">⠇</button>
-                </div>
-                <div class="dropdown-hide">
-                    <ul>
-                        <li class="setup-group li like-hover"><a href="#"> <svg xmlns="http://www.w3.org/2000/svg"
-                                    width="16" height="16" fill="currentColor" class="bi bi-card-text"
-                                    viewBox="0 0 16 16">
-                                    <path
-                                        d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-                                    <path
-                                        d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
-                                </svg>수정</a></li>
-                        <li class="setup-group li like-hover"><a href="#"><svg xmlns="http://www.w3.org/2000/svg"
-                                    width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                    <path
-                                        d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-                                </svg>삭제</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="card-body ">
-                <h4 class="post-title strong">
-                    청년IT전문가
-                    1기 실습 프로젝트
-                    안내</h4>
-
-                <p class="card-text post-content">안녕하세요.
-                    인사팀 정창환입니다.
-
-                    청년IT전문가 1기 실습 프로젝트의 원활한 진행을 위해
-                    담당PM님과 교육생 간 소통할 수 있는 플로우를 개설하였으니,
-
-                    궁금사항 및 공유사항 발생시 본 플로우를 통해 소통 바랍니다.
-
-                    감사합니다.</p>
-
-                <div>
-                    <div class="floatleft font555">
-                        <button class="like-hover">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-emoji-smile" viewBox="0 0 16 16">
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                <path
-                                    d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
-                            </svg> <span>좋아요</span></button>
-                        <!-- <button class="post-emoji-margin"><svg
-                                                                    xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                    height="16" fill="currentColor" class="bi bi-bookmark"
-                                                                    viewBox="0 0 16 16">
-                                                                    <path
-                                                                        d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
-                                                                </svg> 북마크</button> -->
-                    </div>
-                    <div class="floatright font999999">댓글 0 <button class="font999999">읽음
-                            3</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-footer" style="height: 100%">
-                <div class="post-comment">
-                    <img class="feedProfile" src="../imgs/defaultprofile.png">
-                    <form class="comment-form">
-                        <input class="post-comment-input" type="text" onkeypress="JavaScript:press(this.form)"
-                            placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- 메인 컨테이너 -->
     <div class="main-act main-container">
         <!-- 프로젝트 상단바 -->
-
+        
         <div class="top-setting-bar">
             <div id="topSettingBar" class="main-header" style="display: block;">
                 <div id="mainTop" class="title-1" data-code="main" style="display: block;">
                     <div>내 프로젝트</div>
                 </div>
                 <!-- ??? -->
-                <span id="allCollectionCount" class="js-collection-total-count js-collection-count top-task-num"
-                    style="display: none;"></span>
+                <span id="allCollectionCount" class="js-collection-total-count js-collection-count top-task-num" style="display: none;"></span>
 
                 <div id="detailTop" class="project-detail title-1" style="display: none;">
 
@@ -246,13 +217,11 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <h3 id="projectTitle" class="project-title ellipsis js-mouseover"
-                                    mouseover-text="플로우 프로젝트">플로우 프로젝트</h3>
-
+                                <h3 id="projectTitle" class="project-title ellipsis js-mouseover" mouseover-text="플로우 프로젝트">플로우 프로젝트</h3>
+            
                             </div>
                             <div class="project-description" style="display: block;">
-                                <p id="projectContents" class="description-text js-mouseover"
-                                    mouseover-text="플로우 클론 코딩">플로우 클론 코딩</p>
+                                <p id="projectContents" class="description-text js-mouseover" mouseover-text="플로우 클론 코딩">플로우 클론 코딩</p>
                             </div>
                         </div>
                     </div>
@@ -263,8 +232,7 @@
                 </div>
             </div>
             <!-- 초대 모달 -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header detail-popup-header-1">
@@ -296,10 +264,8 @@
                     <div class="modal-content modal-fullsize">
                         <div class="modal-header">
                             <button>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z" />
                                 </svg>
                             </button>
                             <h6 class="modal-title floatleft" id="myModalLabel">참여자 초대</h6>
@@ -311,11 +277,8 @@
                             <div class="row">
                                 <div class="col-6 col-6-height" style="display: block">
                                     <div class="invite-input">
-                                        <svg style="color:#555;margin-right: 10px;margin-left: 10px;"
-                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                            <path
-                                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                        <svg style="color:#555;margin-right: 10px;margin-left: 10px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                                         </svg>
                                         <input type="text" placeholder="이름,소속,전화번호 검색">
                                     </div>
@@ -326,14 +289,9 @@
                                                 <a href="#">
                                                     <div class='floatleft'>
                                                         <button>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor"
-                                                                class="bi bi-check-circle" viewBox="0 0 16 16"
-                                                                style="margin-top: 10px;margin-right:15px;">
-                                                                <path
-                                                                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                                <path
-                                                                    d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16" style="margin-top: 10px;margin-right:15px;">
+                                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
                                                             </svg>
                                                         </button>
                                                     </div>
@@ -357,12 +315,9 @@
                                     </ul>
                                 </div>
 
-                                <div class="modal-footer"
-                                    style="margin: auto; justify-content : center; border-top: 1px solid #ddd; height:66px;padding: 0px; width: 646px;">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                        style="background-color: white;color:black;width:182px;">취소</button>
-                                    <button type="button" class="btn btn-primary"
-                                        style="background-color: #6449fc;width:182px;">초대하기</button>
+                                <div class="modal-footer" style="margin: auto; justify-content : center; border-top: 1px solid #ddd; height:66px;padding: 0px; width: 646px;">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: white;color:black;width:182px;">취소</button>
+                                    <button type="button" class="btn btn-primary" style="background-color: #6449fc;width:182px;">초대하기</button>
                                 </div>
                             </div>
                         </div>
@@ -409,9 +364,8 @@
                                     </div>
                                     <li class="project-item ui-state-default">
                                         <a class="cursor-pointer">
-                                            <div class="flow-content-ct project-badge" style="display:inline-block">1
-                                            </div>
-                                            <div class="color-code left-menu-type-1 color-code-1"></div>
+                                            <div class="flow-content-ct project-badge" style="display:inline-block">1</div>
+                                            <div class="color-code left-menu-type-1 color-code-1"></div> 
                                             <div class="left-menu-type-con">
                                                 <div class="project-star flow-content-star flow-content-star-un"></div>
                                                 <div class="flow-content-txt project-ttl">테스트 프로젝트</div>
@@ -428,7 +382,7 @@
                     </div>
                 </div>
             </div>
-
+           
             <!-- 피드 -->
             <div id='feedContainer' class="feedContents">
                 <div class="feedcontentsSize">
@@ -438,47 +392,33 @@
                             <span>
                                 <svg xmlns=" http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-card-text" viewBox="0 0 16 16">
-                                    <path
-                                        d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-                                    <path
-                                        d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
+                                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                                    <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
                                 </svg> 글
                             </span>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">내용을 입력하세요
                                 <span style="float:right">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-paperclip" viewBox="0 0 16 16">
-                                        <path
-                                            d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
+                                        <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
                                     </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-images" viewBox="0 0 16 16">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
                                         <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
-                                        <path
-                                            d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z" />
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                        <path
-                                            d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                                        <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z" />
+                                    </svg> 
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
                                         <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                                     </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-hash" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8.39 12.648a1.32 1.32 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1.06 1.06 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.512.512 0 0 0-.523-.516.539.539 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532 0 .312.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531 0 .313.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242l-.515 2.492zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hash" viewBox="0 0 16 16">
+                                        <path d="M8.39 12.648a1.32 1.32 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1.06 1.06 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.512.512 0 0 0-.523-.516.539.539 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532 0 .312.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531 0 .313.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242l-.515 2.492zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z" />
                                     </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-at" viewBox="0 0 16 16">
-                                        <path
-                                            d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-at" viewBox="0 0 16 16">
+                                        <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z" />
                                     </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-fonts" viewBox="0 0 16 16">
-                                        <path
-                                            d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fonts" viewBox="0 0 16 16">
+                                        <path d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
                                     </svg>
                                 </span>
                             </li>
@@ -551,23 +491,16 @@
                                             <ul>
                                                 <li class="setup-group li like-hover">
                                                     <a href="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                            fill="currentColor" class="bi bi-card-text"
-                                                            viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-                                                            <path
-                                                                d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-text" viewBox="0 0 16 16">
+                                                            <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                                                            <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
                                                         </svg>수정
                                                     </a>
                                                 </li>
                                                 <li class="setup-group li like-hover">
                                                     <a href="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                            fill="currentColor" class="bi bi-trash3"
-                                                            viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
                                                         </svg>삭제
                                                     </a>
                                                 </li>
@@ -588,13 +521,9 @@
                                         <div>
                                             <div class="floatleft font555">
                                                 <button class="like-hover">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="currentColor" class="bi bi-emoji-smile"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                        <path
-                                                            d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16">
+                                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                        <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
                                                     </svg>
                                                     <span>좋아요</span>
                                                 </button>
@@ -606,7 +535,7 @@
                                                                     d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
                                                             </svg> 북마크</button> -->
                                             </div>
-                                            <div class="floatright font999999">댓글 0
+                                            <div class="floatright font999999">댓글 0 
                                                 <button class="font999999">읽음 3</button>
                                             </div>
                                         </div>
@@ -628,27 +557,20 @@
                                                                 </div> -->
                                                         <div>
                                                             <div class="floatleft">
-                                                                <img class="feedProfile"
-                                                                    src="../imgs/defaultprofile.png">
+                                                                <img class="feedProfile" src="../imgs/defaultprofile.png">
                                                             </div>
                                                             <div>
                                                                 <strong>정창환</strong>
                                                                 <span class="date">2022-07-04 10:03</span>
                                                                 <button class="txt-like like-hover">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                        height="16" fill="currentColor"
-                                                                        class="bi bi-emoji-smile" viewBox="0 0 16 16">
-                                                                        <path
-                                                                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                                        <path
-                                                                            d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16">
+                                                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                                        <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
                                                                     </svg> 좋아요
                                                                 </button>
                                                                 <span class="txt-like floatright">
-                                                                    <button
-                                                                        class="like-hover post-comment-update-clicked likemargin ">수정</button>
-                                                                    <button
-                                                                        class="like-hover comment-delete likemargin">삭제</button>
+                                                                    <button class="like-hover post-comment-update-clicked likemargin ">수정</button>
+                                                                    <button class="like-hover comment-delete likemargin">삭제</button>
                                                                 </span>
                                                             </div>
                                                             <div class="post-comment-margin" style="display:block">
@@ -662,9 +584,7 @@
                                                     <div class="post-comment ">
                                                         <img class="feedProfile" src="../imgs/defaultprofile.png">
                                                         <form class="comment-form">
-                                                            <input class="post-comment-input" type="text"
-                                                                onkeypress="JavaScript:press(this.form)"
-                                                                placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
+                                                            <input class="post-comment-input" type="text" onkeypress="JavaScript:press(this.form)" placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
                                                         </form>
                                                     </div>
                                                 </li>
@@ -678,27 +598,20 @@
                                                                 </div> -->
                                                         <div>
                                                             <div class="floatleft">
-                                                                <img class="feedProfile"
-                                                                    src="../imgs/defaultprofile.png">
+                                                                <img class="feedProfile" src="../imgs/defaultprofile.png">
                                                             </div>
                                                             <div>
                                                                 <strong>정창환</strong>
                                                                 <span class="date">2022-07-04 10:03</span>
                                                                 <button class="txt-like like-hover">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                        height="16" fill="currentColor"
-                                                                        class="bi bi-emoji-smile" viewBox="0 0 16 16">
-                                                                        <path
-                                                                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                                        <path
-                                                                            d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16">
+                                                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                                        <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
                                                                     </svg> 좋아요
                                                                 </button>
                                                                 <span class="txt-like floatright">
-                                                                    <button
-                                                                        class="like-hover post-comment-update-clicked2  likemargin">수정</button>
-                                                                    <button
-                                                                        class="like-hover comment-delete2 likemargin">삭제</button></span>
+                                                                    <button class="like-hover post-comment-update-clicked2  likemargin">수정</button>
+                                                                    <button class="like-hover comment-delete2 likemargin">삭제</button></span>
                                                             </div>
                                                             <div class="post-comment-margin" style="display:block">
                                                                 내용2
@@ -712,9 +625,7 @@
                                         <div class="post-comment">
                                             <img class="feedProfile" src="../imgs/defaultprofile.png">
                                             <form class="comment-form">
-                                                <input class="post-comment-input" type="text"
-                                                    onkeypress="JavaScript:press(this.form)"
-                                                    placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
+                                                <input class="post-comment-input" type="text" onkeypress="JavaScript:press(this.form)" placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
                                             </form>
                                         </div>
                                     </div>
@@ -768,17 +679,17 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div>    
             </div>
         </div>
     </div>
     <!-- script -->
     <script>
-        $(function () {
-            $('#mainTop').css('display', 'block');
-            $('#detailTop').css('display', 'none');
-            $('#projectHomeLayer').css('display', 'block');
-            $('#feedContainer').css('display', 'none');
+        $(function(){
+            $('#mainTop').css('display','block');
+            $('#detailTop').css('display','none');
+            $('#projectHomeLayer').css('display','block');
+            $('#feedContainer').css('display','none');
         })
     </script>
 
@@ -791,5 +702,4 @@
 
 
 </body>
-
 </html>

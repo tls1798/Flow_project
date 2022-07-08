@@ -14,7 +14,7 @@ $(function () {
                             <span>내용</span>
                         </li>`)
     })
-
+    
     $('#read-allposts').click(function () {
         $('#posts-unchecked').hide()
     })
@@ -24,14 +24,6 @@ $(function () {
 
     $('.dropdown-more').click(function () {
         $('.dropdown-hide').show()
-    })
-    $('.post-card-wrapper-side').hide();
-    //  옆에 글보기
-    $('.unchecked-button').click(function () {
-        $('.post-card-wrapper-side').show();
-    })
-    $('.close-popup').click(function () {
-        $('.post-card-wrapper-side').hide();
     })
 
     // 댓글 script
@@ -74,7 +66,7 @@ $(function () {
     })
     // 수정
     // $('.post-comment-update').hide()
-    $('.post-comment-update').css('display', 'none');
+    $('.post-comment-update').css('display','none');
     $('.post-comment-update-clicked').click(function () {
         $('.before-comment').hide();
         $('.post-comment-update').show();
@@ -120,7 +112,7 @@ $(function () {
         $('.plz-seclect-hide').hide();
         $('.selected-show').show();
     })
-
+    
     function clickedhandler(e) {
         if (e.target.classList.value === 'checked-btn-background') {
             console.log(e.target.classList.value)

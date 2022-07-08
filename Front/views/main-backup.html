@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>플로우(flow) - 대한민국 No.1 올인원 협업툴</title>
+
+    <!-- jquery, bootstrap, icon -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+    <!-- css -->
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/topHeader.css">
+    <link rel="stylesheet" href="../css/projectList.css">
+    <link rel="stylesheet" href="../css/topSettingBar.css">
+    <link rel="stylesheet" href="../css/leftTask.css">
+    <link rel="stylesheet" type="text/css" href="../css/feed.css">
+    <link rel="stylesheet" href="../css/createProject.css">
+    <script>
+        $(document).ready(function () {
+            $('#openInviteLayerBtn').click(function (e) {
+                e.preventDefault();
+                $('#staticBackdrop').modal("show")
+            })
+            $('#invited-check').click(function (e) {
+                e.preventDefault();
+                $('#staticBackdrop').modal("hide")
+                console.log('a')
+                $('#myFullsizeModal').modal("show")
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <!-- 상단바 -->
+    <div class="top-header"></div>
+    <!-- 사이드바 -->
+    <div class="left-task"></div>
+    <!-- 메인 컨테이너 -->
+    <div class="main-act main-container">
+        <!-- 프로젝트 상단바 -->
+        <div class="top-setting-bar"></div>
+        <!-- 프로젝트 리스트 -->
+        <div id="mainContent" class="main-content scroll-mask project-list" scroll-direction="0">
+
+        </div>
+    </div>
+</body>
+
+<script>
+    $(function () {
+        $(".top-header").load("./topHeader.html");
+        $(".left-task").load("./leftTask.html");
+        $(".top-setting-bar").load("./topSettingBar.html");
+        // $(".project-list").load("./projectList.html");
+    });
+</script>
+
+</html>
