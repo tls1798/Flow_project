@@ -8,6 +8,11 @@ body {
 
 }
 
+a {
+    text-decoration: none;
+    color: rgb(153, 153, 153);
+}
+
 .padding0 {
     padding: 0px;
 }
@@ -56,6 +61,7 @@ strong {
 
 .modal-backdrop {
     z-index: -1;
+    background-color: #F5F4F4;
 }
 
 ul li {
@@ -134,12 +140,12 @@ input {
 }
 
 .feedContents {
-    width: 100%;
+    width: 60%;
     background-color: #F5F4F4;
     margin: 0px;
     padding: 0px;
     display: flex;
-    padding-left: 10%;
+    padding-left: 17%;
 
 }
 
@@ -217,9 +223,9 @@ input {
 }
 
 /* 피드 글 카드 */
-a:hover {
+/* a:hover {
     color: #6449fc;
-}
+} */
 
 .dropdown-hide {
     float: right;
@@ -244,7 +250,6 @@ a:hover {
 }
 
 .feedHeader {
-
     margin: 15px;
 }
 
@@ -342,7 +347,7 @@ a:hover {
 }
 
 #posts-unchecked {
-    width: 90%;
+    width: 100%;
 }
 
 #read-allposts {
@@ -399,6 +404,11 @@ a:hover {
 }
 
 /* 모달 */
+.modal-body.container {
+    padding: 0px;
+}
+
+
 .detail-popup-header-1 span {
     font-size: 15px;
     font-weight: 700;
@@ -447,6 +457,19 @@ a:hover {
     -webkit-border-radius: 6px;
     border-radius: 6px;
     float: left;
+}
+
+#checked-div .detail-popup-icon-2 {
+    border-radius: 16px;
+    margin-right: 5px;
+}
+
+.checked-strong {
+    font-size: 13px;
+    color: black;
+    font-weight: 700px;
+    margin-top: 15px;
+    line-height: 15px;
 }
 
 .detail-popuplist-type-1 span {
@@ -557,6 +580,7 @@ a:hover {
 }
 
 .selected-show {
+    width: 90%;
     margin: 10px;
 }
 
@@ -584,9 +608,10 @@ a:hover {
 /* 참가자 */
 
 .participant-size {
-    margin-left: 5%;
+    margin-left: 20%;
     height: 400px;
     margin-top: 30px;
+    float: right;
 }
 
 .participant-marginleft {
@@ -611,8 +636,8 @@ a:hover {
 }
 
 #participant {
-    width: 250px;
-    overflow: hidden;
+    width: 300px;
+
     margin-top: 10px;
     padding: 10px;
     border: 1px solid #ddd;
@@ -622,7 +647,7 @@ a:hover {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    max-width: 280px;
+    max-width: 300px;
 }
 
 .participant-title-area {
@@ -630,7 +655,7 @@ a:hover {
     justify-content: space-between;
     height: 30px;
     margin-top: 5px;
-    max-width: 270px;
+    max-width: 300px;
 }
 
 .participant-title {
@@ -648,7 +673,7 @@ a:hover {
 
 /* 사이드 글보기 */
 .post-card-wrapper-side {
-    width: 674px;
+    width: 704px;
     height: 100%;
     min-height: auto;
     max-height: 100%;

@@ -1,34 +1,4 @@
-<div class="main-top">
-    <header class="header">
-        <!-- 우측 아이콘 -->
-        <div id="rightTopMenu" class="top-btns">
-            <button type="button" id="alarmTopButton" class="btn-alarm" data-toggle="tooltip" data-bs-placement="bottom" title="알림">
-                <i class="icon-alarm"></i>
-                <i id="alarmTopCount" class="label-alarm" style="display: none;">0</i>
-            </button>
-            <button type="button" id="accountTopButton" class="btn-profile"> 
-                <span id="ProfileImg" class="profile-area" style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);"></span>
-            </button>
-        </div>
-
-        <!-- 프로필 클릭 시 띄울 모달 -->
-        <ul id="accountLayer" class="modal-account" style="display: none;">
-            <li class="user-area">
-                <p class="user-img" style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);"></p>
-                <div class="user-info">
-                    <strong>지솔빈</strong>
-                </div>
-            </li>
-            <li id="logoutBtn">
-                <i class="icons-logout"></i>
-                로그아웃
-            </li>
-        </ul>
-    </header>
-</div>
-
-<script>
-    $(function(){
+$(function(){
         // 모달, 팝업 display:none -> false, block -> true
         var profileModalBool = false;
         var searchPopupBool = false;
@@ -80,5 +50,4 @@
         $('[data-toggle="tooltip"]').tooltip({
             trigger : 'hover'
         })
-    });
-</script>
+});
