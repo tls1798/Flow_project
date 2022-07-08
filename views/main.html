@@ -155,15 +155,15 @@
                     </div>
                 </a>
                 <ul id="leftMenuUl" class="menu-group mgt-20">
-                    <li data-code="main" class="left-menu-item flow-active">
-                        <a href="#">
+                    <li class="left-menu-item left-menu-main flow-active">
+                        <a>
                             <i class="ico-home bi bi-house"></i>내 프로젝트
                             <em id="leftProjectHomeCount" class="project-total-count d-none"
                                 style="display: inline-block;">1</em>
                         </a>
                     </li>
-                    <li data-code="main" class="left-menu-item">
-                        <a href="#">
+                    <li class="left-menu-item left-menu-bookmark">
+                        <a>
                             <i class="ico-bookmark bi bi-bookmark"></i>북마크
                         </a>
                     </li>
@@ -690,9 +690,6 @@
             $('#detailTop').css('display','none');
             $('#projectHomeLayer').css('display','block');
             $('#feedContainer').css('display','none');
-
-            if($('.project-home-wrap').css('display')=='none')
-                $('.main-container').css('background-color', 'gray');
         })
     </script>
 
