@@ -1,5 +1,11 @@
 $(function(){
-    $('.project-item').click(function(){
+    $('.project-item').click(function(e){
+
+        // 즐겨찾기 버튼 클릭 시 프로젝트 선택X
+        if($(e.target).hasClass('flow-content-star')){
+            return false;
+        }
+        
         $('#mainTop').css('display','none');
         $('#detailTop').css('display','block');
         $('#projectHomeLayer').css('display','none');
@@ -15,9 +21,4 @@ $(function(){
             $('.left-menu-main').addClass('flow-active');
         }
     });
-
-    // 프로젝트 리스트 화면 띄울 땐 background-color : gray
-    if($('.feedContents').css('display')=='block'){
-        $('.main-container').css('background-color', 'gray');
-    }
 })
