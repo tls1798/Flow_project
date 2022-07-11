@@ -237,3 +237,25 @@ ul.template-create-cont>li>input:focus, ul.template-create-cont>li>textarea:focu
     line-height: 22px;
     border-radius: 4px;
 }
+
+/* 제목 입력 안했을 시 뜨는 경고창 */
+.alert-wrap {
+    z-index: 112;
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: fixed;
+}
+.alert-type.error {
+    background: #ff3434;
+    border: 1px solid #ff3434;
+    color: #fff;
+}
+.alert-type {
+    border-radius: 50px;
+    padding: 9px 17px;
+    text-align: center;
+    font-size: 13px;
+    z-index: 13;
+    box-sizing: border-box;
+}
