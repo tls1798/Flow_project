@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
@@ -31,11 +31,62 @@
     <link rel="stylesheet" href="../css/rightPostCard.css">
     <link rel="stylesheet" href="../css/createPost.css">
     <link rel="stylesheet" href="../css/inviteLayer.css">
-
 </head>
 
 <body>
     <div id="allMainContent" class="main-wrap wrap-use-footer">
+
+        <!-- 새 프로젝트 생성 페이지 -->
+        <div class="create-project" style="display: none;">
+            <div class="alert-wrap" id="toastPopup" style="display: none;">
+                <div class="alert-type error">
+                    <div class="text">제목을 입력하세요.</div>
+                </div>
+            </div>
+            <section id="projectSection" class="project-template-layer intro-mode" tabindex="0">
+                <button id="projectSectionClose" class="button-close">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+                <article class="project-template-intro" style="display: flex;">
+                    <div>
+                        <section>
+                            <h1>새 프로젝트를 만들어 보세요!</h1>
+                            <p>
+                                프로젝트를 어떻게 만들지 선택해보세요.
+                            </p>
+                        </section>
+                        <section>
+                            <button id="createProjectButton" class="button-create-template">직접 만들기</button>
+                        </section>
+                    </div>
+                </article>
+                <article class="project-template-main" style="display: none;">
+                    <header>
+                        <button id="templateReturnButton" class="button-go-back">
+                            <i class="bi bi-arrow-return-left"></i>
+                            <span>뒤로</span>
+                        </button>
+                        <h1 class="js-template-header-title">프로젝트 만들기</h1>
+                    </header>
+                    <section>
+                        <div class="project-template-cont">
+                            <ul class="js-project-make-layer template-create-cont">
+                                <li>
+                                    <input id="projectTitleInput" type="text" placeholder="제목을 입력하세요." maxlength="50"
+                                        autocomplete="off" data-empty-msg="제목을 입력하세요." data-over-msg="50자 이내로 입력하세요."
+                                        data-required-yn="Y">
+                                    <textarea id="projectContentsInput" placeholder="프로젝트에 관한 설명 입력 (옵션)" data-required-yn="N"
+                                        maxlength="10000"></textarea>
+                                </li>
+                                <li class="li-button-wrap">
+                                    <button class="js-submit-project"></button>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </article>
+            </section>
+        </div>
 
         <!-- 상단바 -->
         <div class="top-header">
@@ -63,17 +114,21 @@
 
                     <!-- 우측 아이콘 -->
                     <div id="rightTopMenu" class="top-btns">
+
                         <!-- 채팅 기능 추후 구현 -->
                         <button type="button" id="chattingTopButton" class="btn-chatting" mouseover-text="채팅">
                             <i class="icon-chatting"></i>
                             <i id="chatTopCount" class="label-chat" style="display: none;">0</i>
                         </button>
 
+                        <!-- 알림 아이콘 -->
                         <button type="button" id="alarmTopButton" class="btn-alarm" data-toggle="tooltip"
                             data-bs-placement="bottom" title="알림">
                             <i class="icon-alarm"></i>
                             <i id="alarmTopCount" class="label-alarm" style="display: none;">0</i>
                         </button>
+
+                        <!-- 프로필 아이콘 -->
                         <button type="button" id="accountTopButton" class="btn-profile">
                             <span id="ProfileImg" class="profile-area"
                                 style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);"></span>
@@ -128,6 +183,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- 초대 모달2 -->
             <section id="invitePopup" class="js-dimmed-area imaginary-place js-new-invitation-popup flow-all-background-1" style="display: none;">
                 <div class="alert-wrap alert-invite" id="toastPopup" style="display: none;">
@@ -146,6 +202,8 @@
                         <ul class="project-invite-popup-navi" style="display: inherit;">
                             <li class="js-partners on">연락처</li>
                         </ul>
+
+                        <!-- 좌측 멤버 리스트 -->
                         <div id="teamInviteArea" class="group-tree-wrap-1 js-group-tree-wrap side-contents">
                             <div id="orgInviteSearch" class="project-invite-search" style="margin-bottom: 10px;"></div>
                             <div class="project-invite-ouside-case scroll-mask">
@@ -155,12 +213,12 @@
                                             scroll-direction="0">
                                         </ul>
                                     </div>
-
                                     <p class="invite-blank-txt d-none" style="margin-top: auto;margin-bottom: auto;">사용자가 존재하지 않습니다.</p>
                                 </div>
                             </div>
                         </div>
-            
+                        
+                        <!-- 우측 리스트 -->
                         <div class="project-invite-memberList coperate-icon-list-type-1">
                             <div class="project-invite-selected-num" style="display: none;">
                                 <span id="countFinalElement"></span>
@@ -190,6 +248,7 @@
             <div class="back-area temp-popup" tabindex="0" id="postPopup" data-code="VIEW" style="display: block;">
                 <div class="flow-project-make-1 back-area">
                     <div class="flow-project-make-2 back-area contents">
+
                         <!-- 글 쓰기 -->
                         <div class="js-popup-before edit-item create-post-wrap js-pop-contents js-editor" data-code="ADD" style="display: none;">
                             <div class="create-post-header">
@@ -224,12 +283,13 @@
                                                     <i class="icons-font-style line-through"></i>
                                                 </button>
                                             </div>
-                                        
                                         <div class="js-upload-area js-paste-layer create-post-content" contenteditable="true" placeholder=" 내용을 입력하세요" spellcheck="false"></div> 
                                     </div>
                                     </fieldset>
                                 </div>
                             </div>
+
+                            <!-- 글 작성 footer -->
                             <div class="create-post-footer clearfix">
                                 <ul class="js-bottom-ul create-button-group clearfix">
                                     <li class="js-bottom-item text-item" data-code="style-tag" style="display: inline-block;">
@@ -239,7 +299,6 @@
                                         <div class="tooltip">굵게/기울임/밑줄/취소선 - 글내용을 드래그하여 설정</div>
                                     </li>
                                 </ul>
-        
                                 <div class="create-footer-menu">
                                     <button class="js-complete-btn create-button create-post-submit" style="display: inline-block;">올리기</button>
                                     <div class="js-editing-buttons d-none" style="display: none;">
@@ -247,7 +306,6 @@
                                         <button type="button" class="js-complete-btn edit-button create-post-button confirm">확인</button>
                                     </div>
                                 </div>
-        
                             </div>
                         </div>
 
@@ -283,6 +341,7 @@
                                                         게시글 바로가기
                                                     </button>
                                                     <button id="pinToTopBnt" class="js-pin-post fixed-btn js-pin-authority on" style="display:block" data="">
+                                                        
                                                         <!-- fixed-btn on class -->
                                                         <span class="blind">상단 고정 등록</span>
                                                     </button>
@@ -308,14 +367,10 @@
                                             </div>
                                         </div>
                                         <div class="post-card-container">
-                            
                                             <div id="originalPost" class="post-card-content " style="display:block" data=""><div>내용1</div></div>
-        
                                             <div id="summaryPost" class="post-card-content hidden" style="display:none" data=""><div>내용1</div></div>
-        
                                             <button id="postMoreButton" type="button" class="js-contents-more-btn post-more-btn" style="display:none" data="">더보기</button>
                                             <div id="summaryFoldArea" class="content-fold" style="display:none" data=""></div>
-        
                                             <div class="post-bottom-area">
                                                 <div class="post-bottom-menu js-reaction-bookmark">
                                                     <div class="bottom-button-area">
@@ -340,7 +395,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- //post-card-container -->
                                         </div>
                                         <div class="post-card-footer js-comment-area">
                                             <div class="comment-header">
@@ -469,57 +523,7 @@
 
             <!-- 사이드바 -->
             <div class="left-task">
-                <!-- 새 프로젝트 생성 페이지 -->
-                <div class="create-project" style="display: none;">
-                    <div class="alert-wrap" id="toastPopup" style="display: none;">
-                        <div class="alert-type error">
-                            <div class="text">제목을 입력하세요.</div>
-                        </div>
-                    </div>
-                    <section id="projectSection" class="project-template-layer intro-mode" tabindex="0">
-                        <button id="projectSectionClose" class="button-close">
-                            <i class="bi bi-x-lg"></i>
-                        </button>
-                        <article class="project-template-intro" style="display: flex;">
-                            <div>
-                                <section>
-                                    <h1>새 프로젝트를 만들어 보세요!</h1>
-                                    <p>
-                                        프로젝트를 어떻게 만들지 선택해보세요.
-                                    </p>
-                                </section>
-                                <section>
-                                    <button id="createProjectButton" class="button-create-template">직접 만들기</button>
-                                </section>
-                            </div>
-                        </article>
-                        <article class="project-template-main" style="display: none;">
-                            <header>
-                                <button id="templateReturnButton" class="button-go-back">
-                                    <i class="bi bi-arrow-return-left"></i>
-                                    <span>뒤로</span>
-                                </button>
-                                <h1 class="js-template-header-title">프로젝트 만들기</h1>
-                            </header>
-                            <section>
-                                <div class="project-template-cont">
-                                    <ul class="js-project-make-layer template-create-cont">
-                                        <li>
-                                            <input id="projectTitleInput" type="text" placeholder="제목을 입력하세요." maxlength="50"
-                                                autocomplete="off" data-empty-msg="제목을 입력하세요." data-over-msg="50자 이내로 입력하세요."
-                                                data-required-yn="Y">
-                                            <textarea id="projectContentsInput" placeholder="프로젝트에 관한 설명 입력 (옵션)" data-required-yn="N"
-                                                maxlength="10000"></textarea>
-                                        </li>
-                                        <li class="li-button-wrap">
-                                            <button class="js-submit-project"></button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </section>
-                        </article>
-                    </section>
-                </div>
+                
                 <!-- 사이드바 -->
                 <div id="leftArea" class="main-header-1">
                     <div id="leftTask" class="left-task active">
@@ -557,18 +561,19 @@
             
             <!-- 메인 컨테이너 -->
             <div class="main-act main-container">
+
                 <!-- 프로젝트 상단바 -->
                 <div class="top-setting-bar">
                     <div id="topSettingBar" class="main-header" style="display: block;">
                         <div id="mainTop" class="title-1" data-code="main" style="display: block;">
                             <div>내 프로젝트</div>
                         </div>
+
                         <!-- ??? -->
                         <span id="allCollectionCount" class="js-collection-total-count js-collection-count top-task-num"
                             style="display: none;"></span>
         
                         <div id="detailTop" class="project-detail title-1" style="display: none;">
-        
                             <div class="project-detail-header">
                                 <div class="project-color-area">
                                     <i id="projectColor" class="project-color color-code-3"></i>
@@ -582,12 +587,14 @@
                                             <button id="detailSettingTopButton" class="set-btn">
                                                 <i class="bi bi-three-dots-vertical"></i>
                                             </button>
+
                                             <!-- detail 버튼 클릭 시 뜨는 창 -->
                                             <div id="detailSettingLayer" class="project-setup-wrap" style="display: none;">
                                                 <div class="project-setup-header">
                                                     <span>프로젝트 번호</span>
                                                     <em id="detailSettingProjectSrno">1402344</em>
                                                 </div>
+
                                                 <!-- 관리자면 수정/삭제, 참여자면 나가기만 뜨도록 해야 함 -->
                                                 <ul id="detailSettingGroup" class="setup-group">
                                                     <li id="detailSettingProjectExitBtn">
@@ -605,7 +612,6 @@
                                         <h3 id="projectTitle" class="project-title ellipsis js-mouseover"
                                             mouseover-text="플로우 프로젝트">
                                             플로우 프로젝트</h3>
-        
                                     </div>
                                     <div class="project-description" style="display: block;">
                                         <p id="projectContents" class="description-text js-mouseover"
@@ -621,6 +627,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- 프로젝트 리스트 -->
                 <div id="mainContent" class="main-content scroll-mask project-list" scroll-direction="0">
                     <div id="projectHomeLayer" class="project-home-wrap" style="display: block;">
@@ -636,15 +643,20 @@
                                             </div>
                                             <li class="project-item ui-state-default">
                                                 <a class="cursor-pointer">
+
                                                     <!-- 알림 배지 -->
                                                     <div class="flow-content-ct project-badge" style="display:none">0</div>
+                                                    
                                                     <!-- 좌측 color -->
                                                     <div class="color-code left-menu-type-1 color-code-1"></div>
                                                     <div class="left-menu-type-con">
+
                                                         <!-- 즐겨찾기 -->
                                                         <div class="project-star flow-content-star"></div>
+
                                                         <!-- 프로젝트 제목 -->
                                                         <div class="flow-content-txt project-ttl">즐겨찾기 프로젝트</div>
+
                                                         <!-- 참가자 -->
                                                         <div class="flow-content-b-c" style="display:block">
                                                             <div class="flow-content-hm-txt"><i class="bi bi-person"></i></div>
@@ -679,6 +691,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- 특정 프로젝트 -->
                     <div id="detailLayer" class="main-sub-header project-detail-wrap" style="display: none;">
                         <div class="project-detail-top clearfix">
                             <ul id="detailTab" class="project-detail-menu">
@@ -693,9 +707,11 @@
                         
                         <div id="detailTimeline" class="project-detail-inner layer-scroll type2" scroll-direction="0" style="display: block;">
                             <div class="js-detail-wrap-area small-style-wrap">
+
                                 <!-- project-detail-container-->
                                 <section id="postTimeline" class="project-detail-container" >
                                     <div class="project-detail-content">
+
                                         <!-- 글 작성 버튼 -->
                                         <div id="createPostArea" class="work-design-wrapper">
                                             <ul id="createPostUl" class="work-design-group">
@@ -712,7 +728,9 @@
                                             </div>
                                         </div>
                                         <!-- //글 작성 버튼 -->
+
                                     </div>
+
                                     <!-- 미확인 -->
                                     <div id="projectAlarmArea" class="detail-section unidentified-alert-section" style="display: none;">
                                         <div class="section-title-area">
@@ -723,6 +741,7 @@
                                             <button id="readAllPostBnt" type="button" class="read-all-btn">모두읽음</button>
                                         </div>
                                         <div class="unidentified-content">
+
                                             <!--unidentified-content active 클래스 제어 -->
                                             <ul id="notReadAlarmUl" class="unidentified-list">
                                                 <div class="loading-area">
@@ -742,6 +761,7 @@
                                         </div>
                                     </div>
                                     <!-- //미확인 -->
+
                                     <!-- 상단고정 -->
                                     <div id="projectPinArea" class="detail-section fix-section" style="display: none;">
                                         <div class="section-title-area">
@@ -753,6 +773,7 @@
                                         <ul id="pinPostUl" class="ui-sortable pin-list fixed-list" data-project-srno="1402344" data-sortable-ul="true"></ul>
                                     </div>
                                     <!-- //상단고정 -->
+
                                     <!-- 전체피드 -->
                                     <div id="projectFeedArea" class="detail-section feed-section">
                                         <div class="section-title-area">
@@ -760,6 +781,7 @@
                                         </div>
                                         <div class="feed-content">
                                             <ul id="detailUl" class="post-group post-card" style="display: block;">
+
                                                 <!-- 게시글 없을때 -->
                                                 <div id="noDetailData" class="detail-data-none">
                                                     <img src="https://flow.team/flow-renewal/assets/images/none_member.png" alt="함께할 멤버들을 지금 초대해 보세요!"/>
@@ -768,6 +790,7 @@
                                                     <button id="noDetailDataBnt" type="button" class="data-none-button invite">초대하기</button>
                                                 </div>
                                                 <!-- //게시글 없을때 -->
+
                                                 <!-- 게시글 있을 때 -->
                                                 <li id="post-18077733" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="1414722" data-post-srno="18077733" data-remark-srno="" data-section-srno="" data-vote-srno="" data-rgsr-id="kakao_2316948930" mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" status="" todo-done-percent="" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh" style="display: none;">
                                                     <div class="js-post-nav card-item post-card-wrapper write2 ">
@@ -815,12 +838,13 @@
                                                                 </div>
                                                                 <div class="post-card-container">
                                                                     <div id="originalPost" class="post-card-content " style="display:block" data=""><div>내용</div></div>
+
                                                                     <!-- 글 내용 많을 때 요약 -->
                                                                     <div id="summaryPost" class="post-card-content hidden" style="display:none" data=""><div>내용</div></div>
                                                                     <!-- //글 내용 많을 때 요약 -->
+
                                                                     <button id="postMoreButton" type="button" class="js-contents-more-btn post-more-btn" style="display:none" data="">더보기</button>
                                                                     <div id="summaryFoldArea" class="content-fold" style="display:none" data=""></div>
-                                                
                                                                     <div class="post-bottom-area">
                                                                         <div class="post-bottom-menu js-reaction-bookmark">
                                                                             <div class="bottom-button-area">
@@ -846,7 +870,9 @@
                                                                         </div>
                                                                     </div>
                                                                     <!-- //post-card-container -->
+
                                                                 </div>
+
                                                                 <!-- 글 카드 footer -->
                                                                 <div class="post-card-footer js-comment-area">
                                                                     <div class="comment-header">
@@ -868,14 +894,13 @@
                                                                     </form>
                                                                 </div>
                                                                 <!-- //글 카드 footer -->
+
                                                             </div>
                                                         </div>
-
-
-
                                                     </div>
                                                 </li>
                                                 <!-- //게시글 있을 때 -->
+
                                             </ul>
                                         </div>
                                     </div>
@@ -899,6 +924,7 @@
                                         <div id="participantArea" class="participants-container">
                                             <div id="participantScrollArea" class="participants-content-group scroll-mask" scroll-direction="0">
                                                 <ul id="participantsUl" class="participants-list">
+
                                                     <!-- 프로젝트 관리자 -->
                                                     <span class="participants-title">
                                                         <em>프로젝트 관리자</em>
@@ -916,11 +942,13 @@
                                                         </div>
                                                     </li>
                                                     <!-- //프로젝트 관리자 -->
+
                                                     <!-- 참여자 -->
                                                     <span class="participants-title">
                                                         <em>참여자</em>
                                                         <span id="managerParticipantsCount" class="number-of-participants">1</span>
                                                     </span>
+
                                                     <!-- 반복 -->
                                                     <li class="js-participant-item" data-id="kakao_2316948930">
                                                         <div class="post-author">
@@ -935,6 +963,7 @@
                                                     </li>
                                                     <!-- //반복 -->
                                                     <!-- //참여자 -->
+
                                                 </ul>
                                             </div>
                                         </div>
@@ -973,5 +1002,4 @@
     <script type="text/javascript" src="../js/inviteLayer.js"></script>
 
 </body>
-
 </html>
