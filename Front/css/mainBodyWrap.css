@@ -1,0 +1,12 @@
+.main-wrap {
+    min-width: 1280px;
+    height: calc(100vh - 40px);
+}
+.wrap-use-footer .main-body-wrap {
+    height: 100%;
+}
+.main-body-wrap {
+    position: relative;
+    overflow: auto;
+    display: flex;
+}

@@ -1,0 +1,746 @@
+body, pre, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, select, table, td, textarea, th, ul {
+    margin: 0;
+    padding: 0;
+}
+
+address, em {
+    font-style: normal;
+}
+
+.participants-list li::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+/* 프로젝트 디테일 */
+.project-detail-wrap {
+    background: #f5f4f4;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* 디테일 top bar */
+.project-detail-top {
+    display: block;
+    position: relative;
+    padding: 0 30px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+}
+.project-detail-menu {
+    float: left;
+    cursor: pointer;
+}
+.project-detail-menu li {
+    position: relative;
+    float: left;
+    text-align: center;
+}
+.project-detail-menu li a {
+    display: block;
+    height: 38px;
+    padding: 0 10px;
+    line-height: 38px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #999;
+}
+.project-detail-menu .active a {
+    color: #333;
+}
+.project-detail-menu li+li {
+    margin-left: 15px;
+    display: inline-block;
+}
+.project-detail-menu .active::after {
+    display: block;
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 4px;
+    background: #333;
+    border-radius: 10px;
+}
+/* detail timeline */
+#detailTimeline{
+    display: block;
+}
+.project-detail-inner, .project-home-wrap {
+    padding: 0 30px;
+}
+.project-detail-inner {
+    overflow: auto;
+    height: calc(100vh - 40px);
+}
+.project-detail-inner .small-style-wrap {
+    position: relative;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    max-width: 1151px;
+    margin: 0 auto;
+}
+/* detail feed */
+.project-detail-container {
+    display: block;
+    min-width: 674px;
+    max-width: 674px;
+    margin: 20px 30px 0 0;
+}
+/* 글 쓰기 버튼 */
+.project-detail-content {
+    margin-top: 20px;
+}
+.work-design-wrapper {
+    overflow: hidden;
+    margin: 15px 0;
+    border: 1px solid #777;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 0 15px rgb(0 0 0 / 4%);
+    cursor: pointer;
+}
+.work-design-group {
+    display: flex;
+    padding: 0 70px;
+    border-bottom: 1px solid #ddd;
+    background: #faf9f9;
+    color: #333;
+    font-weight: 500;
+    text-align: center;
+}
+.work-design-group li {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-flex: 1;
+    flex: 1;
+    padding: 15px 0;
+}
+.work-design-group li:first-child {
+    margin: 0;
+}
+.post-filter i {
+    margin-right: 10px;
+}
+[class*=" icons-"], [class^=icons-] {
+    font-family: icon-contents!important;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+.work-desing-element {
+    overflow: hidden;
+    padding: 15px 30px;
+}
+.work-desing-text {
+    float: left;
+    font-size: 14px;
+    color: #555;
+}
+.work-icon-group {
+    margin-top: 2px;
+    float: right;
+}
+/* 게시 글 없을 때 */
+.detail-data-none {
+    text-align: center;
+    margin: 40px auto;
+}
+.none-text {
+    margin-top: 22px;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    letter-spacing: -.02em;
+    color: #999;
+}
+.data-none-button.invite::before {
+    background-image: url(https://flow.team/flow-renewal/assets/images/icons/icon_invite.png);
+}
+.data-none-button.invite:hover::before {
+    background-image: url(https://flow.team/flow-renewal/assets/images/icons/icon_invite_on.png);
+}
+.data-none-button::before {
+    display: inline-block;
+    content: "";
+    width: 18px;
+    height: 18px;
+    margin: -2px 4px 0 0;
+    vertical-align: middle;
+    background-size: cover;
+}
+.data-none-button:hover {
+    background: #6449fc;
+    color: #fff;
+}
+.data-none-button {
+    width: 168px;
+    height: 42px;
+    margin-top: 20px;
+    padding: 6px 20px;
+    background: #fff;
+    border: 1px solid #6449fc;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-border-radius: 56px;
+    border-radius: 56px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #6449fc;
+}
+
+/* 미확인 */
+.detail-section.unidentified-alert-section {
+    margin: 0 0 20px 0;
+}
+.section-title-area {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    height: 30px;
+    box-sizing: border-box;
+}
+.unidentified-alert-section .section-title {
+    float: left;
+}
+.section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #333;
+}
+.section-title span {
+    display: inline-block;
+    vertical-align: middle;
+}
+.section-number {
+    font-family: Roboto;
+    font-size: 17px;
+    font-weight: 700;
+    color: #999;
+    margin: 1px 0 0 1px;
+}
+.section-number.alarm {
+    margin-left: 2px;
+    height: 22px;
+    padding: 4px 9px;
+    background: #ff3532;
+    border-radius: 200px;
+    color: #fff;
+    font-size: 14px;
+}
+.unidentified-alert-section .read-all-btn {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    font-weight: 400;
+    font-size: 12px;
+    color: #555;
+}
+.unidentified-content {
+    position: relative;
+    margin-top: 10px;
+    border: 1px solid #ff6b6b;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+/* 원? */
+.unidentified-list {
+    overflow: hidden;
+}
+.loading-area {
+    margin: 100px 0;
+    width: 100%;
+    text-align: center;
+}
+.loading.type2 {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    display: inline-block;
+}
+.unidentified-more-btn {
+    position: absolute;
+    left: 32px;
+    bottom: -14px;
+    height: 26px;
+    line-height: 24px;
+    color: #ff6b6b;
+    font-size: 12px;
+    padding: 0 10px;
+    background: #fff;
+    border: 1px solid #ff6b6b;
+    box-sizing: border-box;
+    box-shadow: 0 0 15px rgb(0 0 0 / 4%);
+    border-radius: 200px;
+    cursor: pointer;
+}
+.blind {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+}
+/* 상단 고정 */
+.detail-section {
+    margin: 0 0 15px 0;
+}
+.post-option .set-btn {
+    margin: -1px 0 0 20px;
+}
+.set-btn {
+    padding: 4px 8px;
+    margin: 1px 7px 0 30px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.fixed-btn.on {
+    background-position: -367px -45px;
+}
+.fixed-btn.js-pin-authority {
+    cursor: pointer;
+}
+.fixed-btn {
+    margin-left: 25px;
+    width: 14px;
+    height: 19px;
+    background-position: -349px -45px;
+    vertical-align: middle;
+}
+.fixed-btn{
+    background-image: url(https://flow.team/flow-renewal/assets/images/sprite-project-detail.png);
+    background-size: 844px auto;
+}
+.fixed-btn:hover {
+    background-position: -331px -45px;
+}
+/* feed title 전체 */
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/* feed detail 글 카드 */
+.feed-content {
+    margin-top: 8px;
+}
+#detailUl{
+    display: block;
+}
+.detail-item {
+    list-style: none;
+}
+.post-group.post-card>li {
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgb(0 0 0 / 4%);
+}
+.post-card-wrapper {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgb(0 0 0 / 4%);
+}
+.post-card-header {
+    border-radius: 10px;
+    background: #faf9f9;
+}
+.card-header-top {
+    position: relative;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 14.5px 30px;
+    background: #fff;
+    border-radius: 10px;
+}
+.post-card-wrapper .card-header-top .post-author {
+    -webkit-box-flex: 1;
+    flex: 1;
+    display: flex;
+    float: initial;
+    width: calc(100vh - 77px);
+}
+.thumbnail.size40 {
+    width: 40px;
+    height: 40px;
+}
+.radius16 {
+    border-radius: 16px;
+}
+.thumbnail {
+    display: inline-block;
+    background-image: url(https://flow.team/flow-renewal/assets/images/profile-default.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: #fff;
+    border: 1px solid #eee;
+    cursor: pointer;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+.post-card-wrapper .card-header-top .post-author .post-author-info {
+    display: flex;
+    -webkit-box-flex: 1;
+    flex: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+.post-author-info {
+    overflow: hidden;
+    display: inline-block;
+    width: 70%;
+    line-height: 18px;
+    margin-left: 10px;
+    vertical-align: middle;
+    text-align: left;
+}
+.post-author-info dt {
+    display: flex;
+    color: #555;
+    line-height: 1.1;
+}
+.post-author-info .author {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    margin-right: 3px;
+    vertical-align: middle;
+    line-height: 18px;
+    max-width: 70%;
+}
+.post-author-info .date {
+    display: inline-block;
+    min-width: 110px;
+    margin: 2px 0 0 7px;
+    color: #aaa;
+    font-family: Roboto;
+    vertical-align: middle;
+}
+.post-card-wrapper .card-header-top .post-author .post-author-info dt .date {
+    min-width: 120px;
+}
+.post-security {
+    padding: 2px 0 0 5px;
+    font-size: 14px;
+}
+.post-security i {
+    margin-right: 4px;
+}
+/* 카드 제목 */
+.card-header-bottom {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    height: auto;
+    padding: 10px 30px 10px 30px;
+    background: #fff;
+    box-sizing: border-box;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+.post-title-area {
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-flex: 1;
+    flex: 1;
+    width: 100%;
+}
+.post-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    vertical-align: middle;
+    word-break: break-word;
+}
+/* 카드 내용 */
+.post-card-container {
+    padding: 10px 0 20px;
+    background: #fff;
+}
+.post-card-content {
+    font-size: 14px;
+    word-break: break-word;
+    line-height: 25px;
+    color: #333;
+    padding: 15px 30px 0;
+}
+.post-card-wrapper .post-card-content.hidden {
+    overflow: hidden;
+    max-height: 245px;
+    margin-bottom: 10px;
+}
+.card-header-bottom:after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: calc(100vh - 60px);
+    left: 30px;
+    bottom: 0;
+    background: #eee;
+}
+.post-more-btn {
+    display: inline-block;
+    margin-left: 30px;
+    padding: 0 14px 0 13px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    box-shadow: 0 0 15px rgb(0 0 0 / 4%);
+    border-radius: 900px;
+    font-weight: 500;
+    font-size: 12px;
+    color: #555;
+    cursor: pointer;
+}
+.post-bottom-area {
+    position: relative;
+    margin-top: 22px;
+    padding: 0 30px;
+}
+.post-bottom-menu {
+    float: left;
+}
+.bottom-button-area {
+    position: relative;
+}
+.post-bottom-button {
+    line-height: 18px;
+    font-size: 13px;
+    color: #555;
+    cursor: pointer;
+}
+.post-bottom-button:hover {
+    color: #6449fc;
+    border-color: #6449fc;
+}
+.post-bottom-button i {
+    margin: -2px 4px 0 0;
+    content: "";
+    background-image: url(https://flow.team/flow-renewal/assets/images/sprite-project-detail.png);
+    background-size: 844px auto;
+}
+.post-bottom-button:hover .icon-reaction {
+    background-position: -316px -75px;
+}
+.icon-reaction {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: -2px;
+    background-position: -300px -75px;
+    vertical-align: middle;
+}
+.post-bottom-button+.post-bottom-button {
+    margin-left: 10px;
+}
+.post-bottom-button i {
+    margin: -2px 4px 0 0;
+    content: "";
+    background-image: url(https://flow.team/flow-renewal/assets/images/sprite-project-detail.png);
+    background-size: 844px auto;
+}
+.post-bottom-button:hover .icon-bookmark {
+    background-position: -350px -75px;
+}
+.icon-bookmark {
+    display: inline-block;
+    width: 10px;
+    height: 14px;
+    background-position: -334px -75px;
+    vertical-align: middle;
+}
+
+.cmt-read-wr {
+    position: absolute;
+    bottom: 0;
+    right: 30px;
+}
+.comment-count-area {
+    display: inline-block;
+    margin: 4px 10px 0 0;
+    font-size: 13px;
+    color: #999;
+}
+.comment-count {
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 14px;
+}
+.read-confirmation {
+    margin-top: 4px;
+    float: right;
+    position: relative;
+    font-size: 13px;
+    color: #999;
+    cursor: pointer;
+}
+.confirmation-number {
+    font-size: 14px;
+    font-family: Roboto;
+    font-weight: 700;
+}
+.post-card-footer {
+    border-radius: 0 0 10px 10px;
+    background: #f9f9f9;
+}
+.comment-header {
+    padding: 0 30px 0 30px;
+    border-top: 1px solid #ddd;
+}
+.comment-more-button {
+    display: none;
+    font-size: 13px;
+    color: #777;
+    font-weight: 700;
+    cursor: pointer;
+}
+.post-comment-group {
+    color: #555;
+}
+.comment-input-wrap {
+    overflow: hidden;
+    padding: 14px 30px;
+}
+.comment-container.on {
+    display: block;
+}
+.comment-container {
+    position: relative;
+    width: calc(100% - 52px);
+    margin-left: 10px;
+    box-sizing: border-box;
+}
+.comment-container, .comment-thumbnail, .comment-user {
+    float: left;
+}
+.comment-container fieldset {
+    position: relative;
+}
+fieldset, img {
+    border: 0;
+}
+.comment-input[contenteditable] {
+    width: 100%;
+    padding: 11px 60px 11px 20px;
+    min-height: 44px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #555;
+    word-break: break-all;
+    white-space: pre-wrap;
+    cursor: text;
+}
+.comment-input[contenteditable]:empty:before {
+    display: block;
+    content: attr(placeholder);
+    color: #999;
+}
+.post-bottom-area::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+/* 참여자 영역 */
+.participants-section {
+    width: 100%;
+    max-width: 354px;
+}
+.project-participants-wrap {
+    height: fit-content;
+    position: fixed;
+    top: 170px;
+    bottom: 0;
+    width: 17%;
+    max-width: 325px;
+    min-width: 282px;
+}
+.project-participants-wrap .section-title {
+    font-size: 16px;
+}
+.project-participants-wrap .section-title span:last-child {
+    color: #999;
+}
+.project-participants-wrap .section-title-area .feed-type-area {
+    min-width: unset;
+}
+.project-participants-wrap .feed-type-area {
+    margin-left: auto;
+}
+.feed-section .feed-type-area {
+    display: flex;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    font-size: 12px;
+}
+.participants-container {
+    overflow: hidden;
+    margin-top: 10px;
+    padding-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    box-sizing: border-box;
+}
+.participants-content-group {
+    overflow: auto;
+    max-height: calc(100vh - 303px);
+    padding: 0 20px;
+}
+.participants-list {
+    -webkit-box-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+.participants-title {
+    margin-top: 15px;
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+}
+.number-of-participants {
+    font-family: Roboto;
+    margin-left: 2px;
+    color: #999;
+}
+.participants-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+.post-author {
+    width: 90%;
+    float: left;
+}

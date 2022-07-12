@@ -184,14 +184,6 @@ li, ul {
 .mgt-20 {
     margin: 20px 0 35px 0;
 }
-ul {
-    display: block;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-}
-
 
 /* 아이콘 */
 .ico-home:before {

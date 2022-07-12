@@ -9,7 +9,8 @@ $(function(){
         $('#mainTop').css('display','none');
         $('#detailTop').css('display','block');
         $('#projectHomeLayer').css('display','none');
-        $('#feedContainer').css('display','flex');
+        $('#detailLayer').css('display','block');
+
     })
 
     // 사이드바의 메뉴, 프로젝트 카드, 로고 클릭 시 사이드바 메뉴 active 해제 (this 제외)
