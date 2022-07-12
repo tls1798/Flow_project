@@ -73,7 +73,7 @@ address, em {
 }
 .project-detail-inner {
     overflow: auto;
-    height: calc(100vh - 40px);
+    height: calc(100% - 40px);
 }
 .project-detail-inner .small-style-wrap {
     position: relative;

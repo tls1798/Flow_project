@@ -1,3 +1,7 @@
+#teamInviteLayer .sub-drag-picture-section-1.project-invite-only-list-wrap .project-invite-choiceList {
+    height: 450px;
+    padding-top: 5px;
+}
 /* 초대 모달 1 */
 .mini {
     display: inline-block;
