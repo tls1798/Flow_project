@@ -114,6 +114,12 @@ $(function () {
         }
     })
 
+    // 선택된 참여자 전체 삭제
+    $('#removeAllElements').click(function(){
+        $('.js-member-item').removeClass('active');
+        $('#inviteTargetList').children('li').remove();
+    })
+
     // 선택된 참여자 ul change 시, 새로 count
     $('#inviteTargetList').on('DOMSubtreeModified', function() {
         var cnt = $(this).children().length;

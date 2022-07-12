@@ -35,7 +35,7 @@
 .detail-popup-type-1 {
     position: relative;
     width: 434px;
-    height: 300px;
+    height: 150px;
     margin: 0 auto;
     background: #fff;
     border: 1px solid #777;
@@ -77,7 +77,6 @@ a {
     box-sizing: border-box;
     padding: 15px 10px;
     overflow: hidden;
-    border-bottom: 1px solid #eee;
 }
 .detail-popup-type-1 ul li:hover {
     background: #f8f7ff;
