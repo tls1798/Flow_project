@@ -16,17 +16,17 @@ $(function(){
     // 프로젝트 만들기, 수정
     $('.js-submit-project').click(function(){
 
+        if($('#projectTitleInput').val()===""){
+            $('.alert-wrap').css('display', 'block');
+
+            setTimeout(function() {
+                $('.alert-wrap').fadeOut(500, "swing");
+            }, 2000);
+
+            return;
+        }
+
         if($(this).html()=='프로젝트 만들기'){
-            if($('#projectTitleInput').val()===""){
-                $('.alert-wrap').css('display', 'block');
-    
-                setTimeout(function() {
-                    $('.alert-wrap').fadeOut(500, "swing");
-                }, 2000);
-    
-                return;
-            }
-    
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost:8080/api/rooms',
@@ -48,8 +48,8 @@ $(function(){
                 url: 'http://localhost:8080/api/rooms/9',
                 data: JSON.stringify({"rmNo":10, "rmTitle":$('#projectTitleInput').val(), "rmDes":$('#projectContentsInput').val()}),
                 contentType: 'application/json; charset=utf-8',
-                success: function (result, status, xhr) {alert('성공');},
-                error: function (xhr, status, err) {alert('실패');}
+                success: function (result, status, xhr) {},
+                error: function (xhr, status, err) {}
             });
 
             // input, textarea 비우기

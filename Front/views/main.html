@@ -130,6 +130,11 @@
             </div>
             <!-- 초대 모달2 -->
             <section id="invitePopup" class="js-dimmed-area imaginary-place js-new-invitation-popup flow-all-background-1" style="display: none;">
+                <div class="alert-wrap alert-invite" id="toastPopup" style="display: none;">
+                    <div class="alert-type error">
+                        <div class="text">참여자를 선택해주세요.</div>
+                    </div>
+                </div>
                 <div id="teamInviteLayer" class="project-invite-popup js-pop-contents">
                     <div class="project-invite-popup-header">
                         <a href="#"><em class="returnInviteModal1 returnMainBtn js-back-menu" style="display: inline-block;"></em></a>
@@ -157,11 +162,11 @@
                         </div>
             
                         <div class="project-invite-memberList coperate-icon-list-type-1">
-                            <div class="project-invite-selected-num" style="display: flex;">
-                                <span id="countFinalElement">2건 선택</span>
+                            <div class="project-invite-selected-num" style="display: none;">
+                                <span id="countFinalElement"></span>
                                 <button id="removeAllElements">전체 삭제</button>
                             </div>
-                            <p id="blankInviteTarget" class="right-blank-txt d-none">대상을 선택해주세요.</p>
+                            <p id="blankInviteTarget" class="right-blank-txt">대상을 선택해주세요.</p>
             
                             <!-- 선택된 참여자 리스트 -->
                             <ul id="inviteTargetList"></ul>
@@ -429,34 +434,7 @@
                     <!-- 알림 리스트 -->
                     <div class="name-setup-type-2 scroll-mask">
                         <ul id="alarmUl" scroll-direction="0">
-                            <li class="js-alarm-item on" colabo_srno="" colabo_commt_srno="" colabo_remark_srno="-1"
-                                alarm_action="" alarm_status="" toast_msg="신재승님의 글 등록">
-                                <div class="all-setup-picture-type-1"
-                                    style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)"
-                                    data=""></div>
-                                <div class="all-text-wrap-type-1">
-                                    <div class="all-setup-section-type-1">
-                                        <span>우리 프로젝트</span><em>곧</em>
-                                    </div>
-                                    <li class="project-item ui-state-default">
-                                        <a class="cursor-pointer">
-                                            <!-- 알림 배지 -->
-                                            <div class="flow-content-ct project-badge" style="display:none">0</div>
-                                            <!-- 좌측 color -->
-                                            <div class="color-code left-menu-type-1 color-code-1"></div>
-                                            <div class="left-menu-type-con">
-                                                <!-- 즐겨찾기 -->
-                                                <div class="project-star flow-content-star"></div>
-                                                <!-- 프로젝트 제목 -->
-                                                <div class="flow-content-txt project-ttl">즐겨찾기 프로젝트</div>
-                                                <!-- 참가자 -->
-                                                <div class="flow-content-b-c" style="display:block">
-                                                    <div class="flow-content-hm-txt"><i class="bi bi-person"></i></div>
-                                                    <span class="member-cnt">6</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
+
                             <li class="js-alarm-item" colabo_srno="" colabo_commt_srno="" colabo_remark_srno="-1"
                                 alarm_action="" alarm_status="">
                                 <div class="all-setup-picture-type-1"
@@ -470,6 +448,20 @@
                                     <div class="all-text-wrap-type-3">미확인 알람</div>
                                 </div>
                             </li>
+                            <li class="js-alarm-item on" colabo_srno="" colabo_commt_srno="" colabo_remark_srno="-1"
+                                alarm_action="" alarm_status="">
+                                <div class="all-setup-picture-type-1"
+                                    style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)"
+                                    data=""></div>
+                                <div class="all-text-wrap-type-1">
+                                    <div class="all-setup-section-type-1">
+                                        <span>우리 프로젝트</span><em>곧</em>
+                                    </div>
+                                    <div class="all-text-wrap-type-2 alarm-tit-ellipsis">완료</div>
+                                    <div class="all-text-wrap-type-3">미확인 알람</div>
+                                </div>
+                            </li>
+
                         </ul>
                     </div>
                 </div>

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/api")
@@ -30,10 +32,10 @@ public class RoomMembersApiController {
     }
 
     // 프로젝트에 멤버 초대
-    @PostMapping("/room-members/{memNo}")
-    public ResponseEntity<?> addMember(@RequestBody RoomMembers roomMember){
-        if(roomMembersService.addMember(roomMember))
-            return ResponseEntity.ok(roomMember);
+    @PostMapping("/room-members")
+    public ResponseEntity<?> addMember(@RequestBody List<RoomMembers> roomMembers){
+        if(roomMembersService.addMember(roomMembers))
+            return ResponseEntity.ok(roomMembers);
         return ResponseEntity.badRequest().build();
     }
 

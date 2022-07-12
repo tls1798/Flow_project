@@ -52,15 +52,29 @@ $(function () {
 
     // 뒤로, 취소
     $('.returnInviteModal1').click(function(){
+        
+        // 초기화
+        $('.js-member-item').removeClass('active');
+        $('#inviteTargetList').children('li').remove();
+
+        // display
         $('#inviteLayer').css('display', 'block');
         $('#invitePopup').css('display', 'none');
+
         return false;
     })
 
     // X 버튼
     $('.closeInviteLayerBtn').click(function(){
+        
+        // 초기화
+        $('.js-member-item').removeClass('active');
+        $('#inviteTargetList').children('li').remove();
+
+        // display
         $('#inviteLayer').css('display', 'none');
         $('#invitePopup').css('display', 'none');
+
         return false;
     })
 
@@ -68,6 +82,9 @@ $(function () {
     $('#teamInviteLayer').on('click', '.js-member-item', function(e){
         if($(this).hasClass('active')){
             $(this).removeClass('active');
+
+            // 우측에서도 선택 해제
+            $('#inviteTargetList').children('li[data-id='+$(this).attr('data-id')+']').remove();
         }
         else {
             $(this).addClass('active');
@@ -89,10 +106,63 @@ $(function () {
     // 우측 선택된 참여자 x 클릭 시 선택 해제
     $('#inviteTargetList').click(function(e){
         if($(e.target).hasClass('removeMemberItem')){
-            $(e.target).parent().parent().remove();
+            var me = $(e.target).parent().parent();
+            me.remove();
 
-            // 좌측에서도 선택 해제 (removeClass('active')) 
+            // 좌측에서도 선택 해제
+            $('.project-invite-choiceList').children('li[data-id='+me.attr('data-id')+']').removeClass('active');
         }
+    })
+
+    // 선택된 참여자 ul change 시, 새로 count
+    $('#inviteTargetList').on('DOMSubtreeModified', function() {
+        var cnt = $(this).children().length;
+
+        if(cnt==0){
+            $('.project-invite-selected-num').css('display', 'none');
+            $('.right-blank-txt').removeClass('d-none');
+        }
+        else{
+            $('.project-invite-selected-num').css('display', 'flex');
+            $('.right-blank-txt').addClass('d-none');
+        }
+
+        $('#countFinalElement').text(cnt+'건 선택');
+    });
+
+    // 초대하기
+    $('#inviteMembers').click(function(){
+
+        var cnt = $('#inviteTargetList').children().length;
+
+        if(cnt==0){
+            $('.alert-invite').css('display', 'block');
+
+            setTimeout(function() {
+                $('.alert-invite').fadeOut(500, "swing");
+            }, 2000);
+
+            return;
+        }
+
+        var jsonData = "[";
+        for(var i=0; i<cnt; i++){
+            if(i!=0) jsonData += ",";
+            jsonData += "{\"rmNo\":"+9+", \"memNo\":"+$('#inviteTargetList').children('li:eq('+i+')').attr('data-id')+"}";
+        }
+        jsonData += "]";
+
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/api/room-members',
+            data: jsonData,
+            contentType: 'application/json; charset=utf-8',
+            success: function (result, status, xhr) {
+                // 닫기
+                $('.closeInviteLayerBtn').click();
+            },
+            error: function (xhr, status, err) {}
+        });
     })
 
     // 초대 모달 1,2 클릭 시 display none X

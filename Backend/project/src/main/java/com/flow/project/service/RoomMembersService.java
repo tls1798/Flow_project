@@ -24,8 +24,16 @@ public class RoomMembersService {
     }
 
     // 프로젝트에 멤버 초대
-    public boolean addMember(RoomMembers roomMember){
-        return roomMembersMapper.insertOne(roomMember)>0;
+    public boolean addMember(List<RoomMembers> roomMembers){
+
+        try{
+            for(RoomMembers roomMember : roomMembers)
+                roomMembersMapper.insertOne(roomMember);
+
+            return true;
+        }catch (Exception e) {
+            return false;
+        }
     }
 
     // 프로젝트 나가기
