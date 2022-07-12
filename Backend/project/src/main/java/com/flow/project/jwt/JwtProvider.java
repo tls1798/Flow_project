@@ -34,7 +34,7 @@ public class JwtProvider {
         headers.put("type", "token");
 
         Map<String, Object> payloads = new HashMap<>();
-        payloads.put("memMail", loginDTO.getEmail());
+        payloads.put("memMail", loginDTO.getMemMail());
 
         Date expiration = new Date();
         System.out.println(expiration);
@@ -58,7 +58,7 @@ public class JwtProvider {
         headers.put("type", "token");
 
         Map<String, Object> payloads = new HashMap<>();
-        payloads.put("memMail", loginDTO.getEmail());
+        payloads.put("memMail", loginDTO.getMemMail());
 
         Date expiration = new Date();
         expiration.setTime(expiration.getTime() + refreshExpireTime);
@@ -96,14 +96,21 @@ public class JwtProvider {
     public boolean validateJwtToken(ServletRequest request, String authToken) {
         try {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(authToken);
+            System.out.println( Jwts.parser().setSigningKey(secretKey).parseClaimsJws(authToken));
             return true;
-        } catch (MalformedJwtException e) {
+
+        }
+        catch (MalformedJwtException e) {
+            System.out.println("eror1");
             request.setAttribute("exception", "MalformedJwtException");
         } catch (ExpiredJwtException e) {
+            System.out.println("eror2");
             request.setAttribute("exception", "ExpiredJwtException");
         } catch (UnsupportedJwtException e) {
+            System.out.println("eror3");
             request.setAttribute("exception", "UnsupportedJwtException");
         } catch (IllegalArgumentException e) {
+            System.out.println("eror4");
             request.setAttribute("exception", "IllegalArgumentException");
         }
         return false;

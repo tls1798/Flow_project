@@ -12,11 +12,11 @@ import java.util.Collection;
 @Getter
 @Setter
 public class Members implements UserDetails {
-    private long idx;
-    private String name;
-    private String email;
-    private String password;
-    private String role;
+    private long memNo;
+    private String memName;
+    private String memMail;
+    private String memPw;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -27,12 +27,12 @@ public class Members implements UserDetails {
 
     @Override
     public String getPassword() {
-        return password;
-    }
 
+        return memPw;
+    }
     @Override
     public String getUsername() {
-        return email;
+        return memMail;
     }
 
     @Override

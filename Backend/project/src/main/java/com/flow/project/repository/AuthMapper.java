@@ -11,12 +11,12 @@ import org.apache.ibatis.annotations.Select;
 public interface AuthMapper {
 
     // userDetailsService 클래스에서 사용
-    @Select("SELECT * FROM \"Member\" WHERE email = #{email}")
+    @Select("SELECT * FROM \"Members\" WHERE mem_mail = #{email}")
     Members findByEmail(String email);
 
     // AuthService에서 리프레쉬 토큰 발급시 사용
-    @Select("SELECT refresh_token FROM \"RefreshToken\" WHERE idx = #{idx}")
-    String findRefreshTokenByIdx(long idx);
+    @Select("SELECT refresh_token FROM \"RefreshToken\" WHERE access_token = #{accessToken}")
+    String findRefreshTokenByaccessToken(String accessToken);
 
     // 리프레쉬 토큰 발급 시 insert or update 시 사용
     @Options(keyColumn = "idx", useGeneratedKeys = true)

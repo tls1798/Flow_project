@@ -30,17 +30,16 @@ public class AuthService {
 
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword())
+                    new UsernamePasswordAuthenticationToken(loginDTO.getMemMail(), loginDTO.getMemPw())
             );
 
             Map createToken = createTokenReturn(loginDTO);
             result.setResponseData("accessToken", createToken.get("accessToken"));
-            System.out.println(createToken.get("accessToken"));
-            result.setResponseData("refreshIdx", createToken.get("refreshIdx"));
+
+            result.setResponseData("refreshToken", createToken.get("refreshToken"));
         } catch (Exception e) {
             e.printStackTrace();
 
-            System.out.println("erroffr");
 //            throw new AuthenticationException(ErrorCode.UsernameOrPasswordNotFoundException);
         }
 
@@ -49,18 +48,18 @@ public class AuthService {
 
     public ApiResponse newAccessToken(AuthDTO.GetNewAccessTokenDTO getNewAccessTokenDTO, HttpServletRequest request){
         ResponseMap result = new ResponseMap();
-        String refreshToken = authMapper.findRefreshTokenByIdx(getNewAccessTokenDTO.getRefreshIdx());
+        String refreshToken = authMapper.findRefreshTokenByaccessToken(getNewAccessTokenDTO.getAccessToken());
 
         // AccessToken은 만료되었지만 RefreshToken은 만료되지 않은 경우
         if(jwtProvider.validateJwtToken(request, refreshToken)){
             String email = jwtProvider.getUserInfo(refreshToken);
             AuthDTO.LoginDTO loginDTO = new AuthDTO.LoginDTO();
-            loginDTO.setEmail(email);
+            loginDTO.setMemMail(email);
 
             Map createToken = createTokenReturn(loginDTO);
             result.setResponseData("accessToken", createToken.get("accessToken"));
 
-            result.setResponseData("refreshIdx", createToken.get("refreshIdx"));
+            result.setResponseData("refreshToken", createToken.get("refreshToken"));
         }else{
             // RefreshToken 또한 만료된 경우는 로그인을 다시 진행해야 한다.
             result.setResponseData("code", ErrorCode.ReLogin.getCode());
@@ -79,7 +78,7 @@ public class AuthService {
         String refreshTokenExpirationAt = jwtProvider.createRefreshToken(loginDTO).get("refreshTokenExpirationAt");
 
         RefreshToken insertRefreshToken = RefreshToken.builder()
-                .userEmail(loginDTO.getEmail())
+                .userEmail(loginDTO.getMemMail())
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .refreshTokenExpirationAt(refreshTokenExpirationAt)
@@ -90,9 +89,9 @@ public class AuthService {
         result.put("accessToken", accessToken);
 
 
-        a++;
 
-        result.put("refreshIdx", a);
+
+        result.put("refreshToken", refreshToken);
         return result;
     }
 }

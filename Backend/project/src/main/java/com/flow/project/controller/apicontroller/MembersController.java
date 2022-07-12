@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping
+@RequestMapping("/api")
 public class MembersController {
 
     final MembersService ms;
@@ -23,6 +23,7 @@ public class MembersController {
 //     전체 출력
     @GetMapping("/members")
     public ResponseEntity<?> getMembers(){
+
         return ResponseEntity.status(HttpStatus.OK).body(ms.getMembers());
     }
 }

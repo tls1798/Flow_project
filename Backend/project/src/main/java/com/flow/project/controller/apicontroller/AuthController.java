@@ -35,7 +35,7 @@ public class AuthController {
 
 // 회원가입
     @PostMapping("/members/new")
-    public ResponseEntity<?> addDept(@RequestBody Members members) {
+    public ResponseEntity<?> addMember(@RequestBody Members members) {
         if(membersService.addMember(members)>0) {
             return ResponseEntity.ok().build();
         }

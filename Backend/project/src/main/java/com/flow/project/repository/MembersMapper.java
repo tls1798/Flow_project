@@ -13,14 +13,14 @@ import java.util.List;
 public interface MembersMapper {
 
     // 회원 한 명
-    @Select("select * from \"Members\" where mem_no=#{memNo}")
-    Members findOne(int memNo);
+    @Select("select mem_no,mem_mail, mem_name, mem_pw from \"Members\" where mem_no=#{memNo}")
+    Members selectOne(int memNo);
     // 회원전체
-    @Select("select * from \"Members\"")
-    List<Members> findAll();
+    @Select("select mem_no,mem_mail, mem_name, mem_pw from \"Members\"")
+    List<Members> selectAll();
     // 회원가입
-    @Options(keyColumn = "idx", useGeneratedKeys = true)
-    @Insert("insert into \"Member\" (email, name, password) values (#{email},#{name},#{password})")
+    @Options(keyColumn = "mem_no", useGeneratedKeys = true)
+    @Insert("insert into \"Members\" (mem_mail, mem_name, mem_pw) values (#{memMail},#{memName},#{memPw})")
     int insertOne(Members member);
     //mem_no mem_mail
 

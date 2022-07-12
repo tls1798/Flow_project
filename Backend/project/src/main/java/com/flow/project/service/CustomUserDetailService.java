@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.xml.transform.Source;
 
 
 @Service
@@ -22,9 +23,7 @@ public class CustomUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Members user = authMapper.findByEmail(username);
-
         if(user == null){
-            System.out.println("no users");
 //            throw new AuthenticationException(ErrorCode.UsernameOrPasswordNotFoundException);
         }
 

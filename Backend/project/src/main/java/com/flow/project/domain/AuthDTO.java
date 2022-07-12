@@ -16,11 +16,11 @@ public class AuthDTO {
     public static class LoginDTO {
         @NotBlank
         @ApiModelProperty(value = "아이디", example = "admin@naver.com", required = true)
-        private String email;
+        private String memMail;
 
         @NotBlank
         @ApiModelProperty(value = "비밀번호", example = "12345", required = true)
-        private String password;
+        private String memPw;
     }
 
     /**
@@ -30,8 +30,9 @@ public class AuthDTO {
     @Setter
     public static class GetNewAccessTokenDTO {
 
-        @ApiModelProperty(value = "Refresh Token Index", example = "1", required = true)
-        private long refreshIdx;
+//        @ApiModelProperty(value = "Refresh Token Index", example = "1", required = true)
+//        private long refreshIdx;
+        private String accessToken;
     }
 
 }
