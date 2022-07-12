@@ -11,11 +11,11 @@ $(function(){
         $(this).addClass('flow-active');
     });
     
-    // 새 프로젝트 생성 화면 load
-    $(".create-project").load("./createProject.html");
     // 새 프로젝트 버튼 클릭 시 display block
     $('.new-project-1').click(function(){
         $('.create-project').css('display', 'block');
+        $('#templateReturnButton').css('display', 'block');
+        $('.js-submit-project').html('프로젝트 만들기');
     });
 
     // 로고, 내 프로젝트 버튼 클릭 시 프로젝트 리스트 화면으로 + 내 프로젝트 메뉴 active

@@ -233,3 +233,9 @@
     -webkit-font-smoothing: antialiased;
     padding-right: 5px;
 }
+
+/* topSettingBar detail */
+.setup-group li a:hover {
+    background: #f8f7ff;
+    color: #6449fc;
+}
