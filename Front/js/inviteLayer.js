@@ -166,6 +166,8 @@ $(function () {
             success: function (result, status, xhr) {
                 // 닫기
                 $('.closeInviteLayerBtn').click();
+                // 참여자 업데이트
+                $('.project-item').click();
             },
             error: function (xhr, status, err) {}
         });

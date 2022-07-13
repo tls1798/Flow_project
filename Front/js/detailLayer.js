@@ -39,4 +39,57 @@ $(function(){
         }
     })
 
+    // 참여자 리스트 업데이트 함수
+    const updateParticipant = function(rmNo){
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/api/rooms/'+rmNo+'/members',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result, status, xhr) {
+
+                // 초기화
+                $('#participantsUl').find('li').remove();
+
+                // 프로젝트 관리자
+                $('.participants-admin-span').append(`
+                    <li class="js-participant-item" data-id="`+result[0].memNo+`">
+                        <div class="post-author">
+                            <span class="js-participant-profile thumbnail size40 radius16" data=""></span>
+                            <dl class="post-author-info">
+                                <dt>
+                                    <strong class="js-participant-name author ellipsis">`+result[0].memName+`</strong>
+                                    <em class="position ellipsis" style="display:none" data=""></em>
+                                </dt>
+                            </dl>
+                        </div>
+                    </li>
+                `);
+
+                // 참여자
+                for(var i=0; i<result.length; i++){
+                    $('.participants-member-span').append(`
+                        <li class="js-participant-item" data-id="`+result[i].memNo+`" >
+                            <div class="post-author">
+                                <span class="js-participant-profile thumbnail size40 radius16" data=""></span>
+                                <dl class="post-author-info">
+                                    <dt>
+                                        <strong class="js-participant-name author ellipsis">`+result[i].memName+`</strong>
+                                        <em class="position ellipsis" style="display:none" data=""></em>
+                                    </dt>
+                                </dl>
+                            </div>
+                        </li>
+                    `);
+                }
+            },
+            error: function (xhr, status, err) {}
+        });
+    }
+
+    // 프로젝트 선택
+    $(document).on('click', '.project-item', function(e){
+        // 참여자 리스트 업데이트
+        updateParticipant($(this).attr('data-id'));
+    })
+    
 });

@@ -1,5 +1,5 @@
 $(function(){
-    $('.project-item').click(function(e){
+    $(document).on('click', '.project-item', function(e){
 
         // 즐겨찾기 버튼 클릭 시 프로젝트 선택X
         if($(e.target).hasClass('flow-content-star')){

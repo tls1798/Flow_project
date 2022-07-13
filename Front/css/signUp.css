@@ -144,7 +144,7 @@ div, form{
 
 .join-check i, .join-check label {
     display: inline-block;
-    background-image: url(/imgs/icon_checkbox.png);
+    background-image: url(/Front/imgs/icon_checkbox.png);
     background-size: 16px;
     width: 16px;
     height: 16px;
@@ -153,10 +153,10 @@ div, form{
     cursor: pointer;
 }
 .confirm-input:checked+.js-confirm-check {
-    background-image: url(/imgs/icon_checkbox_on.png);
+    background-image: url(/Front/imgs/icon_checkbox_on.png);
 }
 .join-check i:hover, .join-check label:hover {
-    background-image: url(/imgs/icon_checkbox_hover.png);
+    background-image: url(/Front/imgs/icon_checkbox_hover.png);
 }
 .join-check .fc-pp, .join-check a {
     color: #623ad6;

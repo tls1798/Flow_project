@@ -115,12 +115,6 @@
                     <!-- 우측 아이콘 -->
                     <div id="rightTopMenu" class="top-btns">
 
-                        <!-- 채팅 기능 추후 구현 -->
-                        <button type="button" id="chattingTopButton" class="btn-chatting" mouseover-text="채팅">
-                            <i class="icon-chatting"></i>
-                            <i id="chatTopCount" class="label-chat" style="display: none;">0</i>
-                        </button>
-
                         <!-- 알림 아이콘 -->
                         <button type="button" id="alarmTopButton" class="btn-alarm" data-toggle="tooltip"
                             data-bs-placement="bottom" title="알림">
@@ -638,53 +632,14 @@
                                         <ul id="projectBoardUl" class="project-group clearfix">
         
                                             <!-- 즐겨찾기 -->
-                                            <div class="section-1">
+                                            <div id="MyStarProject" class="section-1" style="display: none;">
                                                 <p class="project-class">즐겨찾기</p>
                                             </div>
-                                            <li class="project-item ui-state-default">
-                                                <a class="cursor-pointer">
-
-                                                    <!-- 알림 배지 -->
-                                                    <div class="flow-content-ct project-badge" style="display:none">0</div>
-                                                    
-                                                    <!-- 좌측 color -->
-                                                    <div class="color-code left-menu-type-1 color-code-1"></div>
-                                                    <div class="left-menu-type-con">
-
-                                                        <!-- 즐겨찾기 -->
-                                                        <div class="project-star flow-content-star"></div>
-
-                                                        <!-- 프로젝트 제목 -->
-                                                        <div class="flow-content-txt project-ttl">즐겨찾기 프로젝트</div>
-
-                                                        <!-- 참가자 -->
-                                                        <div class="flow-content-b-c" style="display:block">
-                                                            <div class="flow-content-hm-txt"><i class="bi bi-person"></i></div>
-                                                            <span class="member-cnt">6</span>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
         
                                             <!-- 참여중 -->
-                                            <div class="section-2 middle-line">
+                                            <div id="MyProject" class="section-2 middle-line">
                                                 <p class="project-class join">참여중</p>
                                             </div>
-                                            <li class="project-item ui-state-default">
-                                                <a class="cursor-pointer">
-                                                    <div class="flow-content-ct project-badge" style="display:inline-block">1
-                                                    </div>
-                                                    <div class="color-code left-menu-type-1 color-code-1"></div>
-                                                    <div class="left-menu-type-con">
-                                                        <div class="project-star flow-content-star flow-content-star-un"></div>
-                                                        <div class="flow-content-txt project-ttl">테스트 프로젝트</div>
-                                                        <div class="flow-content-b-c" style="display:block">
-                                                            <div class="flow-content-hm-txt"><i class="bi bi-person"></i></div>
-                                                            <span class="member-cnt">3</span>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -926,42 +881,17 @@
                                                 <ul id="participantsUl" class="participants-list">
 
                                                     <!-- 프로젝트 관리자 -->
-                                                    <span class="participants-title">
+                                                    <span class="participants-title participants-admin-span">
                                                         <em>프로젝트 관리자</em>
                                                         <span id="managerParticipantsCount" class="number-of-participants">1</span>
                                                     </span>
-                                                    <li class="js-participant-item" data-id="kakao_2316948930">
-                                                        <div class="post-author">
-                                                            <span class="js-participant-profile thumbnail size40 radius16" data=""></span>
-                                                            <dl class="post-author-info">
-                                                                <dt>
-                                                                    <strong class="js-participant-name author ellipsis">신재승 (나) </strong>
-                                                                    <em class="position ellipsis" style="display:none" data=""></em>
-                                                                </dt>
-                                                            </dl>
-                                                        </div>
-                                                    </li>
                                                     <!-- //프로젝트 관리자 -->
 
                                                     <!-- 참여자 -->
-                                                    <span class="participants-title">
+                                                    <span class="participants-title participants-member-span">
                                                         <em>참여자</em>
                                                         <span id="managerParticipantsCount" class="number-of-participants">1</span>
                                                     </span>
-
-                                                    <!-- 반복 -->
-                                                    <li class="js-participant-item" data-id="kakao_2316948930">
-                                                        <div class="post-author">
-                                                            <span class="js-participant-profile thumbnail size40 radius16" data=""></span>
-                                                            <dl class="post-author-info">
-                                                                <dt>
-                                                                    <strong class="js-participant-name author ellipsis">신재승</strong>
-                                                                    <em class="position ellipsis" style="display:none" data=""></em>
-                                                                </dt>
-                                                            </dl>
-                                                        </div>
-                                                    </li>
-                                                    <!-- //반복 -->
                                                     <!-- //참여자 -->
 
                                                 </ul>
