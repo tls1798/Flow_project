@@ -1,5 +1,6 @@
 package com.flow.project.controller.apicontroller;
 
+import com.flow.project.domain.AuthDTO;
 import com.flow.project.service.MembersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

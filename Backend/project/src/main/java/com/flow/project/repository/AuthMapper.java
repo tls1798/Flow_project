@@ -11,15 +11,15 @@ import org.apache.ibatis.annotations.Select;
 public interface AuthMapper {
 
     // userDetailsService 클래스에서 사용
-    @Select("SELECT * FROM \"Members\" WHERE mem_mail = #{email}")
-    Members findByEmail(String email);
+    @Select("SELECT * FROM \"Members\" WHERE mem_mail = #{memMail}")
+    Members findByEmail(String memMail);
 
-    @Select("SELECT mem_no FROM \"Members\" WHERE mem_mail = #{email}")
-    int findNo(String email);
+    @Select("SELECT mem_no FROM \"Members\" WHERE mem_mail = #{memMail}")
+    int findNo(String memMail);
 
     // AuthService에서 리프레쉬 토큰 발급시 사용
-    @Select("SELECT refresh_token FROM \"RefreshToken\" WHERE refresh_token = #{memNo}")
-    String findByrefreshToken(String refreshToken);
+    @Select("SELECT refresh_token FROM \"RefreshToken\" WHERE mem_No = #{memNo}")
+    String findByrefreshToken(int memNo);
 
     // 토큰 회원 정보가 있으면 update / 없으면 insert /하기 위해서 회원정보 조회
     @Select("SELECT mem_no from \"RefreshToken\" WHERE mem_no = #{memNo}")

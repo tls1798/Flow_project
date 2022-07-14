@@ -1,6 +1,7 @@
 package com.flow.project.service;
 
 import com.flow.project.domain.Members;
+import com.flow.project.jwt.JwtProvider;
 import com.flow.project.repository.MembersMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +15,7 @@ import java.util.List;
 public class MembersService {
     final
     MembersMapper mem;
+    private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
 
     // 한명 찾기 테스트

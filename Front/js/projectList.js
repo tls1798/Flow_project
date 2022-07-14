@@ -1,10 +1,15 @@
 $(function(){
     // 프로젝트 리스트 업데이트 함수
-    const updateProjectList = function(){
+    const updateProjectList = function () {
+        let accessToken= window.localStorage.getItem('accessToken');
+        let memNo= window.localStorage.getItem('memNo');
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8080/api/members/13/rooms',
+            url: 'http://localhost:8080/api/members/'+memNo+'/rooms',
             contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {      
+                xhr.setRequestHeader("token",accessToken);
+               },
             success: function (result, status, xhr) {
                 for(var i=0; i<result.length; i++){
                     // 즐겨찾는 프로젝트
@@ -61,7 +66,23 @@ $(function(){
                 else
                     $('#MyProject').css('display', 'none');
             },
-            error: function (xhr, status, err) {}
+            error: function (xhr, status, err) {
+                let refreshToken = window.localStorage.getItem('refreshToken');
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8080/api/auth/get-newToken',
+                    data: JSON.stringify({ refreshToken:refreshToken}),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result, status, xhr) {
+                        let accessToken = result.accessToken;
+                        window.localStorage.setItem('accessToken', accessToken);                     
+                    },
+                    error: function (xhr, status, err) { 
+                        alert('로그인을 다시 해주세요');
+                         location.href = 'login.html'
+                    }
+                });
+            }
         });
     }
 

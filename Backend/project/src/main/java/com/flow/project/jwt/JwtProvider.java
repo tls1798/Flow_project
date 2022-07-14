@@ -2,7 +2,6 @@ package com.flow.project.jwt;
 
 import com.flow.project.domain.AuthDTO;
 import com.flow.project.domain.RefreshToken;
-import com.flow.project.handler.ErrorCode;
 import com.flow.project.repository.AuthMapper;
 import com.flow.project.service.CustomUserDetailService;
 import io.jsonwebtoken.*;
@@ -22,13 +21,10 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class JwtProvider {
-    private final String secretKeyA = "c88d74ba-155fsdllfsa-fsad8a4-b549-b23fsdf7c9e";
-    private final String secretKeyB = "c88fdsfasda-1fdsf4-423fdsaf4-b549-b92623fsdaf77c9e";
     private final AuthMapper authMapper;
-    //    private long accessExpireTime = (60 * 60 * 1000L) * 3; // 3시간 후
-    private final long accessExpireTime = 1 * 60 * 1000L;   // 1분
-    //    private long refreshExpireTime =  ((60 * 60 * 1000L) * 24) * 60; // 60일
-    private final long refreshExpireTime = (1 * 60 * 1000L) * 5;   // 10분
+    private final long accessExpireTime = (30 * 60 * 1000L) * 1;   // 30분 후
+
+    private final long refreshExpireTime = (60 * 60 * 1000L) * 8;   // 8시간
     private final CustomUserDetailService customUserDetailService;
     private String mail;
 
@@ -47,7 +43,7 @@ public class JwtProvider {
                 .setClaims(payloads)
                 .setSubject("user")
                 .setExpiration(accessTokenExpiresIn)
-                .signWith(SignatureAlgorithm.HS256, secretKeyA)
+                .signWith(SignatureAlgorithm.HS256, "${jwt.secretA}")
                 .compact();
 
         return jwt;
@@ -64,7 +60,7 @@ public class JwtProvider {
                 .builder()
                 .setHeader(headers)
                 .setExpiration(expiration)
-                .signWith(SignatureAlgorithm.HS256, secretKeyB)
+                .signWith(SignatureAlgorithm.HS256, "${jwt.secretB}")
                 .compact();
 
         return jwt;
@@ -78,6 +74,7 @@ public class JwtProvider {
         String refreshToken = refreshToken(loginDTO);
 
         loginDTO.setMemNo(authMapper.findNo(loginDTO.getMemMail()));
+        result.put("memNo", loginDTO.getMemNo());
         result.put("accessToken", accessToken);
         result.put("refreshToken", refreshToken);
         RefreshToken insertOrUpdateRefreshToken = RefreshToken.builder()
@@ -106,17 +103,17 @@ public class JwtProvider {
             loginDTO.setMemMail(mail);
             loginDTO.setMemNo(authMapper.findNo(loginDTO.getMemMail()));
             // DB에 일치하는 토큰인지
-            if (refreshToken.equals(authMapper.findByrefreshToken(String.valueOf(loginDTO.getMemNo())))) {
+            if (refreshToken.equals(authMapper.findByrefreshToken(loginDTO.getMemNo()))) {
                 String newToken = createAccessToken(loginDTO);
                 result.put("accessToken", newToken);
-            }
-            else
-                 throw new RuntimeException("Refresh 토큰이 일치하지 않습니다 ");
+            } else
+                throw new RuntimeException("Refresh 토큰이 일치하지 않습니다 ");
         } else {
             // RefreshToken 또한 만료된 경우는 로그인을 다시 진행해야 한다.
-            result.put("code", ErrorCode.ReLogin.getCode());
-            result.put("message", ErrorCode.ReLogin.getMessage());
-            result.put("HttpStatus", ErrorCode.ReLogin.getStatus());
+            throw new RuntimeException("Refresh 토큰이 만료되었습니다 ");
+//            result.put("code", ErrorCode.ReLogin.getCode());
+//            result.put("message", ErrorCode.ReLogin.getMessage());
+//            result.put("HttpStatus", ErrorCode.ReLogin.getStatus());
         }
         return result;
     }
@@ -126,7 +123,7 @@ public class JwtProvider {
     public boolean validateJwtAToken(ServletRequest request, String accessToken) {
 
         try {
-            Jwts.parser().setSigningKey(secretKeyA).parseClaimsJws(accessToken);
+            Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(accessToken);
             return true;
 
         } catch (MalformedJwtException e) {
@@ -150,7 +147,7 @@ public class JwtProvider {
     public boolean validateJwtRToken(ServletRequest request, String refreshToken) {
 
         try {
-            Jwts.parser().setSigningKey(secretKeyB).parseClaimsJws(refreshToken);
+            Jwts.parser().setSigningKey("${jwt.secretB}").parseClaimsJws(refreshToken);
             return true;
 
         } catch (MalformedJwtException e) {
@@ -178,6 +175,8 @@ public class JwtProvider {
 
     // 토큰을 파싱해서 유저의 정보를 얻는다
     public String getUserInfo(String token) {
-        return (String) Jwts.parser().setSigningKey(secretKeyA).parseClaimsJws(token).getBody().get("memMail");
+        return (String) Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(token).getBody().get("memMail");
     }
+
+
 }
