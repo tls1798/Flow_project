@@ -39,6 +39,7 @@ $(function(){
         }
     })
 
+
     // 참여자 리스트 업데이트 함수
     const updateParticipant = function(rmNo){
         $.ajax({
@@ -93,8 +94,204 @@ $(function(){
 
     // 프로젝트 선택
     $(document).on('click', '.project-item', function(e){
+
         // 참여자 리스트 업데이트
         updateParticipant($(this).attr('data-id'));
+
+        // 글, 댓글 가져오기
+        getPostAll($(this).attr('data-id'));
     })
     
+
+
+    // 프로젝트 선택 시 해당 프로젝트에 있는 글 조회
+    const getPostAll = function(rmNo){
+
+        // getPosts
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/api/rooms/'+rmNo+'/posts',
+            contentType: 'application/json; charset=utf-8',
+            success: function(result, status, xhr){
+
+                // 초기화
+                $('#detailUl').find('li').remove();
+                $('#detailUl').find('div').remove();
+                
+                // 게시글 없을 때
+                if(result.length == 0){
+                    $('#detailUl').append(`
+                        <div id="noDetailData" class="detail-data-none">
+                            <img src="https://flow.team/flow-renewal/assets/images/none_member.png" alt="함께할 멤버들을 지금 초대해 보세요!"/>
+                            <p class="none-text">아직 참여중인 멤버들이 없습니다<br>
+                                함께할 멤버들을 지금 초대해 보세요!</p>
+                            <button id="noDetailDataBnt" type="button" class="data-none-button invite">초대하기</button>
+                        </div>
+                    `);
+                } else{
+
+                    // 게시글 있을 때
+                    for(var i=0;i<result.length;i++){
+                        $('#detailUl').append(`
+                            <li id="post-`+result[i].posts.postNo+`" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="1414722" data-post-srno="18077733" data-remark-srno="" data-section-srno="" data-rgsr-id="kakao_2316948930" mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
+                                <div class="js-post-nav card-item post-card-wrapper write2 ">
+                                    <div class="post-card-header">
+                                        <div class="post-card-scroll">
+                                            <div class="card-header-top">
+                                                <div class="post-author js-post-author" data-author-id="`+result[i].posts.postName+`">
+                                                    <span class="thumbnail size40 radius16" data=""></span>
+                                                    <dl class="post-author-info">
+                                                        <dt>
+                                                            <strong class="author ellipsis">`+result[i].posts.postName+`</strong>
+                                                            <em class="position ellipsis" style="display:inline" data=""></em>
+                                                            <span class="date">`+result[i].posts.postDatetime+`</span>
+                                                            <span class="post-security"> <i class="bi bi-people" mouseover-text="전체 공개"></i></span>
+                                                        </dt>
+                                                    </dl>
+                                                </div>
+                                                <div>
+                                                    <div class="post-option">
+                                                        <button id="movePost" class="btn-go" style="display: none;">
+                                                            게시글 바로가기
+                                                        </button>
+                                                        <button id="pinToTopBnt" class="js-pin-post fixed-btn js-pin-authority " style="display:block" data="">
+                                                            <!-- fixed-btn on class -->
+                                                            <span class="blind">상단 고정 등록</span>
+                                                        </button>
+                                                        <button id="postSetting" class="js-setting-button set-btn">
+                                                            <i class="bi bi-three-dots-vertical"></i>
+                                                        </button>
+                                                        <ul class="js-setting-ul js-setting-layer setup-group" style="display: none;">
+                                                            <li class="js-setting-item" data-code="modify" style="display:block" data="">
+                                                                <a href="#"><i class="bi bi-card-text"></i>수정</a>
+                                                            </li>
+                                                            <li class="js-setting-item" data-code="delete" style="display:block" data="">
+                                                                <a href="#"> <i class="bi bi-trash"></i>삭제</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="js-card-header-bottom card-header-bottom ">
+                                                <div class="post-title-area">
+                                                    <h4 class="js-post-title post-title ">`+result[i].posts.postTitle+`</h4>
+                                                </div>
+                                            </div>
+                                            <div class="post-card-container">
+                                                <div id="originalPost" class="post-card-content " style="display:block" data=""><div>`+result[i].posts.postContent+`</div></div>
+                                                <div id="summaryPost" class="post-card-content hidden" style="display:none" data=""><div>`+result[i].posts.postContent+`</div></div>
+                                                <button id="postMoreButton" type="button" class="js-contents-more-btn post-more-btn" style="display:none" data="">더보기</button>
+                                                <div id="summaryFoldArea" class="content-fold" style="display:none" data=""></div>
+                                                <div class="post-bottom-area">
+                                                    <div class="post-bottom-menu js-reaction-bookmark">
+                                                        <div class="bottom-button-area">
+                                                            <button class="js-post-reaction post-bottom-button ">
+                                                                <i class="icon-reaction"></i>
+                                                                <span>좋아요</span>
+                                                            </button>
+                                                            <button class="js-post-bookmark post-bottom-button ">
+                                                                <i class="icon-bookmark"></i>
+                                                                <span>북마크</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="cmt-read-wr">
+                                                        <div class="comment-count-area">
+                                                            <span>댓글</span>
+                                                            <span class="comment-count">0</span>
+                                                        </div>
+                                                        <div class="js-read-check-button read-confirmation" style="display:block" data="">
+                                                            <span>읽음</span>
+                                                            <span class="confirmation-number">1</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="post-card-footer js-comment-area">
+                                                <div class="comment-header">
+                                                    <button type="button" class="js-remark-prev-button comment-more-button ">
+                                                        이전 댓글 더보기 (0)
+                                                    </button>
+                                                </div>
+                                                <ul class="post-comment-group"></ul>
+                                            </div>
+                                            <div class="js-remark-layer js-edit-layer comment-input-wrap">
+                                                <div class="comment-thumbnail">
+                                                    <span class="thumbnail size40 radius16" data=""></span>
+                                                </div>
+                                                <form class="js-remark-form comment-container on ">
+                                                    <fieldset>
+                                                        <legend class="blind">댓글 입력</legend>
+                                                        <div class="js-remark-area js-paste-layer comment-input" contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        `)
+                    
+                        // 댓글 가져오기
+                        for(var j=0;j<result[i].commentsList.length;j++){ 
+                            $('.post-comment-group').append(`
+                                <li class="remark-item" remark-srno="`+result[i].commentsList[j].cmNo+`" data-user-id="`+result[i].commentsList[j].cmWriter+`">
+                                    <div class="comment-thumbnail js-comment-thumbnail">
+                                        <span class="thumbnail size40 radius16" data=""></span>
+                                    </div>
+                                    <div class="js-remark-view comment-container on ">
+                                        <div class="comment-user-area">
+                                            <div class="comment-user">
+                                                <span class="user-name js-comment-user-name">`+result[i].commentsList[j].cmName+`</span>
+                                                <span class="user-position"></span>
+                                                <span class="record-date">"`+result[i].commentsList[j].cmDatetime+`"</span>
+                                                <div class="js-remark-like comment-like ">
+                                                    <span class="js-remark-like-button"><em class="txt-like">좋아요</em></span>
+                                                    <span class="js-remark-like-count comment-like-count ">0</span>
+                                                </div>
+                                            </div>
+                                            <div class="comment-writer-menu">
+                                                <button type="button" class="js-remark-update js-remark-edit-button comment-writer-button ">
+                                                    수정</button>
+                                                <button type="button" class="js-remark-delete js-remark-edit-button comment-writer-button ">
+                                                    삭제</button>
+                                            </div>
+                                        </div>
+                                        <div class="js-remark-layer comment-content">
+                                            <div class="comment-text-area">
+                                                <div class="js-remark-text comment-text"><div>`+result[i].commentsList[j].cmContent+`</div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="js-remark-edit comment-container">
+                                        <div class="js-remark-layer comment-content modify">
+                                            <form class="js-remark-form comment-text-area d-none">
+                                                <fieldset>
+                                                    <legend class="blind">댓글 입력</legend>
+                                                    <div class="js-remark-area js-paste-layer comment-input" contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                        <div class="comment-like-area d-none">
+                                            <div class="js-remark-like comment-like ">
+                                                <span class="js-remark-like-button"><em class="txt-like">좋아요</em></span>
+                                                <span class="js-remark-like-count comment-like-count ">0</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            `)
+                        }
+                    }
+                }
+            },
+            error: function(xhr, status, err){
+                console.log('err')
+            }
+        })
+    }
+    
+    $('#projectBoardUl li').on('click',function(e){
+
+    })
 });

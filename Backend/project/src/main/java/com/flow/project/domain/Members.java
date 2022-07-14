@@ -13,11 +13,11 @@ import java.util.Collection;
 @Getter
 @Setter
 public class Members implements UserDetails {
+
     private long memNo;
     private String memName;
     private String memMail;
     private String memPw;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

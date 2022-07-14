@@ -11,5 +11,4 @@ public class RefreshToken {
     private String userEmail;
     private long memNo;
     private String refreshToken;
-
 }

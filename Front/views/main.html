@@ -297,14 +297,14 @@
                                     <button class="js-complete-btn create-button create-post-submit" style="display: inline-block;">올리기</button>
                                     <div class="js-editing-buttons d-none" style="display: none;">
                                         <button type="button" class="cancel-button create-post-button">취소</button>
-                                        <button type="button" class="js-complete-btn edit-button create-post-button confirm">확인</button>
+                                        <button type="button" id="createPostSubmit" class="js-complete-btn edit-button create-post-button confirm">확인</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- 오른쪽 글 카드 -->
-                        <li id="post-18102677" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="1414722" data-post-srno="18102677" data-remark-srno="-1" data-section-srno="" data-vote-srno="" data-rgsr-id="kakao_2316948930" mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="Y" status="" todo-done-percent="" time="" data-code="VIEW" data-post-url="https://flow.team/l/04OVF" style="display: none;">
+                        <li id="post-18102677" class="js-popup-before detail-item back-area d-none" data-read-yn="Y" data-project-srno="1414722" data-post-srno="18102677" data-remark-srno="-1" data-section-srno="" data-vote-srno="" data-rgsr-id="kakao_2316948930" mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="Y" status="" todo-done-percent="" time="" data-code="VIEW" data-post-url="https://flow.team/l/04OVF" >
                             <div class="js-post-nav card-item post-card-wrapper write2 side">
                                 <div class="post-popup-header card-popup-header" style="display: block;">
                                     <h3 class="card-popup-title">
@@ -736,126 +736,6 @@
                                         </div>
                                         <div class="feed-content">
                                             <ul id="detailUl" class="post-group post-card" style="display: block;">
-
-                                                <!-- 게시글 없을때 -->
-                                                <div id="noDetailData" class="detail-data-none">
-                                                    <img src="https://flow.team/flow-renewal/assets/images/none_member.png" alt="함께할 멤버들을 지금 초대해 보세요!"/>
-                                                    <p class="none-text">아직 참여중인 멤버들이 없습니다<br>
-                                                    함께할 멤버들을 지금 초대해 보세요!</p>
-                                                    <button id="noDetailDataBnt" type="button" class="data-none-button invite">초대하기</button>
-                                                </div>
-                                                <!-- //게시글 없을때 -->
-
-                                                <!-- 게시글 있을 때 -->
-                                                <li id="post-18077733" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="1414722" data-post-srno="18077733" data-remark-srno="" data-section-srno="" data-vote-srno="" data-rgsr-id="kakao_2316948930" mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" status="" todo-done-percent="" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh" style="display: none;">
-                                                    <div class="js-post-nav card-item post-card-wrapper write2 ">
-                                                        <div class="post-card-header">
-                                                            <div class="post-card-scroll">
-                                                                <div class="card-header-top">
-                                                                    <div class="post-author js-post-author" data-author-id="kakao_2316948930">
-                                                                        <span class="thumbnail size40 radius16" data=""></span>
-                                                                        <dl class="post-author-info">
-                                                                            <dt>
-                                                                                <strong class="author ellipsis">신재승</strong>
-                                                                                <em class="position ellipsis" style="display:inline" data=""></em>
-                                                                                <span class="date">2022-07-11 14:21</span>
-                                                                                <span class="post-security"> <i class="bi bi-people" mouseover-text="전체 공개"></i></span>
-                                                                            </dt>
-                                                                        </dl>
-                                                                    </div>
-                                                                    <div>
-                                                                        <div class="post-option">
-                                                                            <button id="movePost" class="btn-go" style="display: none;">
-                                                                                게시글 바로가기
-                                                                            </button>
-                                                                            <button id="pinToTopBnt" class="js-pin-post fixed-btn js-pin-authority " style="display:block" data="">
-                                                                                <!-- fixed-btn on class -->
-                                                                                <span class="blind">상단 고정 등록</span>
-                                                                            </button>
-                                                                            <button id="postSetting" class="js-setting-button set-btn">
-                                                                                <i class="bi bi-three-dots-vertical"></i>
-                                                                            </button>
-                                                                            <ul class="js-setting-ul js-setting-layer setup-group" style="display: none;">
-                                                                                <li class="js-setting-item" data-code="modify" style="display:block" data="">
-                                                                                    <a href="#"><i class="bi bi-card-text"></i>수정</a>
-                                                                                </li>
-                                                                                <li class="js-setting-item" data-code="delete" style="display:block" data="">
-                                                                                    <a href="#"> <i class="bi bi-trash"></i>삭제</a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="js-card-header-bottom card-header-bottom ">
-                                                                    <div class="post-title-area">
-                                                                        <h4 class="js-post-title post-title ">제목</h4>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="post-card-container">
-                                                                    <div id="originalPost" class="post-card-content " style="display:block" data=""><div>내용</div></div>
-
-                                                                    <!-- 글 내용 많을 때 요약 -->
-                                                                    <div id="summaryPost" class="post-card-content hidden" style="display:none" data=""><div>내용</div></div>
-                                                                    <!-- //글 내용 많을 때 요약 -->
-
-                                                                    <button id="postMoreButton" type="button" class="js-contents-more-btn post-more-btn" style="display:none" data="">더보기</button>
-                                                                    <div id="summaryFoldArea" class="content-fold" style="display:none" data=""></div>
-                                                                    <div class="post-bottom-area">
-                                                                        <div class="post-bottom-menu js-reaction-bookmark">
-                                                                            <div class="bottom-button-area">
-                                                                                <button class="js-post-reaction post-bottom-button ">
-                                                                                    <i class="icon-reaction"></i>
-                                                                                    <span>좋아요</span>
-                                                                                </button>
-                                                                                <button class="js-post-bookmark post-bottom-button ">
-                                                                                    <i class="icon-bookmark"></i>
-                                                                                    <span>북마크</span>
-                                                                                </button>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="cmt-read-wr">
-                                                                            <div class="comment-count-area">
-                                                                                <span>댓글</span>
-                                                                                <span class="comment-count">0</span>
-                                                                            </div>
-                                                                            <div class="js-read-check-button read-confirmation" style="display:block" data="">
-                                                                                <span>읽음</span>
-                                                                                <span class="confirmation-number">1</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- //post-card-container -->
-
-                                                                </div>
-
-                                                                <!-- 글 카드 footer -->
-                                                                <div class="post-card-footer js-comment-area">
-                                                                    <div class="comment-header">
-                                                                        <button type="button" class="js-remark-prev-button comment-more-button ">
-                                                                            이전 댓글 더보기 (0)
-                                                                        </button>
-                                                                    </div>
-                                                                    <ul class="post-comment-group"></ul>
-                                                                </div>
-                                                                <div class="js-remark-layer js-edit-layer comment-input-wrap">
-                                                                    <div class="comment-thumbnail">
-                                                                        <span class="thumbnail size40 radius16" data=""></span>
-                                                                    </div>
-                                                                    <form class="js-remark-form comment-container on ">
-                                                                        <fieldset>
-                                                                            <legend class="blind">댓글 입력</legend>
-                                                                            <div class="js-remark-area js-paste-layer comment-input" contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
-                                                                        </fieldset>
-                                                                    </form>
-                                                                </div>
-                                                                <!-- //글 카드 footer -->
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <!-- //게시글 있을 때 -->
-
                                             </ul>
                                         </div>
                                     </div>

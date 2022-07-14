@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -14,10 +15,15 @@ public class PostsApiController {
     final PostsService postsService;
 
     //  특정 프로젝트 방 전체 글 가져오기
-    @GetMapping("/rooms/{rmNo}/posts")
-    public ResponseEntity<?> getPosts(@PathVariable int rmNo){
-        return ResponseEntity.status(HttpStatus.OK).body(postsService.getPosts(rmNo));
-    }
+//    @GetMapping("/rooms/{rmNo}/posts")
+//    public ResponseEntity<?> getPosts(@PathVariable int rmNo){
+//        return ResponseEntity.status(HttpStatus.OK).body(postsService.getPosts(rmNo));
+//    }
+
+//    @GetMapping("/rooms/{rmNo}/posts")
+//    public ResponseEntity<?> getPosts(@PathVariable int rmNo){
+//        return ResponseEntity.status(HttpStatus.OK).body(postsService.getPosts(rmNo));
+//    }
 
     //  특정 프로젝트 방 특정 글 하나 가져오기
     @GetMapping("/rooms/{rmNo}/posts/{postNo}")
