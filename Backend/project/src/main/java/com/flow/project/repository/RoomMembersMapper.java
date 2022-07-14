@@ -15,7 +15,8 @@ public interface RoomMembersMapper {
 
     // 멤버 별 프로젝트 리스트
     @Select("select rmmems.rm_no, rms.rm_title, " +
-            "(select count(*) from \"Room_Members\" as rmmems2 where rmmems2.rm_no=rmmems.rm_no group by rm_no) as rm_mem_count " +
+            "(select count(*) from \"Room_Members\" as rmmems2 where rmmems2.rm_no=rmmems.rm_no group by rm_no) as rm_mem_count, " +
+            "(select rm_no from \"Favorites\" where rm_no=rmmems.rm_no) as favorite_project " +
             "from \"Room_Members\" as rmmems " +
             "inner join \"Rooms\" as rms on rmmems.rm_no=rms.rm_no " +
             "and rmmems.mem_no=#{memNo}")

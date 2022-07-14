@@ -191,7 +191,7 @@
     text-align: center;
     z-index: 2;
 }
-.tooltip {
+.create-button-group .tooltip {
     padding: 9px 14px;
     background: #fff;
     border: 1px solid #555;
