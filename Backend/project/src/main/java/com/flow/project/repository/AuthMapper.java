@@ -14,15 +14,25 @@ public interface AuthMapper {
     @Select("SELECT * FROM \"Members\" WHERE mem_mail = #{email}")
     Members findByEmail(String email);
 
+    @Select("SELECT mem_no FROM \"Members\" WHERE mem_mail = #{email}")
+    int findNo(String email);
+
     // AuthService에서 리프레쉬 토큰 발급시 사용
-    @Select("SELECT refresh_token FROM \"RefreshToken\" WHERE access_token = #{accessToken}")
-    String findRefreshTokenByaccessToken(String accessToken);
+    @Select("SELECT refresh_token FROM \"RefreshToken\" WHERE refresh_token = #{memNo}")
+    String findByrefreshToken(String refreshToken);
+
+    // 토큰 회원 정보가 있으면 update / 없으면 insert /하기 위해서 회원정보 조회
+    @Select("SELECT mem_no from \"RefreshToken\" WHERE mem_no = #{memNo}")
+    int checkone(int memNo);
 
     // 리프레쉬 토큰 발급 시 insert or update 시 사용
     @Options(keyColumn = "idx", useGeneratedKeys = true)
-    @Insert("Insert into \"RefreshToken\" (user_email, access_token, refresh_token) values(#{userEmail},#{accessToken},#{refreshToken})")
-    void insertOrUpdateRefreshToken(RefreshToken refreshToken);
+    @Insert("Insert into \"RefreshToken\" (user_email, mem_no,refresh_token) values(#{userEmail},#{memNo},#{refreshToken})")
+    void insertefreshToken(RefreshToken refreshToken);
 
-    @Select("Select idx from \"RefreshToken\" where refresh_token = #{refreshToken}")
-    void selectidxRefreshToken(String refresh_token);
+    @Options(keyColumn = "idx", useGeneratedKeys = true)
+    @Insert("Update \"RefreshToken\" set refresh_token=#{refreshToken} where mem_no=#{memNo}")
+    void UpdateRefreshToken(RefreshToken refreshToken);
+
+
 }

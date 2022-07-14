@@ -14,6 +14,7 @@ public class AuthDTO {
     @Getter
     @Setter
     public static class LoginDTO {
+        int memNo;
         @NotBlank
         @ApiModelProperty(value = "아이디", example = "admin@naver.com", required = true)
         private String memMail;
@@ -30,9 +31,11 @@ public class AuthDTO {
     @Setter
     public static class GetNewAccessTokenDTO {
 
-//        @ApiModelProperty(value = "Refresh Token Index", example = "1", required = true)
+        //        @ApiModelProperty(value = "Refresh Token Index", example = "1", required = true)
 //        private long refreshIdx;
+
         private String accessToken;
+        private String refreshToken;
     }
 
 }

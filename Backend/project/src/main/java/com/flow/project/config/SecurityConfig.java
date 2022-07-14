@@ -1,7 +1,6 @@
 package com.flow.project.config;
 
 import com.flow.project.handler.AuthenticationEntryPointHandler;
-import com.flow.project.handler.WebAccessDeniedHandler;
 import com.flow.project.jwt.JwtAuthenticationFilter;
 import com.flow.project.jwt.JwtProvider;
 import com.flow.project.service.CustomUserDetailService;
@@ -16,12 +15,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -30,12 +25,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtProvider jwtProvider;
-    private final WebAccessDeniedHandler webAccessDeniedHandler;
     private final AuthenticationEntryPointHandler authenticationEntryPointHandler;
     private final CustomUserDetailService customUserDetailService;
 
     // AuthenticationManagerBuilder의 passwordEncoder()를 통해
-    // 패스워드 암호화에 사용될 PasswordEncoder 구현체를 지정할 수 있습니다.
+    // 패스워드 암호화에 사용될 PasswordEncoder 구현체를 지정할 수 있다
     @Override
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder());
@@ -45,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     @Override
@@ -69,12 +64,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-//                .antMatchers("/api/*","/").permitAll()
-                .anyRequest().permitAll()
+                .antMatchers("/api/auth/*", "/api/auth/members/new").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPointHandler)
-                .accessDeniedHandler(webAccessDeniedHandler)
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
     }

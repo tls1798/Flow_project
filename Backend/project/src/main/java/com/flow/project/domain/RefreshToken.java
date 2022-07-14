@@ -9,7 +9,7 @@ public class RefreshToken {
 
     private long idx;
     private String userEmail;
-    private String accessToken;
+    private long memNo;
     private String refreshToken;
-    private String refreshTokenExpirationAt;
+
 }

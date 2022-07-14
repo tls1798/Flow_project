@@ -24,7 +24,7 @@ public class AuthenticationEntryPointHandler implements AuthenticationEntryPoint
         /**
          * 토큰이 없는 경우 예외처리
          */
-        if(exception == null) {
+        if (exception == null) {
             errorCode = ErrorCode.UNAUTHORIZEDException;
             setResponse(response, errorCode);
             return;
@@ -33,7 +33,7 @@ public class AuthenticationEntryPointHandler implements AuthenticationEntryPoint
         /**
          * 토큰이 만료된 경우 예외처리
          */
-        if(exception.equals("ExpiredJwtException")) {
+        if (exception.equals("ExpiredJwtException")) {
             errorCode = ErrorCode.ExpiredJwtException;
             setResponse(response, errorCode);
             return;
