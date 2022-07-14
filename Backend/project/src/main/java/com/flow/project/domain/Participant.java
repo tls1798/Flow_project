@@ -12,5 +12,6 @@ public class Participant {
     private int rmNo;
     private int memNo;
     private int rmAdmin;
+    private String adminName;
     private String memName;
 }

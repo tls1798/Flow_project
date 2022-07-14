@@ -22,7 +22,7 @@ public interface RoomMembersMapper {
     List<ProjectListData> selectRooms(int memNo);
 
     // 프로젝트 별 참여자 리스트
-    @Select("select rmmems.rm_no, rmmems.mem_no, rms.rm_admin, mems.mem_name " +
+    @Select("select rmmems.rm_no, rmmems.mem_no, rms.rm_admin, (select mems2.mem_name as admin_name from \"Members\" mems2 where mem_no=rms.rm_admin), mems.mem_name " +
             "from \"Room_Members\" as rmmems " +
             "inner join \"Rooms\" as rms on rmmems.rm_no=rms.rm_no AND rmmems.rm_no = #{rmNo} " +
             "inner join \"Members\" mems on rmmems.mem_no=mems.mem_no")
