@@ -1,4 +1,7 @@
 $(function(){
+    let accessToken= window.localStorage.getItem('accessToken');
+    let memNo= window.localStorage.getItem('memNo');
+
     // 프로젝트 디테일 창 display:none -> false, block -> true
     var proejctDetailBool = false;
 
@@ -39,11 +42,30 @@ $(function(){
     $('#detailSettingProjectExitBtn').click(function(){
         $.ajax({
             type: 'DELETE',
-            url: 'http://localhost:8080/api/room-members/7',
-            data: JSON.stringify({"rmNo":9, "memNo":7}),
+            url: 'http://localhost:8080/api/room-members/'+$('#detailSettingProjectSrno').text(),
+            data: JSON.stringify({"rmNo":$('#detailSettingProjectSrno').text(), "memNo":memNo}),
             contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {      
+                xhr.setRequestHeader("token",accessToken);
+            },
             success: function (result, status, xhr) {},
-            error: function (xhr, status, err) {}
+            error: function (xhr, status, err) {
+                let refreshToken = window.localStorage.getItem('refreshToken');
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8080/api/auth/get-newToken',
+                    data: JSON.stringify({ refreshToken:refreshToken}),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result, status, xhr) {
+                        let accessToken = result.accessToken;
+                        window.localStorage.setItem('accessToken', accessToken);                     
+                    },
+                    error: function (xhr, status, err) { 
+                        alert('로그인을 다시 해주세요');
+                        location.href = 'login.html'
+                    }
+                });
+            }
         });
     });
 
@@ -59,13 +81,30 @@ $(function(){
 
     // 프로젝트 삭제
     $('#detailSettingProjectDeleteBtn').click(function(){
-        console.log('삭제버튼클릭');
         $.ajax({
             type: 'DELETE',
-            url: 'http://localhost:8080/api/rooms/7',
-            //contentType: 'application/json; charset=utf-8',
+            url: 'http://localhost:8080/api/rooms/'+$('#detailSettingProjectSrno').text(),
+            beforeSend: function (xhr) {      
+                xhr.setRequestHeader("token",accessToken);
+            },
             success: function (result, status, xhr) {},
-            error: function (xhr, status, err) {}
+            error: function (xhr, status, err) {
+                let refreshToken = window.localStorage.getItem('refreshToken');
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8080/api/auth/get-newToken',
+                    data: JSON.stringify({ refreshToken:refreshToken}),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result, status, xhr) {
+                        let accessToken = result.accessToken;
+                        window.localStorage.setItem('accessToken', accessToken);                     
+                    },
+                    error: function (xhr, status, err) { 
+                        alert('로그인을 다시 해주세요');
+                        location.href = 'login.html'
+                    }
+                });
+            }
         });
     });
 });

@@ -1,4 +1,7 @@
 $(function(){
+    let accessToken= window.localStorage.getItem('accessToken');
+    let memNo= window.localStorage.getItem('memNo');
+
     // 참여자 영역 이동
     $(document).scroll(function(){
        $('#projectParticipants').css('transform', 'translateX(' + (0 - $(document).scrollLeft()) + 'px');
@@ -46,6 +49,9 @@ $(function(){
             type: 'GET',
             url: 'http://localhost:8080/api/rooms/'+rmNo+'/members',
             contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {      
+                xhr.setRequestHeader("token",accessToken);
+            },
             success: function (result, status, xhr) {
 
                 // 초기화
@@ -88,7 +94,23 @@ $(function(){
                     `);
                 }
             },
-            error: function (xhr, status, err) {}
+            error: function (xhr, status, err) {
+                let refreshToken = window.localStorage.getItem('refreshToken');
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8080/api/auth/get-newToken',
+                    data: JSON.stringify({ refreshToken:refreshToken}),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result, status, xhr) {
+                        let accessToken = result.accessToken;
+                        window.localStorage.setItem('accessToken', accessToken);                     
+                    },
+                    error: function (xhr, status, err) { 
+                        alert('로그인을 다시 해주세요');
+                         location.href = 'login.html'
+                    }
+                });
+            }
         });
     }
 
@@ -112,11 +134,17 @@ $(function(){
             type: 'GET',
             url: 'http://localhost:8080/api/rooms/'+rmNo+'/posts',
             contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {      
+                xhr.setRequestHeader("token",accessToken);
+            },
             success: function(result, status, xhr){
 
                 // 초기화
                 $('#detailUl').find('li').remove();
                 $('#detailUl').find('div').remove();
+
+                // TopSettingBar에 프로젝트 번호 넣기
+                $('#detailSettingProjectSrno').text(rmNo);
                 
                 // 게시글 없을 때
                 if(result.length == 0){
@@ -286,12 +314,22 @@ $(function(){
                 }
             },
             error: function(xhr, status, err){
-                console.log('err')
+                let refreshToken = window.localStorage.getItem('refreshToken');
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8080/api/auth/get-newToken',
+                    data: JSON.stringify({ refreshToken:refreshToken}),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result, status, xhr) {
+                        let accessToken = result.accessToken;
+                        window.localStorage.setItem('accessToken', accessToken);                     
+                    },
+                    error: function (xhr, status, err) { 
+                        alert('로그인을 다시 해주세요');
+                         location.href = 'login.html'
+                    }
+                });
             }
         })
     }
-    
-    $('#projectBoardUl li').on('click',function(e){
-
-    })
 });

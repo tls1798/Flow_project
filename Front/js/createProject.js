@@ -1,4 +1,7 @@
 $(function(){
+    let accessToken= window.localStorage.getItem('accessToken');
+    let memNo= window.localStorage.getItem('memNo');
+
     $('.button-close').click(function(){
         $('#projectSection').parent().css('display', 'none');
         $('.project-template-intro').css('display','flex');
@@ -30,10 +33,29 @@ $(function(){
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost:8080/api/rooms',
-                data: JSON.stringify({"rmTitle":$('#projectTitleInput').val(), "rmDes":$('#projectContentsInput').val(), "rmAdmin" : 1}),
+                data: JSON.stringify({"rmTitle":$('#projectTitleInput').val(), "rmDes":$('#projectContentsInput').val(), "rmAdmin" : memNo}),
                 contentType: 'application/json; charset=utf-8',
+                beforeSend: function (xhr) {      
+                    xhr.setRequestHeader("token",accessToken);
+                },
                 success: function (result, status, xhr) {},
-                error: function (xhr, status, err) {}
+                error: function (xhr, status, err) {
+                    let refreshToken = window.localStorage.getItem('refreshToken');
+                    $.ajax({
+                        type: 'POST',
+                        url: 'http://localhost:8080/api/auth/get-newToken',
+                        data: JSON.stringify({ refreshToken:refreshToken}),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (result, status, xhr) {
+                            let accessToken = result.accessToken;
+                            window.localStorage.setItem('accessToken', accessToken);                     
+                        },
+                        error: function (xhr, status, err) { 
+                            alert('로그인을 다시 해주세요');
+                            location.href = 'login.html'
+                        }
+                    });
+                }
             });
             
             // input, textarea 비우기
@@ -45,11 +67,30 @@ $(function(){
         else{
             $.ajax({
                 type: 'PUT',
-                url: 'http://localhost:8080/api/rooms/9',
-                data: JSON.stringify({"rmNo":10, "rmTitle":$('#projectTitleInput').val(), "rmDes":$('#projectContentsInput').val()}),
+                url: 'http://localhost:8080/api/rooms/'+$('#detailSettingProjectSrno').text(),
+                data: JSON.stringify({"rmNo":$('#detailSettingProjectSrno').text(), "rmTitle":$('#projectTitleInput').val(), "rmDes":$('#projectContentsInput').val()}),
                 contentType: 'application/json; charset=utf-8',
+                beforeSend: function (xhr) {      
+                    xhr.setRequestHeader("token",accessToken);
+                },
                 success: function (result, status, xhr) {},
-                error: function (xhr, status, err) {}
+                error: function (xhr, status, err) {
+                    let refreshToken = window.localStorage.getItem('refreshToken');
+                    $.ajax({
+                        type: 'POST',
+                        url: 'http://localhost:8080/api/auth/get-newToken',
+                        data: JSON.stringify({ refreshToken:refreshToken}),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (result, status, xhr) {
+                            let accessToken = result.accessToken;
+                            window.localStorage.setItem('accessToken', accessToken);                     
+                        },
+                        error: function (xhr, status, err) { 
+                            alert('로그인을 다시 해주세요');
+                            location.href = 'login.html'
+                        }
+                    });
+                }
             });
 
             // input, textarea 비우기

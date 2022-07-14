@@ -1,4 +1,7 @@
 $(function () {
+    let accessToken= window.localStorage.getItem('accessToken');
+    let memNo= window.localStorage.getItem('memNo');
+
     // 초대하기 버튼 클릭
     $('#openInviteLayerBtn, #noDetailDataBnt').click(function(e){
         $('#inviteLayer').css('display', 'block');
@@ -13,6 +16,9 @@ $(function () {
             type: 'GET',
             url: 'http://localhost:8080/api/members',
             contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {      
+                xhr.setRequestHeader("token",accessToken);
+            },
             success: function (result, status, xhr) {
                 if(result.length == 0){
                     $('.invite-blank-txt').removeClass('d-none');
@@ -42,7 +48,23 @@ $(function () {
                     }
                 }
             },
-            error: function (xhr, status, err) {}
+            error: function (xhr, status, err) {
+                let refreshToken = window.localStorage.getItem('refreshToken');
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8080/api/auth/get-newToken',
+                    data: JSON.stringify({ refreshToken:refreshToken}),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result, status, xhr) {
+                        let accessToken = result.accessToken;
+                        window.localStorage.setItem('accessToken', accessToken);                     
+                    },
+                    error: function (xhr, status, err) { 
+                        alert('로그인을 다시 해주세요');
+                         location.href = 'login.html'
+                    }
+                });
+            }
         });
 
         $('#inviteLayer').css('display', 'none');
@@ -154,7 +176,7 @@ $(function () {
         var jsonData = "[";
         for(var i=0; i<cnt; i++){
             if(i!=0) jsonData += ",";
-            jsonData += "{\"rmNo\":"+9+", \"memNo\":"+$('#inviteTargetList').children('li:eq('+i+')').attr('data-id')+"}";
+            jsonData += "{\"rmNo\":"+$('#detailSettingProjectSrno').text()+", \"memNo\":"+$('#inviteTargetList').children('li:eq('+i+')').attr('data-id')+"}";
         }
         jsonData += "]";
 
@@ -163,13 +185,32 @@ $(function () {
             url: 'http://localhost:8080/api/room-members',
             data: jsonData,
             contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {      
+                xhr.setRequestHeader("token",accessToken);
+            },
             success: function (result, status, xhr) {
                 // 닫기
                 $('.closeInviteLayerBtn').click();
                 // 참여자 업데이트
                 $('.project-item').click();
             },
-            error: function (xhr, status, err) {}
+            error: function (xhr, status, err) {
+                let refreshToken = window.localStorage.getItem('refreshToken');
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8080/api/auth/get-newToken',
+                    data: JSON.stringify({ refreshToken:refreshToken}),
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result, status, xhr) {
+                        let accessToken = result.accessToken;
+                        window.localStorage.setItem('accessToken', accessToken);                     
+                    },
+                    error: function (xhr, status, err) { 
+                        alert('로그인을 다시 해주세요');
+                         location.href = 'login.html'
+                    }
+                });
+            }
         });
     })
 
