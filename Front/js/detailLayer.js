@@ -58,9 +58,9 @@ $(function(){
                 $('#participantsUl').find('li').remove();
 
                 // 총 참여자 수 수정
-                $('#participantCount').text(result.length+1);
+                $('#participantCount').text(result.length);
                 // 관리자 제외 참여자 수 수정
-                $('#outerParticipantsCount').text(result.length);
+                $('#outerParticipantsCount').text(result.length-1);
 
                 // 프로젝트 관리자
                 $('.participants-admin-span').append(`
@@ -79,6 +79,9 @@ $(function(){
 
                 // 참여자
                 for(var i=0; i<result.length; i++){
+                    // 관리자면 참여자에 추가하지 않음
+                    if(result[i].memNo==result[i].rmAdmin) continue;
+
                     $('.participants-member-span').append(`
                         <li class="js-participant-item" data-id="`+result[i].memNo+`" >
                             <div class="post-author">

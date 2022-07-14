@@ -1,3 +1,5 @@
+import projectList from './projectList.js';
+
 $(function(){
     let accessToken= window.localStorage.getItem('accessToken');
     let memNo= window.localStorage.getItem('memNo');
@@ -48,7 +50,12 @@ $(function(){
             beforeSend: function (xhr) {      
                 xhr.setRequestHeader("token",accessToken);
             },
-            success: function (result, status, xhr) {},
+            success: function (result, status, xhr) {
+                // 프로젝트 리스트 업데이트
+                projectList();
+                // 로고 클릭하여 프로젝트 리스트로
+                $('.logo-box').click();
+            },
             error: function (xhr, status, err) {
                 let refreshToken = window.localStorage.getItem('refreshToken');
                 $.ajax({
@@ -87,7 +94,12 @@ $(function(){
             beforeSend: function (xhr) {      
                 xhr.setRequestHeader("token",accessToken);
             },
-            success: function (result, status, xhr) {},
+            success: function (result, status, xhr) {
+                // 프로젝트 리스트 업데이트
+                projectList();
+                // 로고 클릭하여 프로젝트 리스트로
+                $('.logo-box').click();
+            },
             error: function (xhr, status, err) {
                 let refreshToken = window.localStorage.getItem('refreshToken');
                 $.ajax({
