@@ -14,7 +14,13 @@ $(function () {
         $(this).removeClass('on');
     });
 
+    // 닫기 버튼
+    $('.btn-close-layer').click(function(){
+        $('#alarmLayer').css('display','none');    
+    }) 
+
     $('#alarmLayer').click(function(){
         return false;
     });
+
 });

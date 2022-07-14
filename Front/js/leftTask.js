@@ -23,7 +23,7 @@ $(function(){
         $('#mainTop').css('display','block');
         $('#detailTop').css('display','none');
         $('#projectHomeLayer').css('display','block');
-        $('#feedContainer').css('display','none');
+        $('#detailLayer').css('display','none');
 
         $('.left-menu-main').addClass('flow-active');
     });

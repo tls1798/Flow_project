@@ -1,0 +1,598 @@
+.flow-project-make-1.flow-project-make-1 {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+.flow-project-make-2 {
+    display: table-cell;
+    vertical-align: middle;
+}
+.detail-item {
+    list-style: none;
+}
+/* 오른쪽 글 카드 */
+.flow-project-make-2 .post-card-wrapper.side {
+    margin-top: 0;
+}
+.post-card-wrapper.side {
+    width: 674px;
+    height: 100%;
+    min-height: auto;
+    max-height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    overflow: hidden;
+    background: #f9f9f9;
+    border-radius: 0;
+    border-left: 1px solid #ccc;
+    box-shadow: -10px 10px 15px rgb(0 0 0 / 4%);
+}
+.flow-project-make-2 .post-card-wrapper {
+    margin: 30px auto 0 auto;
+}
+.post-card-wrapper {
+    border: 1px solid #ccc;
+}
+/* 오른쪽 글 카드 헤더 */
+.card-popup-header {
+    overflow: hidden;
+    padding: 14px 20px;
+    height: 45px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+.post-card-wrapper.side .post-card-header {
+    border-radius: 0;
+}
+.post-card-header {
+    background: #faf9f9;
+}
+.card-popup-title {
+    float: left;
+    width: 100%;
+    font-size: 12px;
+    color: #999;
+    font-weight: 400;
+}
+.card-popup-header .project-color {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    margin: 0 4px 0 0;
+    vertical-align: middle;
+}
+.color-code-3 {
+    background: #8b00ea;
+    border: solid 1px #8b00ea;
+}
+.card-popup-title .js-project-title-button {
+    overflow: hidden;
+    display: inline-block;
+    max-width: 300px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.card-popup-title span {
+    vertical-align: middle;
+    cursor: pointer;
+}
+.card-popup-header .btn-close {
+    top: 11px;
+    right: 20px;
+}
+.btn-close {
+    position: absolute;
+}
+.card-popup-close {
+    float: right;
+    margin-top: 1px;
+}
+[class*=" icons-"], [class^=icons-] {
+    font-family: icon-contents!important;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 오른쪽 글 카드 내용 */
+.post-card-wrapper.side .post-card-scroll {
+    max-height: calc(100vh - 78px);
+    overflow-y: auto;
+}
+.flow-project-make-2 .post-card-scroll {
+    overflow-x: hidden;
+    min-height: 100px;
+    box-sizing: border-box;
+}
+.card-header-top {
+    position: relative;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 14.5px 30px;
+    background: #fff;
+    border-radius: 10px;
+}
+.post-card-wrapper .card-header-top .post-author {
+    -webkit-box-flex: 1;
+    flex: 1;
+    display: flex;
+    float: initial;
+    width: calc(100% - 77px);
+}
+.thumbnail.size40 {
+    width: 40px;
+    height: 40px;
+}
+.thumbnail {
+    display: inline-block;
+    background-image: url(https://flow.team/flow-renewal/assets/images/profile-default.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: #fff;
+    border: 1px solid #eee;
+    cursor: pointer;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+.radius16 {
+    border-radius: 16px;
+}
+.post-card-wrapper .card-header-top .post-author .post-author-info {
+    display: flex;
+    -webkit-box-flex: 1;
+    flex: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+.post-author-info {
+    overflow: hidden;
+    width: 70%;
+    line-height: 18px;
+    margin-left: 10px;
+    vertical-align: middle;
+    text-align: left;
+}
+.post-author-info dt {
+    display: flex;
+    color: #555;
+    line-height: 1.1;
+}
+.post-author-info .author {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    margin-right: 3px;
+    vertical-align: middle;
+    line-height: 18px;
+    max-width: 70%;
+}
+.post-author .company, .post-author .team, .post-author em {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+    line-height: 18px;
+    max-width: 70%;
+}
+.post-card-wrapper .card-header-top .post-author .post-author-info dt .date {
+    min-width: 120px;
+}
+.post-author-info .date {
+    display: inline-block;
+    min-width: 110px;
+    margin: 2px 0 0 7px;
+    color: #aaa;
+    font-family: Roboto;
+    vertical-align: middle;
+}
+.post-security {
+    padding: 2px 0 0 5px;
+    font-size: 14px;
+}
+.post-security i {
+    margin-right: 4px;
+}
+.icons-person-7:before {
+    content: "\e99d";
+    color: #aaa;
+}
+.post-option {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: flex-end;
+    height: 40px;
+}
+#movePost.btn-go {
+    margin-right: 0;
+    min-width: 88px;
+    padding: 0;
+    color: #777;
+    font-weight: 700;
+    font-size: 13px;
+    border: none;
+    text-decoration: underline;
+}
+.fixed-btn.js-pin-authority {
+    cursor: pointer;
+}
+.fixed-btn {
+    margin-left: 25px;
+    width: 14px;
+    height: 19px;
+    background-position: -349px -45px;
+    vertical-align: middle;
+}
+.fixed-btn{
+    background-image: url(https://flow.team/flow-renewal/assets/images/sprite-project-detail.png);
+    background-size: 844px auto;
+}
+.fixed-btn:hover {
+    background-position: -331px -45px;
+}
+.fixed-btn.on {
+    background-position: -367px -45px;
+}
+.blind {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+}
+.post-option .set-btn {
+    margin: -1px 0 0 20px;
+}
+.set-btn {
+    padding: 4px 8px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.post-option .setup-group {
+    overflow: hidden;
+    position: absolute;
+    z-index: 1;
+    top: 50px;
+    right: 35px;
+    background: #fff;
+    border: 1px solid #555;
+    box-sizing: border-box;
+    border-radius: 6px;
+}
+.setup-group {
+    padding: 4px 0;
+}
+.setup-group>li {
+    position: relative;
+}
+.setup-group li a {
+    display: block;
+    height: 19px;
+    margin: 5px 0;
+    padding: 0 14px;
+    line-height: 19px;
+    font-size: 13px;
+    color: #555;
+}
+.setup-group i {
+    display: inline-block;
+    margin: -4px 6px 0 0;
+    vertical-align: middle;
+}
+/* 카드 제목 */
+.card-header-bottom {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    height: auto;
+    padding: 10px 30px 10px 30px;
+    background: #fff;
+    box-sizing: border-box;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+.post-title-area {
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-flex: 1;
+    flex: 1;
+    width: 100%;
+}
+.post-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    vertical-align: middle;
+    word-break: break-word;
+}
+.card-header-bottom:after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: calc(100% - 60px);
+    left: 30px;
+    bottom: 0;
+    background: #eee;
+}
+/* 카드 내용 */
+.post-card-container {
+    padding: 10px 0 20px;
+    background: #fff;
+}
+.post-card-content {
+    font-size: 14px;
+    word-break: break-word;
+    line-height: 25px;
+    color: #333;
+    padding: 15px 30px 0;
+}
+.post-card-wrapper .post-card-content.hidden {
+    overflow: hidden;
+    max-height: 245px;
+    margin-bottom: 10px;
+}
+.post-more-btn {
+    margin-left: 30px;
+    padding: 0 14px 0 13px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    box-shadow: 0 0 15px rgb(0 0 0 / 4%);
+    border-radius: 900px;
+    font-weight: 500;
+    font-size: 12px;
+    color: #555;
+    cursor: pointer;
+}
+/* 내용 버튼 좋아요 북마크 등 */
+.post-bottom-area {
+    position: relative;
+    margin-top: 22px;
+    padding: 0 30px;
+}
+.post-bottom-menu {
+    float: left;
+}
+.bottom-button-area {
+    position: relative;
+}
+.post-bottom-button {
+    line-height: 18px;
+    font-size: 13px;
+    color: #555;
+    cursor: pointer;
+}
+.post-bottom-button i {
+    margin: -2px 4px 0 0;
+    content: "";
+    background-image: url(https://flow.team/flow-renewal/assets/images/sprite-project-detail.png);
+    background-size: 844px auto;
+}
+.icon-reaction {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-position: -300px -75px;
+    vertical-align: middle;
+}
+.post-bottom-button+.post-bottom-button {
+    margin-left: 10px;
+}
+.post-bottom-button i {
+    margin: -2px 4px 0 0;
+    content: "";
+    background-image: url(https://flow.team/flow-renewal/assets/images/sprite-project-detail.png);
+    background-size: 844px auto;
+}
+.icon-bookmark {
+    display: inline-block;
+    width: 10px;
+    height: 14px;
+    background-position: -334px -75px;
+    vertical-align: middle;
+}
+.cmt-read-wr {
+    position: absolute;
+    bottom: 0;
+    right: 30px;
+}
+.comment-count-area {
+    display: inline-block;
+    margin: 4px 10px 0 0;
+    font-size: 13px;
+    color: #999;
+}
+.comment-count {
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 14px;
+}
+.read-confirmation {
+    margin-top: 4px;
+    float: right;
+    position: relative;
+    font-size: 13px;
+    color: #999;
+    cursor: pointer;
+}
+.confirmation-number {
+    font-size: 14px;
+    font-family: Roboto;
+    font-weight: 700;
+}
+.post-bottom-area::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+/* 댓글 */
+.post-card-wrapper.side .post-card-footer {
+    border-radius: 0;
+}
+.post-card-footer {
+    background: #f9f9f9;
+}
+.comment-header {
+    padding: 0 30px 0 30px;
+    border-top: 1px solid #ddd;
+}
+.comment-more-button {
+    display: none;
+    font-size: 13px;
+    color: #777;
+    font-weight: 700;
+    cursor: pointer;
+}
+.comment-header::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+.post-comment-group {
+    color: #555;
+}
+.post-comment-group>li:first-child {
+    padding-top: 20px;
+}
+.post-comment-group>li {
+    display: flex;
+    margin-top: -1px;
+    padding: 10px 30px;
+    border-bottom: 1px solid #eee;
+}
+.comment-container, .comment-thumbnail, .comment-user {
+    float: left;
+}
+.comment-container.on {
+    display: block;
+}
+.comment-container {
+    position: relative;
+    width: calc(100% - 52px);
+    margin-left: 10px;
+    box-sizing: border-box;
+}
+.comment-user-area {
+    width: 100%;
+    line-height: 21px;
+}
+.comment-user span {
+    display: inline-block;
+}
+.user-company, .user-name {
+    font-weight: 700;
+}
+.user-name, .user-position {
+    font-size: 14px;
+    color: #555;
+}
+.record-date {
+    margin-top: -2px;
+    font-size: 14px;
+    font-family: Roboto;
+    color: #999;
+}
+.comment-like {
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 13px;
+    color: #777;
+}
+.comment-like span {
+    cursor: pointer;
+}
+.js-remark-like-button::before {
+    display: inline-block;
+    content: "";
+    width: 14px;
+    height: 15px;
+    margin-right: 2px;
+    background-image: url(https://flow.team/flow-renewal/assets/images/icons/icon_comment_like.png);
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+.comment-like-count {
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 14px;
+}
+.comment-writer-menu {
+    float: right;
+}
+.comment-writer-button {
+    font-size: 14px;
+    color: #999;
+    cursor: pointer;
+    display: none;
+}
+.comment-writer-button.on {
+    display: inline-block;
+}
+.comment-user-area::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+.post-comment-group li::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+/* 댓글 쓰는 곳 */
+.comment-input-wrap {
+    overflow: hidden;
+    padding: 14px 30px;
+}
+.comment-container.on {
+    display: block;
+}
+.comment-container {
+    position: relative;
+    width: calc(100% - 52px);
+    margin-left: 10px;
+    box-sizing: border-box;
+}
+.comment-container fieldset {
+    position: relative;
+}
+.comment-input[contenteditable] {
+    width: 100%;
+    padding: 11px 60px 11px 20px;
+    min-height: 44px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #555;
+    word-break: break-all;
+    white-space: pre-wrap;
+    cursor: text;
+}
+.comment-input[contenteditable]:empty:before {
+    display: block;
+    content: attr(placeholder);
+    color: #999;
+}

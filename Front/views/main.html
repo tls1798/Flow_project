@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
@@ -21,131 +21,21 @@
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/topHeader.css">
+    <link rel="stylesheet" href="../css/mainBodyWrap.css">
     <link rel="stylesheet" href="../css/projectList.css">
     <link rel="stylesheet" href="../css/topSettingBar.css">
     <link rel="stylesheet" href="../css/leftTask.css">
-    <link rel="stylesheet" href="../css/feed.css">
     <link rel="stylesheet" href="../css/createProject.css">
     <link rel="stylesheet" href="../css/alarmLayer.css">
-
+    <link rel="stylesheet" href="../css/detailLayer.css">
+    <link rel="stylesheet" href="../css/rightPostCard.css">
+    <link rel="stylesheet" href="../css/createPost.css">
+    <link rel="stylesheet" href="../css/inviteLayer.css">
 </head>
 
 <body>
+    <div id="allMainContent" class="main-wrap wrap-use-footer">
 
-    <div class="right-bar">
-        <article id="alarmLayer" class="side-wr alarmLayer" style="display: none;">
-            <div class="menu-top">
-                <strong>알림</strong>
-                <button class="btn-close-layer">
-                    <i class="bi bi-x"></i>
-                </button>
-            </div>
-            <div class="side-contents">
-                <ul id="notReadFilter" class="tab-menu">
-                    <li class="js-alarm js-unread on">미확인</li>
-                    <li class="js-alarm js-read">전체</li>
-                    <li id="readAllAlarm">모두읽음</li>
-                </ul>
-
-                <!-- 알림 리스트 -->
-                <div class="name-setup-type-2 scroll-mask">
-                    <ul id="alarmUl" scroll-direction="0">
-                        <li class="js-alarm-item on" colabo_srno="" colabo_commt_srno="" colabo_remark_srno="-1"
-                            alarm_action="" alarm_status="" toast_msg="신재승님의 글 등록">
-                            <div class="all-setup-picture-type-1"
-                                style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)"
-                                data=""></div>
-                            <div class="all-text-wrap-type-1">
-                                <div class="all-setup-section-type-1">
-                                    <span>우리 프로젝트</span><em>곧</em>
-                                </div>
-                                <div class="all-text-wrap-type-2 alarm-tit-ellipsis">신재승님의 프론트 완성</div>
-                                <div class="all-text-wrap-type-3">미확인 알람</div>
-                            </div>
-                        </li>
-
-                        <li class="js-alarm-item" colabo_srno="" colabo_commt_srno="" colabo_remark_srno="-1"
-                            alarm_action="" alarm_status="">
-                            <div class="all-setup-picture-type-1"
-                                style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)"
-                                data=""></div>
-                            <div class="all-text-wrap-type-1">
-                                <div class="all-setup-section-type-1">
-                                    <span>부산진역</span><em>6시간 뒤</em>
-                                </div>
-                                <div class="all-text-wrap-type-2 alarm-tit-ellipsis">지솔빈님의 퇴근</div>
-                                <div class="all-text-wrap-type-3">미확인 알람</div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </article>
-    </div>
-
-    <!-- 상단바 -->
-    <div class="top-header">
-        <div class="main-top">
-            <header class="header">
-                <div class="main-search-area cursor-pointer">
-                    <form id="searchPopupTopButton" class="main-search clearfix">
-                        <div class="main-search-box">
-                            <input type="text" class="cursor-pointer" placeholder="전체 검색" disabled>
-                        </div>
-                    </form>
-
-                    <!-- 검색창 클릭 시 띄울 팝업-->
-                    <div id="searchPopupLayer" class="name-type-seach-popup search-popup"
-                        data-search-area-code="IN_TONG" style="top: 0px; right: -72%; display: none;">
-                        <div class="search-popup-header search-popup">
-                            <div class="search-popup-input search-popup">
-                                <i class="icon-search search-popup"></i>
-                                <input id="searchPopupInput" type="text" class="name-type-shift-txt search-popup"
-                                    maxlength="20" autocomplete="off" placeholder="검색어를 입력해주세요">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 우측 아이콘 -->
-                <div id="rightTopMenu" class="top-btns">
-                    <!-- 채팅 기능 추후 구현 -->
-                    <button type="button" id="chattingTopButton" class="btn-chatting" mouseover-text="채팅">
-                        <i class="icon-chatting"></i>
-                        <i id="chatTopCount" class="label-chat" style="display: none;">0</i>
-                    </button>
-
-                    <button type="button" id="alarmTopButton" class="btn-alarm" data-toggle="tooltip"
-                        data-bs-placement="bottom" title="알림">
-                        <i class="icon-alarm"></i>
-                        <i id="alarmTopCount" class="label-alarm" style="display: none;">0</i>
-                    </button>
-                    <button type="button" id="accountTopButton" class="btn-profile">
-                        <span id="ProfileImg" class="profile-area"
-                            style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);"></span>
-                    </button>
-                </div>
-
-                <!-- 프로필 클릭 시 띄울 모달 -->
-                <ul id="accountLayer" class="modal-account" style="display: none;">
-                    <li class="user-area">
-                        <p class="user-img"
-                            style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);">
-                        </p>
-                        <div class="user-info">
-                            <strong>지솔빈</strong>
-                        </div>
-                    </li>
-                    <li id="logoutBtn">
-                        <i class="icons-logout"></i>
-                        로그아웃
-                    </li>
-                </ul>
-            </header>
-        </div>
-    </div>
-    <!-- 사이드바 -->
-    <div class="left-task">
         <!-- 새 프로젝트 생성 페이지 -->
         <div class="create-project" style="display: none;">
             <div class="alert-wrap" id="toastPopup" style="display: none;">
@@ -153,7 +43,6 @@
                     <div class="text">제목을 입력하세요.</div>
                 </div>
             </div>
-            
             <section id="projectSection" class="project-template-layer intro-mode" tabindex="0">
                 <button id="projectSectionClose" class="button-close">
                     <i class="bi bi-x-lg"></i>
@@ -171,7 +60,6 @@
                         </section>
                     </div>
                 </article>
-            
                 <article class="project-template-main" style="display: none;">
                     <header>
                         <button id="templateReturnButton" class="button-go-back">
@@ -200,748 +88,848 @@
             </section>
         </div>
 
-        <!-- 사이드바 -->
-        <div id="leftArea" class="main-header-1">
-            <div id="leftTask" class="left-task active">
-                <div class="logo-area" style="display: block">
-                    <a class="logo-box">
-                        <h1 class="logo-1">
-                            <img src="https://flow.team/flow-renewal/assets/images/flow_logo.png?height=20" alt="flow11"
-                                srcset="">
-                        </h1>
-                    </a>
-                </div>
-                <a href="#">
-                    <div id="projectMakeButton" class="new-project-1">
-                        <div class="button-suport-1"></div>
-                        새 프로젝트
-                    </div>
-                </a>
-                <ul id="leftMenuUl" class="menu-group mgt-20">
-                    <li class="left-menu-item left-menu-main flow-active">
-                        <a>
-                            <i class="ico-home bi bi-house"></i>내 프로젝트
-                            <em id="leftProjectHomeCount" class="project-total-count d-none"
-                                style="display: inline-block;">1</em>
-                        </a>
-                    </li>
-                    <li class="left-menu-item left-menu-bookmark">
-                        <a>
-                            <i class="ico-bookmark bi bi-bookmark"></i>북마크
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    </li>
-    </ul>
-    <!-- 글 -->
-    <div class="post-card-wrapper-side">
-        <div class="modal-header detail-popup-header-1" style="margin-top: 40px; background-color: #f9f9f9;color:#555">
-            <span class="invite-title ellipsis"><i class="project-color color-code-1"></i>플로우 프로젝트</span>
-            <button class="close-popup" style="float:right">X</button>
-        </div>
+        <!-- 상단바 -->
+        <div class="top-header">
+            <div class="main-top">
+                <header class="header">
+                    <div class="main-search-area cursor-pointer">
+                        <form id="searchPopupTopButton" class="main-search clearfix">
+                            <div class="main-search-box">
+                                <input type="text" class="cursor-pointer" placeholder="전체 검색" disabled>
+                            </div>
+                        </form>
 
-        <div class="card cardheight" style="width:100%; margin-top: 10px;">
-
-            <div class="feedHeader">
-                <img class="feedProfile floatleft" src="../imgs/defaultprofile.png">
-                <div class="feedheader_detail floatleft">
-
-                    <strong>정창환</strong><span class="date">2022-07-04
-                        10:03</span>
-                </div>
-                <div class="dropdown floatright">
-                    <!-- 상단고정 svg -->
-                    <!-- <button><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                    height="16" fill="currentColor" class="bi bi-pin"
-                                                                    viewBox="0 0 16 16">
-                                                                    <path
-                                                                        d="M4.146.146A.5.5 0 0 1 4.5 0h7a.5.5 0 0 1 .5.5c0 .68-.342 1.174-.646 1.479-.126.125-.25.224-.354.298v4.431l.078.048c.203.127.476.314.751.555C12.36 7.775 13 8.527 13 9.5a.5.5 0 0 1-.5.5h-4v4.5c0 .276-.224 1.5-.5 1.5s-.5-1.224-.5-1.5V10h-4a.5.5 0 0 1-.5-.5c0-.973.64-1.725 1.17-2.189A5.921 5.921 0 0 1 5 6.708V2.277a2.77 2.77 0 0 1-.354-.298C4.342 1.674 4 1.179 4 .5a.5.5 0 0 1 .146-.354zm1.58 1.408-.002-.001.002.001zm-.002-.001.002.001A.5.5 0 0 1 6 2v5a.5.5 0 0 1-.276.447h-.002l-.012.007-.054.03a4.922 4.922 0 0 0-.827.58c-.318.278-.585.596-.725.936h7.792c-.14-.34-.407-.658-.725-.936a4.915 4.915 0 0 0-.881-.61l-.012-.006h-.002A.5.5 0 0 1 10 7V2a.5.5 0 0 1 .295-.458 1.775 1.775 0 0 0 .351-.271c.08-.08.155-.17.214-.271H5.14c.06.1.133.191.214.271a1.78 1.78 0 0 0 .37.282z" />
-                                                                </svg>s</button> -->
-
-                    <button id="movePost" class="btn-go">게시물 바로가기</button>
-                    <button class="dropdown-more">⠇</button>
-                </div>
-                <div class="dropdown-hide">
-                    <ul>
-                        <li class="setup-group li like-hover"><a href="#"> <svg xmlns="http://www.w3.org/2000/svg"
-                                    width="16" height="16" fill="currentColor" class="bi bi-card-text"
-                                    viewBox="0 0 16 16">
-                                    <path
-                                        d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-                                    <path
-                                        d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
-                                </svg>수정</a></li>
-                        <li class="setup-group li like-hover"><a href="#"><svg xmlns="http://www.w3.org/2000/svg"
-                                    width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                    <path
-                                        d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-                                </svg>삭제</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="card-body ">
-                <h4 class="post-title strong">
-                    청년IT전문가
-                    1기 실습 프로젝트
-                    안내</h4>
-
-                <p class="card-text post-content">안녕하세요.
-                    인사팀 정창환입니다.
-
-                    청년IT전문가 1기 실습 프로젝트의 원활한 진행을 위해
-                    담당PM님과 교육생 간 소통할 수 있는 플로우를 개설하였으니,
-
-                    궁금사항 및 공유사항 발생시 본 플로우를 통해 소통 바랍니다.
-
-                    감사합니다.</p>
-
-                <div>
-                    <div class="floatleft font555">
-                        <button class="like-hover">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-emoji-smile" viewBox="0 0 16 16">
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                <path
-                                    d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
-                            </svg> <span>좋아요</span></button>
-                        <!-- <button class="post-emoji-margin"><svg
-                                                                        xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                        height="16" fill="currentColor" class="bi bi-bookmark"
-                                                                        viewBox="0 0 16 16">
-                                                                        <path
-                                                                            d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
-                                                                    </svg> 북마크</button> -->
-                    </div>
-                    <div class="floatright font999999">댓글 0 <button class="font999999">읽음
-                            3</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-footer" style="height: 100%">
-                <div class="post-comment">
-                    <img class="feedProfile" src="../imgs/defaultprofile.png">
-                    <form class="comment-form">
-                        <input class="post-comment-input" type="text" onkeypress="JavaScript:press(this.form)"
-                            placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 메인 컨테이너 -->
-    <div class="main-act main-container">
-        <!-- 프로젝트 상단바 -->
-
-        <div class="top-setting-bar">
-            <div id="topSettingBar" class="main-header" style="display: block;">
-                <div id="mainTop" class="title-1" data-code="main" style="display: block;">
-                    <div>내 프로젝트</div>
-                </div>
-                <!-- ??? -->
-                <span id="allCollectionCount" class="js-collection-total-count js-collection-count top-task-num"
-                    style="display: none;"></span>
-
-                <div id="detailTop" class="project-detail title-1" style="display: none;">
-
-                    <div class="project-detail-header">
-                        <div class="project-color-area">
-                            <i id="projectColor" class="project-color color-code-3"></i>
-                        </div>
-                        <div class="project-header-group">
-                            <div class="project-title-area">
-                                <div class="project-option-area">
-                                    <button id="projectStar" class="bookmark-button unstar">
-                                        <span class="blind">즐겨찾기</span>
-                                    </button>
-                                    <button id="detailSettingTopButton" class="set-btn">
-                                        <i class="bi bi-three-dots-vertical"></i>
-                                    </button>
-                                    <!-- detail 버튼 클릭 시 뜨는 창 -->
-                                    <div id="detailSettingLayer" class="project-setup-wrap" style="display: none;">
-                                        <div class="project-setup-header">
-                                            <span>프로젝트 번호</span>
-                                            <em id="detailSettingProjectSrno">1402344</em>
-                                        </div>
-                                        <!-- 관리자면 수정/삭제, 참여자면 나가기만 뜨도록 해야 함 -->
-                                        <ul id="detailSettingGroup" class="setup-group">
-                                            <li id="detailSettingProjectExitBtn">
-                                                <a href="#"> <i class="bi bi-box-arrow-in-left"></i>프로젝트 나가기</a>
-                                            </li>
-                                            <li id="detailSettingProjectUpdateBtn" style="display: block;">
-                                                <a href="#"> <i class="bi bi-pencil"></i>프로젝트 수정</a>
-                                            </li>
-                                            <li id="detailSettingProjectDeleteBtn" style="display: block;">
-                                                <a href="#"> <i class="bi bi-trash"></i>프로젝트 삭제</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                        <!-- 검색창 클릭 시 띄울 팝업-->
+                        <div id="searchPopupLayer" class="name-type-seach-popup search-popup"
+                            data-search-area-code="IN_TONG" style="top: 0px; right: -72%; display: none;">
+                            <div class="search-popup-header search-popup">
+                                <div class="search-popup-input search-popup">
+                                    <i class="icon-search search-popup"></i>
+                                    <input id="searchPopupInput" type="text" class="name-type-shift-txt search-popup"
+                                        maxlength="20" autocomplete="off" placeholder="검색어를 입력해주세요">
                                 </div>
-                                <h3 id="projectTitle" class="project-title ellipsis js-mouseover"
-                                    mouseover-text="플로우 프로젝트">
-                                    플로우 프로젝트</h3>
-
-                            </div>
-                            <div class="project-description" style="display: block;">
-                                <p id="projectContents" class="description-text js-mouseover"
-                                    mouseover-text="플로우 클론 코딩">플로우
-                                    클론 코딩</p>
                             </div>
                         </div>
                     </div>
-                    <button id="openInviteLayerBtn" type="button" class="project-invite-button color-code-3"
-                        style="display: block;">
-                        <i class="bi bi-person-plus"></i>초대하기
-                    </button>
-                </div>
+
+                    <!-- 우측 아이콘 -->
+                    <div id="rightTopMenu" class="top-btns">
+
+                        <!-- 알림 아이콘 -->
+                        <button type="button" id="alarmTopButton" class="btn-alarm" data-toggle="tooltip"
+                            data-bs-placement="bottom" title="알림">
+                            <i class="icon-alarm"></i>
+                            <i id="alarmTopCount" class="label-alarm" style="display: none;">0</i>
+                        </button>
+
+                        <!-- 프로필 아이콘 -->
+                        <button type="button" id="accountTopButton" class="btn-profile">
+                            <span id="ProfileImg" class="profile-area"
+                                style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);"></span>
+                        </button>
+                    </div>
+
+                    <!-- 프로필 클릭 시 띄울 모달 -->
+                    <ul id="accountLayer" class="modal-account" style="display: none;">
+                        <li class="user-area">
+                            <p class="user-img"
+                                style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);">
+                            </p>
+                            <div class="user-info">
+                                <strong>지솔빈</strong>
+                            </div>
+                        </li>
+                        <li id="logoutBtn">
+                            <i class="icons-logout"></i>
+                            로그아웃
+                        </li>
+                    </ul>
+                </header>
             </div>
+        </div>
+
+        <!-- 메인 바디 -->
+        <div id="mainBodyWrap" class="main-body-wrap">
+
             <!-- 초대 모달 -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header detail-popup-header-1">
-                            <span class="invite-title ellipsis"><i class="project-color color-code-1"></i>
-                                플로우 프로젝트
-                            </span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body checked-btn">
-                            <ul>
-                                <li>
-                                    <a id="invited-check">
-                                        <div> <img class="detail-popup-icon-2" src="../imgs/defaultprofile.png"></div>
+            <div id="inviteLayer" class="flow-all-background-1" style="display: none;">
+                <div class="flow-project-make-1">
+                    <div class="flow-project-make-2">
+                        <div id="inviteMainLayer" class="detail-popup-type-1" style="display: block;">
+                            <div class="detail-popup-header-1">
+                                <span id="inviteTitle" class="invite-title ellipsis"><i class="project-color mini color-code-3"></i>플로우 프로젝트</span>
+                                <a class="closeInviteLayerBtn" href="#"><em></em></a>
+                            </div>
+                            <ul id="inviteUl">
+                                <li id="openTeamInvite" class="js-new-invitation-popup">
+                                    <a href="#">
+                                        <div class="detail-popup-icon-2">
+                                            <span></span>
+                                        </div>
                                         <div class="detail-popuplist-type-1">
-                                            <span>참여자 초대하기</span>
+                                            <span>참여자 초대</span>
                                             <em>프로젝트를 함께했던 사람들을 초대할 수 있습니다</em>
                                         </div>
                                     </a>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 리스트 모달 -->
-            <div class="modal fade" id="myFullsizeModal" tabindex="-1" role="dialog"
-                aria-labelledby="myFullsizeModalLabel">
-                <div class="modal-dialog modal-fullsize" role="document">
-                    <div class="modal-content modal-fullsize">
-                        <div class="modal-header">
-                            <button>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z" />
-                                </svg>
-                            </button>
-                            <h6 class="modal-title floatleft" id="myModalLabel">참여자 초대</h6>
-                            <button type="button" onclick="" class=" close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body container">
-                            <div class="row">
-                                <div class="col-6 col-6-height" style="display: block">
-                                    <div class="invite-input">
-                                        <svg style="color:#555;margin-right: 10px;margin-left: 10px;"
-                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                            <path
-                                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                                        </svg>
-                                        <input type="text" placeholder="이름,소속,전화번호 검색">
-                                    </div>
-
-                                    <ul class="list-border-right">
-                                        <li class="checked-btn">
-                                            <div id="checked-div">
-                                                <a href="#">
-                                                    <div class='floatleft'>
-                                                        <button>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor"
-                                                                class="bi bi-check-circle" viewBox="0 0 16 16"
-                                                                style="margin-top: 10px;margin-right:15px;">
-                                                                <path
-                                                                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                                <path
-                                                                    d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                    <img class="detail-popup-icon-2" src="../imgs/defaultprofile.png">
-                                                    <strong class="checked-strong">정창환</strong>
-                                                </a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-6 invite-border-bottom col-6-height">
-                                    <span class="plz-seclect-hide">대상을 선택해주세요.</span>
-                                    <div class="selected-show">
-                                        <strong>1건 선택</strong>
-                                        <button class="alldelete floatright">
-                                            <span style="color: #6449fc;"> 전체 삭제</span>
-                                        </button>
-                                    </div>
-                                    <ul class="clicked-right">
-                                    </ul>
-                                </div>
-
-                                <div class="modal-footer"
-                                    style="margin: auto; justify-content : center; border-top: 1px solid #ddd; height:66px;padding: 0px; width: 646px;">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                        style="background-color: white;color:black;width:182px;">취소</button>
-                                    <button type="button" class="btn btn-primary"
-                                        style="background-color: #6449fc;width:182px;">초대하기</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 프로젝트 리스트 -->
-        <div id="mainContent" class="main-content scroll-mask project-list" scroll-direction="0">
-            <div id="projectHomeLayer" class="project-home-wrap" style="display: block;">
-                <div class="small-style-wrap">
-                    <div class="section-wrap">
-                        <div id="BoardArea" class="project-board-wr" style="display: block;">
-                            <div class="section-1">
-                                <ul id="projectBoardUl" class="project-group clearfix">
-
-                                    <!-- 즐겨찾기 -->
-                                    <div class="section-1">
-                                        <p class="project-class">즐겨찾기</p>
-                                    </div>
-                                    <li class="project-item ui-state-default">
-                                        <a class="cursor-pointer">
-                                            <!-- 알림 배지 -->
-                                            <div class="flow-content-ct project-badge" style="display:none">0</div>
-                                            <!-- 좌측 color -->
-                                            <div class="color-code left-menu-type-1 color-code-1"></div>
-                                            <div class="left-menu-type-con">
-                                                <!-- 즐겨찾기 -->
-                                                <div class="project-star flow-content-star"></div>
-                                                <!-- 프로젝트 제목 -->
-                                                <div class="flow-content-txt project-ttl">즐겨찾기 프로젝트</div>
-                                                <!-- 참가자 -->
-                                                <div class="flow-content-b-c" style="display:block">
-                                                    <div class="flow-content-hm-txt"><i class="bi bi-person"></i></div>
-                                                    <span class="member-cnt">6</span>
-                                                </div>
-                                           
-                                           
-                                           
-                                           
-                                           
-                                           
-                                           
-                                           
-                                           
-                                           
-                                           
-                                           
-                                            </div>
-                                        </a>
-                                    </li>
-
-                                    <!-- 참여중 -->
-                                    <div class="section-2 middle-line">
-                                        <p class="project-class join">참여중</p>
-                                    </div>
-                                    <li class="project-item ui-state-default">
-                                        <a class="cursor-pointer">
-                                            <div class="flow-content-ct project-badge" style="display:inline-block">1
-                                            </div>
-                                            <div class="color-code left-menu-type-1 color-code-1"></div>
-                                            <div class="left-menu-type-con">
-                                                <div class="project-star flow-content-star flow-content-star-un"></div>
-                                                <div class="flow-content-txt project-ttl">테스트 프로젝트</div>
-                                                <div class="flow-content-b-c" style="display:block">
-                                                    <div class="flow-content-hm-txt"><i class="bi bi-person"></i></div>
-                                                    <span class="member-cnt">3</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        </div>  
                     </div>
                 </div>
             </div>
 
-            <!-- 피드 -->
-            <div id='feedContainer' class="feedContents">
-                <div class="feedcontentsSize">
-                    <!-- 상단 글쓰기   -->
-                    <div class="card">
-                        <div class="card-header">
-                            <span>
-                                <svg xmlns=" http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-card-text" viewBox="0 0 16 16">
-                                    <path
-                                        d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-                                    <path
-                                        d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
-                                </svg> 글
-                            </span>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">내용을 입력하세요
-                                <span style="float:right">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-paperclip" viewBox="0 0 16 16">
-                                        <path
-                                            d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-images" viewBox="0 0 16 16">
-                                        <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
-                                        <path
-                                            d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z" />
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-geo-alt" viewBox="0 0 16 16">
-                                        <path
-                                            d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
-                                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-hash" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8.39 12.648a1.32 1.32 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1.06 1.06 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.512.512 0 0 0-.523-.516.539.539 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532 0 .312.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531 0 .313.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242l-.515 2.492zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z" />
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-at" viewBox="0 0 16 16">
-                                        <path
-                                            d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z" />
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-fonts" viewBox="0 0 16 16">
-                                        <path
-                                            d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
-                                    </svg>
-                                </span>
-                            </li>
+            <!-- 초대 모달2 -->
+            <section id="invitePopup" class="js-dimmed-area imaginary-place js-new-invitation-popup flow-all-background-1" style="display: none;">
+                <div class="alert-wrap alert-invite" id="toastPopup" style="display: none;">
+                    <div class="alert-type error">
+                        <div class="text">참여자를 선택해주세요.</div>
+                    </div>
+                </div>
+                <div id="teamInviteLayer" class="project-invite-popup js-pop-contents">
+                    <div class="project-invite-popup-header">
+                        <a href="#"><em class="returnInviteModal1 returnMainBtn js-back-menu" style="display: inline-block;"></em></a>
+                        <span id="teamInviteHeader">참여자 초대</span>
+                        <button class="js-invite-helper js-mouseover"> <i class="icons-help"></i></button>
+                        <button class="btn-close-invite closeInviteLayerBtn"><i class="icons-close-1 bi bi-x-lg"></i></button>
+                    </div>
+                    <div class="project-invite-popup-body clearfix">
+                        <ul class="project-invite-popup-navi" style="display: inherit;">
+                            <li class="js-partners on">연락처</li>
                         </ul>
-                    </div>
-                    <!-- 피드 글 목록 -->
 
-                    <!-- 미확인 -->
-                    <div id="posts-unchecked">
-                        <h4 class="section-title ellipsis">미확인</h4>
-                        <button id="read-allposts">전체 읽음</button>
-                        <button id="unchecked-test">미확인 테스트 버튼</button>
-                        <div class="posts-unchecked-sized">
-                            <ul id="posts-ul-unchecked">
-                                <li id="posts-li-unchecked">
-                                    <div class="floatleft">
-                                        <img class="feedProfile" src="../imgs/defaultprofile.png">
-                                    </div>
-                                    <div>
-                                        <strong>정창환</strong>
-                                        <span class="date">1시간 전</span>
-                                        <button class="unchecked-button">보기</button>
-                                    </div>
-                                    <span>내용</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- 상단고정 -->
-                    <!-- <div style="width:90%;">
-                                    <h4 class="section-title ellipsis">상단 고정</h4>
-                                    <div>
-                                        <ul style="padding:0px;margin:0px; margin-top:5px;">
-                                            <li
-                                                style="background-color: white; border-radius: 6px; border: 1px solid #ddd;">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                    fill="currentColor" class="bi bi-card-text" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-                                                    <path
-                                                        d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
-                                                </svg> 글
-                                            </li>
+                        <!-- 좌측 멤버 리스트 -->
+                        <div id="teamInviteArea" class="group-tree-wrap-1 js-group-tree-wrap side-contents">
+                            <div id="orgInviteSearch" class="project-invite-search" style="margin-bottom: 10px;"></div>
+                            <div class="project-invite-ouside-case scroll-mask">
+                                <div class="project-invite-only-list-wrap sub-drag-picture-section-1">
+                                    <div id="membersListForInvitation">
+                                        <ul class="project-invite-choiceList layer-scroll padding-zero scroll-mask scroll-for-ie"
+                                            scroll-direction="0">
                                         </ul>
                                     </div>
-                                </div> -->
-                    <!-- 전체 -->
-                    <div>
-                        <h4 class="section-title ellipsis">전체</h4>
-                        <ul class="feedUl">
-                            <li>
-                                <div class="card">
-                                    <div class="feedHeader">
-                                        <img class="feedProfile floatleft" src="../imgs/defaultprofile.png">
-                                        <div class="feedheader_detail floatleft">
-                                            <strong>정창환</strong><span class="date">2022-07-04 10:03</span>
+                                    <p class="invite-blank-txt d-none" style="margin-top: auto;margin-bottom: auto;">사용자가 존재하지 않습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 우측 리스트 -->
+                        <div class="project-invite-memberList coperate-icon-list-type-1">
+                            <div class="project-invite-selected-num" style="display: none;">
+                                <span id="countFinalElement"></span>
+                                <button id="removeAllElements">전체 삭제</button>
+                            </div>
+                            <p id="blankInviteTarget" class="right-blank-txt">대상을 선택해주세요.</p>
+            
+                            <!-- 선택된 참여자 리스트 -->
+                            <ul id="inviteTargetList"></ul>
+                        </div>
+            
+                    </div>
+                    <div class="project-invite-popup-footer">
+                        <div class="flow-pop-button-type-1">
+                            <a href="#">
+                                <div class="returnInviteModal1 flow-pop-sub-button-1 returnMainBtn">취소</div>
+                            </a>
+                            <a href="#">
+                                <div id="inviteMembers" class="flow-pop-sub-button-2">초대하기</div>
+                            </a>
+                        </div>
+                    </div>
+            
+                </div>
+            </section>
+            
+            <div class="back-area temp-popup" tabindex="0" id="postPopup" data-code="VIEW" style="display: block;">
+                <div class="flow-project-make-1 back-area">
+                    <div class="flow-project-make-2 back-area contents">
+
+                        <!-- 글 쓰기 -->
+                        <div class="js-popup-before edit-item create-post-wrap js-pop-contents js-editor" data-code="ADD" style="display: none;">
+                            <div class="create-post-header">
+                                <div class="temp-wrap">
+                                    <h4 class="js-create-post-title create-post-title">게시물 작성</h4>
+                                </div>
+                                <button type="button" class="btn-close">
+                                    <i class="icons-close-1"><span class="blind">닫기</span></i>
+                                </button>
+                            </div>
+                            <ul class="js-post-nav create-post-nav write2 ">
+                            </ul>
+                            <div class="create-post-container scroll-mask">
+                                <div>
+                                    <fieldset>
+                                        <legend class="blind">게시물 작성 영역</legend>
+                                        <div class="">
+                                            <input id="postTitle" type="text" title="제목을 입력하세요" placeholder="제목을 입력하세요." autocomplete="off" data-required-yn="Y" class="js-post-title create-title-input" maxlength="100" data-empty-msg="제목을 입력하세요">
                                         </div>
-                                        <div class="dropdown floatright">
-                                            <!-- 상단고정 svg -->
-                                            <!-- <button><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor" class="bi bi-pin"
-                                                                viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M4.146.146A.5.5 0 0 1 4.5 0h7a.5.5 0 0 1 .5.5c0 .68-.342 1.174-.646 1.479-.126.125-.25.224-.354.298v4.431l.078.048c.203.127.476.314.751.555C12.36 7.775 13 8.527 13 9.5a.5.5 0 0 1-.5.5h-4v4.5c0 .276-.224 1.5-.5 1.5s-.5-1.224-.5-1.5V10h-4a.5.5 0 0 1-.5-.5c0-.973.64-1.725 1.17-2.189A5.921 5.921 0 0 1 5 6.708V2.277a2.77 2.77 0 0 1-.354-.298C4.342 1.674 4 1.179 4 .5a.5.5 0 0 1 .146-.354zm1.58 1.408-.002-.001.002.001zm-.002-.001.002.001A.5.5 0 0 1 6 2v5a.5.5 0 0 1-.276.447h-.002l-.012.007-.054.03a4.922 4.922 0 0 0-.827.58c-.318.278-.585.596-.725.936h7.792c-.14-.34-.407-.658-.725-.936a4.915 4.915 0 0 0-.881-.61l-.012-.006h-.002A.5.5 0 0 1 10 7V2a.5.5 0 0 1 .295-.458 1.775 1.775 0 0 0 .351-.271c.08-.08.155-.17.214-.271H5.14c.06.1.133.191.214.271a1.78 1.78 0 0 0 .37.282z" />
-                                                            </svg>s</button> -->
-
-                                            <button class="dropdown-more">⠇</button>
-                                        </div>
-                                        <div class="dropdown-hide">
-                                            <ul>
-                                                <li class="setup-group li like-hover">
-                                                    <a href="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                            fill="currentColor" class="bi bi-card-text"
-                                                            viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-                                                            <path
-                                                                d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
-                                                        </svg>수정
-                                                    </a>
-                                                </li>
-                                                <li class="setup-group li like-hover">
-                                                    <a href="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                            fill="currentColor" class="bi bi-trash3"
-                                                            viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-                                                        </svg>삭제
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="card-body ">
-                                        <h4 class="post-title strong">청년IT전문가 1기 실습 프로젝트 안내</h4>
-                                        <p class="card-text post-content">안녕하세요.
-                                            인사팀 정창환입니다.
-
-                                            청년IT전문가 1기 실습 프로젝트의 원활한 진행을 위해
-                                            담당PM님과 교육생 간 소통할 수 있는 플로우를 개설하였으니,
-
-                                            궁금사항 및 공유사항 발생시 본 플로우를 통해 소통 바랍니다.
-
-                                            감사합니다.</p>
-                                        <div>
-                                            <div class="floatleft font555">
-                                                <button class="like-hover">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="currentColor" class="bi bi-emoji-smile"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                        <path
-                                                            d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
-                                                    </svg>
-                                                    <span>좋아요</span>
+                                        <div id="postCntn" class="js-content-area create-content-area ">
+                                            <div id="styleTagItem" class="font-style-toolbar d-none">
+                                                <button id="styleTagBold" type="button" class="font-style-button">
+                                                    <i class="icons-font-style bold"></i>
                                                 </button>
-                                                <!-- <button class="post-emoji-margin"><svg
-                                                                    xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                    height="16" fill="currentColor" class="bi bi-bookmark"
-                                                                    viewBox="0 0 16 16">
-                                                                    <path
-                                                                        d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
-                                                                </svg> 북마크</button> -->
+                                                <button id="styleTagItalic" type="button" class="font-style-button">
+                                                    <i class="icons-font-style italic"></i>
+                                                </button>
+                                                <button id="styleTagUnderLine" type="button" class="font-style-button">
+                                                    <i class="icons-font-style underline"></i>
+                                                </button>
+                                                <button id="styleTagLineThrough" type="button" class="font-style-button">
+                                                    <i class="icons-font-style line-through"></i>
+                                                </button>
                                             </div>
-                                            <div class="floatright font999999">댓글 0
-                                                <button class="font999999">읽음 3</button>
+                                        <div class="js-upload-area js-paste-layer create-post-content" contenteditable="true" placeholder=" 내용을 입력하세요" spellcheck="false"></div> 
+                                    </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <!-- 글 작성 footer -->
+                            <div class="create-post-footer clearfix">
+                                <ul class="js-bottom-ul create-button-group clearfix">
+                                    <li class="js-bottom-item text-item" data-code="style-tag" style="display: inline-block;">
+                                        <button>
+                                            <i class="bi bi-fonts"></i>
+                                        </button>
+                                        <div class="tooltip">굵게/기울임/밑줄/취소선 - 글내용을 드래그하여 설정</div>
+                                    </li>
+                                </ul>
+                                <div class="create-footer-menu">
+                                    <button class="js-complete-btn create-button create-post-submit" style="display: inline-block;">올리기</button>
+                                    <div class="js-editing-buttons d-none" style="display: none;">
+                                        <button type="button" class="cancel-button create-post-button">취소</button>
+                                        <button type="button" class="js-complete-btn edit-button create-post-button confirm">확인</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 오른쪽 글 카드 -->
+                        <li id="post-18102677" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="1414722" data-post-srno="18102677" data-remark-srno="-1" data-section-srno="" data-vote-srno="" data-rgsr-id="kakao_2316948930" mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="Y" status="" todo-done-percent="" time="" data-code="VIEW" data-post-url="https://flow.team/l/04OVF" style="display: none;">
+                            <div class="js-post-nav card-item post-card-wrapper write2 side">
+                                <div class="post-popup-header card-popup-header" style="display: block;">
+                                    <h3 class="card-popup-title">
+                                        <i id="projectTitleColor" class="project-color color-code-3"></i>
+                                        <span class="js-project-title-button">ㄱㄱ</span>
+                                    </h3>
+                                    <button class="btn-close card-popup-close">
+                                        <i class="icons-close-1"></i>
+                                    </button>
+                                </div>
+                                <div class="post-card-header">
+                                    <div class="post-card-scroll">
+                                        <div class="card-header-top">
+                                            <div class="post-author js-post-author" data-author-id="kakao_2316948930">
+                                                <span class="thumbnail size40 radius16" data=""></span>
+                                                <dl class="post-author-info">
+                                                    <dt>
+                                                        <strong class="author ellipsis">신재승</strong>
+                                                        <em class="position ellipsis" style="display:inline" data=""></em>
+                                                        <span class="date">2022-07-12 08:49</span>
+                                                        <span class="post-security"> <i class="bi bi-people" mouseover-text="전체 공개"></i></span>
+                                                    </dt>
+                                                </dl>
+                                            </div>
+                                            <div>
+                                                <div class="post-option">
+                                                    <button id="movePost" class="btn-go d-none" style="display: inline-block;">
+                                                        게시글 바로가기
+                                                    </button>
+                                                    <button id="pinToTopBnt" class="js-pin-post fixed-btn js-pin-authority on" style="display:block" data="">
+                                                        
+                                                        <!-- fixed-btn on class -->
+                                                        <span class="blind">상단 고정 등록</span>
+                                                    </button>
+                                                    <button class="js-setting-button set-btn">
+                                                        <i class="bi bi-three-dots-vertical"></i>
+                                                    </button>
+                                                    <ul class="js-setting-ul js-setting-layer setup-group" style="display: none;">
+                                                        <li class="js-setting-item" data-code="modify" style="display:block" data="">
+                                                            <a href="#"> <i class="bi bi-card-text"></i>수정
+                                                                <i class="edit-auth-icon icons-question js-mouseover " mouseover-text="공동 수정 권한이 활성화 되어있습니다." style="display:none" data=""></i>
+                                                            </a>
+                                                        </li>
+                                                        <li class="js-setting-item" data-code="delete" style="display:block" data="">
+                                                            <a href="#"> <i class="bi bi-trash"></i>삭제</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="card-footer ">
-                                        <!-- <div class="post-comment">
-                                                        이전 댓글 더보기 (10)
-                                                    </div> -->
-                                        <div class="post-comment-box">
-                                            <ul class="post-comment post-comment-more">
-                                                <li class="post-comment-more-margin before-comment">
-                                                    <div>
-                                                        <!-- <div class="post-comment post-comment-update">
-                                                                        <img class="feedProfile"
-                                                                            src="../imgs/defaultprofile.png">
-                                                                        <input class="post-comment-input" type="text"
-                                                                            placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
-                                                                    </div> -->
-                                                        <div>
-                                                            <div class="floatleft">
-                                                                <img class="feedProfile"
-                                                                    src="../imgs/defaultprofile.png">
+                                        <div class="js-card-header-bottom card-header-bottom ">
+                                            <div class="post-title-area">
+                                                <h4 class="js-post-title post-title ">제목1</h4>
+                                            </div>
+                                        </div>
+                                        <div class="post-card-container">
+                                            <div id="originalPost" class="post-card-content " style="display:block" data=""><div>내용1</div></div>
+                                            <div id="summaryPost" class="post-card-content hidden" style="display:none" data=""><div>내용1</div></div>
+                                            <button id="postMoreButton" type="button" class="js-contents-more-btn post-more-btn" style="display:none" data="">더보기</button>
+                                            <div id="summaryFoldArea" class="content-fold" style="display:none" data=""></div>
+                                            <div class="post-bottom-area">
+                                                <div class="post-bottom-menu js-reaction-bookmark">
+                                                    <div class="bottom-button-area">
+                                                        <button class="js-post-reaction post-bottom-button ">
+                                                            <i class="icon-reaction"></i>
+                                                            <span>좋아요</span>
+                                                        </button>
+                                                        <button class="js-post-bookmark post-bottom-button ">
+                                                            <i class="icon-bookmark"></i>
+                                                            <span>북마크</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="cmt-read-wr">
+                                                    <div class="comment-count-area">
+                                                        <span>댓글</span>
+                                                        <span class="comment-count">1</span>
+                                                    </div>
+                                                    <div class="js-read-check-button read-confirmation" style="display:block" data="">
+                                                        <span>읽음</span>
+                                                        <span class="confirmation-number">1</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="post-card-footer js-comment-area">
+                                            <div class="comment-header">
+                                                <button type="button" class="js-remark-prev-button comment-more-button ">
+                                                    이전 댓글 더보기 (0)
+                                                </button>
+                                            </div>
+                                            <ul class="post-comment-group">
+                                                <li class="remark-item" remark-srno="35323826" data-user-id="kakao_2316948930">
+                                                    <div class="comment-thumbnail js-comment-thumbnail">
+                                                        <span class="thumbnail size40 radius16" data=""></span>
+                                                    </div>
+                                                    <div class="js-remark-view comment-container on ">
+                                                        <div class="comment-user-area">
+                                                            <div class="comment-user">
+                                                                <span class="user-name js-comment-user-name">신재승</span>
+                                                                <span class="user-position"></span>
+                                                                <span class="record-date">2022-07-12 09:07</span>
+                                                                <div class="js-remark-like comment-like ">
+                                                                    <span class="js-remark-like-button"><em class="txt-like">좋아요</em></span>
+                                                                    <span class="js-remark-like-count comment-like-count ">0</span>
+                                                                </div>
                                                             </div>
-                                                            <div>
-                                                                <strong>정창환</strong>
-                                                                <span class="date">2022-07-04 10:03</span>
-                                                                <button class="txt-like like-hover">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                        height="16" fill="currentColor"
-                                                                        class="bi bi-emoji-smile" viewBox="0 0 16 16">
-                                                                        <path
-                                                                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                                        <path
-                                                                            d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
-                                                                    </svg> 좋아요
-                                                                </button>
-                                                                <span class="txt-like floatright">
-                                                                    <button
-                                                                        class="like-hover post-comment-update-clicked likemargin ">수정</button>
-                                                                    <button
-                                                                        class="like-hover comment-delete likemargin">삭제</button>
-                                                                </span>
+                                                            <div class="comment-writer-menu">
+                                                                <button type="button" class="js-remark-update js-remark-edit-button comment-writer-button ">
+                                                                    수정</button>
+                                                                <button type="button" class="js-remark-delete js-remark-edit-button comment-writer-button on">
+                                                                    삭제</button>
                                                             </div>
-                                                            <div class="post-comment-margin" style="display:block">
-                                                                내용
+                                                        </div>
+                                                        <div class="js-remark-layer comment-content">
+                                                            <div class="comment-text-area">
+                                                                <div class="js-remark-text comment-text"><div>신재승님이 상단고정 등록</div></div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </li>
-                                                <!-- input li -->
-                                                <li class="post-comment-more-margin post-comment-update">
-                                                    <div class="post-comment ">
-                                                        <img class="feedProfile" src="../imgs/defaultprofile.png">
-                                                        <form class="comment-form">
-                                                            <input class="post-comment-input" type="text"
-                                                                onkeypress="JavaScript:press(this.form)"
-                                                                placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
-                                                        </form>
-                                                    </div>
-                                                </li>
-                                                <li class="post-comment-more-margin before-comment2">
-                                                    <div>
-                                                        <!-- <div class="post-comment post-comment-update">
-                                                                        <img class="feedProfile"
-                                                                            src="../imgs/defaultprofile.png">
-                                                                        <input class="post-comment-input" type="text"
-                                                                            placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
-                                                                    </div> -->
-                                                        <div>
-                                                            <div class="floatleft">
-                                                                <img class="feedProfile"
-                                                                    src="../imgs/defaultprofile.png">
-                                                            </div>
-                                                            <div>
-                                                                <strong>정창환</strong>
-                                                                <span class="date">2022-07-04 10:03</span>
-                                                                <button class="txt-like like-hover">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                        height="16" fill="currentColor"
-                                                                        class="bi bi-emoji-smile" viewBox="0 0 16 16">
-                                                                        <path
-                                                                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                                        <path
-                                                                            d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
-                                                                    </svg> 좋아요
-                                                                </button>
-                                                                <span class="txt-like floatright">
-                                                                    <button
-                                                                        class="like-hover post-comment-update-clicked2  likemargin">수정</button>
-                                                                    <button
-                                                                        class="like-hover comment-delete2 likemargin">삭제</button></span>
-                                                            </div>
-                                                            <div class="post-comment-margin" style="display:block">
-                                                                내용2
+                                                    <div class="js-remark-edit comment-container" style="display: none;">
+                                                        <div class="js-remark-layer comment-content modify">
+                                                            <form class="js-remark-form comment-text-area">
+                                                                <fieldset>
+                                                                    <legend class="blind">댓글 입력</legend>
+                                                                    <div class="js-remark-area js-paste-layer comment-input" contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
+                                                                </fieldset>
+                                                            </form>
+                                                        </div>
+                                                        <div class="comment-like-area">
+                                                            <div class="js-remark-like comment-like ">
+                                                                <span class="js-remark-like-button"><em class="txt-like">좋아요</em></span>
+                                                                <span class="js-remark-like-count comment-like-count ">0</span>
                                                             </div>
                                                         </div>
-
-
-
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
-
-                                        <div class="post-comment">
-                                            <img class="feedProfile" src="../imgs/defaultprofile.png">
-                                            <form class="comment-form">
-                                                <input class="post-comment-input" type="text"
-                                                    onkeypress="JavaScript:press(this.form)"
-                                                    placeholder="줄바꿈은 Shift + Enter / 입력 Enter 입니다">
+                                        <div class="js-remark-layer js-edit-layer comment-input-wrap">
+                                            <div class="comment-thumbnail">
+                                                <span class="thumbnail size40 radius16" data=""></span>
+                                            </div>
+                                            <form class="js-remark-form comment-container on ">
+                                                <fieldset>
+                                                    <legend class="blind">댓글 입력</legend>
+                                                    <div class="js-remark-area js-paste-layer comment-input" contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
+                                                </fieldset>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+            </div>
+            <!-- //오른쪽 글 카드 -->
+
+            <!-- 알림 -->
+            <article id="alarmLayer" class="side-wr alarmLayer" style="display: none;">
+                <div class="menu-top">
+                    <strong>알림</strong>
+                    <button class="btn-close-layer">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="side-contents">
+                    <ul id="notReadFilter" class="tab-menu">
+                        <li class="js-alarm js-unread on">미확인</li>
+                        <li class="js-alarm js-read">전체</li>
+                        <li id="readAllAlarm">모두읽음</li>
+                    </ul>
+
+                    <!-- 알림 리스트 -->
+                    <div class="name-setup-type-2 scroll-mask">
+                        <ul id="alarmUl" scroll-direction="0">
+
+                            <li class="js-alarm-item" colabo_srno="" colabo_commt_srno="" colabo_remark_srno="-1"
+                                alarm_action="" alarm_status="">
+                                <div class="all-setup-picture-type-1"
+                                    style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)"
+                                    data=""></div>
+                                <div class="all-text-wrap-type-1">
+                                    <div class="all-setup-section-type-1">
+                                        <span>부산진역</span><em>6시간 뒤</em>
+                                    </div>
+                                    <div class="all-text-wrap-type-2 alarm-tit-ellipsis">지솔빈님의 퇴근</div>
+                                    <div class="all-text-wrap-type-3">미확인 알람</div>
+                                </div>
+                            </li>
+                            <li class="js-alarm-item on" colabo_srno="" colabo_commt_srno="" colabo_remark_srno="-1"
+                                alarm_action="" alarm_status="">
+                                <div class="all-setup-picture-type-1"
+                                    style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)"
+                                    data=""></div>
+                                <div class="all-text-wrap-type-1">
+                                    <div class="all-setup-section-type-1">
+                                        <span>우리 프로젝트</span><em>곧</em>
+                                    </div>
+                                    <div class="all-text-wrap-type-2 alarm-tit-ellipsis">완료</div>
+                                    <div class="all-text-wrap-type-3">미확인 알람</div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 사이드바 -->
+            <div class="left-task">
+                
+                <!-- 사이드바 -->
+                <div id="leftArea" class="main-header-1">
+                    <div id="leftTask" class="left-task active">
+                        <div class="logo-area" style="display: block">
+                            <a class="logo-box">
+                                <h1 class="logo-1">
+                                    <img src="https://flow.team/flow-renewal/assets/images/flow_logo.png?height=20" alt="flow11"
+                                        srcset="">
+                                </h1>
+                            </a>
+                        </div>
+                        <a href="#">
+                            <div id="projectMakeButton" class="new-project-1">
+                                <div class="button-suport-1"></div>
+                                새 프로젝트
+                            </div>
+                        </a>
+                        <ul id="leftMenuUl" class="menu-group mgt-20">
+                            <li class="left-menu-item left-menu-main flow-active">
+                                <a>
+                                    <i class="ico-home bi bi-house"></i>내 프로젝트
+                                    <em id="leftProjectHomeCount" class="project-total-count d-none"
+                                        style="display: inline-block;">1</em>
+                                </a>
+                            </li>
+                            <li class="left-menu-item left-menu-bookmark">
+                                <a>
+                                    <i class="ico-bookmark bi bi-bookmark"></i>북마크
+                                </a>
                             </li>
                         </ul>
                     </div>
                 </div>
+            </div>
+            
+            <!-- 메인 컨테이너 -->
+            <div class="main-act main-container">
 
-                <!-- 참가자 섹션 -->
+                <!-- 프로젝트 상단바 -->
+                <div class="top-setting-bar">
+                    <div id="topSettingBar" class="main-header" style="display: block;">
+                        <div id="mainTop" class="title-1" data-code="main" style="display: block;">
+                            <div>내 프로젝트</div>
+                        </div>
 
-                <div class="participant participant-size">
-                    <div class="participant-title-area">
-                        <h4 class="participant-title ">참여자
-                            <span class="participant-marginleft">1</span>
-                        </h4>
-                        <button>전체 보기</button>
-                    </div>
-                    <div id="participant">
-                        <div>
-                            <ul style="margin:5px; padding:0px;">
-
-                                <span class="participant-span-margin">프로젝트 관리자</span>
-
-                                <li style="margin-top:5px;margin-bottom: 15px; ">
-                                    <img class="feedProfile" src="../imgs/defaultprofile.png">
-                                    <strong>정창환</strong>
-                                </li>
-                                <div class="participant-type">
-                                    <span class="participant-span-margin">외부인</span>
+                        <!-- ??? -->
+                        <span id="allCollectionCount" class="js-collection-total-count js-collection-count top-task-num"
+                            style="display: none;"></span>
+        
+                        <div id="detailTop" class="project-detail title-1" style="display: none;">
+                            <div class="project-detail-header">
+                                <div class="project-color-area">
+                                    <i id="projectColor" class="project-color color-code-3"></i>
                                 </div>
-                                <li class="participant-margintop">
-                                    <img class=" feedProfile" src="../imgs/defaultprofile.png">
-                                    <strong>정창환</strong>
-                                </li>
-                                <li class="participant-margintop">
-                                    <img class=" feedProfile" src="../imgs/defaultprofile.png">
-                                    <strong>정창환</strong>
-                                </li>
-                                <li class="participant-list-margin">
-                                    <img class=" feedProfile" src="../imgs/defaultprofile.png">
-                                    <strong>정창환</strong>
-                                </li>
-                                <div class="participant-type">
-                                    <span class="participant-span-margin">임직원</span>
+                                <div class="project-header-group">
+                                    <div class="project-title-area">
+                                        <div class="project-option-area">
+                                            <button id="projectStar" class="bookmark-button unstar">
+                                                <span class="blind">즐겨찾기</span>
+                                            </button>
+                                            <button id="detailSettingTopButton" class="set-btn">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+
+                                            <!-- detail 버튼 클릭 시 뜨는 창 -->
+                                            <div id="detailSettingLayer" class="project-setup-wrap" style="display: none;">
+                                                <div class="project-setup-header">
+                                                    <span>프로젝트 번호</span>
+                                                    <em id="detailSettingProjectSrno">1402344</em>
+                                                </div>
+
+                                                <!-- 관리자면 수정/삭제, 참여자면 나가기만 뜨도록 해야 함 -->
+                                                <ul id="detailSettingGroup" class="setup-group">
+                                                    <li id="detailSettingProjectExitBtn">
+                                                        <a href="#"> <i class="bi bi-box-arrow-in-left"></i>프로젝트 나가기</a>
+                                                    </li>
+                                                    <li id="detailSettingProjectUpdateBtn" style="display: block;">
+                                                        <a href="#"> <i class="bi bi-pencil"></i>프로젝트 수정</a>
+                                                    </li>
+                                                    <li id="detailSettingProjectDeleteBtn" style="display: block;">
+                                                        <a href="#"> <i class="bi bi-trash"></i>프로젝트 삭제</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <h3 id="projectTitle" class="project-title ellipsis js-mouseover"
+                                            mouseover-text="플로우 프로젝트">
+                                            플로우 프로젝트</h3>
+                                    </div>
+                                    <div class="project-description" style="display: block;">
+                                        <p id="projectContents" class="description-text js-mouseover"
+                                            mouseover-text="플로우 클론 코딩">플로우
+                                            클론 코딩</p>
+                                    </div>
                                 </div>
-                                <li class="participant-margintop">
-                                    <img class=" feedProfile" src="../imgs/defaultprofile.png">
-                                    <strong>정창환</strong>
-                                </li>
-                            </ul>
+                            </div>
+                            <button id="openInviteLayerBtn" type="button" class="project-invite-button color-code-3"
+                                style="display: block;">
+                                <i class="bi bi-person-plus"></i>초대하기
+                            </button>
                         </div>
                     </div>
                 </div>
+
+                <!-- 프로젝트 리스트 -->
+                <div id="mainContent" class="main-content scroll-mask project-list" scroll-direction="0">
+                    <div id="projectHomeLayer" class="project-home-wrap" style="display: block;">
+                        <div class="small-style-wrap">
+                            <div class="section-wrap">
+                                <div id="BoardArea" class="project-board-wr" style="display: block;">
+                                    <div class="section-1">
+                                        <ul id="projectBoardUl" class="project-group clearfix">
+        
+                                            <!-- 즐겨찾기 -->
+                                            <div id="MyStarProject" class="section-1" style="display: none;">
+                                                <p class="project-class">즐겨찾기</p>
+                                            </div>
+        
+                                            <!-- 참여중 -->
+                                            <div id="MyProject" class="section-2 middle-line">
+                                                <p class="project-class join">참여중</p>
+                                            </div>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 특정 프로젝트 -->
+                    <div id="detailLayer" class="main-sub-header project-detail-wrap" style="display: none;">
+                        <div class="project-detail-top clearfix">
+                            <ul id="detailTab" class="project-detail-menu">
+                                <li class="js-tab-item active" data-code="home">
+                                    <a class="">홈</a>
+                                </li>
+                                <li class="js-tab-item tracking-project-alarm" data-code="history" style="display: inline-block;">
+                                    <a class="">알림</a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div id="detailTimeline" class="project-detail-inner layer-scroll type2" scroll-direction="0" style="display: block;">
+                            <div class="js-detail-wrap-area small-style-wrap">
+
+                                <!-- project-detail-container-->
+                                <section id="postTimeline" class="project-detail-container" >
+                                    <div class="project-detail-content">
+
+                                        <!-- 글 작성 버튼 -->
+                                        <div id="createPostArea" class="work-design-wrapper">
+                                            <ul id="createPostUl" class="work-design-group">
+                                                <li class="post-filter" data-post-code="1">
+                                                    <i class="icons-write2"></i>
+                                                    <span>글</span>
+                                                </li>
+                                            </ul>
+                                            <div class="work-desing-element">
+                                                <p class="work-desing-text">내용을 입력하세요</p>
+                                                <div class="work-icon-group">
+                                                    <i class="icons-font"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- //글 작성 버튼 -->
+
+                                    </div>
+
+                                    <!-- 미확인 -->
+                                    <div id="projectAlarmArea" class="detail-section unidentified-alert-section" style="display: none;">
+                                        <div class="section-title-area">
+                                            <h4 class="section-title">
+                                                <span>미확인</span>
+                                                <span id="projectNotReadCount" class="section-number alarm" style="display: none;">0</span>
+                                            </h4>
+                                            <button id="readAllPostBnt" type="button" class="read-all-btn">모두읽음</button>
+                                        </div>
+                                        <div class="unidentified-content">
+
+                                            <!--unidentified-content active 클래스 제어 -->
+                                            <ul id="notReadAlarmUl" class="unidentified-list">
+                                                <div class="loading-area">
+                                                    <div class="loading type2">
+                                                        <i class="circle"></i>
+                                                        <i class="circle"></i>
+                                                        <i class="circle"></i>
+                                                        <i class="circle"></i>
+                                                        <i class="circle"></i>
+                                                    </div>
+                                                </div>
+                                            </ul>
+                                            <button id="notReadAlarmMore" type="button" class="unidentified-more-btn d-none" style="display: none;">
+                                                더보기
+                                                <span class="blind">더보기</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- //미확인 -->
+
+                                    <!-- 상단고정 -->
+                                    <div id="projectPinArea" class="detail-section fix-section" style="display: none;">
+                                        <div class="section-title-area">
+                                            <h4 class="section-title">
+                                                <span>상단고정</span>
+                                                <span id="projectPinCount" class="section-number">3</span>
+                                            </h4>
+                                        </div>
+                                        <ul id="pinPostUl" class="ui-sortable pin-list fixed-list" data-project-srno="1402344" data-sortable-ul="true"></ul>
+                                    </div>
+                                    <!-- //상단고정 -->
+
+                                    <!-- 전체피드 -->
+                                    <div id="projectFeedArea" class="detail-section feed-section">
+                                        <div class="section-title-area">
+                                            <h4 id="allPostsFilterTitle" class="section-title ellipsis">전체</h4>
+                                        </div>
+                                        <div class="feed-content">
+                                            <ul id="detailUl" class="post-group post-card" style="display: block;">
+
+                                                <!-- 게시글 없을때 -->
+                                                <div id="noDetailData" class="detail-data-none">
+                                                    <img src="https://flow.team/flow-renewal/assets/images/none_member.png" alt="함께할 멤버들을 지금 초대해 보세요!"/>
+                                                    <p class="none-text">아직 참여중인 멤버들이 없습니다<br>
+                                                    함께할 멤버들을 지금 초대해 보세요!</p>
+                                                    <button id="noDetailDataBnt" type="button" class="data-none-button invite">초대하기</button>
+                                                </div>
+                                                <!-- //게시글 없을때 -->
+
+                                                <!-- 게시글 있을 때 -->
+                                                <li id="post-18077733" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="1414722" data-post-srno="18077733" data-remark-srno="" data-section-srno="" data-vote-srno="" data-rgsr-id="kakao_2316948930" mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" status="" todo-done-percent="" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh" style="display: none;">
+                                                    <div class="js-post-nav card-item post-card-wrapper write2 ">
+                                                        <div class="post-card-header">
+                                                            <div class="post-card-scroll">
+                                                                <div class="card-header-top">
+                                                                    <div class="post-author js-post-author" data-author-id="kakao_2316948930">
+                                                                        <span class="thumbnail size40 radius16" data=""></span>
+                                                                        <dl class="post-author-info">
+                                                                            <dt>
+                                                                                <strong class="author ellipsis">신재승</strong>
+                                                                                <em class="position ellipsis" style="display:inline" data=""></em>
+                                                                                <span class="date">2022-07-11 14:21</span>
+                                                                                <span class="post-security"> <i class="bi bi-people" mouseover-text="전체 공개"></i></span>
+                                                                            </dt>
+                                                                        </dl>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div class="post-option">
+                                                                            <button id="movePost" class="btn-go" style="display: none;">
+                                                                                게시글 바로가기
+                                                                            </button>
+                                                                            <button id="pinToTopBnt" class="js-pin-post fixed-btn js-pin-authority " style="display:block" data="">
+                                                                                <!-- fixed-btn on class -->
+                                                                                <span class="blind">상단 고정 등록</span>
+                                                                            </button>
+                                                                            <button id="postSetting" class="js-setting-button set-btn">
+                                                                                <i class="bi bi-three-dots-vertical"></i>
+                                                                            </button>
+                                                                            <ul class="js-setting-ul js-setting-layer setup-group" style="display: none;">
+                                                                                <li class="js-setting-item" data-code="modify" style="display:block" data="">
+                                                                                    <a href="#"><i class="bi bi-card-text"></i>수정</a>
+                                                                                </li>
+                                                                                <li class="js-setting-item" data-code="delete" style="display:block" data="">
+                                                                                    <a href="#"> <i class="bi bi-trash"></i>삭제</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="js-card-header-bottom card-header-bottom ">
+                                                                    <div class="post-title-area">
+                                                                        <h4 class="js-post-title post-title ">제목</h4>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="post-card-container">
+                                                                    <div id="originalPost" class="post-card-content " style="display:block" data=""><div>내용</div></div>
+
+                                                                    <!-- 글 내용 많을 때 요약 -->
+                                                                    <div id="summaryPost" class="post-card-content hidden" style="display:none" data=""><div>내용</div></div>
+                                                                    <!-- //글 내용 많을 때 요약 -->
+
+                                                                    <button id="postMoreButton" type="button" class="js-contents-more-btn post-more-btn" style="display:none" data="">더보기</button>
+                                                                    <div id="summaryFoldArea" class="content-fold" style="display:none" data=""></div>
+                                                                    <div class="post-bottom-area">
+                                                                        <div class="post-bottom-menu js-reaction-bookmark">
+                                                                            <div class="bottom-button-area">
+                                                                                <button class="js-post-reaction post-bottom-button ">
+                                                                                    <i class="icon-reaction"></i>
+                                                                                    <span>좋아요</span>
+                                                                                </button>
+                                                                                <button class="js-post-bookmark post-bottom-button ">
+                                                                                    <i class="icon-bookmark"></i>
+                                                                                    <span>북마크</span>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="cmt-read-wr">
+                                                                            <div class="comment-count-area">
+                                                                                <span>댓글</span>
+                                                                                <span class="comment-count">0</span>
+                                                                            </div>
+                                                                            <div class="js-read-check-button read-confirmation" style="display:block" data="">
+                                                                                <span>읽음</span>
+                                                                                <span class="confirmation-number">1</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- //post-card-container -->
+
+                                                                </div>
+
+                                                                <!-- 글 카드 footer -->
+                                                                <div class="post-card-footer js-comment-area">
+                                                                    <div class="comment-header">
+                                                                        <button type="button" class="js-remark-prev-button comment-more-button ">
+                                                                            이전 댓글 더보기 (0)
+                                                                        </button>
+                                                                    </div>
+                                                                    <ul class="post-comment-group"></ul>
+                                                                </div>
+                                                                <div class="js-remark-layer js-edit-layer comment-input-wrap">
+                                                                    <div class="comment-thumbnail">
+                                                                        <span class="thumbnail size40 radius16" data=""></span>
+                                                                    </div>
+                                                                    <form class="js-remark-form comment-container on ">
+                                                                        <fieldset>
+                                                                            <legend class="blind">댓글 입력</legend>
+                                                                            <div class="js-remark-area js-paste-layer comment-input" contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
+                                                                        </fieldset>
+                                                                    </form>
+                                                                </div>
+                                                                <!-- //글 카드 footer -->
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <!-- //게시글 있을 때 -->
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- //project-detail-container-->
+                                
+                                <div class="participants-section">
+                                    <div id="projectParticipants" class="project-participants-wrap feed-section" style="transform: translateX(0px);">
+                                        <div class="section-title-area">
+                                            <h4 class="section-title">
+                                                <span>참여자</span>
+                                                <span id="participantCount">1</span>
+                                            </h4>
+                                            <div class="feed-type-area">
+                                                <button id="allSendienceBtn" type="button">
+                                                    전체 보기
+                                                </button>
+                                            </div>
+                                        </div>
+        
+                                        <div id="participantArea" class="participants-container">
+                                            <div id="participantScrollArea" class="participants-content-group scroll-mask" scroll-direction="0">
+                                                <ul id="participantsUl" class="participants-list">
+
+                                                    <!-- 프로젝트 관리자 -->
+                                                    <span class="participants-title participants-admin-span">
+                                                        <em>프로젝트 관리자</em>
+                                                        <span id="managerParticipantsCount" class="number-of-participants">1</span>
+                                                    </span>
+                                                    <!-- //프로젝트 관리자 -->
+
+                                                    <!-- 참여자 -->
+                                                    <span class="participants-title participants-member-span">
+                                                        <em>참여자</em>
+                                                        <span id="managerParticipantsCount" class="number-of-participants">1</span>
+                                                    </span>
+                                                    <!-- //참여자 -->
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div id="projectAddtionalArea" class="project-additional-features-container">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
             </div>
+
         </div>
     </div>
+
     <!-- script -->
     <script>
         $(function () {
             $('#mainTop').css('display', 'block');
             $('#detailTop').css('display', 'none');
             $('#projectHomeLayer').css('display', 'block');
-            $('#feedContainer').css('display', 'none');
-        })
+            $('#detailLayer').css('display', 'none');
+        })        
     </script>
 
     <script type="text/javascript" src="../js/topHeader.js"></script>
     <script type="text/javascript" src="../js/leftTask.js"></script>
     <script type="text/javascript" src="../js/topSettingBar.js"></script>
-    <script type="text/javascript" src="../js/feed.js"></script>
     <script type="text/javascript" src="../js/projectList.js"></script>
     <script type="text/javascript" src="../js/changeMainContainer.js"></script>
     <script type="text/javascript" src="../js/alarmLayer.js"></script>
     <script type="text/javascript" src="../js/createProject.js"></script>
+    <script type="text/javascript" src="../js/createPost.js"></script>
+    <script type="text/javascript" src="../js/detailLayer.js"></script>
+    <script type="text/javascript" src="../js/inviteLayer.js"></script>
 
 </body>
-
 </html>

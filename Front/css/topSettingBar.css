@@ -99,6 +99,13 @@
     font-size: 0;
     cursor: default;
 }
+.project-description {
+    position: relative;
+    margin: 5px 0 0 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #999;
+}
 .project-option-area {
     position: relative;
     display: inline-block;
@@ -111,7 +118,7 @@
 }
 .bookmark-button {
     position: absolute;
-    top: 4px;
+    top: 10px;
     width: 22px;
     height: 22px;
     background-image: url(https://flow.team/flow-renewal/assets/images/icons/icon_star_on.png);
