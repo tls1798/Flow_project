@@ -30,7 +30,7 @@ public class RoomsApiController {
 
     // 프로젝트 삭제
     @DeleteMapping("/rooms/{rmNo}")
-    public ResponseEntity<?> removeRoom(@PathVariable int rmNo){
+    public ResponseEntity<?> removeRoom(@PathVariable String rmNo){
         return ResponseEntity.ok(roomsService.removeRoom(rmNo));
     }
 }

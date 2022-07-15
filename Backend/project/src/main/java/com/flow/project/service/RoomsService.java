@@ -12,7 +12,7 @@ public class RoomsService {
     final RoomsMapper roomsMapper;
 
     // 프로젝트 번호로 프로젝트 선택
-    public Rooms getRoom(int rmNo) {
+    public Rooms getRoom(String rmNo) {
         return roomsMapper.selectOne(rmNo);
     }
 
@@ -29,7 +29,7 @@ public class RoomsService {
     }
 
     // 프로젝트 삭제
-    public Rooms removeRoom(int rmNo){
+    public Rooms removeRoom(String rmNo){
         Rooms target = getRoom(rmNo);
         if(target!=null)
             roomsMapper.deleteOne(rmNo);

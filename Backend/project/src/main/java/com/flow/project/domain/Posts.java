@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Posts {
     
     private int postNo;
-    private int rmNo;
+    private String rmNo;
     private int postWriter;
     private String postTitle;
     private String postContent;

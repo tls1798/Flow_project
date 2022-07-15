@@ -12,12 +12,12 @@ import java.util.List;
 public class PostsService {
     final PostsMapper postsMapper;
     //  특정 프로젝트 방 전체 글 가져오기
-    public List<Posts> getPosts(int rmNo) {
+    public List<Posts> getPosts(String rmNo) {
         return postsMapper.selectAll(rmNo);
     }
 
     //  특정 프로젝트 방 특정 글 하나 가져오기
-    public Posts getPost(int rmNo, int postNo) {
+    public Posts getPost(String rmNo, int postNo) {
         return postsMapper.selectOne(rmNo, postNo);
     }
 
@@ -32,7 +32,7 @@ public class PostsService {
     }
 
     //  특정 프로젝트 방 글 삭제
-    public int removePost(int rmNo, int postNo) {
+    public int removePost(String rmNo, int postNo) {
         return postsMapper.deleteOne(rmNo, postNo);
     }
 }

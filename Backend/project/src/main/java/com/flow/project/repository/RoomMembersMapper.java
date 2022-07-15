@@ -27,7 +27,7 @@ public interface RoomMembersMapper {
             "from \"Room_Members\" as rmmems " +
             "inner join \"Rooms\" as rms on rmmems.rm_no=rms.rm_no AND rmmems.rm_no = #{rmNo} " +
             "inner join \"Members\" mems on rmmems.mem_no=mems.mem_no")
-    List<Participant> selectMembers(int rmNo);
+    List<Participant> selectMembers(String rmNo);
 
     // 프로젝트에 멤버 초대
     @Insert("insert into \"Room_Members\" values (#{rmNo}, #{memNo})")

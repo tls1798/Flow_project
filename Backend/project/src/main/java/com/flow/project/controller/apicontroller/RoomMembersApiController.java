@@ -26,7 +26,7 @@ public class RoomMembersApiController {
 
     // 프로젝트 별 참여자 리스트
     @GetMapping("/rooms/{rmNo}/members")
-    public ResponseEntity<?> getMembers(@PathVariable int rmNo){
+    public ResponseEntity<?> getMembers(@PathVariable String rmNo){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(roomMembersService.getMembers(rmNo));
     }

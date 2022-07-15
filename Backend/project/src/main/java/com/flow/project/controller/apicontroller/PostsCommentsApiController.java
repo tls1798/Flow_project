@@ -15,7 +15,7 @@ public class PostsCommentsApiController {
     final PostsCommentsService postsCommentsService;
 
     @GetMapping("/rooms/{rmNo}/posts")
-    public ResponseEntity<?> getPosts(@PathVariable int rmNo){
+    public ResponseEntity<?> getPosts(@PathVariable String rmNo){
         return ResponseEntity.status(HttpStatus.OK).body(postsCommentsService.getPosts(rmNo));
     }
 }

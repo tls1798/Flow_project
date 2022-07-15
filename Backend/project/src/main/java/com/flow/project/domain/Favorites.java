@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Favorites {
 
-    private int rmNo;
+    private String rmNo;
     private int memNo;
 }

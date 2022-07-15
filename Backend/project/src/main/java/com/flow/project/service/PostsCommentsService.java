@@ -16,7 +16,7 @@ public class PostsCommentsService {
 
     private final PostsCommentsMapper postsCommentsMapper;
 
-    public List<PostsComments> getPosts(int rmNo) {
+    public List<PostsComments> getPosts(String rmNo) {
 
 //      글 전체 댓글 전체
         List<PostsComments> postsComments = new ArrayList<>();

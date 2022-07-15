@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Participant {
 
-    private int rmNo;
+    private String rmNo;
     private int memNo;
     private int rmAdmin;
     private String adminName;

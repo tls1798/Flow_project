@@ -21,7 +21,7 @@ public class RoomMembersService {
     }
 
     // 프로젝트 별 참여자 리스트
-    public List<Participant> getMembers(int rmNo){
+    public List<Participant> getMembers(String rmNo){
         return roomMembersMapper.selectMembers(rmNo);
     }
 

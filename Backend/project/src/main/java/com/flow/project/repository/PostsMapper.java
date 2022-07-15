@@ -10,11 +10,11 @@ public interface PostsMapper {
 
 //  특정 프로젝트 방 전체 글 가져오기
     @Select("select * from \"Posts\" where rm_no=#{rmNo}")
-    List<Posts> selectAll(int rmNo);
+    List<Posts> selectAll(String rmNo);
 
 //  특정 프로젝트 방 특정 글 하나 가져오기
     @Select("select * from \"Posts\" where rm_no=#{rmNo} and post_no=#{postNo}")
-    Posts selectOne(int rmNo, int postNo);
+    Posts selectOne(String rmNo, int postNo);
 
 //  특정 프로젝트 방 글 작성
     @Options(keyColumn = "post_no", useGeneratedKeys = true)
@@ -27,5 +27,5 @@ public interface PostsMapper {
 
 //  특정 프로젝트 방 글 삭제
     @Delete("delete from \"Posts\" where rm_no=#{rmNo} and post_no=#{postNo}")
-    int deleteOne(int rmNo, int postNo);
+    int deleteOne(String rmNo, int postNo);
 }

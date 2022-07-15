@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProjectListData {
 
-    private int rmNo;
+    private String rmNo;
     private String rmTitle;
     private int rmMemCount;
     private int favoriteProject;

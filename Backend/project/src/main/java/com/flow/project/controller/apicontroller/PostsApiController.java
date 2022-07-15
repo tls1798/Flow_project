@@ -16,18 +16,18 @@ public class PostsApiController {
 
     //  특정 프로젝트 방 전체 글 가져오기
 //    @GetMapping("/rooms/{rmNo}/posts")
-//    public ResponseEntity<?> getPosts(@PathVariable int rmNo){
+//    public ResponseEntity<?> getPosts(@PathVariable String rmNo){
 //        return ResponseEntity.status(HttpStatus.OK).body(postsService.getPosts(rmNo));
 //    }
 
 //    @GetMapping("/rooms/{rmNo}/posts")
-//    public ResponseEntity<?> getPosts(@PathVariable int rmNo){
+//    public ResponseEntity<?> getPosts(@PathVariable String rmNo){
 //        return ResponseEntity.status(HttpStatus.OK).body(postsService.getPosts(rmNo));
 //    }
 
     //  특정 프로젝트 방 특정 글 하나 가져오기
     @GetMapping("/rooms/{rmNo}/posts/{postNo}")
-    public ResponseEntity<?> getPost(@PathVariable int rmNo, @PathVariable int postNo){
+    public ResponseEntity<?> getPost(@PathVariable String rmNo, @PathVariable int postNo){
         return ResponseEntity.status(HttpStatus.OK).body(postsService.getPost(rmNo, postNo));
     }
 
@@ -61,7 +61,7 @@ public class PostsApiController {
 
     //  특정 프로젝트 방 글 삭제
     @DeleteMapping("/rooms/{rmNo}/posts/{postNo}")
-    public ResponseEntity<?> removePost(@PathVariable int rmNo, @PathVariable int postNo){
+    public ResponseEntity<?> removePost(@PathVariable String rmNo, @PathVariable int postNo){
         return postsService.removePost(rmNo, postNo)>0?ResponseEntity.ok().build():ResponseEntity.badRequest().build();
     }
 }
