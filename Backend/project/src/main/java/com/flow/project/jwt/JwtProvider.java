@@ -23,9 +23,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtProvider {
     private final AuthMapper authMapper;
-    private final long accessExpireTime = (30 *60 * 1000L);   // 30분
+    private final long accessExpireTime = (30 * 60 * 1000L);   // 30분
 
-    private final long refreshExpireTime = (60* 60 * 1000L) * 24;   // 24시간
+    private final long refreshExpireTime = (60 *60 * 1000L) *24 ;   // 24시간
     private final CustomUserDetailService customUserDetailService;
     private String mail;
 
@@ -79,7 +79,6 @@ public class JwtProvider {
         result.put("accessToken", accessToken);
         result.put("refreshToken", refreshToken);
         RefreshToken insertOrUpdateRefreshToken = RefreshToken.builder()
-                .userEmail(loginDTO.getMemMail())
                 .memNo(loginDTO.getMemNo())
                 .refreshToken(refreshToken)
                 .build();
@@ -102,7 +101,7 @@ public class JwtProvider {
       // AccessToken은 만료됐지만 정보가 일치하는지 확인
         if(validateJwtNewAToken(request,accessToken)) {
             // AccessToken은 만료되었지만 RefreshToken은 만료되지 않은 경우 , db에 refresh 토큰 검증
-            if (validateJwtRToken(request, refreshToken)) {
+            if (validateJwtToken(request, refreshToken,2)) {
                 AuthDTO.LoginDTO loginDTO = new AuthDTO.LoginDTO();
                 loginDTO.setMemMail(mail);
                 loginDTO.setMemNo(authMapper.findNo(loginDTO.getMemMail()));
@@ -141,11 +140,15 @@ public class JwtProvider {
         }
         return false;
     }
-    // access token validation 확인을 위한 메서드
-    public boolean validateJwtAToken(ServletRequest request, String accessToken) {
+    // token validation 확인을 위한 메서드
+    // 1이면 access 검증 , 2면 refresh 검증
+    public boolean validateJwtToken(ServletRequest request, String token,int num) {
 
         try {
-            Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(accessToken);
+            if(num == 1)
+            Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(token);
+            else
+                Jwts.parser().setSigningKey("${jwt.secretB}").parseClaimsJws(token);
             return true;
 
         } catch (MalformedJwtException e) {
@@ -165,28 +168,8 @@ public class JwtProvider {
     }
 
     // 리프레쉬 토큰 검증을 위한 validation 각각의 토큰 exception 마다 다른 처리를 하기 위해 하나 더 생성
-    // 추후에 프론트에서 하나로도 try catch해서 exception 처리할 수 있으면 하나로 합칠 예정
-    public boolean validateJwtRToken(ServletRequest request, String refreshToken) {
 
-        try {
-            Jwts.parser().setSigningKey("${jwt.secretB}").parseClaimsJws(refreshToken);
-            return true;
 
-        } catch (MalformedJwtException e) {
-
-            request.setAttribute("exception", "MalformedJwtException");
-        } catch (ExpiredJwtException e) {
-
-            request.setAttribute("exception", "ExpiredJwtException");
-        } catch (UnsupportedJwtException e) {
-
-            request.setAttribute("exception", "UnsupportedJwtException");
-        } catch (IllegalArgumentException e) {
-
-            request.setAttribute("exception", "IllegalArgumentException");
-        }
-        return false;
-    }
 
     // 필터 내에서 토큰이 사용될 때 유저의 메일을 이용해서 유저 디테일에 담는다
     public Authentication getAuthentication(String token) {

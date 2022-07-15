@@ -27,7 +27,7 @@ public interface AuthMapper {
 
     // 리프레쉬 토큰 발급 시 insert or update 시 사용
     @Options(keyColumn = "rt_no", useGeneratedKeys = true)
-    @Insert("Insert into \"RefreshToken\" (user_email, mem_no,refresh_token) values(#{userEmail},#{memNo},#{refreshToken})")
+    @Insert("Insert into \"RefreshToken\" (mem_no,refresh_token) values(#{memNo},#{refreshToken})")
     void insertefreshToken(RefreshToken refreshToken);
 
     @Options(keyColumn = "rt_no", useGeneratedKeys = true)
