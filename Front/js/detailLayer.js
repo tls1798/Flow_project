@@ -248,7 +248,7 @@ $(function(){
                                                         이전 댓글 더보기 (0)
                                                     </button>
                                                 </div>
-                                                <ul class="post-comment-group"></ul>
+                                                <ul class="post-comment-group" data-id=`+result[i].posts.postNo+`></ul>
                                             </div>
                                             <div class="js-remark-layer js-edit-layer comment-input-wrap">
                                                 <div class="comment-thumbnail">
@@ -266,56 +266,59 @@ $(function(){
                                 </div>
                             </li>
                         `)
-                    
-                        // 댓글 가져오기
-                        for(var j=0;j<result[i].commentsList.length;j++){ 
-                            $('.post-comment-group').append(`
-                                <li class="remark-item" remark-srno="`+result[i].commentsList[j].cmNo+`" data-user-id="`+result[i].commentsList[j].cmWriter+`">
-                                    <div class="comment-thumbnail js-comment-thumbnail">
-                                        <span class="thumbnail size40 radius16" data=""></span>
-                                    </div>
-                                    <div class="js-remark-view comment-container on ">
-                                        <div class="comment-user-area">
-                                            <div class="comment-user">
-                                                <span class="user-name js-comment-user-name">`+result[i].commentsList[j].cmName+`</span>
-                                                <span class="user-position"></span>
-                                                <span class="record-date">"`+result[i].commentsList[j].cmDatetime+`"</span>
+
+                        if(result[i].commentsList.length>0){
+
+                            // 댓글 가져오기
+                            for(var j=0;j<result[i].commentsList.length;j++){ 
+                                $('.post-comment-group[data-id='+result[i].commentsList[j].postNo+']').append(`
+                                    <li class="remark-item" remark-srno="`+result[i].commentsList[j].cmNo+`" data-user-id="`+result[i].commentsList[j].cmWriter+`">
+                                        <div class="comment-thumbnail js-comment-thumbnail">
+                                            <span class="thumbnail size40 radius16" data=""></span>
+                                        </div>
+                                        <div class="js-remark-view comment-container on ">
+                                            <div class="comment-user-area">
+                                                <div class="comment-user">
+                                                    <span class="user-name js-comment-user-name">`+result[i].commentsList[j].cmName+`</span>
+                                                    <span class="user-position"></span>
+                                                    <span class="record-date">"`+result[i].commentsList[j].cmDatetime+`"</span>
+                                                    <div class="js-remark-like comment-like ">
+                                                        <span class="js-remark-like-button"><em class="txt-like">좋아요</em></span>
+                                                        <span class="js-remark-like-count comment-like-count ">0</span>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-writer-menu">
+                                                    <button type="button" class="js-remark-update js-remark-edit-button comment-writer-button ">
+                                                        수정</button>
+                                                    <button type="button" class="js-remark-delete js-remark-edit-button comment-writer-button ">
+                                                        삭제</button>
+                                                </div>
+                                            </div>
+                                            <div class="js-remark-layer comment-content">
+                                                <div class="comment-text-area">
+                                                    <div class="js-remark-text comment-text"><div>`+result[i].commentsList[j].cmContent+`</div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="js-remark-edit comment-container">
+                                            <div class="js-remark-layer comment-content modify">
+                                                <form class="js-remark-form comment-text-area d-none">
+                                                    <fieldset>
+                                                        <legend class="blind">댓글 입력</legend>
+                                                        <div class="js-remark-area js-paste-layer comment-input" contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+                                            <div class="comment-like-area d-none">
                                                 <div class="js-remark-like comment-like ">
                                                     <span class="js-remark-like-button"><em class="txt-like">좋아요</em></span>
                                                     <span class="js-remark-like-count comment-like-count ">0</span>
                                                 </div>
                                             </div>
-                                            <div class="comment-writer-menu">
-                                                <button type="button" class="js-remark-update js-remark-edit-button comment-writer-button ">
-                                                    수정</button>
-                                                <button type="button" class="js-remark-delete js-remark-edit-button comment-writer-button ">
-                                                    삭제</button>
-                                            </div>
                                         </div>
-                                        <div class="js-remark-layer comment-content">
-                                            <div class="comment-text-area">
-                                                <div class="js-remark-text comment-text"><div>`+result[i].commentsList[j].cmContent+`</div></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="js-remark-edit comment-container">
-                                        <div class="js-remark-layer comment-content modify">
-                                            <form class="js-remark-form comment-text-area d-none">
-                                                <fieldset>
-                                                    <legend class="blind">댓글 입력</legend>
-                                                    <div class="js-remark-area js-paste-layer comment-input" contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
-                                                </fieldset>
-                                            </form>
-                                        </div>
-                                        <div class="comment-like-area d-none">
-                                            <div class="js-remark-like comment-like ">
-                                                <span class="js-remark-like-button"><em class="txt-like">좋아요</em></span>
-                                                <span class="js-remark-like-count comment-like-count ">0</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            `)
+                                    </li>
+                                `)
+                            }
                         }
                     }
                 }
@@ -343,4 +346,9 @@ $(function(){
             }
         })
     }
+
+
+    $(document).on('click','#postSetting',function(){
+        console.log(this)
+    })
 });
