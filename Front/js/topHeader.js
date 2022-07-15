@@ -1,20 +1,24 @@
+import logoutModule from './logoutModule.js';
+
 $(function(){
     // 모달, 팝업 display:none -> false, block -> true
-    var profileModalBool = false;
     var searchPopupBool = false;
     var alarmLayerBool = false;
 
     // 프로필 사진 클릭 시 프로필 모달 띄우기
-    $(".btn-profile").click(function(){
-        if(!profileModalBool){
+    $(".btn-profile").click(function(e){
+        if($('#accountLayer').css('display')=='none'){
             $(this).addClass('active');
             $(".modal-account").css('display', 'block');
-            profileModalBool=!profileModalBool;
 
             // html.click 동작시키지 않기 위해 작성
             return false;
         }
     });
+
+    $('#logoutBtn').click(function () {
+        logoutModule();
+    })
 
     // 검색창 클릭 시 검색 팝업 띄우기
     $(".main-search").click(function(){
@@ -49,10 +53,9 @@ $(function(){
 
     $('html').click(function(e) {
         // 어디든 클릭하면 프로필 모달 display none
-        if(profileModalBool) {
+        if($('#accountLayer').css('display')=='block') {
             $(this).removeClass('active');
             $(".modal-account").css('display', 'none');
-            profileModalBool=!profileModalBool;
         }
 
         // 검색창 팝업 display none (검색창 팝업 클릭할 시엔 X)

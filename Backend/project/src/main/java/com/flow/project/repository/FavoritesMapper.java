@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface FavoritesMapper {
 
     // 즐겨찾는 프로젝트로 등록
-    @Insert("insert into \"Favorites\" values (#{rmNo}, #{memNo})")
+    @Insert("insert into \"Favorites\" values (#{memNo}, #{rmNo})")
     int insertOne(Favorites favorite);
 
     // 즐겨찾는 프로젝트 취소

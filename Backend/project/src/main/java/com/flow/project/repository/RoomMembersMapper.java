@@ -30,7 +30,7 @@ public interface RoomMembersMapper {
     List<Participant> selectMembers(String rmNo);
 
     // 프로젝트에 멤버 초대
-    @Insert("insert into \"Room_Members\" values (#{rmNo}, #{memNo})")
+    @Insert("insert into \"Room_Members\" values (#{memNo}, #{rmNo})")
     int insertOne(RoomMembers roomMember);
 
     // 프로젝트 나가기

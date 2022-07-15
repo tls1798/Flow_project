@@ -58,9 +58,9 @@ $(function(){
                 $('#participantsUl').find('li').remove();
 
                 // 총 참여자 수 수정
-                $('#participantCount').text(result.length);
+                result.length!=1 ? $('#participantCount').text(result.length+1) : $('#participantCount').text(result.length);
                 // 관리자 제외 참여자 수 수정
-                $('#outerParticipantsCount').text(result.length-1);
+                $('#outerParticipantsCount').text(result.length);
 
                 // 프로젝트 관리자
                 $('.participants-admin-span').append(`
@@ -96,6 +96,12 @@ $(function(){
                         </li>
                     `);
                 }
+
+                // 관리자만 존재하고 참여자는 0명일 경우 span display:none
+                if(result.length==1)
+                    $('.participants-member-span').css('display', 'none');
+                else
+                    $('.participants-member-span').css('display', 'block');
             },
             error: function (xhr, status, err) {
                 let accessToken = window.localStorage.getItem('accessToken');

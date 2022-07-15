@@ -1,15 +1,21 @@
 package com.flow.project.service;
 
+import com.flow.project.domain.RoomMembers;
 import com.flow.project.domain.Rooms;
+import com.flow.project.repository.RoomMembersMapper;
 import com.flow.project.repository.RoomsMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
 public class RoomsService {
 
     final RoomsMapper roomsMapper;
+    final RoomMembersMapper roomMembersMapper;
 
     // 프로젝트 번호로 프로젝트 선택
     public Rooms getRoom(String rmNo) {
@@ -18,7 +24,23 @@ public class RoomsService {
 
     // 프로젝트 생성
     public boolean addRoom(Rooms room){
-        return roomsMapper.insertOne(room)>0;
+
+        // rmNo 생성 (date+rmAdmin)
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        String rmNo = simpleDateFormat.format(date) + room.getRmAdmin();
+        room.setRmNo(rmNo);
+
+        if (roomsMapper.insertOne(room)>0){
+
+            // 프로젝트 생성 성공 시 멤버로 초대
+            RoomMembers roomMembers = new RoomMembers(rmNo, room.getRmAdmin());
+            roomMembersMapper.insertOne(roomMembers);
+
+            return true;
+        }
+
+        return false;
     }
 
     // 프로젝트 수정

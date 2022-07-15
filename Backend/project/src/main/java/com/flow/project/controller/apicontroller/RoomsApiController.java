@@ -3,6 +3,7 @@ package com.flow.project.controller.apicontroller;
 import com.flow.project.domain.Rooms;
 import com.flow.project.service.RoomsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class RoomsApiController {
 
     final RoomsService roomsService;
+
+    // 프로젝트 조회
+    @GetMapping("/rooms/{rmNo}")
+    public ResponseEntity<?> getRoom(@PathVariable String rmNo) {
+        return ResponseEntity.status(HttpStatus.OK).body(roomsService.getRoom(rmNo));
+    }
 
     // 프로젝트 생성
     @PostMapping("/rooms")

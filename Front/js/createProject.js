@@ -1,3 +1,5 @@
+import projectList from './projectList.js';
+
 $(function(){
     let accessToken= window.localStorage.getItem('accessToken');
     let memNo= window.localStorage.getItem('memNo');
@@ -38,7 +40,12 @@ $(function(){
                 beforeSend: function (xhr) {      
                     xhr.setRequestHeader("token",accessToken);
                 },
-                success: function (result, status, xhr) {},
+                success: function (result, status, xhr) {
+                    // 프로젝트 리스트 업데이트
+                    projectList();
+                    // 해당 프로젝트 피드로 이동
+                    // rmNo을 알 수 없는데 그냥 통신 한 번 더 해야하나?
+                },
                 error: function (xhr, status, err) {
                     let accessToken = window.localStorage.getItem('accessToken');
                     let refreshToken = window.localStorage.getItem('refreshToken');

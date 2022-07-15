@@ -27,9 +27,4 @@ public class MembersController {
         return ResponseEntity.status(HttpStatus.OK).body(ms.getMembers());
     }
 
-    // 로그아웃하면서 토큰 삭제
-    @DeleteMapping("/members/{idx}")
-    public ResponseEntity<?> removePost(@PathVariable int memNo) {
-        return ms.deleteMem(memNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
-    }
 }
