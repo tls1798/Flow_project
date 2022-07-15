@@ -26,11 +26,11 @@ public interface AuthMapper {
     int checkone(int memNo);
 
     // 리프레쉬 토큰 발급 시 insert or update 시 사용
-    @Options(keyColumn = "idx", useGeneratedKeys = true)
+    @Options(keyColumn = "rt_no", useGeneratedKeys = true)
     @Insert("Insert into \"RefreshToken\" (user_email, mem_no,refresh_token) values(#{userEmail},#{memNo},#{refreshToken})")
     void insertefreshToken(RefreshToken refreshToken);
 
-    @Options(keyColumn = "idx", useGeneratedKeys = true)
+    @Options(keyColumn = "rt_no", useGeneratedKeys = true)
     @Insert("Update \"RefreshToken\" set refresh_token=#{refreshToken} where mem_no=#{memNo}")
     void UpdateRefreshToken(RefreshToken refreshToken);
 

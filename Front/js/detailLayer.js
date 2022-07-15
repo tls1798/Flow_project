@@ -98,11 +98,15 @@ $(function(){
                 }
             },
             error: function (xhr, status, err) {
+                let accessToken = window.localStorage.getItem('accessToken');
                 let refreshToken = window.localStorage.getItem('refreshToken');
                 $.ajax({
                     type: 'POST',
                     url: 'http://localhost:8080/api/auth/get-newToken',
-                    data: JSON.stringify({ refreshToken:refreshToken}),
+                    data: JSON.stringify({
+                        accessToken:accessToken,
+                        refreshToken: refreshToken
+                    }),
                     contentType: 'application/json; charset=utf-8',
                     success: function (result, status, xhr) {
                         let accessToken = result.accessToken;
@@ -317,11 +321,15 @@ $(function(){
                 }
             },
             error: function(xhr, status, err){
+                let accessToken = window.localStorage.getItem('accessToken');
                 let refreshToken = window.localStorage.getItem('refreshToken');
                 $.ajax({
                     type: 'POST',
                     url: 'http://localhost:8080/api/auth/get-newToken',
-                    data: JSON.stringify({ refreshToken:refreshToken}),
+                    data: JSON.stringify({
+                        accessToken:accessToken,
+                        refreshToken: refreshToken
+                    }),
                     contentType: 'application/json; charset=utf-8',
                     success: function (result, status, xhr) {
                         let accessToken = result.accessToken;

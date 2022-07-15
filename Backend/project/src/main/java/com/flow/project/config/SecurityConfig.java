@@ -28,19 +28,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtProvider jwtProvider;
     private final AuthenticationEntryPointHandler authenticationEntryPointHandler;
     private final CustomUserDetailService customUserDetailService;
-
+    private final PasswordEncoder passwordEncoder;
     // AuthenticationManagerBuilder의 passwordEncoder()를 통해
     // 패스워드 암호화에 사용될 PasswordEncoder 구현체를 지정할 수 있다
     @Override
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder());
+        builder.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder);
     }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
 
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     @Override

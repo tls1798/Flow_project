@@ -7,6 +7,7 @@ import com.flow.project.service.CustomUserDetailService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.binding.BindingException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,9 +23,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtProvider {
     private final AuthMapper authMapper;
-    private final long accessExpireTime = (30 * 60 * 1000L) * 1;   // 30분 후
+    private final long accessExpireTime = (30 *60 * 1000L);   // 30분
 
-    private final long refreshExpireTime = (60 * 60 * 1000L) * 8;   // 8시간
+    private final long refreshExpireTime = (60* 60 * 1000L) * 24;   // 24시간
     private final CustomUserDetailService customUserDetailService;
     private String mail;
 
@@ -96,29 +97,50 @@ public class JwtProvider {
     // 새로운 AccessToken 발급
     public Map<String, Object> newAccessToken(AuthDTO.GetNewAccessTokenDTO getNewAccessTokenDTO, HttpServletRequest request) {
         Map<String, Object> result = new HashMap<>();
+        String accessToken = getNewAccessTokenDTO.getAccessToken();
         String refreshToken = getNewAccessTokenDTO.getRefreshToken();
-        // AccessToken은 만료되었지만 RefreshToken은 만료되지 않은 경우 , db에 refresh 토큰 검증
-        if (validateJwtRToken(request, refreshToken)) {
-            AuthDTO.LoginDTO loginDTO = new AuthDTO.LoginDTO();
-            loginDTO.setMemMail(mail);
-            loginDTO.setMemNo(authMapper.findNo(loginDTO.getMemMail()));
-            // DB에 일치하는 토큰인지
-            if (refreshToken.equals(authMapper.findByrefreshToken(loginDTO.getMemNo()))) {
-                String newToken = createAccessToken(loginDTO);
-                result.put("accessToken", newToken);
-            } else
-                throw new RuntimeException("Refresh 토큰이 일치하지 않습니다 ");
-        } else {
-            // RefreshToken 또한 만료된 경우는 로그인을 다시 진행해야 한다.
-            throw new RuntimeException("Refresh 토큰이 만료되었습니다 ");
+      // AccessToken은 만료됐지만 정보가 일치하는지 확인
+        if(validateJwtNewAToken(request,accessToken)) {
+            // AccessToken은 만료되었지만 RefreshToken은 만료되지 않은 경우 , db에 refresh 토큰 검증
+            if (validateJwtRToken(request, refreshToken)) {
+                AuthDTO.LoginDTO loginDTO = new AuthDTO.LoginDTO();
+                loginDTO.setMemMail(mail);
+                loginDTO.setMemNo(authMapper.findNo(loginDTO.getMemMail()));
+                // DB에 일치하는 토큰인지
+                if (refreshToken.equals(authMapper.findByrefreshToken(loginDTO.getMemNo()))) {
+                    String newToken = createAccessToken(loginDTO);
+                    result.put("accessToken", newToken);
+                } else
+                    throw new RuntimeException("Refresh 토큰이 일치하지 않습니다 ");
+            } else {
+                // RefreshToken 또한 만료된 경우는 로그인을 다시 진행해야 한다.
+                throw new RuntimeException("Refresh 토큰이 만료되었습니다 ");
 //            result.put("code", ErrorCode.ReLogin.getCode());
 //            result.put("message", ErrorCode.ReLogin.getMessage());
 //            result.put("HttpStatus", ErrorCode.ReLogin.getStatus());
+            }
+        }else {
+            throw new RuntimeException("Access 토큰이 일치 하지 않습니다 ");
         }
         return result;
     }
+    public boolean validateJwtNewAToken(ServletRequest request, String accessToken) {
 
+        try {
+            Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(accessToken);
+            return true;
 
+        } catch (MalformedJwtException e) {
+
+        } catch (ExpiredJwtException e) {
+            return true;
+        } catch (UnsupportedJwtException e) {
+
+        } catch (IllegalArgumentException e) {
+
+        }
+        return false;
+    }
     // access token validation 확인을 위한 메서드
     public boolean validateJwtAToken(ServletRequest request, String accessToken) {
 
