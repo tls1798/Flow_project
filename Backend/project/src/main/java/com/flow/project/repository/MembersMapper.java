@@ -27,5 +27,5 @@ public interface MembersMapper {
 
     // 토큰 삭제
     @Delete("delete from \"RefreshToken\" where mem_no=#{memNo}")
-    int deleteOne(int rmNo);
+    int deleteOne(int memNo);
 }
