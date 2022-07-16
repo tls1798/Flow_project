@@ -3,6 +3,7 @@ package com.flow.project.controller.apicontroller;
 import com.flow.project.domain.AuthDTO;
 import com.flow.project.domain.Members;
 import com.flow.project.service.AuthService;
+import com.flow.project.service.EmailService;
 import com.flow.project.service.MembersService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,6 +21,7 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
+    final EmailService emailService;
 
     final MembersService membersService;
     private final AuthService authService;
@@ -29,6 +31,16 @@ public class AuthController {
     @ApiOperation(value = "로그인")
     public ResponseEntity<?> login(@RequestBody @Valid AuthDTO.LoginDTO loginDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(authService.login(loginDTO));
+    }
+    // 이메일 인증
+    @PostMapping("/emailConfirm")
+    public ResponseEntity<?> chkMail(@RequestBody Members members) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(emailService.sendSimpleMessage(members.getMemMail(),1));
+    }
+    // 패스워드재발급
+    @PostMapping("/emailpw")
+    public ResponseEntity<?> emailpw(@RequestBody Members members) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(emailService.sendSimpleMessage(members.getMemMail(),2));
     }
 
     // 회원가입

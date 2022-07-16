@@ -99,7 +99,7 @@ public class JwtProvider {
         String accessToken = getNewAccessTokenDTO.getAccessToken();
         String refreshToken = getNewAccessTokenDTO.getRefreshToken();
       // AccessToken은 만료됐지만 정보가 일치하는지 확인
-        if(validateJwtNewAToken(request,accessToken)) {
+        if(validateJwtToken(request,accessToken,3)) {
             // AccessToken은 만료되었지만 RefreshToken은 만료되지 않은 경우 , db에 refresh 토큰 검증
             if (validateJwtToken(request, refreshToken,2)) {
                 AuthDTO.LoginDTO loginDTO = new AuthDTO.LoginDTO();
@@ -123,29 +123,13 @@ public class JwtProvider {
         }
         return result;
     }
-    public boolean validateJwtNewAToken(ServletRequest request, String accessToken) {
 
-        try {
-            Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(accessToken);
-            return true;
-
-        } catch (MalformedJwtException e) {
-
-        } catch (ExpiredJwtException e) {
-            return true;
-        } catch (UnsupportedJwtException e) {
-
-        } catch (IllegalArgumentException e) {
-
-        }
-        return false;
-    }
     // token validation 확인을 위한 메서드
     // 1이면 access 검증 , 2면 refresh 검증
     public boolean validateJwtToken(ServletRequest request, String token,int num) {
 
         try {
-            if(num == 1)
+            if(num == 1 || num ==3)
             Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(token);
             else
                 Jwts.parser().setSigningKey("${jwt.secretB}").parseClaimsJws(token);
@@ -155,7 +139,8 @@ public class JwtProvider {
 
             request.setAttribute("exception", "MalformedJwtException");
         } catch (ExpiredJwtException e) {
-
+        if(num == 3)
+            return true;
             request.setAttribute("exception", "ExpiredJwtException");
         } catch (UnsupportedJwtException e) {
 
@@ -167,7 +152,6 @@ public class JwtProvider {
         return false;
     }
 
-    // 리프레쉬 토큰 검증을 위한 validation 각각의 토큰 exception 마다 다른 처리를 하기 위해 하나 더 생성
 
 
 
