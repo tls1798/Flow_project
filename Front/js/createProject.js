@@ -1,8 +1,6 @@
 import projectList from './projectList.js';
 
 $(function(){
-    let accessToken= window.localStorage.getItem('accessToken');
-    let memNo= window.localStorage.getItem('memNo');
 
     $('.button-close').click(function(){
         $('#projectSection').parent().css('display', 'none');
@@ -32,6 +30,8 @@ $(function(){
         }
 
         if($(this).html()=='프로젝트 만들기'){
+            let accessToken= window.localStorage.getItem('accessToken');
+            let memNo= window.localStorage.getItem('memNo');
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost:8080/api/rooms',
@@ -47,25 +47,7 @@ $(function(){
                     // rmNo을 알 수 없는데 그냥 통신 한 번 더 해야하나?
                 },
                 error: function (xhr, status, err) {
-                    let accessToken = window.localStorage.getItem('accessToken');
-                    let refreshToken = window.localStorage.getItem('refreshToken');
-                    $.ajax({
-                        type: 'POST',
-                        url: 'http://localhost:8080/api/auth/get-newToken',
-                        data: JSON.stringify({
-                            accessToken:accessToken,
-                            refreshToken: refreshToken
-                        }),
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (result, status, xhr) {
-                            let accessToken = result.accessToken;
-                            window.localStorage.setItem('accessToken', accessToken);                     
-                        },
-                        error: function (xhr, status, err) { 
-                            alert('로그인을 다시 해주세요');
-                            location.href = 'login.html'
-                        }
-                    });
+
                 }
             });
             
@@ -76,6 +58,8 @@ $(function(){
             // 생성한 프로젝트 피드로 이동
         }
         else{
+            let accessToken= window.localStorage.getItem('accessToken');
+            let memNo= window.localStorage.getItem('memNo');
             $.ajax({
                 type: 'PUT',
                 url: 'http://localhost:8080/api/rooms/'+$('#detailSettingProjectSrno').text(),
@@ -86,25 +70,6 @@ $(function(){
                 },
                 success: function (result, status, xhr) {},
                 error: function (xhr, status, err) {
-                    let accessToken = window.localStorage.getItem('accessToken');
-                    let refreshToken = window.localStorage.getItem('refreshToken');
-                    $.ajax({
-                        type: 'POST',
-                        url: 'http://localhost:8080/api/auth/get-newToken',
-                        data: JSON.stringify({
-                            accessToken:accessToken,
-                            refreshToken: refreshToken
-                        }),
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (result, status, xhr) {
-                            let accessToken = result.accessToken;
-                            window.localStorage.setItem('accessToken', accessToken);                     
-                        },
-                        error: function (xhr, status, err) { 
-                            alert('로그인을 다시 해주세요');
-                            location.href = 'login.html'
-                        }
-                    });
                 }
             });
 

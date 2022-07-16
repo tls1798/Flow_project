@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 public class AuthDTO {
 
@@ -30,9 +31,6 @@ public class AuthDTO {
     @Getter
     @Setter
     public static class GetNewAccessTokenDTO {
-
-        //        @ApiModelProperty(value = "Refresh Token Index", example = "1", required = true)
-//        private long refreshIdx;
 
         private String accessToken;
         private String refreshToken;

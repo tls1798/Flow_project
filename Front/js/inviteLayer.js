@@ -1,6 +1,4 @@
 $(function () {
-    let accessToken= window.localStorage.getItem('accessToken');
-    let memNo= window.localStorage.getItem('memNo');
 
     // 초대하기 버튼 클릭
     $('#openInviteLayerBtn, #noDetailDataBnt').click(function(e){
@@ -10,7 +8,8 @@ $(function () {
 
     // 참여자 초대 클릭
     $('#openTeamInvite').click(function(e){
-
+        let accessToken= window.localStorage.getItem('accessToken');
+        let memNo= window.localStorage.getItem('memNo');
         // getMembers
         $.ajax({
             type: 'GET',
@@ -49,25 +48,6 @@ $(function () {
                 }
             },
             error: function (xhr, status, err) {
-                let accessToken = window.localStorage.getItem('accessToken');
-                let refreshToken = window.localStorage.getItem('refreshToken');
-                $.ajax({
-                    type: 'POST',
-                    url: 'http://localhost:8080/api/auth/get-newToken',
-                    data: JSON.stringify({
-                        accessToken:accessToken,
-                        refreshToken: refreshToken
-                    }),
-                    contentType: 'application/json; charset=utf-8',
-                    success: function (result, status, xhr) {
-                        let accessToken = result.accessToken;
-                        window.localStorage.setItem('accessToken', accessToken);                     
-                    },
-                    error: function (xhr, status, err) { 
-                        alert('로그인을 다시 해주세요');
-                         location.href = 'login.html'
-                    }
-                });
             }
         });
 
@@ -164,7 +144,8 @@ $(function () {
 
     // 초대하기
     $('#inviteMembers').click(function(){
-
+        let accessToken= window.localStorage.getItem('accessToken');
+        let memNo= window.localStorage.getItem('memNo');
         var cnt = $('#inviteTargetList').children().length;
 
         if(cnt==0){
@@ -199,25 +180,6 @@ $(function () {
                 $('.project-item').click();
             },
             error: function (xhr, status, err) {
-                let accessToken = window.localStorage.getItem('accessToken');
-                let refreshToken = window.localStorage.getItem('refreshToken');
-                $.ajax({
-                    type: 'POST',
-                    url: 'http://localhost:8080/api/auth/get-newToken',
-                    data: JSON.stringify({
-                        accessToken:accessToken,
-                        refreshToken: refreshToken
-                    }),
-                    contentType: 'application/json; charset=utf-8',
-                    success: function (result, status, xhr) {
-                        let accessToken = result.accessToken;
-                        window.localStorage.setItem('accessToken', accessToken);                     
-                    },
-                    error: function (xhr, status, err) { 
-                        alert('로그인을 다시 해주세요');
-                         location.href = 'login.html'
-                    }
-                });
             }
         });
     })

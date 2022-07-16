@@ -1,7 +1,4 @@
 $(function(){
-    let accessToken= window.localStorage.getItem('accessToken');
-    let memNo= window.localStorage.getItem('memNo');
-
     // 글 생성 버튼 클릭 시 글 생성 팝업 보이기 
     $('#createPostArea').click(function(){
         $('.back-area.temp-popup').addClass('flow-all-background-1');
@@ -15,7 +12,9 @@ $(function(){
     })
     // 글 작성 영역 클릭 시 닫기 안되게
     $('.create-post-wrap').click(function(e){
-        if(e.target.type=='submit'){
+        if (e.target.type == 'submit') {
+            let accessToken= window.localStorage.getItem('accessToken');
+            let memNo= window.localStorage.getItem('memNo');
             const postTitle = $('#postTitle').val();
             const postContent = $('.create-post-content').text();
             const rmNo = $('#detailSettingProjectSrno').text();
@@ -31,21 +30,6 @@ $(function(){
                     $('.project-item[data-id='+rmNo+']').click();
                 },
                 error: function (xhr, status, err) {
-                    let refreshToken = window.localStorage.getItem('refreshToken');
-                    $.ajax({
-                        type: 'POST',
-                        url: 'http://localhost:8080/api/auth/get-newToken',
-                        data: JSON.stringify({ refreshToken:refreshToken}),
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (result, status, xhr) {
-                            let accessToken = result.accessToken;
-                            window.localStorage.setItem('accessToken', accessToken);                     
-                        },
-                        error: function (xhr, status, err) { 
-                            alert('로그인을 다시 해주세요');
-                            location.href = 'login.html'
-                        }
-                    });
                 }
             });
             $('#postTitle').val('');

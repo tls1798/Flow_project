@@ -42,6 +42,8 @@ $(function(){
 
     // 프로젝트 나가기
     $('#detailSettingProjectExitBtn').click(function(){
+        let accessToken= window.localStorage.getItem('accessToken');
+        let memNo= window.localStorage.getItem('memNo');
         $.ajax({
             type: 'DELETE',
             url: 'http://localhost:8080/api/room-members/'+$('#detailSettingProjectSrno').text(),
@@ -57,25 +59,6 @@ $(function(){
                 $('.logo-box').click();
             },
             error: function (xhr, status, err) {
-                let accessToken = window.localStorage.getItem('accessToken');
-                let refreshToken = window.localStorage.getItem('refreshToken');
-                    $.ajax({
-                        type: 'POST',
-                        url: 'http://localhost:8080/api/auth/get-newToken',
-                        data: JSON.stringify({
-                            accessToken:accessToken,
-                            refreshToken: refreshToken
-                        }),
-                    contentType: 'application/json; charset=utf-8',
-                    success: function (result, status, xhr) {
-                        let accessToken = result.accessToken;
-                        window.localStorage.setItem('accessToken', accessToken);                     
-                    },
-                    error: function (xhr, status, err) { 
-                        alert('로그인을 다시 해주세요');
-                        location.href = 'login.html'
-                    }
-                });
             }
         });
     });
@@ -92,6 +75,8 @@ $(function(){
 
     // 프로젝트 삭제
     $('#detailSettingProjectDeleteBtn').click(function(){
+        let accessToken= window.localStorage.getItem('accessToken');
+        let memNo= window.localStorage.getItem('memNo');
         $.ajax({
             type: 'DELETE',
             url: 'http://localhost:8080/api/rooms/'+$('#detailSettingProjectSrno').text(),
@@ -104,26 +89,7 @@ $(function(){
                 // 로고 클릭하여 프로젝트 리스트로
                 $('.logo-box').click();
             },
-            error: function (xhr, status, err) {
-                let accessToken = window.localStorage.getItem('accessToken');
-                let refreshToken = window.localStorage.getItem('refreshToken');
-                $.ajax({
-                    type: 'POST',
-                    url: 'http://localhost:8080/api/auth/get-newToken',
-                    data: JSON.stringify({
-                        accessToken:accessToken,
-                        refreshToken: refreshToken
-                    }),
-                    contentType: 'application/json; charset=utf-8',
-                    success: function (result, status, xhr) {
-                        let accessToken = result.accessToken;
-                        window.localStorage.setItem('accessToken', accessToken);                     
-                    },
-                    error: function (xhr, status, err) { 
-                        alert('로그인을 다시 해주세요');
-                        location.href = 'login.html'
-                    }
-                });
+            error: function (xhr, status, err) {            
             }
         });
     });

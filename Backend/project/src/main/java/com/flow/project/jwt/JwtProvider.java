@@ -7,7 +7,6 @@ import com.flow.project.service.CustomUserDetailService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.binding.BindingException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,12 +22,11 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtProvider {
     private final AuthMapper authMapper;
-    private final long accessExpireTime = (30 * 60 * 1000L);   // 30분
+    private final long accessExpireTime = ( 30 * 60 * 1000L);   // 30분
 
-    private final long refreshExpireTime = (60 *60 * 1000L) *24 ;   // 24시간
+    private final long refreshExpireTime = (60 * 60 * 1000L) * 24;   // 24시간
     private final CustomUserDetailService customUserDetailService;
     private String mail;
-
     // AccessToken 생성
     public String createAccessToken(AuthDTO.LoginDTO loginDTO) {
         Map<String, Object> headers = new HashMap<>();
@@ -38,6 +36,8 @@ public class JwtProvider {
         payloads.put("memMail", loginDTO.getMemMail());
         long now = (new Date()).getTime();
         Date accessTokenExpiresIn = new Date(now + accessExpireTime);
+
+
         String jwt = Jwts
                 .builder()
                 .setHeader(headers)
@@ -75,7 +75,11 @@ public class JwtProvider {
         String refreshToken = refreshToken(loginDTO);
 
         loginDTO.setMemNo(authMapper.findNo(loginDTO.getMemMail()));
+        // 프론트에서 setinterval로 사용하기 위함
+        String expiredAt = String.valueOf(accessExpireTime);
+
         result.put("memNo", loginDTO.getMemNo());
+        result.put("expiredAt", expiredAt);
         result.put("accessToken", accessToken);
         result.put("refreshToken", refreshToken);
         RefreshToken insertOrUpdateRefreshToken = RefreshToken.builder()
@@ -98,10 +102,10 @@ public class JwtProvider {
         Map<String, Object> result = new HashMap<>();
         String accessToken = getNewAccessTokenDTO.getAccessToken();
         String refreshToken = getNewAccessTokenDTO.getRefreshToken();
-      // AccessToken은 만료됐지만 정보가 일치하는지 확인
-        if(validateJwtToken(request,accessToken,3)) {
+        // AccessToken은 만료됐지만 정보가 일치하는지 확인
+        if (validateJwtToken(request, accessToken, 3)) {
             // AccessToken은 만료되었지만 RefreshToken은 만료되지 않은 경우 , db에 refresh 토큰 검증
-            if (validateJwtToken(request, refreshToken,2)) {
+            if (validateJwtToken(request, refreshToken, 2)) {
                 AuthDTO.LoginDTO loginDTO = new AuthDTO.LoginDTO();
                 loginDTO.setMemMail(mail);
                 loginDTO.setMemNo(authMapper.findNo(loginDTO.getMemMail()));
@@ -118,7 +122,7 @@ public class JwtProvider {
 //            result.put("message", ErrorCode.ReLogin.getMessage());
 //            result.put("HttpStatus", ErrorCode.ReLogin.getStatus());
             }
-        }else {
+        } else {
             throw new RuntimeException("Access 토큰이 일치 하지 않습니다 ");
         }
         return result;
@@ -126,11 +130,11 @@ public class JwtProvider {
 
     // token validation 확인을 위한 메서드
     // 1이면 access 검증 , 2면 refresh 검증
-    public boolean validateJwtToken(ServletRequest request, String token,int num) {
+    public boolean validateJwtToken(ServletRequest request, String token, int num) {
 
         try {
-            if(num == 1 || num ==3)
-            Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(token);
+            if (num == 1 || num == 3)
+                Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(token);
             else
                 Jwts.parser().setSigningKey("${jwt.secretB}").parseClaimsJws(token);
             return true;
@@ -139,8 +143,8 @@ public class JwtProvider {
 
             request.setAttribute("exception", "MalformedJwtException");
         } catch (ExpiredJwtException e) {
-        if(num == 3)
-            return true;
+            if (num == 3)
+                return true;
             request.setAttribute("exception", "ExpiredJwtException");
         } catch (UnsupportedJwtException e) {
 
@@ -151,8 +155,6 @@ public class JwtProvider {
         }
         return false;
     }
-
-
 
 
     // 필터 내에서 토큰이 사용될 때 유저의 메일을 이용해서 유저 디테일에 담는다

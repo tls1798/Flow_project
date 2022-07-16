@@ -1,10 +1,12 @@
-$(function(){
+$(function () {
+  
     // 불러올 때 프로젝트 리스트 초기화 및 업데이트
     clearAndUpdate();
-
+   
     // 즐겨찾기 별 클릭
     $(document).on('click', '.flow-content-star', function(e){
-
+        let accessToken= window.localStorage.getItem('accessToken');
+        let memNo= window.localStorage.getItem('memNo');
         // 현재 선택한 프로젝트 인덱스
         var rmNo = $(this).parents('.project-item').attr('data-id');
 
@@ -26,26 +28,7 @@ $(function(){
                 success: function (result, status, xhr) {
                     clearAndUpdate();
                 },
-                error: function (xhr, status, err) {
-                    let accessToken = window.localStorage.getItem('accessToken');
-                    let refreshToken = window.localStorage.getItem('refreshToken');
-                    $.ajax({
-                        type: 'POST',
-                        url: 'http://localhost:8080/api/auth/get-newToken',
-                        data: JSON.stringify({
-                            accessToken:accessToken,
-                            refreshToken: refreshToken
-                        }),
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (result, status, xhr) {
-                            let accessToken = result.accessToken;
-                            window.localStorage.setItem('accessToken', accessToken);                     
-                        },
-                        error: function (xhr, status, err) { 
-                            alert('로그인을 다시 해주세요');
-                            location.href = 'login.html'
-                        }
-                    });
+                error: function (xhr, status, err) {                
                 }
             });
         }
@@ -69,36 +52,19 @@ $(function(){
                     clearAndUpdate();
                 },
                 error: function (xhr, status, err) {
-                    let accessToken = window.localStorage.getItem('accessToken');
-                    let refreshToken = window.localStorage.getItem('refreshToken');
-                    $.ajax({
-                        type: 'POST',
-                        url: 'http://localhost:8080/api/auth/get-newToken',
-                        data: JSON.stringify({
-                            accessToken:accessToken,
-                            refreshToken: refreshToken
-                        }),
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (result, status, xhr) {
-                            let accessToken = result.accessToken;
-                            window.localStorage.setItem('accessToken', accessToken);                     
-                        },
-                        error: function (xhr, status, err) { 
-                            alert('로그인을 다시 해주세요');
-                            location.href = 'login.html'
-                        }
-                    });
+               
                 }
             });
         }
     })
 })
 
-let accessToken= window.localStorage.getItem('accessToken');
-let memNo= window.localStorage.getItem('memNo');
+
 
 // 프로젝트 리스트 업데이트 함수
 const updateProjectList = function () {
+    let accessToken= window.localStorage.getItem('accessToken');
+    let memNo= window.localStorage.getItem('memNo');
     $.ajax({
         type: 'GET',
         url: 'http://localhost:8080/api/members/'+memNo+'/rooms',
@@ -163,25 +129,7 @@ const updateProjectList = function () {
                 $('#MyProject').css('display', 'none');
         },
         error: function (xhr, status, err) {
-            let accessToken = window.localStorage.getItem('accessToken');
-            let refreshToken = window.localStorage.getItem('refreshToken');
-            $.ajax({
-                type: 'POST',
-                url: 'http://localhost:8080/api/auth/get-newToken',
-                data: JSON.stringify({
-                    accessToken:accessToken,
-                    refreshToken: refreshToken
-                }),
-                contentType: 'application/json; charset=utf-8',
-                success: function (result, status, xhr) {
-                    let accessToken = result.accessToken;
-                    window.localStorage.setItem('accessToken', accessToken);                     
-                },
-                error: function (xhr, status, err) { 
-                    alert('로그인을 다시 해주세요');
-                     location.href = 'login.html'
-                }
-            });
+        
         }
     });
 }

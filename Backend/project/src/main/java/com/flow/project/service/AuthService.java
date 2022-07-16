@@ -31,6 +31,7 @@ public class AuthService {
             // access token 과 refresh 토큰을 생성한다.
             Map createToken = jwtProvider.createToken(loginDTO);
             result.put("memNo", createToken.get("memNo"));
+            result.put("expiredAt",createToken.get("expiredAt"));
             result.put("accessToken", createToken.get("accessToken"));
             result.put("refreshToken", createToken.get("refreshToken"));
         } catch (Exception e) {
