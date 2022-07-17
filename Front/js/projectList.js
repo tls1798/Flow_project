@@ -43,7 +43,7 @@ $(function () {
             $.ajax({
                 type: 'DELETE',
                 url: 'http://localhost:8080/api/favorites',
-                data: JSON.stringify({"rmNo": $('#detailSettingProjectSrno').text(), "memNo": memNo}),
+                data: JSON.stringify({"rmNo": rmNo, "memNo": memNo}),
                 contentType: 'application/json; charset=utf-8',
                 beforeSend: function (xhr) {      
                     xhr.setRequestHeader("token",accessToken);

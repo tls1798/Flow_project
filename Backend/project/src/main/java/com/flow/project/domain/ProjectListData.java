@@ -12,9 +12,9 @@ public class ProjectListData {
     private String rmNo;
     private String rmTitle;
     private int rmMemCount;
-    private int favoriteProject;
+    private String favoriteProject;
 
     public Boolean getFavoriteProject() {
-        return favoriteProject != 0;
+        return favoriteProject != null;
     }
 }
