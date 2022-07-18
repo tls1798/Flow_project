@@ -2,7 +2,7 @@ package com.flow.project.service;
 
 import com.flow.project.domain.AuthDTO;
 import com.flow.project.handler.ErrorCode;
-import com.flow.project.handler.CustomException;
+import com.flow.project.handler.UserException;
 import com.flow.project.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,13 +30,14 @@ public class AuthService {
                         new UsernamePasswordAuthenticationToken(loginDTO.getMemMail(), loginDTO.getMemPw()));
 
                 // access token 과 refresh 토큰을 생성한다.
+
                 Map createToken = jwtProvider.createToken(loginDTO);
                 result.put("memNo", createToken.get("memNo"));
                 result.put("expiredAt", createToken.get("expiredAt"));
                 result.put("accessToken", createToken.get("accessToken"));
                 result.put("refreshToken", createToken.get("refreshToken"));
             }catch (Exception e){
-                throw new CustomException(ErrorCode.UsernameOrPasswordNotFoundException);
+                throw new UserException(ErrorCode.UsernameOrPasswordNotFoundException);
             }
         return result;
     }

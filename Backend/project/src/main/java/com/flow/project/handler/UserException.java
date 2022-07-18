@@ -2,7 +2,7 @@ package com.flow.project.handler;
 
 import org.springframework.http.HttpStatus;
 
-public class CustomException extends RuntimeException {
+public class UserException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
@@ -10,7 +10,7 @@ public class CustomException extends RuntimeException {
     private int code;
     private String message;
 
-    public CustomException(ErrorCode errorCode) {
+    public UserException(ErrorCode errorCode) {
         this.status = errorCode.getStatus();
         this.code = errorCode.getCode();
         this.message = errorCode.getMessage();

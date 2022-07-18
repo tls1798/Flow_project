@@ -40,6 +40,4 @@ public interface AuthMapper {
     @Options(keyColumn = "rt_no", useGeneratedKeys = true)
     @Insert("Update \"RefreshToken\" set refresh_token=#{refreshToken} where mem_no=#{memNo}")
     void UpdateRefreshToken(RefreshToken refreshToken);
-
-
 }

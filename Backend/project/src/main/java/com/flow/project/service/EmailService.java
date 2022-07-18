@@ -2,7 +2,7 @@ package com.flow.project.service;
 
 import com.flow.project.domain.Members;
 import com.flow.project.handler.ErrorCode;
-import com.flow.project.handler.CustomException;
+import com.flow.project.handler.UserException;
 import com.flow.project.repository.AuthMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.MailException;
@@ -101,13 +101,13 @@ public class EmailService {
                 if (authMapper.newPassword(member) > 0)
                     System.out.println("success");
                 else
-                    throw new CustomException(ErrorCode.FailPwException);
+                    throw new UserException(ErrorCode.FailPwException);
             }
             System.out.println("인증 번호 : " + ePw);
             emailSender.send(message);
         } catch (MailException es) {
             es.printStackTrace();
-            throw new CustomException(ErrorCode.FailMessageException);
+            throw new UserException(ErrorCode.FailMessageException);
         }
         return result;
     }

@@ -3,7 +3,7 @@ package com.flow.project.service;
 
 import com.flow.project.domain.Members;
 import com.flow.project.handler.ErrorCode;
-import com.flow.project.handler.CustomException;
+import com.flow.project.handler.UserException;
 import com.flow.project.repository.AuthMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +22,7 @@ public class CustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Members user = authMapper.findByEmail(username);
         if(user == null){
-            throw new CustomException(ErrorCode.UsernameOrPasswordNotFoundException);
+            throw new UserException(ErrorCode.UsernameOrPasswordNotFoundException);
         }
         return user;
 

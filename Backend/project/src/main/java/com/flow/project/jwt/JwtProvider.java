@@ -3,7 +3,7 @@ package com.flow.project.jwt;
 import com.flow.project.domain.AuthDTO;
 import com.flow.project.domain.RefreshToken;
 import com.flow.project.handler.ErrorCode;
-import com.flow.project.handler.CustomException;
+import com.flow.project.handler.UserException;
 import com.flow.project.repository.AuthMapper;
 import com.flow.project.service.CustomUserDetailService;
 import io.jsonwebtoken.*;
@@ -27,14 +27,15 @@ public class JwtProvider {
     private final long accessExpireTime = (30 * 60 * 1000L);   // 30분
     private final long refreshExpireTime = (60 * 60 * 1000L) *24;   // 24시간
     private final CustomUserDetailService customUserDetailService;
-    private String mail;
+
     // AccessToken 생성
     public String createAccessToken(AuthDTO.LoginDTO loginDTO) {
         Map<String, Object> headers = new HashMap<>();
         headers.put("type", "token");
-        mail = loginDTO.getMemMail();
+
         Map<String, Object> payloads = new HashMap<>();
         payloads.put("memMail", loginDTO.getMemMail());
+        payloads.put("memNo", loginDTO.getMemNo());
         long now = (new Date()).getTime();
         Date accessTokenExpiresIn = new Date(now + accessExpireTime);
 
@@ -70,11 +71,13 @@ public class JwtProvider {
     // 토큰을 생성해서 반환
     public Map<String, String> createToken(AuthDTO.LoginDTO loginDTO) {
         Map result = new HashMap();
-
+        // Memno를 Access 에 넣기위함 , DB에 저장
+        loginDTO.setMemNo(authMapper.findNo(loginDTO.getMemMail()));
+  
         String accessToken = createAccessToken(loginDTO);
         String refreshToken = refreshToken();
 
-        loginDTO.setMemNo(authMapper.findNo(loginDTO.getMemMail()));
+  
         // 프론트에서 setinterval로 사용하기 위함
         String expiredAt = String.valueOf(accessExpireTime);
 
@@ -107,20 +110,19 @@ public class JwtProvider {
             // AccessToken은 만료되었지만 RefreshToken은 만료되지 않은 경우 , db에 refresh 토큰 검증
             if (validateJwtToken(request, refreshToken, 2)) {
                 AuthDTO.LoginDTO loginDTO = new AuthDTO.LoginDTO();
-                loginDTO.setMemMail(mail);
-                loginDTO.setMemNo(authMapper.findNo(loginDTO.getMemMail()));
+                loginDTO.setMemNo(getUserNo(accessToken));
                 // DB에 일치하는 토큰인지
                 if (refreshToken.equals(authMapper.findByrefreshToken(loginDTO.getMemNo()))) {
                     String newToken = createAccessToken(loginDTO);
                     result.put("accessToken", newToken);
                 } else
-                    throw new CustomException(ErrorCode.RefreshBroken);
+                    throw new UserException(ErrorCode.RefreshBroken);
             } else {
                 // RefreshToken 또한 만료된 경우는 로그인을 다시 진행해야 한다.
-                throw new CustomException(ErrorCode.ReLogin);
+                throw new UserException(ErrorCode.ReLogin);
             }
         } else {
-            throw new CustomException(ErrorCode.AccessBroken);
+            throw new UserException(ErrorCode.AccessBroken);
         }
         return result;
     }
@@ -132,8 +134,10 @@ public class JwtProvider {
         try {
             if (num == 1 || num == 3)
                 Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(token);
-            else
+            else if(num == 2)
                 Jwts.parser().setSigningKey("${jwt.secretB}").parseClaimsJws(token);
+            else
+                return false;
             return true;
 
         } catch (MalformedJwtException e) {
@@ -164,6 +168,10 @@ public class JwtProvider {
     // 토큰을 파싱해서 유저의 정보를 얻는다
     public String getUserInfo(String token) {
         return (String) Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(token).getBody().get("memMail");
+    }
+    //Access 토큰을 파싱해서 Memno를 구해서 리프레쉬 토큰 DB 일치하는지 확인
+    public int getUserNo(String token) {
+        return (int) Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(token).getBody().get("memNo");
     }
 
 

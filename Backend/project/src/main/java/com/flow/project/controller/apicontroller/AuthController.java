@@ -26,38 +26,40 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AuthController {
     final EmailService emailService;
-
     final MembersService membersService;
     private final AuthService authService;
 
     //    로그인
     @PostMapping("/members")
-    @ApiOperation(value = "로그인")
     public ResponseEntity<?> login(@RequestBody @Valid AuthDTO.LoginDTO loginDTO, Errors errors) {
         if (errors.hasErrors())
-            return validateHandling(errors);
+            return membersService.validateHandling(errors);
 
         return ResponseEntity.status(HttpStatus.OK).body(authService.login(loginDTO));
     }
 
     // 회원가입
     @PostMapping("/members/new")
-    public ResponseEntity<?> addMember(@RequestBody @Valid AuthDTO.LoginDTO loginDTO, Errors errors) {
+    public ResponseEntity<?> addMember(@RequestBody @Valid AuthDTO.SignupDTO signupDTO, Errors errors) {
         if (errors.hasErrors())
-            return validateHandling(errors);
-        return ResponseEntity.status(HttpStatus.OK).body(membersService.addMember(loginDTO));
+            return membersService.validateHandling(errors);
+        return ResponseEntity.status(HttpStatus.OK).body(membersService.addMember(signupDTO));
     }
 
     // 이메일 인증
     @PostMapping("/email")
-    public ResponseEntity<?> chkMail(@RequestBody AuthDTO.LoginDTO loginDTO) throws Exception {
-        return ResponseEntity.status(HttpStatus.OK).body(emailService.sendSimpleMessage(loginDTO.getMemMail(), 1));
+    public ResponseEntity<?> chkMail(@RequestBody @Valid AuthDTO.EmailDTO emailDTO, Errors errors) throws Exception {
+        if (errors.hasErrors())
+            return membersService.validateHandling(errors);
+        return ResponseEntity.status(HttpStatus.OK).body(emailService.sendSimpleMessage(emailDTO.getMemMail(), 1));
     }
 
     // 패스워드재발급
     @PostMapping("/email/new")
-    public ResponseEntity<?> emailpw(@RequestBody AuthDTO.LoginDTO loginDTO) throws Exception {
-        return ResponseEntity.status(HttpStatus.OK).body(emailService.sendSimpleMessage(loginDTO.getMemMail(), 2));
+    public ResponseEntity<?> emailpw(@RequestBody @Valid AuthDTO.EmailDTO emailDTO, Errors errors) throws Exception {
+        if (errors.hasErrors())
+            return membersService.validateHandling(errors);
+        return ResponseEntity.status(HttpStatus.OK).body(emailService.sendSimpleMessage(emailDTO.getMemMail(), 2));
     }
 
     //    새로운 토큰 발급
@@ -73,13 +75,5 @@ public class AuthController {
         return membersService.deleteMem(memNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
-    // Validation error
-    public ResponseEntity<?> validateHandling(Errors errors) {
-        Map<String, String> result = new HashMap<>();
-        for (FieldError error : errors.getFieldErrors()) {
-            String validKeyName = String.format("valid_%s", error.getField());
-            result.put(validKeyName, error.getDefaultMessage());
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
-    }
+
 }

@@ -20,7 +20,7 @@ public interface MembersMapper {
     // 회원가입
     @Options(keyColumn = "mem_no", useGeneratedKeys = true)
     @Insert("insert into \"Members\" (mem_mail, mem_name, mem_pw) values (#{memMail},#{memName},#{memPw})")
-    int insertOne(AuthDTO.LoginDTO loginDTO);
+    int insertOne( AuthDTO.SignupDTO signupDTO);
 
     //mem_no mem_mail
     @Select("SELECT mem_mail FROM \"Members\" WHERE mem_mail = #{email}")
