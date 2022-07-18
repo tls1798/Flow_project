@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .mvcMatchers(HttpMethod.OPTIONS, ("/**")).permitAll()
-                .antMatchers("/api/auth/*", "/api/auth/members/new").permitAll()
+                .antMatchers("/api/auth/*", "/api/auth/members/new","/api/auth/email/new").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()

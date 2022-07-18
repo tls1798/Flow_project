@@ -1,5 +1,6 @@
 package com.flow.project.repository;
 
+import com.flow.project.domain.AuthDTO;
 import com.flow.project.domain.Members;
 import org.apache.ibatis.annotations.*;
 
@@ -19,7 +20,7 @@ public interface MembersMapper {
     // 회원가입
     @Options(keyColumn = "mem_no", useGeneratedKeys = true)
     @Insert("insert into \"Members\" (mem_mail, mem_name, mem_pw) values (#{memMail},#{memName},#{memPw})")
-    int insertOne(Members member);
+    int insertOne(AuthDTO.LoginDTO loginDTO);
 
     //mem_no mem_mail
     @Select("SELECT mem_mail FROM \"Members\" WHERE mem_mail = #{email}")

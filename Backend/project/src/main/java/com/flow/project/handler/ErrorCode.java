@@ -6,9 +6,14 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
 
     UsernameOrPasswordNotFoundException (400, "아이디 또는 비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST),
-    UNAUTHORIZEDException (401, "로그인 후 이용가능합니다.", HttpStatus.UNAUTHORIZED),
-    ExpiredJwtException(444, "기존 토큰이 만료되었습니다. 해당 토큰을 가지고 get-newtoken링크로 이동해주세요.", HttpStatus.UNAUTHORIZED),
-    ReLogin(445, "모든 토큰이 만료되었습니다. 다시 로그인해주세요.", HttpStatus.UNAUTHORIZED),
+    FailPwException (400, "일치하는 이메일이 없습니다.", HttpStatus.BAD_REQUEST),
+    UserExistsException (400, "이미 가입된 회원이 있습니다.", HttpStatus.BAD_REQUEST),
+    FailMessageException (400, "메일 서비스 설정이 잘못되었습니다.", HttpStatus.BAD_REQUEST),
+    UNAUTHORIZEDException (401, "로그인 후 이용 가능합니다.", HttpStatus.UNAUTHORIZED),
+    ExpiredJwtException(444, "Access 토큰이 만료되었습니다.", HttpStatus.UNAUTHORIZED),
+    AccessBroken(444, "Access 토큰이 유효하지 않습니다.", HttpStatus.UNAUTHORIZED),
+    RefreshBroken(444, "Refresh 토큰이 유효하지 않습니다.", HttpStatus.UNAUTHORIZED),
+    ReLogin(445, "모든 토큰이 만료되었습니다. 다시 로그인해 주세요.", HttpStatus.UNAUTHORIZED),
     ;
 
     @Getter

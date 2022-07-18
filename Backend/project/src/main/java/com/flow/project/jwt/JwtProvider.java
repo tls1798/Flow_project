@@ -2,6 +2,8 @@ package com.flow.project.jwt;
 
 import com.flow.project.domain.AuthDTO;
 import com.flow.project.domain.RefreshToken;
+import com.flow.project.handler.ErrorCode;
+import com.flow.project.handler.CustomException;
 import com.flow.project.repository.AuthMapper;
 import com.flow.project.service.CustomUserDetailService;
 import io.jsonwebtoken.*;
@@ -22,9 +24,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtProvider {
     private final AuthMapper authMapper;
-    private final long accessExpireTime = ( 30 * 60 * 1000L);   // 30분
-
-    private final long refreshExpireTime = (60 * 60 * 1000L) * 24;   // 24시간
+    private final long accessExpireTime = (30 * 60 * 1000L);   // 30분
+    private final long refreshExpireTime = (60 * 60 * 1000L) *24;   // 24시간
     private final CustomUserDetailService customUserDetailService;
     private String mail;
     // AccessToken 생성
@@ -51,7 +52,7 @@ public class JwtProvider {
     }
 
     // Refresh 토큰 생성
-    public String refreshToken(AuthDTO.LoginDTO loginDTO) {
+    public String refreshToken() {
         Map<String, Object> headers = new HashMap<>();
         headers.put("type", "token");
         long now = (new Date()).getTime();
@@ -63,7 +64,6 @@ public class JwtProvider {
                 .setExpiration(expiration)
                 .signWith(SignatureAlgorithm.HS256, "${jwt.secretB}")
                 .compact();
-
         return jwt;
     }
 
@@ -72,7 +72,7 @@ public class JwtProvider {
         Map result = new HashMap();
 
         String accessToken = createAccessToken(loginDTO);
-        String refreshToken = refreshToken(loginDTO);
+        String refreshToken = refreshToken();
 
         loginDTO.setMemNo(authMapper.findNo(loginDTO.getMemMail()));
         // 프론트에서 setinterval로 사용하기 위함
@@ -114,16 +114,13 @@ public class JwtProvider {
                     String newToken = createAccessToken(loginDTO);
                     result.put("accessToken", newToken);
                 } else
-                    throw new RuntimeException("Refresh 토큰이 일치하지 않습니다 ");
+                    throw new CustomException(ErrorCode.RefreshBroken);
             } else {
                 // RefreshToken 또한 만료된 경우는 로그인을 다시 진행해야 한다.
-                throw new RuntimeException("Refresh 토큰이 만료되었습니다 ");
-//            result.put("code", ErrorCode.ReLogin.getCode());
-//            result.put("message", ErrorCode.ReLogin.getMessage());
-//            result.put("HttpStatus", ErrorCode.ReLogin.getStatus());
+                throw new CustomException(ErrorCode.ReLogin);
             }
         } else {
-            throw new RuntimeException("Access 토큰이 일치 하지 않습니다 ");
+            throw new CustomException(ErrorCode.AccessBroken);
         }
         return result;
     }

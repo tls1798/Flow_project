@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class AuthDTO {
@@ -15,11 +16,20 @@ public class AuthDTO {
     @Getter
     @Setter
     public static class LoginDTO {
+
         int memNo;
+
+
+        @Pattern(regexp = "^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$", message = "이메일 형식에 맞지 않습니다.")
         @NotBlank
         @ApiModelProperty(value = "아이디", example = "admin@naver.com", required = true)
         private String memMail;
 
+
+        private String memName;
+
+
+        @Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*\\W)(?=\\S+$).{8,16}", message = "비밀번호는 8~16자 영문 소문자, 숫자, 특수문자를 사용하세요.")
         @NotBlank
         @ApiModelProperty(value = "비밀번호", example = "12345", required = true)
         private String memPw;

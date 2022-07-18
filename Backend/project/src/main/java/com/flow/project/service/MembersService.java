@@ -1,7 +1,9 @@
 package com.flow.project.service;
 
+import com.flow.project.domain.AuthDTO;
 import com.flow.project.domain.Members;
-import com.flow.project.jwt.JwtProvider;
+import com.flow.project.handler.ErrorCode;
+import com.flow.project.handler.CustomException;
 import com.flow.project.repository.MembersMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,13 +11,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 @RequiredArgsConstructor
 public class MembersService {
     final
     MembersMapper mem;
-    private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
 
     // 한명 찾기 테스트
@@ -29,16 +29,16 @@ public class MembersService {
     }
 
     // 회원 가입
-    public int addMember(Members members) {
+    public int addMember(AuthDTO.LoginDTO loginDTO) {
 
-        if (members.getMemMail().equals(mem.findmailByEmail(members.getMemMail())))
-            throw new RuntimeException("이미 가입되어 있는 유저입니다");
+        if (loginDTO.getMemMail().equals(mem.findmailByEmail(loginDTO.getMemMail())))
+            throw new CustomException(ErrorCode.UserExistsException);
 
-        String encodedPassword = passwordEncoder.encode(members.getMemPw());
+        String encodedPassword = passwordEncoder.encode(loginDTO.getMemPw());
         System.out.println(encodedPassword);
 
-        members.setMemPw(encodedPassword);
-        return mem.insertOne(members);
+        loginDTO.setMemPw(encodedPassword);
+        return mem.insertOne(loginDTO);
     }
 
     // 로그아웃시 토큰 삭제

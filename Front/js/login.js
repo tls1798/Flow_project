@@ -1,3 +1,4 @@
+
 $(function () {
     $('#findPassword').addClass('d-none')
     $('#password').keypress(function (e) {
@@ -11,7 +12,7 @@ $(function () {
     })
     $('#findEmailInput').val()
     $('#findSubmit').on('click', function () {
-        let memMail = $('#findEmailInput').val();
+     
         console.log(memMail)
         $.ajax({
             type: 'POST',
@@ -34,19 +35,13 @@ $(function () {
     $('#normalLoginButton').on('click', function () {
         let id = $('#userId').val();
         let pw = $('#password').val();
-
-        if (id === '') {
-            alert('a')
-        }
-        if (pw === '') {
-            alert('d')
-        }
         $.ajax({
             type: 'POST',
             url: 'http://localhost:8080/api/auth/members',
-            data: JSON.stringify({ "memMail": $('#userId').val(), "memPw": $('#password').val() }),
+            data: JSON.stringify({ "memMail": id, "memPw": pw }),
             contentType: 'application/json; charset=utf-8',
             success: function (result, status, xhr) {
+                console.log('로그인성공')
                 let expiredAt = result.expiredAt;
                 let accessToken = result.accessToken;
                 let refreshToken = result.refreshToken;
@@ -56,11 +51,12 @@ $(function () {
                 window.localStorage.setItem('accessToken', accessToken);
                 window.localStorage.setItem('refreshToken', refreshToken);
                 window.localStorage.setItem('memNo', memNo);
-                location.href='main.html'
-              
-
+                location.href='main.html'           
             },
-            error: function (xhr, status, err) { }
+            error: function (xhr, status, err) {
+             alert('로그인실패')
+          
+             }
         });
 
         // input, textarea 비우기

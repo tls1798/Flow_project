@@ -1,7 +1,6 @@
 package com.flow.project.controller.apicontroller;
 
 import com.flow.project.domain.AuthDTO;
-import com.flow.project.domain.Members;
 import com.flow.project.service.AuthService;
 import com.flow.project.service.EmailService;
 import com.flow.project.service.MembersService;
@@ -10,10 +9,15 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
+
 
 @CrossOrigin
 @Api(tags = "Auth / 로그인")
@@ -29,27 +33,31 @@ public class AuthController {
     //    로그인
     @PostMapping("/members")
     @ApiOperation(value = "로그인")
-    public ResponseEntity<?> login(@RequestBody @Valid AuthDTO.LoginDTO loginDTO) {
+    public ResponseEntity<?> login(@RequestBody @Valid AuthDTO.LoginDTO loginDTO, Errors errors) {
+        if (errors.hasErrors())
+            return validateHandling(errors);
+
         return ResponseEntity.status(HttpStatus.OK).body(authService.login(loginDTO));
-    }
-    // 이메일 인증
-    @PostMapping("/emailConfirm")
-    public ResponseEntity<?> chkMail(@RequestBody Members members) throws Exception {
-        return ResponseEntity.status(HttpStatus.OK).body(emailService.sendSimpleMessage(members.getMemMail(),1));
-    }
-    // 패스워드재발급
-    @PostMapping("/emailpw")
-    public ResponseEntity<?> emailpw(@RequestBody Members members) throws Exception {
-        return ResponseEntity.status(HttpStatus.OK).body(emailService.sendSimpleMessage(members.getMemMail(),2));
     }
 
     // 회원가입
     @PostMapping("/members/new")
-    public ResponseEntity<?> addMember(@RequestBody Members members) {
-        if (membersService.addMember(members) > 0) {
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.badRequest().build();
+    public ResponseEntity<?> addMember(@RequestBody @Valid AuthDTO.LoginDTO loginDTO, Errors errors) {
+        if (errors.hasErrors())
+            return validateHandling(errors);
+        return ResponseEntity.status(HttpStatus.OK).body(membersService.addMember(loginDTO));
+    }
+
+    // 이메일 인증
+    @PostMapping("/email")
+    public ResponseEntity<?> chkMail(@RequestBody AuthDTO.LoginDTO loginDTO) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(emailService.sendSimpleMessage(loginDTO.getMemMail(), 1));
+    }
+
+    // 패스워드재발급
+    @PostMapping("/email/new")
+    public ResponseEntity<?> emailpw(@RequestBody AuthDTO.LoginDTO loginDTO) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(emailService.sendSimpleMessage(loginDTO.getMemMail(), 2));
     }
 
     //    새로운 토큰 발급
@@ -65,4 +73,13 @@ public class AuthController {
         return membersService.deleteMem(memNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
+    // Validation error
+    public ResponseEntity<?> validateHandling(Errors errors) {
+        Map<String, String> result = new HashMap<>();
+        for (FieldError error : errors.getFieldErrors()) {
+            String validKeyName = String.format("valid_%s", error.getField());
+            result.put(validKeyName, error.getDefaultMessage());
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+    }
 }
