@@ -1,11 +1,13 @@
 package com.flow.project.domain;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.Date;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -20,5 +22,24 @@ public class Notifications {
     private String memName;
     private String rmTitle;
     private String notiContent;
-    private Json ntTemp;
+    private String ntTemp;
+
+    public NotificationResponse toNotificationResponse() throws JsonProcessingException {
+
+        // String -> JSON
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, String> map = objectMapper.readValue(ntTemp, Map.class);
+
+        return NotificationResponse.builder()
+                .ntNo(ntNo)
+                .ntTypeNo(ntTypeNo)
+                .ntDetailNo(ntDetailNo)
+                .memNo(memNo)
+                .ntDatetime(ntDatetime)
+                .memName(memName)
+                .rmTitle(rmTitle)
+                .notiContent(notiContent)
+                .ntTemp(map)
+                .build();
+    }
 }
