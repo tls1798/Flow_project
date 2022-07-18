@@ -19,7 +19,7 @@ $(function () {
                    
                     $.ajax({
                         type: 'POST',
-                        url: 'http://localhost:8080/api/auth/emailConfirm',
+                        url: 'http://localhost:8080/api/auth/email',
                         data: JSON.stringify({
                             memMail: memMail
                         }),

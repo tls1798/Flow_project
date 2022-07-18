@@ -16,7 +16,7 @@ $(function () {
         console.log(memMail)
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:8080/api/auth/emailpw',
+            url: 'http://localhost:8080/api/auth/email/new',
             data: JSON.stringify({
                 memMail: memMail
             }),
