@@ -157,7 +157,7 @@ $(function(){
                     // 게시글 있을 때
                     for(var i=0;i<result.length;i++){
                         $('#detailUl').append(`
-                            <li id="post-`+result[i].posts.postNo+`" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="1414722" data-post-srno="18077733" data-remark-srno="" data-section-srno="" data-rgsr-id="kakao_2316948930" mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
+                            <li id="post-`+result[i].posts.postNo+`" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="`+rmNo+`" data-post-srno="`+result[i].posts.postNo+`" data-remark-srno="" data-section-srno="" data-rgsr-id="`+memNo+`" mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
                                 <div class="js-post-nav card-item post-card-wrapper write2 ">
                                     <div class="post-card-header">
                                         <div class="post-card-scroll">
@@ -185,12 +185,12 @@ $(function(){
                                                         <button id="postSetting" class="js-setting-button set-btn">
                                                             <i class="bi bi-three-dots-vertical"></i>
                                                         </button>
-                                                        <ul class="js-setting-ul js-setting-layer setup-group" style="display: none;">
+                                                        <ul class="js-setting-ul js-setting-layer setup-group d-none">
                                                             <li class="js-setting-item" data-code="modify" style="display:block" data="">
-                                                                <a href="#"><i class="bi bi-card-text"></i>수정</a>
+                                                                <a id="postEditBtn" href="#"><i class="bi bi-card-text"></i>수정</a>
                                                             </li>
                                                             <li class="js-setting-item" data-code="delete" style="display:block" data="">
-                                                                <a href="#"> <i class="bi bi-trash"></i>삭제</a>
+                                                                <a id="postDelBtn" href="#"> <i class="bi bi-trash"></i>삭제</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -277,9 +277,9 @@ $(function(){
                                                     </div>
                                                 </div>
                                                 <div class="comment-writer-menu">
-                                                    <button type="button" class="js-remark-update js-remark-edit-button comment-writer-button ">
+                                                    <button id="cmEditBtn" type="button" class="js-remark-update js-remark-edit-button comment-writer-button on">
                                                         수정</button>
-                                                    <button type="button" class="js-remark-delete js-remark-edit-button comment-writer-button ">
+                                                    <button id="cmDelBtn" type="button" class="js-remark-delete js-remark-edit-button comment-writer-button on">
                                                         삭제</button>
                                                 </div>
                                             </div>
@@ -291,10 +291,10 @@ $(function(){
                                         </div>
                                         <div class="js-remark-edit comment-container">
                                             <div class="js-remark-layer comment-content modify">
-                                                <form class="js-remark-form comment-text-area d-none">
+                                                <form class="js-remark-form comment-text-area">
                                                     <fieldset>
                                                         <legend class="blind">댓글 입력</legend>
-                                                        <div class="js-remark-area js-paste-layer comment-input" contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
+                                                        <div class="js-remark-area js-paste-layer edit-comment-input " contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
                                                     </fieldset>
                                                 </form>
                                             </div>
@@ -317,8 +317,23 @@ $(function(){
         })
     }
 
+    // 글 디테일 창 
+    var postDetailBool = false;
 
+    // 글 디테일 버튼 클릭 시
     $(document).on('click','#postSetting',function(){
-        console.log(this)
+        if(!postDetailBool){
+            $(this).next().removeClass('d-none');
+            postDetailBool=!postDetailBool;
+        }
+        return false;
+    })
+    
+    // 아무 곳 클릭 시 글 디테일 버튼 사라지게 
+    $('html').click(function(){
+        if(postDetailBool){
+            $('[id=postSetting]').next().addClass('d-none');
+            postDetailBool=!postDetailBool;
+        }
     })
 });

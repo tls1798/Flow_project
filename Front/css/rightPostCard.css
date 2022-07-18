@@ -490,6 +490,7 @@
     display: block;
 }
 .comment-container {
+    display: none;
     position: relative;
     width: calc(100% - 52px);
     margin-left: 10px;

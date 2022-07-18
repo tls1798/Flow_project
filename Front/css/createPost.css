@@ -216,3 +216,128 @@
     color: #fff;
     text-align: center;
 }
+/* 글 수정 버튼 */
+.create-post-button {
+    float: left;
+    width: 90px;
+    height: 36px;
+    line-height: 36px;
+    margin-left: 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 13px;
+}
+.create-post-button:hover {
+    border-color: #6449fc;
+    color: #6449fc;
+}
+.create-post-button.confirm {
+    border-color: #6449fc;
+    background: #6449fc;
+    color: #fff;
+}
+.create-post-button.confirm:hover {
+    background-color: #7163c4;
+}
+.js-editing-buttons{
+    display: inline-block;
+}
+/* 글 작성 중단 팝업 */
+.flow-project-popup-6 {
+    position: relative;
+    background: #fff;
+    border: 1px solid #777;
+    box-sizing: border-box;
+    box-shadow: 20px 20px 30px rgb(0 0 0 / 20%);
+    border-radius: 10px;
+    width: 90%;
+    max-width: 434px;
+    height: auto;
+    margin: 0 auto;
+}
+.confirm-popup .flow-content {
+    min-height: 149px;
+    padding: 30px 30px 15px 30px;
+}
+.confirm-popup .flow-content .flow-content-text {
+    margin: 12px 0 25px 0;
+}
+.flow-content-text {
+    text-align: center;
+}
+.confirm-popup .flow-content-text .popup-title {
+    margin-bottom: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #6449fc;
+    white-space: pre-line;
+}
+.confirm-popup .flow-content-text .popup-cont {
+    white-space: pre-line;
+}
+.flow-content-text p {
+    display: inline-block;
+    word-break: keep-all;
+    text-align: center;
+    height: auto;
+    line-height: 24px;
+    color: #555;
+    vertical-align: middle;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.flow-project-popup-6 .flow-pop-button-type-1 {
+    margin: 0;
+}
+.flow-pop-button-type-1 {
+    text-align: center;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.flow-pop-sub-button-1 {
+    display: inline-block;
+    background: #fff;
+    width: 47%;
+    height: 36px;
+    line-height: 34px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #555;
+    font-size: 13px;
+    box-sizing: border-box;
+    max-width: 182px;
+}
+.flow-pop-sub-button-2 {
+    display: inline-block;
+    width: 47%;
+    height: 36px;
+    line-height: 34px;
+    text-align: center;
+    background: #6449fc;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    color: #fff;
+    margin-left: 8px;
+    font-size: 13px;
+    max-width: 182px;
+}
+.flow-secondary-submit {
+    font-size: 13px;
+    text-decoration: underline;
+    color: #00f;
+    margin-top: 10px;
+    white-space: pre;
+    text-align: center;
+    height: auto;
+    line-height: 24px;
+    vertical-align: middle;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

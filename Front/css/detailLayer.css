@@ -646,7 +646,7 @@ address, em {
 fieldset, img {
     border: 0;
 }
-.comment-input[contenteditable] {
+.comment-input[contenteditable], .edit-comment-input[contenteditable] {
     width: 100%;
     padding: 11px 60px 11px 20px;
     min-height: 44px;
@@ -659,7 +659,7 @@ fieldset, img {
     white-space: pre-wrap;
     cursor: text;
 }
-.comment-input[contenteditable]:empty:before {
+.comment-input[contenteditable]:empty:before,.edit-comment-input[contenteditable]:empty:before {
     display: block;
     content: attr(placeholder);
     color: #999;

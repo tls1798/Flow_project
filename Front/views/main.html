@@ -241,7 +241,7 @@
             
             <div class="back-area temp-popup" tabindex="0" id="postPopup" data-code="VIEW" style="display: block;">
                 <div class="flow-project-make-1 back-area">
-                    <div class="flow-project-make-2 back-area contents">
+                    <div id="popBack1" class="flow-project-make-2 back-area contents">
 
                         <!-- 글 쓰기 -->
                         <div class="js-popup-before edit-item create-post-wrap js-pop-contents js-editor" data-code="ADD" style="display: none;">
@@ -294,8 +294,8 @@
                                     </li>
                                 </ul>
                                 <div class="create-footer-menu">
-                                    <button class="js-complete-btn create-button create-post-submit" style="display: inline-block;">올리기</button>
-                                    <div class="js-editing-buttons d-none" style="display: none;">
+                                    <button class="js-complete-btn create-button create-post-submit" >올리기</button>
+                                    <div class="js-editing-buttons d-none">
                                         <button type="button" class="cancel-button create-post-button">취소</button>
                                         <button type="button" id="createPostSubmit" class="js-complete-btn edit-button create-post-button confirm">확인</button>
                                     </div>
@@ -789,6 +789,36 @@
 
         </div>
     </div>
+    
+    <!-- 팝업 백그라운드 영역 -->
+    <div id="popupBackground" class="flow-all-background-1 back-area temp-popup d-none" tabindex="0" id="tempPopup">
+        <div class="flow-project-make-1 back-area">
+            <div id="popBack2" class="flow-project-make-2 back-area contents">
+                
+                <!-- 작성 중단 확인 팝업 -->
+                <div class="confirm-popup flow-project-popup-6 d-none" style="display: block;">
+                    <div class="flow-content popup-confirm-warp">
+                        <div class="flow-content-text">
+                            <dt class="popup-title"></dt>
+                            <p class="popup-cont">작성을 중단하고 이동하시겠습니까?</p>
+                        </div>
+                        <div class="flow-pop-button-type-1">
+                            <a class="cursor-pointer">
+                                <div class="flow-pop-sub-button-1 cancel-event">취소</div>
+                            </a>
+                            <a class="cursor-pointer">
+                                <div class="flow-pop-sub-button-2 submit-event">확인</div>
+                            </a>
+                        </div>
+                        <a class="cursor-pointer">
+                            <div class="flow-secondary-submit secondary-submit-event"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
 
     <!-- script -->
     <script>
@@ -811,6 +841,7 @@
     <script type="text/javascript" src="../js/createPost.js"></script>
     <script type="text/javascript" src="../js/detailLayer.js"></script>
     <script type="text/javascript" src="../js/inviteLayer.js"></script>
+    <script type="text/javascript" src="../js/comments.js"></script>
 
 </body>
 </html>
