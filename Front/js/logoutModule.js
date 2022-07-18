@@ -19,6 +19,6 @@ const logoutFunction = function () {
 }
 
 export default function logout() {
-    clearInterval();
-    return logoutFunction();
+    logoutFunction();
+    return clearInterval();
 }
