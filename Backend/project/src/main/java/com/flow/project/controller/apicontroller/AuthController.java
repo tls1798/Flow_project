@@ -5,18 +5,14 @@ import com.flow.project.service.AuthService;
 import com.flow.project.service.EmailService;
 import com.flow.project.service.MembersService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 
 @CrossOrigin
@@ -29,7 +25,7 @@ public class AuthController {
     final MembersService membersService;
     private final AuthService authService;
 
-    //    로그인
+    // 로그인
     @PostMapping("/members")
     public ResponseEntity<?> login(@RequestBody @Valid AuthDTO.LoginDTO loginDTO, Errors errors) {
         if (errors.hasErrors())
@@ -62,7 +58,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK).body(emailService.sendSimpleMessage(emailDTO.getMemMail(), 2));
     }
 
-    //    새로운 토큰 발급
+    // 새로운 토큰 발급
     @PostMapping("/get-newToken")
     public ResponseEntity<?> newAccessToken(@RequestBody AuthDTO.GetNewAccessTokenDTO getNewAccessTokenDTO, HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(authService.reissue(getNewAccessTokenDTO, request));
@@ -75,5 +71,9 @@ public class AuthController {
         return membersService.deleteMem(memNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
-
+    // 회원 탈퇴
+    @DeleteMapping("/members/temp/{memNo}")
+    public ResponseEntity<?> removeMember(@PathVariable int memNo) {
+        return ResponseEntity.ok(membersService.removeMember(memNo));
+    }
 }

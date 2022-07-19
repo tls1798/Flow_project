@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="../css/rightPostCard.css">
     <link rel="stylesheet" href="../css/createPost.css">
     <link rel="stylesheet" href="../css/inviteLayer.css">
+    <link rel="stylesheet" href="../css/profilePopup.css">
 </head>
 
 <body>
@@ -139,8 +140,12 @@
                                 <strong>지솔빈</strong>
                             </div>
                         </li>
+                        <li id="profileBtn">
+                            <i class="icons-profile bi bi-person"></i>
+                            내 프로필
+                        </li>
                         <li id="logoutBtn">
-                            <i class="icons-logout"></i>
+                            <i class="icons-logout bi bi-box-arrow-right"></i>
                             로그아웃
                         </li>
                     </ul>
@@ -300,6 +305,38 @@
                                         <button type="button" id="createPostSubmit" class="js-complete-btn edit-button create-post-button confirm">확인</button>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- 내 프로필 클릭 시 띄울 팝업 -->
+                        <div class="profile-popup" style="display: none;">
+                            <div class="profile-header">
+                                <div class="profile-header-dimmed-layer"></div>
+                                <button class="btn-close-profile-popup">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </div>
+                            <div class="name-card name-badge">
+                                <i class="profile-image"></i>
+                                <div class="info profile-badge">
+                                    <p class="info-box">
+                                        <span class="name ellipsis">지솔빈</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="contact-section">
+                                <ul class="contact-contents">
+                                    <li id="profileEml" style="display:flex" data="">
+                                        <em><i class="profile-mail js-user-email"></i></em>
+                                        <span>jisolbin@gmail.com</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="btn-wr">
+                                <button class="btn-del-mem">
+                                    회원탈퇴
+                                    <i></i>
+                                </button>
                             </div>
                         </div>
 
@@ -483,19 +520,6 @@
                     <div class="name-setup-type-2 scroll-mask">
                         <ul id="alarmUl" scroll-direction="0">
 
-                            <li class="js-alarm-item" colabo_srno="" colabo_commt_srno="" colabo_remark_srno="-1"
-                                alarm_action="" alarm_status="">
-                                <div class="all-setup-picture-type-1"
-                                    style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)"
-                                    data=""></div>
-                                <div class="all-text-wrap-type-1">
-                                    <div class="all-setup-section-type-1">
-                                        <span>부산진역</span><em>6시간 뒤</em>
-                                    </div>
-                                    <div class="all-text-wrap-type-2 alarm-tit-ellipsis">지솔빈님의 퇴근</div>
-                                    <div class="all-text-wrap-type-3">미확인 알람</div>
-                                </div>
-                            </li>
                             <li class="js-alarm-item on" colabo_srno="" colabo_commt_srno="" colabo_remark_srno="-1"
                                 alarm_action="" alarm_status="">
                                 <div class="all-setup-picture-type-1"
@@ -834,10 +858,11 @@
     <script type="module" src="../js/createProject.js"></script>
     <script type="module" src="../js/topHeader.js"></script>
     <script type="module" src="../js/projectList.js"></script>
+    <script type="module" src="../js/alarmLayer.js"></script>
+    <script type="module" src="../js/profilePopup.js"></script>
 
     <script type="text/javascript" src="../js/leftTask.js"></script>
     <script type="text/javascript" src="../js/changeMainContainer.js"></script>
-    <script type="text/javascript" src="../js/alarmLayer.js"></script>
     <script type="text/javascript" src="../js/createPost.js"></script>
     <script type="text/javascript" src="../js/detailLayer.js"></script>
     <script type="text/javascript" src="../js/inviteLayer.js"></script>

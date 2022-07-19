@@ -20,8 +20,8 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class MembersService {
-    final
-    MembersMapper mem;
+
+    final MembersMapper mem;
     private final PasswordEncoder passwordEncoder;
 
     // Validation error
@@ -62,4 +62,8 @@ public class MembersService {
         return mem.deleteOne(memNo);
     }
 
+    // 회원 탈퇴
+    public boolean removeMember(int memNo) {
+        return mem.deleteMem(memNo);
+    }
 }

@@ -185,20 +185,19 @@ p {
     margin-inline-end: 0px;
 }
 .modal-account li i {
+    font-size: 13pt;
+}
+.icons-profile {
     margin: 0 4px 0 0;
 }
 .icons-logout {
-    display: inline-block;
-    width: 16px;
-    height: 14px;
-    background: url(https://flow.team/flow-renewal/assets/images/main-sprite-type-1.png) no-repeat -139px -18px;
-    background-size: 540px auto;
-    vertical-align: -2px;
+    margin: 0 4px 0 1px;
 }
 .modal-account li:focus, .modal-account li:hover {
     color: #6449fc;
 }
-.modal-account li:focus .icons-logout, .modal-account li:hover .icons-logout {
+.modal-account li:focus .icons-logout, .modal-account li:hover .icons-logout
+.modal-account li:focus .icons-profile, .modal-account li:hover .icons-profile {
     filter: opacity(0.6) drop-shadow(0 0 0 #6449fc);
 }
 
