@@ -59,9 +59,9 @@ $(function(){
                 $('#participantsUl').find('li').remove();
 
                 // 총 참여자 수 수정
-                result.length!=1 ? $('#participantCount').text(result.length+1) : $('#participantCount').text(result.length);
+                $('#participantCount').text(result.length);
                 // 관리자 제외 참여자 수 수정
-                $('#outerParticipantsCount').text(result.length);
+                $('#outerParticipantsCount').text(result.length-1);
 
                 // 프로젝트 관리자
                 $('.participants-admin-span').append(`
