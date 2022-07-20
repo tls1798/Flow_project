@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 
-@CrossOrigin
 @Api(tags = "Auth / 로그인")
 @RequestMapping("/api/auth")
 @RestController

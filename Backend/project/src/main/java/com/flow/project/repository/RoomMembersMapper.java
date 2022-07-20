@@ -29,6 +29,10 @@ public interface RoomMembersMapper {
             "inner join \"Members\" mems on rmmems.mem_no=mems.mem_no")
     List<Participant> selectMembers(String rmNo);
 
+    // 방 참여자 가져오기
+    @Select("select mem_no from \"Room_Members\" rm where rm.rm_no = #{rmNo} and rm.mem_no != #{memNo} ")
+    List<Integer> selectAllParticipants(String rmNo, int memNo);
+
     // 프로젝트에 멤버 초대
     @Insert("insert into \"Room_Members\" values (#{memNo}, #{rmNo})")
     int insertOne(RoomMembers roomMember);

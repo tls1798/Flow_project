@@ -18,8 +18,8 @@ public class NotificationResponse {
     private int memNo;
     private Date ntDatetime;
     private String rmNo;
-    private String memName;
-    private String rmTitle;
-    private String notiContent;
+//    private String memName;
+//    private String rmTitle;
+//    private String notiContent;
     private Map<String, String> ntTemp;
 }

@@ -11,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostsService {
     final PostsMapper postsMapper;
+
     //  특정 프로젝트 방 전체 글 가져오기
     public List<Posts> getPosts(String rmNo) {
         return postsMapper.selectAll(rmNo);

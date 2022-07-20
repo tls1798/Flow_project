@@ -24,6 +24,7 @@ public interface AuthMapper {
     // 토큰 회원 정보가 있으면 update / 없으면 insert /하기 위해서 회원정보 조회
     @Select("SELECT mem_no from \"RefreshToken\" WHERE mem_no = #{memNo}")
     int checkone(int memNo);
+
     //패스워드 재발급
     @Options(keyColumn = "mem_no", useGeneratedKeys = true)
     @Insert("Update \"Members\" set mem_pw=#{memPw} where mem_mail=#{memMail}")
@@ -33,9 +34,6 @@ public interface AuthMapper {
     @Options(keyColumn = "rt_no", useGeneratedKeys = true)
     @Insert("Insert into \"RefreshToken\" (mem_no,refresh_token) values(#{memNo},#{refreshToken})")
     void insertefreshToken(RefreshToken refreshToken);
-//    @Options(keyColumn = "mail_no", useGeneratedKeys = true)
-//    @Insert("Insert into \"mail\" (user_mail,epw) values(#{memMail},#{ePw})")
-//    void saveMail(Mail mail);
 
     @Options(keyColumn = "rt_no", useGeneratedKeys = true)
     @Insert("Update \"RefreshToken\" set refresh_token=#{refreshToken} where mem_no=#{memNo}")

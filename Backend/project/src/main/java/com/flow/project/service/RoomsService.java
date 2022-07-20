@@ -20,7 +20,7 @@ public class RoomsService {
     }
 
     // 프로젝트 생성
-    public boolean addRoom(Rooms room){
+    public boolean addRoom(Rooms room) {
 
         if (roomsMapper.insertOne(room)>0){
 
@@ -35,16 +35,16 @@ public class RoomsService {
     }
 
     // 프로젝트 수정
-    public Rooms editRoom(Rooms room){
-        if(roomsMapper.updateOne(room)>0)
+    public Rooms editRoom(Rooms room) {
+        if (roomsMapper.updateOne(room) > 0)
             return room;
         return null;
     }
 
     // 프로젝트 삭제
-    public Rooms removeRoom(String rmNo){
+    public Rooms removeRoom(String rmNo) {
         Rooms target = getRoom(rmNo);
-        if(target!=null)
+        if (target != null)
             roomsMapper.deleteOne(rmNo);
         return target;
     }

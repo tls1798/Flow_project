@@ -150,7 +150,6 @@ $(function () {
 
         if(cnt==0){
             $('.alert-invite').css('display', 'block');
-
             setTimeout(function() {
                 $('.alert-invite').fadeOut(500, "swing");
             }, 2000);
@@ -158,30 +157,64 @@ $(function () {
             return;
         }
 
+        let ntTemp = '{';
         var jsonData = "[";
         for(var i=0; i<cnt; i++){
-            if(i!=0) jsonData += ",";
-            jsonData += "{\"rmNo\":"+$('#detailSettingProjectSrno').text()+", \"memNo\":"+$('#inviteTargetList').children('li:eq('+i+')').attr('data-id')+"}";
+            var curMem = $('#inviteTargetList').children('li:eq('+i+')').attr('data-id');
+            if($('#participantsUl').find('li[data-id='+curMem+']').length!=0)
+                continue;
+            
+            if(jsonData.length!=1) {
+                jsonData += ",";
+                ntTemp += ",";
+            }
+            jsonData += "{\"rmNo\":"+$('#detailSettingProjectSrno').text()+", \"memNo\":"+curMem+"}";
+            ntTemp += '"'+curMem+'" : null';
         }
         jsonData += "]";
+        ntTemp += "}";
 
-        $.ajax({
-            type: 'POST',
-            url: 'http://localhost:8080/api/room-members',
-            data: jsonData,
-            contentType: 'application/json; charset=utf-8',
-            beforeSend: function (xhr) {      
-                xhr.setRequestHeader("token",accessToken);
-            },
-            success: function (result, status, xhr) {
-                // 닫기
-                $('.closeInviteLayerBtn').click();
-                // 참여자 업데이트
-                $('.project-item').click();
-            },
-            error: function (xhr, status, err) {
-            }
-        });
+        let rmNo = $('#detailSettingProjectSrno').text();
+
+        if(jsonData.length>2){
+            new Promise((succ,fail)=>{
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8080/api/room-members',
+                    data: jsonData,
+                    contentType: 'application/json; charset=utf-8',
+                    beforeSend: function (xhr) {      
+                        xhr.setRequestHeader("token",accessToken);
+                    },
+                    success: function (result, status, xhr) {
+                        succ(result)
+                        // 닫기
+                        $('.closeInviteLayerBtn').click();
+                        // 참여자 업데이트
+                        $('.project-item[data-id='+rmNo+']').click();
+                    },
+                    error: function (xhr, status, err) {
+                    }
+                });
+            }).then((arg)=>{
+
+                // 초대 알림 보내기
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8080/api/notis/rooms/'+rmNo,
+                    data: JSON.stringify({"ntTypeNo":3, "ntDetailNo":null, "memNo":memNo, "rmNo":rmNo, "ntTemp":ntTemp}),
+                    contentType: 'application/json; charset=utf-8',
+                    async: false,
+                    beforeSend: function (xhr) {      
+                        xhr.setRequestHeader("token",accessToken);
+                    },
+                    success: function (result, status, xhr) {
+                    },
+                    error: function (xhr, status, err) {
+                    }
+                });
+            })
+        }
     })
 
     // 초대 모달 1,2 클릭 시 display none X

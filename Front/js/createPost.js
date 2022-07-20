@@ -1,12 +1,15 @@
 $(function(){
+
     // 글 생성 버튼 클릭 시 글 생성 팝업 보이기 
     $('#createPostArea').click(function(){
         $('.back-area.temp-popup').addClass('flow-all-background-1');
         $('.create-post-wrap').css('display','block');
         return false;
     })
+
     // 글 작성 닫기
     $('.btn-close').click(function(){
+
         // 내용 있을 때 확인 팝업
         const checkTitle = $(this).closest('.js-popup-before').find('#postTitle').val();
         const chekcContent = $(this).closest('.js-popup-before').find('.js-upload-area').text();
@@ -36,32 +39,85 @@ $(function(){
         }
         return false;
     })
+    
     // $('.flow-pop-sub-button-1.cancel-event').click(function(){
     //     $('#popupBackground').addClass('d-none')
     //     $('.confirm-popup').addClass('d-none')
     // })
+
     // 글 작성 영역 클릭 시 닫기 안되게
     $('.create-post-wrap').click(function(e){
+
+        // 글 쓰기 버튼 클릭 시
         if (e.target.type == 'submit') {
             let accessToken= window.localStorage.getItem('accessToken');
             let memNo= window.localStorage.getItem('memNo');
             const postTitle = $('#postTitle').val();
             const postContent = $('.create-post-content').text();
             const rmNo = $('#detailSettingProjectSrno').text();
-            $.ajax({
-                type: 'POST',
-                url: 'http://localhost:8080/api/rooms/'+rmNo+'/posts',
-                data: JSON.stringify({"rmNo":rmNo, "postWriter":memNo, "postTitle":postTitle, "postContent":postContent}),
-                contentType: 'application/json; charset=utf-8',
-                beforeSend: function (xhr) {      
-                    xhr.setRequestHeader("token",accessToken);
-                },
-                success: function (result, status, xhr) {
-                    $('.project-item[data-id='+rmNo+']').click();
-                },
-                error: function (xhr, status, err) {
-                }
-            });
+            let postNo = 0;
+            let ntTemp ='{';
+            new Promise((succ, fail) =>{
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8080/api/rooms/'+rmNo+'/posts',
+                    data: JSON.stringify({"rmNo":rmNo, "postWriter":memNo, "postTitle":postTitle, "postContent":postContent}),
+                    contentType: 'application/json; charset=utf-8',
+                    beforeSend: function (xhr) {      
+                        xhr.setRequestHeader("token",accessToken);
+                    },
+                    success: function (result, status, xhr) {
+                        succ(result);
+                        postNo = result.postNo;
+                        $('.project-item[data-id='+rmNo+']').click();
+                    },
+                    error: function (xhr, status, err) {
+                    }
+                });
+
+            }).then((arg) => {
+
+                // 현재 프로젝트 방 참여자 가져오기 (나 제외)
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:8080/api/rooms/'+rmNo+'/members/'+memNo,
+                    contentType: 'application/json; charset=utf-8',
+                    async : false,
+                    beforeSend: function (xhr) {      
+                        xhr.setRequestHeader("token",accessToken);
+                    },
+                    success: function (result, status, xhr) {
+                        let arr = result
+                        for(let i=0;i<result.length;i++){
+                            if(i!=0){
+                                ntTemp += ', '
+                            }
+                            ntTemp += '"'+result[i]+'" : null';
+                        }
+                        ntTemp += '}';
+                    },
+                    error: function (xhr, status, err) {
+                    }
+                });
+            }).then((arg)=>{
+
+                // 글 알림 보내기
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8080/api/notis/rooms/'+rmNo,
+                    data: JSON.stringify({"ntTypeNo":1, "ntDetailNo":postNo, "memNo":memNo, "rmNo":rmNo, "ntTemp":ntTemp}),
+                    contentType: 'application/json; charset=utf-8',
+                    async: false,
+                    beforeSend: function (xhr) {      
+                        xhr.setRequestHeader("token",accessToken);
+                    },
+                    success: function (result, status, xhr) {
+                    },
+                    error: function (xhr, status, err) {
+                    }
+                });
+            })
+
             $('#postTitle').val('');
             $('.create-post-content').text('');
 

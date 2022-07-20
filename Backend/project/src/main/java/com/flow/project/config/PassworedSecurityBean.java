@@ -1,4 +1,5 @@
 package com.flow.project.config;
+
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 
@@ -29,7 +30,7 @@ public class PassworedSecurityBean {
         encoders.put("sha256", new PasswordEncoder() {
             @Override
             public String encode(CharSequence rawPassword) {
-                String encrypted =Hashing.sha256().hashString(rawPassword.toString(), Charsets.UTF_8).toString();
+                String encrypted = Hashing.sha256().hashString(rawPassword.toString(), Charsets.UTF_8).toString();
                 return encrypted;
             }
 

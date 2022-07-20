@@ -20,25 +20,23 @@ public class AuthService {
     private final JwtProvider jwtProvider;
     private final AuthenticationManager authenticationManager;
 
-
     // 로그인
     public Map<String, Object> login(AuthDTO.LoginDTO loginDTO) {
         Map<String, Object> result = new HashMap<>();
 
-            try {
-                authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(loginDTO.getMemMail(), loginDTO.getMemPw()));
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginDTO.getMemMail(), loginDTO.getMemPw()));
 
-                // access token 과 refresh 토큰을 생성한다.
-
-                Map createToken = jwtProvider.createToken(loginDTO);
-                result.put("memNo", createToken.get("memNo"));
-                result.put("expiredAt", createToken.get("expiredAt"));
-                result.put("accessToken", createToken.get("accessToken"));
-                result.put("refreshToken", createToken.get("refreshToken"));
-            }catch (Exception e){
-                throw new UserException(ErrorCode.UsernameOrPasswordNotFoundException);
-            }
+            // access token 과 refresh 토큰을 생성한다.
+            Map createToken = jwtProvider.createToken(loginDTO);
+            result.put("memNo", createToken.get("memNo"));
+            result.put("expiredAt", createToken.get("expiredAt"));
+            result.put("accessToken", createToken.get("accessToken"));
+            result.put("refreshToken", createToken.get("refreshToken"));
+        } catch (Exception e) {
+            throw new UserException(ErrorCode.UsernameOrPasswordNotFoundException);
+        }
         return result;
     }
 
