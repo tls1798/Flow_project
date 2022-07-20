@@ -19,7 +19,7 @@ public interface RoomMembersMapper {
             "(select rm_no from \"Favorites\" where rm_no=rmmems.rm_no and mem_no=rmmems.mem_no) as favorite_project " +
             "from \"Room_Members\" as rmmems " +
             "inner join \"Rooms\" as rms on rmmems.rm_no=rms.rm_no " +
-            "and rmmems.mem_no=#{memNo}")
+            "and rmmems.mem_no=#{memNo} order by rm_no ASC")
     List<ProjectListData> selectRooms(int memNo);
 
     // 프로젝트 별 참여자 리스트

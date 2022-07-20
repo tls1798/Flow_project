@@ -7,9 +7,6 @@ import com.flow.project.repository.RoomsMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 @Service
 @RequiredArgsConstructor
 public class RoomsService {
@@ -25,16 +22,10 @@ public class RoomsService {
     // 프로젝트 생성
     public boolean addRoom(Rooms room){
 
-        // rmNo 생성 (date+rmAdmin)
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-        String rmNo = simpleDateFormat.format(date) + room.getRmAdmin();
-        room.setRmNo(rmNo);
-
         if (roomsMapper.insertOne(room)>0){
 
             // 프로젝트 생성 성공 시 멤버로 초대
-            RoomMembers roomMembers = new RoomMembers(rmNo, room.getRmAdmin());
+            RoomMembers roomMembers = new RoomMembers(room.getRmNo(), room.getRmAdmin());
             roomMembersMapper.insertOne(roomMembers);
 
             return true;
