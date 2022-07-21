@@ -17,6 +17,7 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <!-- 소켓 -->
+    <script src="../../Server/node_modules/socket.io/client-dist/socket.io.js"></script>
     <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
    
     <!-- css -->
@@ -122,7 +123,7 @@
                         <button type="button" id="alarmTopButton" class="btn-alarm" data-toggle="tooltip"
                             data-bs-placement="bottom" title="알림">
                             <i class="icon-alarm"></i>
-                            <i id="alarmTopCount" class="label-alarm"></i>
+                            <i id="alarmTopCount" class="label-alarm" style="display: none;"></i>
                         </button>
 
                         <!-- 프로필 아이콘 -->
@@ -139,7 +140,7 @@
                                 style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);">
                             </p>
                             <div class="user-info">
-                                <strong>지솔빈</strong>
+                                <strong></strong>
                             </div>
                         </li>
                         <li id="profileBtn">
@@ -164,7 +165,7 @@
                     <div class="flow-project-make-2">
                         <div id="inviteMainLayer" class="detail-popup-type-1" style="display: block;">
                             <div class="detail-popup-header-1">
-                                <span id="inviteTitle" class="invite-title ellipsis"><i class="project-color mini color-code-3"></i>플로우 프로젝트</span>
+                                <span id="inviteTitle" class="invite-title ellipsis"><i class="project-color mini color-code-3"></i></span>
                                 <a class="closeInviteLayerBtn" href="#"><em></em></a>
                             </div>
                             <ul id="inviteUl">
@@ -284,8 +285,9 @@
                                                     <i class="icons-font-style line-through"></i>
                                                 </button>
                                             </div>
-                                        <div class="js-upload-area js-paste-layer create-post-content" contenteditable="true" placeholder=" 내용을 입력하세요" spellcheck="false"></div> 
-                                    </div>
+                                            <div id="editor" class="js-upload-area js-paste-layer create-post-content" 
+                                                placeholder=" 내용을 입력하세요" spellcheck="false"></div>
+                                        </div>
                                     </fieldset>
                                 </div>
                             </div>
@@ -322,7 +324,7 @@
                                 <i class="profile-image"></i>
                                 <div class="info profile-badge">
                                     <p class="info-box">
-                                        <span class="name ellipsis">지솔빈</span>
+                                        <span class="name ellipsis"></span>
                                     </p>
                                 </div>
                             </div>
@@ -330,7 +332,7 @@
                                 <ul class="contact-contents">
                                     <li id="profileEml" style="display:flex" data="">
                                         <em><i class="profile-mail js-user-email"></i></em>
-                                        <span>jisolbin@gmail.com</span>
+                                        <span></span>
                                     </li>
                                 </ul>
                             </div>
@@ -551,7 +553,7 @@
                                 <a>
                                     <i class="ico-home bi bi-house"></i>내 프로젝트
                                     <em id="leftProjectHomeCount" class="project-total-count"
-                                        style="display: inline-block;"></em>
+                                        style="display: none;"></em>
                                 </a>
                             </li>
                             <li class="left-menu-item left-menu-bookmark">
@@ -614,14 +616,10 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <h3 id="projectTitle" class="project-title ellipsis js-mouseover"
-                                            mouseover-text="플로우 프로젝트">
-                                            플로우 프로젝트</h3>
+                                        <h3 id="projectTitle" class="project-title ellipsis js-mouseover"></h3>
                                     </div>
                                     <div class="project-description" style="display: block;">
-                                        <p id="projectContents" class="description-text js-mouseover"
-                                            mouseover-text="플로우 클론 코딩">플로우
-                                            클론 코딩</p>
+                                        <p id="projectContents" class="description-text js-mouseover"></p>
                                     </div>
                                 </div>
                             </div>

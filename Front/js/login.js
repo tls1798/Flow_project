@@ -1,4 +1,3 @@
-
 $(function () {
     $('#findPassword').addClass('d-none')
     $('#password').keypress(function (e) {
@@ -51,7 +50,9 @@ $(function () {
                 window.localStorage.setItem('accessToken', accessToken);
                 window.localStorage.setItem('refreshToken', refreshToken);
                 window.localStorage.setItem('memNo', memNo);
-                location.href='main.html'           
+                window.localStorage.setItem('memName', result.memName);
+                window.localStorage.setItem('memMail', result.memMail);
+                location.href='main.html'
             },
             error: function (xhr, status, err) {
              alert('로그인실패')

@@ -11,6 +11,7 @@ public class ProjectListData {
 
     private String rmNo;
     private String rmTitle;
+    private String rmDes;
     private int rmMemCount;
     private String favoriteProject;
 

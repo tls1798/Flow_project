@@ -114,12 +114,19 @@ $(function(){
 
         // 참여자 리스트 업데이트
         updateParticipant($(this).attr('data-id'));
-
+        // TopSettingBar, inviteTitle 업데이트
+        updateTopSettingBar($(this).attr('data-id'), $(this).attr('data-rm-title'), $(this).attr('data-rm-des'));
         // 글, 댓글 가져오기
         getPostAll($(this).attr('data-id'));
     })
-    
 
+    // TopSettingBar, inviteTitle 업데이트 함수
+    const updateTopSettingBar = function(rmNo, rmTitle, rmDes){
+        $('#detailSettingProjectSrno').text(rmNo);
+        $('#projectTitle').text(rmTitle);
+        $('#projectContents').text(rmDes);
+        $('#inviteTitle').text(rmTitle);
+    }
 
     // 프로젝트 선택 시 해당 프로젝트에 있는 글 조회
     const getPostAll = function(rmNo){
@@ -138,9 +145,6 @@ $(function(){
                 // 초기화
                 $('#detailUl').find('li').remove();
                 $('#detailUl').find('div').remove();
-
-                // TopSettingBar에 프로젝트 번호 넣기
-                $('#detailSettingProjectSrno').text(rmNo);
                 
                 // 게시글 없을 때
                 if(result.length == 0){
