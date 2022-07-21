@@ -19,10 +19,11 @@ public class Notifications {
     private int memNo;
     private Date ntDatetime;
     private String rmNo;
-    //    private String memName;
-    //    private String rmTitle;
-    //    private String notiContent;
+    private String memName;
+    private String rmTitle;
+    private String notiContent;
     private String ntTemp;
+    private int ntCount;
 
     public NotificationResponse toNotificationResponse() throws JsonProcessingException {
 
@@ -37,10 +38,11 @@ public class Notifications {
                 .memNo(memNo)
                 .ntDatetime(ntDatetime)
                 .rmNo(rmNo)
-//                .memName(memName)
-//                .rmTitle(rmTitle)
-//                .notiContent(notiContent)
+                .memName(memName)
+                .rmTitle(rmTitle)
+                .notiContent(notiContent)
                 .ntTemp(map)
+                .ntCount(ntCount)
                 .build();
     }
 }

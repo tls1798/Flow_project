@@ -79,6 +79,8 @@ $(function(){
                             xhr.setRequestHeader("token",accessToken);
                         },
                         success: function (result, status, xhr) {
+                            var socket = io.connect('http://localhost:3000');
+                            socket.emit('test', true);
                         },
                         error: function (xhr, status, err) {
                         }

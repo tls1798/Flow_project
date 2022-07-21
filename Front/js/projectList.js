@@ -1,3 +1,5 @@
+import updateAlarms from './socket.js';
+
 $(function () {
   
     // 불러올 때 프로젝트 리스트 초기화 및 업데이트
@@ -140,6 +142,8 @@ const clearAndUpdate = function() {
     $('#projectBoardUl').find('li').remove();
     // 프로젝트 리스트 업데이트
     updateProjectList();
+    // 알림 업데이트
+    updateAlarms();
 }
 
 export default function updateList() {
