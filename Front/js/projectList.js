@@ -79,7 +79,7 @@ const updateProjectList = function () {
                 // 즐겨찾는 프로젝트
                 if(result[i].favoriteProject==true){
                     $('#MyStarProject').append(`
-                        <li class="project-item ui-state-default" data-id="`+result[i].rmNo+`">
+                        <li class="project-item ui-state-default" data-id="`+result[i].rmNo+`" data-rm-title="`+result[i].rmTitle+`" data-rm-des="`+result[i].rmDes+`">
                             <a class="cursor-pointer">
                                 <!-- 알림 배지 -->
                                 <div class="flow-content-ct project-badge" style="display:none"></div>
@@ -100,7 +100,7 @@ const updateProjectList = function () {
                 // 참여중 프로젝트
                 else {
                     $('#MyProject').append(`
-                        <li class="project-item ui-state-default" data-id="`+result[i].rmNo+`">
+                        <li class="project-item ui-state-default" data-id="`+result[i].rmNo+`" data-rm-title="`+result[i].rmTitle+`" data-rm-des="`+result[i].rmDes+`">
                             <a class="cursor-pointer">
                                 <!-- 알림 배지 -->
                                 <div class="flow-content-ct project-badge" style="display:none"></div>

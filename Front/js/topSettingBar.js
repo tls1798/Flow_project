@@ -33,11 +33,55 @@ $(function(){
 
     // 즐겨찾기 버튼
     $('#projectStar').click(function(e){
-        // 즐겨찾기 해제 상태일 때
-        if($(e.target).hasClass('unstar'))
+
+        // 현재 선택한 프로젝트 인덱스
+        var rmNo = $('#detailSettingProjectSrno').text();
+
+        // 즐겨찾기 해제 상태일 때 -> 즐겨찾기 등록
+        if($(e.target).hasClass('unstar')){
+
+            // star 이미지 교체를 위한 removeClass
             $(e.target).removeClass('unstar');
-        else
+
+            // 비동기 통신
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8080/api/favorites',
+                data: JSON.stringify({"rmNo": rmNo, "memNo": memNo}),
+                contentType: 'application/json; charset=utf-8',
+                beforeSend: function (xhr) {      
+                    xhr.setRequestHeader("token",accessToken);
+                },
+                success: function (result, status, xhr) {
+                    // 프로젝트 리스트 업데이트
+                    projectList();
+                },
+                error: function (xhr, status, err) {}
+            });
+        }
+
+        // 즐겨찾는 프로젝트 일 때 -> 즐겨찾기 취소
+        else{
+
+            // star 이미지 교체를 위한 addClass
             $(e.target).addClass('unstar');
+
+            // 비동기 통신
+            $.ajax({
+                type: 'DELETE',
+                url: 'http://localhost:8080/api/favorites',
+                data: JSON.stringify({"rmNo": rmNo, "memNo": memNo}),
+                contentType: 'application/json; charset=utf-8',
+                beforeSend: function (xhr) {      
+                    xhr.setRequestHeader("token",accessToken);
+                },
+                success: function (result, status, xhr) {
+                    // 프로젝트 리스트 업데이트
+                    projectList();
+                },
+                error: function (xhr, status, err) {}
+            });
+        }
     });
 
     // 프로젝트 나가기
@@ -93,4 +137,6 @@ $(function(){
             }
         });
     });
+
+
 });

@@ -112,20 +112,31 @@ $(function(){
     // 프로젝트 선택
     $(document).on('click', '.project-item', function(e){
 
+        // 즐겨찾기 여부
+        var star = $(this).find('.project-star').hasClass('flow-content-star-un');
+
         // 참여자 리스트 업데이트
         updateParticipant($(this).attr('data-id'));
         // TopSettingBar, inviteTitle 업데이트
-        updateTopSettingBar($(this).attr('data-id'), $(this).attr('data-rm-title'), $(this).attr('data-rm-des'));
+        updateTopSettingBar($(this).attr('data-id'), $(this).attr('data-rm-title'), $(this).attr('data-rm-des'), star);
         // 글, 댓글 가져오기
         getPostAll($(this).attr('data-id'));
     })
 
     // TopSettingBar, inviteTitle 업데이트 함수
-    const updateTopSettingBar = function(rmNo, rmTitle, rmDes){
+    const updateTopSettingBar = function(rmNo, rmTitle, rmDes, star){
+
+        console.log(rmNo, rmTitle, rmDes, star);
         $('#detailSettingProjectSrno').text(rmNo);
         $('#projectTitle').text(rmTitle);
         $('#projectContents').text(rmDes);
         $('#inviteTitle').text(rmTitle);
+        
+        // 즐겨찾는 프로젝트
+        if(!star)
+            $('#projectStar').removeClass('unstar');
+        else
+            $('#projectStar').addClass('unstar');
     }
 
     // 프로젝트 선택 시 해당 프로젝트에 있는 글 조회
