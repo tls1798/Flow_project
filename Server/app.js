@@ -9,7 +9,7 @@ http.listen(port, () => {
 
 io.on('connection', function (socket) {
     socket.on('test', function (data) {
-        bool = data;
+       let bool = data;
 
         if (bool)
             socket.broadcast.emit('data');

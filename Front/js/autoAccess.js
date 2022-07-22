@@ -1,10 +1,7 @@
 
 let expiredAt = window.localStorage.getItem('expiredAt')
-if (expiredAt === undefined)
-    console.log('a')
-else {
-    setInterval(autoaccess, expiredAt - 10000)
-}
+    setInterval(autoaccess, expiredAt - 60000)
+
 function autoaccess() {
     console.log('start')
     let accessToken = window.localStorage.getItem('accessToken')

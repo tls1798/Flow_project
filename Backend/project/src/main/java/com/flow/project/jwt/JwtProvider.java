@@ -80,7 +80,7 @@ public class JwtProvider {
   
         // 프론트에서 setinterval로 사용하기 위함
         String expiredAt = String.valueOf(accessExpireTime);
-
+        result.put("memMail",loginDTO.getMemMail());
         result.put("memNo", loginDTO.getMemNo());
         result.put("expiredAt", expiredAt);
         result.put("accessToken", accessToken);

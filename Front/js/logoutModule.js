@@ -11,14 +11,15 @@ const logoutFunction = function () {
         },
         success: function (result, status, xhr) {
             window.localStorage.setItem('accessToken', '');
-            window.localStorage.setItem('memNo', '');
-            location.href = 'login.html'
+            window.localStorage.setItem('memNo', '-1');
+            location.href = 'home.html'
         },
-        error: function (xhr, status, err) { }
+        error: function (xhr, status, err) { 
+        }
     });
 }
 
 export default function logout() {
-    logoutFunction();
-    return clearInterval();
+   return logoutFunction();
+    
 }

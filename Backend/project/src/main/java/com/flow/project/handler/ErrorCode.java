@@ -10,10 +10,10 @@ public enum ErrorCode {
     UserExistsException (400, "이미 가입된 회원이 있습니다.", HttpStatus.BAD_REQUEST),
     FailMessageException (400, "메일 서비스 설정이 잘못되었습니다.", HttpStatus.BAD_REQUEST),
     UNAUTHORIZEDException (401, "로그인 후 이용 가능합니다.", HttpStatus.UNAUTHORIZED),
-    ExpiredJwtException(444, "Access 토큰이 만료되었습니다.", HttpStatus.UNAUTHORIZED),
-    AccessBroken(444, "Access 토큰이 유효하지 않습니다.", HttpStatus.UNAUTHORIZED),
-    RefreshBroken(444, "Refresh 토큰이 유효하지 않습니다.", HttpStatus.UNAUTHORIZED),
-    ReLogin(445, "모든 토큰이 만료되었습니다. 다시 로그인해 주세요.", HttpStatus.UNAUTHORIZED),
+    ExpiredJwtException(401, "Access 토큰이 만료되었습니다.", HttpStatus.UNAUTHORIZED),
+    AccessBroken(401, "Access 토큰이 유효하지 않습니다.", HttpStatus.UNAUTHORIZED),
+    RefreshBroken(401, "Refresh 토큰이 유효하지 않습니다.", HttpStatus.UNAUTHORIZED),
+    ReLogin(401, "모든 토큰이 만료되었습니다. 다시 로그인해 주세요.", HttpStatus.UNAUTHORIZED),
     ;
 
     @Getter

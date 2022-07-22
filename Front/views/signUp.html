@@ -40,7 +40,7 @@
                                     placeholder="example@gmail.com" data-required-yn="Y" maxlength="50"
                                     data-valid="email" data-empty-msg="이메일을 입력해주세요." data-over-msg="50자 이내로 작성해주세요."
                                     data-un-valid-msg="이메일의 형식을 확인해주세요.">
-                                <p class="error-text" style="display: none"></p>
+                                <p class="error-text error-email"></p>
                             </label>
                             <label>
                                 <span class="join-label-title">이름</span>
@@ -48,7 +48,7 @@
                                     class="join-name-input js-join-input" placeholder="이름" data-required-yn="Y"
                                     maxlength="20" data-valid="name" data-empty-msg="이름을 입력해주세요."
                                     data-un-valid-msg="이름을 확인해 주세요. (특수문자 사용불가)" data-over-msg="20자 이내로 작성해주세요.">
-                                <p class="error-text" style="display: none"></p>
+                                <p class="error-text error-name"></p>
                             </label>
                             <label>
                                 <span class="join-label-title">비밀번호</span>
@@ -57,11 +57,12 @@
                                         class="join-password-input js-join-password js-join-input"
                                         placeholder="비밀번호(8~20자 영문, 숫자, 특수문자 조합)" autocomplete="off"
                                         data-required-yn="Y" minlength="8" maxlength="20" data-valid="password"
+                                        data-length-msg="8자리 ~ 20자리 이내로 입력해주세요."
                                         data-empty-msg="비밀번호를 입력해주세요." data-over-msg="8~20자 영문, 숫자, 특수문자로 입력하세요."
                                         data-un-valid-msg="8~20자 영문, 숫자, 특수문자를 입력하세요.">
                                     <span type="button" class="password-view-button js-view-button"
                                         style="display: none"></span>
-                                    <p class="error-text" style="display: none"></p>
+                                    <p class="error-text error-pw" ></p>
                                 </div>
                             </label>
                             <label>
@@ -72,7 +73,7 @@
                                         placeholder="비밀번호 재입력" autocomplete="off" data-required-yn="Y" minlength="8"
                                         maxlength="20" data-valid="password-confirm" data-empty-msg="비밀번호를 입력해주세요"
                                         data-over-msg="20자 이내로 작성해주세요." data-un-valid-msg="비밀번호가 일치하지 않습니다.">
-                                    <p class="error-text" style="display: none"></p>
+                                    <p class="error-text error-pw2" ></p>
                                     <span type="button" class="password-view-button js-view-button"
                                         style="display: none"></span>
                                 </div>
@@ -85,11 +86,11 @@
                                 <span class="confirm-check-require">(필수)</span>
                                 <a href="/terms.act" target="_blank">서비스 이용약관</a>, <a href="/privacy.act"
                                     target="_blank">개인정보처리방침</a><span>을 확인하였고, 이에 동의합니다.</span>
-                                <p class="error-text js-error-text" style="display: none">서비스 이용약관, 개인정보취금방침 확인 및 동의
+                                <p class="error-text js-error-text d-none">서비스 이용약관, 개인정보취금방침 확인 및 동의
                                     부탁드립니다.</p>
 
-                                <br>
-                                <br>
+                                <span class="addbr"><br id="brremove">
+                                <br ></span>
                                 <input id="joinUserMarketingAgreementCheck" type="checkbox"
                                     class="js-confirm-input confirm-input" style="display: none;">
                                 <label for="joinUserMarketingAgreementCheck" class="js-confirm-check"></label>

@@ -81,6 +81,12 @@ div, form{
     box-sizing: border-box;
     padding-left: 20px;
 }
+.error-text {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+    color: #ff6b6b;
+    text-align: left;
+}
 .join-name-input {
     width: 100%;
     height: 52px;
