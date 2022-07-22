@@ -50,8 +50,6 @@ $(function () {
                 window.localStorage.setItem('accessToken', accessToken);
                 window.localStorage.setItem('refreshToken', refreshToken);
                 window.localStorage.setItem('memNo', memNo);
-                window.localStorage.setItem('memName', result.memName);
-                window.localStorage.setItem('memMail', result.memMail);
                 location.href='main.html'
             },
             error: function (xhr, status, err) {

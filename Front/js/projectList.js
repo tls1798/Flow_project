@@ -1,14 +1,19 @@
 import updateAlarms from './socket.js';
+import getMemberInfo from '../js/getMemberInfo.js';
 
 $(function () {
+    let accessToken= window.localStorage.getItem('accessToken');
+    let memNo= window.localStorage.getItem('memNo');
   
+    // 사용자 프로필 업데이트
+    var memInfo = getMemberInfo(memNo);
+    $('.user-info').find('strong').text(memInfo.memName);
+
     // 불러올 때 프로젝트 리스트 초기화 및 업데이트
     clearAndUpdate();
    
     // 즐겨찾기 별 클릭
     $(document).on('click', '.flow-content-star', function(e){
-        let accessToken= window.localStorage.getItem('accessToken');
-        let memNo= window.localStorage.getItem('memNo');
         // 현재 선택한 프로젝트 인덱스
         var rmNo = $(this).parents('.project-item').attr('data-id');
 

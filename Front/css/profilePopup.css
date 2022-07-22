@@ -142,6 +142,33 @@ button {
     white-space: nowrap;
 }
 
+.contact-section li {
+    height: 40px;
+    line-height: 40px;
+    align-items: center;
+}
+.contact-contents em {
+    width: 40px;
+    height: 40px;
+}
+.contact-contents .profile-mail {
+    top: 3px;
+    background-image: url(https://flow.team/flow-renewal/assets/images/icons/profile-mail.png);
+}
+.contact-contents i {
+    position: relative;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-size: cover;
+}
+.contact-section li span {
+    width: 280px;
+    padding: 0 0 0 10px;
+    display: inline-block;
+    border-bottom: 1px solid #eee;
+}
+
 .contact-section {
     height: calc(100% - 370px);
     padding: 10px 30px 20px 30px;

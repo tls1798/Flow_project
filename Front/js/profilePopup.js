@@ -1,4 +1,5 @@
 import logoutModule from './logoutModule.js';
+import getMemberInfo from '../js/getMemberInfo.js';
 
 $(function(){
     let accessToken= window.localStorage.getItem('accessToken');
@@ -9,6 +10,23 @@ $(function(){
         // 프로필 모달 닫기
         $('#accountTopButton').removeClass('active');
         $(".modal-account").css('display', 'none');
+
+        // 이름, 이메일 넣기
+        var memInfo = getMemberInfo(memNo);
+        $('.info-box').find('span').text(memInfo.memName);
+        $('#profileEml').find('span').text(memInfo.memMail);
+
+        $('.back-area.temp-popup').addClass('flow-all-background-1');
+        $('.profile-popup').css('display','block');
+        return false;
+    })
+
+    // 참여자 클릭 시 팝업 띄우기
+    $(document).on('click', '.js-participant-item', function(){
+        // 이름, 이메일 넣기
+        var memInfo = getMemberInfo($(this).attr('data-id'));
+        $('.info-box').find('span').text(memInfo.memName);
+        $('#profileEml').find('span').text(memInfo.memMail);
 
         $('.back-area.temp-popup').addClass('flow-all-background-1');
         $('.profile-popup').css('display','block');
