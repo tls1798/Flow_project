@@ -125,8 +125,6 @@ $(function(){
 
     // TopSettingBar, inviteTitle 업데이트 함수
     const updateTopSettingBar = function(rmNo, rmTitle, rmDes, star){
-
-        console.log(rmNo, rmTitle, rmDes, star);
         $('#detailSettingProjectSrno').text(rmNo);
         $('#projectTitle').text(rmTitle);
         $('#projectContents').text(rmDes);
