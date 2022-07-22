@@ -112,33 +112,36 @@ $(function(){
     // 프로젝트 선택
     $(document).on('click', '.project-item', function(e){
 
-        // 즐겨찾기 여부
-        var star = $(this).find('.project-star').hasClass('flow-content-star-un');
-
         // 참여자 리스트 업데이트
         updateParticipant($(this).attr('data-id'));
         // TopSettingBar, inviteTitle 업데이트
-        updateTopSettingBar($(this).attr('data-id'), $(this).attr('data-rm-title'), $(this).attr('data-rm-des'), star);
+        updateTopSettingBar($(this).attr('data-id'), $(this).attr('data-rm-title'), $(this).attr('data-rm-des'));
         // 글, 댓글 가져오기
         getPostAll($(this).attr('data-id'));
     })
 
     // TopSettingBar, inviteTitle 업데이트 함수
-    const updateTopSettingBar = function(rmNo, rmTitle, rmDes, star){
+    const updateTopSettingBar = function(rmNo, rmTitle, rmDes){
         $('#detailSettingProjectSrno').text(rmNo);
         $('#projectTitle').text(rmTitle);
         $('#projectContents').text(rmDes);
         $('#inviteTitle').text(rmTitle);
-        
-        // 즐겨찾는 프로젝트
-        if(!star)
-            $('#projectStar').removeClass('unstar');
-        else
-            $('#projectStar').addClass('unstar');
+    }
+    
+    // Toast ui viewer 
+    const view = function(idx){
+        const viewer = new toastui.Editor.factory({
+            el: document.querySelector('.viewer'+idx),
+            viewer: true,
+            height: '500px',
+            hideModeSwitch: true,
+            initialEditType:'wysiwyg'
+        });
     }
 
     // 프로젝트 선택 시 해당 프로젝트에 있는 글 조회
     const getPostAll = function(rmNo){
+        
         let accessToken= window.localStorage.getItem('accessToken');
         let memNo= window.localStorage.getItem('memNo');
         // getPosts
@@ -169,6 +172,7 @@ $(function(){
 
                     // 게시글 있을 때
                     for(var i=0;i<result.length;i++){
+                        
                         $('#detailUl').append(`
                             <li id="post-`+result[i].posts.postNo+`" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="`+rmNo+`" data-post-srno="`+result[i].posts.postNo+`" data-remark-srno="" data-section-srno="" data-rgsr-id="`+memNo+`" mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
                                 <div class="js-post-nav card-item post-card-wrapper write2 ">
@@ -215,7 +219,7 @@ $(function(){
                                                 </div>
                                             </div>
                                             <div class="post-card-container">
-                                                <div id="originalPost" class="post-card-content " style="display:block" data=""><div>`+result[i].posts.postContent+`</div></div>
+                                                <div id="originalPost" class="post-card-content " style="display:block" data=""><div id="viewer" class="viewer`+result[i].posts.postNo+`" >`+result[i].posts.postContent+`</div></div>
                                                 <div id="summaryPost" class="post-card-content hidden" style="display:none" data=""><div>`+result[i].posts.postContent+`</div></div>
                                                 <button id="postMoreButton" type="button" class="js-contents-more-btn post-more-btn" style="display:none" data="">더보기</button>
                                                 <div id="summaryFoldArea" class="content-fold" style="display:none" data=""></div>
@@ -322,6 +326,9 @@ $(function(){
                                 `)
                             }
                         }
+
+                        // Toast ui viewer 불러오기
+                        view(result[i].posts.postNo);
                     }
                 }
             },

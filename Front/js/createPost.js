@@ -1,59 +1,124 @@
+// 글 생성 팝업 열기
+const postPopupOpen = function(){
+    $('.back-area.temp-popup').addClass('flow-all-background-1');
+    $('.create-post-wrap').css('display','block');
+}
+// 글 생성 팝업 닫기
+const postPopupClose = function(){
+    $('.back-area.temp-popup').removeClass('flow-all-background-1');
+    $('.create-post-wrap').css('display','none');
+}
+// confirm 창 열기
+const confirmOpen = function(){
+    $('#popupBackground').removeClass('d-none')
+    $('.confirm-popup').removeClass('d-none')
+}
+// confirm 창 닫기
+const confirmClose = function(){
+    $('#popupBackground').addClass('d-none')
+    $('.confirm-popup').addClass('d-none')
+}
+// 글 생성 팝업 초기화
+const postInit = function(){
+    $('.js-create-post-title.create-post-title').text('게시물 작성');
+    $('.create-post-submit').removeClass('d-none');
+    $('.js-editing-buttons').addClass('d-none');
+}
+// 제목, 내용 비우기
+const postClear = function(){
+    $('#postTitle').val('');
+    $('.ProseMirror.toastui-editor-contents').empty();
+}
+// 글 수정으로 바꾸기
+const postEditor = function(){
+    $('.js-create-post-title.create-post-title').text('글 수정');
+    $('.create-post-submit').addClass('d-none');
+    $('.js-editing-buttons').removeClass('d-none').css('display','inline-block');
+}
+
+const toastEditor = function(){
+    // Toast ui editor
+    const Editor = toastui.Editor;
+    const editor = new Editor({
+        el: document.querySelector('#editor'),
+        height: '600px',
+        hideModeSwitch: true,
+        toolbarItems:[
+            ['bold', 'italic', 'strike'],
+            ['ul', 'ol', 'task']
+        ],
+        initialEditType:'wysiwyg',
+    });
+}
+
 $(function(){
 
     // 글 생성 버튼 클릭 시 글 생성 팝업 보이기 
     $('#createPostArea').click(function(){
-        $('.back-area.temp-popup').addClass('flow-all-background-1');
-        $('.create-post-wrap').css('display','block');
+        postPopupOpen();
+        toastEditor();
+        postClear();
         return false;
     })
 
     // 글 작성 닫기
     $('.btn-close').click(function(){
 
-        // 내용 있을 때 확인 팝업
+        // 내용 있을 때 confirm 창
         const checkTitle = $(this).closest('.js-popup-before').find('#postTitle').val();
-        const chekcContent = $(this).closest('.js-popup-before').find('.js-upload-area').text();
-        if(checkTitle || chekcContent){
-            $('#popupBackground').removeClass('d-none')
-            $('.confirm-popup').removeClass('d-none')
-            
+        // const checkContent = $(this).closest('.js-popup-before').find('.js-upload-area').text();
+        const checkContent = $('.ProseMirror.toastui-editor-contents').text();
+        if(checkTitle || checkContent){
+            confirmOpen();
         } else{
-            $('.back-area.temp-popup').removeClass('flow-all-background-1');
-            $('.create-post-wrap').css('display','none');
+            postPopupClose()
         }
-    })
-    $('.popup-confirm-warp').click(function(e){
-        if(e.target.innerText=='취소'){
-            $('#popupBackground').addClass('d-none')
-            $('.confirm-popup').addClass('d-none')
-        } else if(e.target.innerText='확인'){
-            $('#popupBackground').addClass('d-none')
-            $('.confirm-popup').addClass('d-none')
-            $('.back-area.temp-popup').removeClass('flow-all-background-1');
-            $('.create-post-wrap').css('display','none');
-            $('.js-create-post-title.create-post-title').text('게시물 작성');
-            $('.create-post-submit').removeClass('d-none');
-            $('.js-editing-buttons').addClass('d-none');
-            $('#postTitle').val('');
-            $('.create-post-content').text('');
-        }
-        return false;
     })
     
-    // $('.flow-pop-sub-button-1.cancel-event').click(function(){
-    //     $('#popupBackground').addClass('d-none')
-    //     $('.confirm-popup').addClass('d-none')
-    // })
+    // confirm 취소, 확인 버튼 클릭 시
+    $('.popup-confirm-warp').click(function(e){
+        if($(e.target).attr('class')=='flow-pop-sub-button-1 cancel-event'){
+            confirmClose();
+        } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
+            confirmClose();
+            postPopupClose();
+            postInit();
+            postClear();
+        } else {
+            return false;
+        }
+    })
+
+    // confirm 외부 영역 클릭 시 닫기
+    $('#popBack2').click(function(e){
+        if($(e.target).attr('id')=='popBack2')
+            confirmClose();
+    })
 
     // 글 작성 영역 클릭 시 닫기 안되게
     $('.create-post-wrap').click(function(e){
 
         // 글 쓰기 버튼 클릭 시
         if (e.target.type == 'submit') {
+            
+            // 내용 없으면 경고창
+            const checkContent = $('.ProseMirror.toastui-editor-contents').text();
+            if(checkContent===""){
+                $('.alert-wrap-post').css('display', 'block');
+
+                setTimeout(function() {
+                    $('.alert-wrap-post').fadeOut(500, "swing");
+                }, 2000);
+    
+                return;
+            }
+
             let accessToken= window.localStorage.getItem('accessToken');
             let memNo= window.localStorage.getItem('memNo');
             const postTitle = $('#postTitle').val();
-            const postContent = $('.create-post-content').text();
+            // const postContent = $('.create-post-content').text();
+            const postContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
+            console.log(postContent)
             const rmNo = $('#detailSettingProjectSrno').text();
             let postNo = 0;
             let ntTemp ='{';
@@ -100,7 +165,7 @@ $(function(){
                     }
                 });
             }).then((arg)=>{
-
+                
                 // 글 알림 보내기
                 $.ajax({
                     type: 'POST',
@@ -113,15 +178,15 @@ $(function(){
                     },
                     success: function (result, status, xhr) {
                         var socket = io.connect('http://localhost:3000');
-                        socket.emit('test', true);
+                        socket.emit('test',result);
                     },
                     error: function (xhr, status, err) {
                     }
                 });
             })
 
-            $('#postTitle').val('');
-            $('.create-post-content').text('');
+            postPopupClose();
+            postClear();
 
         } 
         else{
@@ -130,83 +195,58 @@ $(function(){
     })
 
     // back-area 선택 시 사라지게
-    $('#popBack1').click(function(e){
-        
-        // 내용 있을 때 확인 팝업
-        const checkTitle = $('#postTitle').val();
-        const chekcContent = $('.js-upload-area').text();
-        if(checkTitle || chekcContent){
-            $('#popupBackground').removeClass('d-none')
-            $('.confirm-popup').removeClass('d-none')
-            $('#popBack').click(function(e){
-                $('#popupBackground').addClass('d-none')
-                $('.confirm-popup').addClass('d-none')
-            })
+    $('#popBack1').mousedown(function(e){
+        if(e.target.id=='popBack1'){
             
-        }else{
-            $('.back-area.temp-popup').removeClass('flow-all-background-1');
-            $('.create-post-wrap').css('display','none');
+            // 내용 있을 때 confirm 창
+            const checkTitle = $('#postTitle').val();
+            // const checkContent = $('.js-upload-area').text();
+            const checkContent = $('.ProseMirror.toastui-editor-contents').text();
+            if(checkTitle || checkContent){
+                confirmOpen();
+
+                // confirm 외부 영역 클릭 시 닫기
+                // $('#popBack2').click(function(e){
+                //     console.log(this)
+                //     confirmClose();
+                // })
+                }else{
+                postPopupClose();
+            }
         }
     })
     
 
-    // $('html').click(function(e) {
-    //     if(e.target.classList.contains('back-area')){
-            
-    //             // 글 작성 영역 외 클릭 시 닫기
-    //             // $('.back-area.temp-popup').removeClass('flow-all-background-1');
-    //             // $('.create-post-wrap').css('display','none');
-    //             // $('.js-create-post-title.create-post-title').text('게시물 작성');
-    //             // $('.create-post-submit').removeClass('d-none');
-    //             // $('.js-editing-buttons').addClass('d-none');
-    //             // $('#postTitle').val('');
-    //             // $('.create-post-content').text('');
-    
-
-    //     } else{
-    //         console.log(false)
-    //     }
-
-    // });
-    
-    
-
-    
     $(document).on('click','.post-option>ul',function(e){
         // 글 수정
         if(e.target.id=='postEditBtn'){
             
             // 글 생성 팝업 띄우고 수정으로 변경
-            $('.back-area.temp-popup').addClass('flow-all-background-1');
-            $('.create-post-wrap').css('display','block');
-            $('.js-create-post-title.create-post-title').text('글 수정');
-            $('.create-post-submit').addClass('d-none');
-            $('.js-editing-buttons').removeClass('d-none').css('display','inline-block');
-
+            postEditor();
+            postPopupOpen();
+            toastEditor();
             // 기존 값 가져오기
             const title = $(this).closest('.post-card-scroll').find('.post-title').text();
-            const content = $(this).closest('.post-card-scroll').find('#originalPost').text();
+            // const content = $(this).closest('.post-card-scroll').find('#originalPost').text();
+            const content = $(this).closest('.post-card-scroll').find('#originalPost')[0].innerHTML;
             const rmNo = $(this).closest('li').attr('data-project-srno');
             const postNo = $(this).closest('li').attr('data-post-srno');
             $('#postTitle').val(title);
-            $('.create-post-content').text(content);
-
+            // $('.create-post-content').text(content);
+            $('.ProseMirror.toastui-editor-contents').html(content);
             // 취소 버튼
             $('.cancel-button.create-post-button').click(function(e){
-                $('.back-area.temp-popup').removeClass('flow-all-background-1');
-                $('.create-post-wrap').css('display','none');
-                $('.js-create-post-title.create-post-title').text('게시물 작성');
-                $('.create-post-submit').removeClass('d-none');
-                $('.js-editing-buttons').addClass('d-none');
-                $('#postTitle').val('');
-                $('.create-post-content').text('');
+                postPopupClose();
+                postInit();
+                postClear();
             })
             
             // 확인 버튼
             $('#createPostSubmit').click(function(){
                 let accessToken = window.localStorage.getItem('accessToken');
                 const editTitle = $(this).closest('.js-editor').find('input').val();
-                const editContent = $(this).closest('.js-editor').find('.create-post-content').text();
+                // const editContent = $(this).closest('.js-editor').find('.create-post-content').text();
+                const editContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
                 $.ajax({
                     type: 'PUT',
                     url: 'http://localhost:8080/api/rooms/'+rmNo+'/posts/'+postNo,
@@ -216,13 +256,9 @@ $(function(){
                         xhr.setRequestHeader("token",accessToken);
                     },
                     success: function (result, status, xhr) {
-                        $('.back-area.temp-popup').removeClass('flow-all-background-1');
-                        $('.create-post-wrap').css('display','none');
-                        $('.js-create-post-title.create-post-title').text('게시물 작성');
-                        $('.create-post-submit').removeClass('d-none');
-                        $('.js-editing-buttons').addClass('d-none');
-                        $('#postTitle').val('');
-                        $('.create-post-content').text('');
+                        postPopupClose();
+                        postInit();
+                        postClear();
                         $('.project-item[data-id='+rmNo+']').click();
                     },
                     error: function (xhr, status, err) {

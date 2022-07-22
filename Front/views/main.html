@@ -19,7 +19,13 @@
     <!-- 소켓 -->
     <script src="../../Server/node_modules/socket.io/client-dist/socket.io.js"></script>
     <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
-   
+    
+    <!-- Toast ui -->
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <!-- Editor, Viewer Style -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
+
     <!-- css -->
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/main.css">
@@ -253,6 +259,11 @@
 
                         <!-- 글 쓰기 -->
                         <div class="js-popup-before edit-item create-post-wrap js-pop-contents js-editor" data-code="ADD" style="display: none;">
+                            <div class="alert-wrap-post" id="toastPopup" style="display: none;">
+                                <div class="alert-type error">
+                                    <div class="text">내용을 입력하세요.</div>
+                                </div>
+                            </div>
                             <div class="create-post-header">
                                 <div class="temp-wrap">
                                     <h4 class="js-create-post-title create-post-title">게시물 작성</h4>

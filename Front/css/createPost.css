@@ -341,3 +341,28 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
+/* 토스트 */
+.toastui-editor-defaultUI {
+    border: 0px;
+}
+.toastui-editor-defaultUI-toolbar {
+    background-color: transparent;
+    border-bottom: 0px;
+}
+.toastui-editor-defaultUI-toolbar button {
+    border: 0px;
+}
+.toastui-editor-ww-container .toastui-editor-contents p {
+    margin: auto;
+    width: 97%;
+}
+
+/* 내용 없을 때 경고창 */
+.alert-wrap-post {
+    z-index: 112;
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: fixed;
+}
