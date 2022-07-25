@@ -1,3 +1,4 @@
+import {autoaccess} from './autoAccess.js'
 const logoutFunction = function () {
     let accessToken = window.localStorage.getItem('accessToken');
     let memNo = window.localStorage.getItem('memNo');
@@ -15,6 +16,7 @@ const logoutFunction = function () {
             location.href = 'home.html'
         },
         error: function (xhr, status, err) { 
+            autoaccess()
         }
     });
 }

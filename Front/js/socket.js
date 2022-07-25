@@ -1,3 +1,4 @@
+import {autoaccess} from './autoAccess.js'
 $(function () {
     var socket = io.connect('http://localhost:3000');
     socket.on('data', () => {
@@ -6,8 +7,8 @@ $(function () {
 })
 
 const updateAlarmsFunction = function () {
-    let accessToken = window.localStorage.getItem('accessToken');
-    let memNo = window.localStorage.getItem('memNo');
+    let accessToken = window.localStorage.getItem('accessToken')
+    let memNo = window.localStorage.getItem('memNo')
 
     $.ajax({
         type: 'GET',
@@ -71,7 +72,9 @@ const updateAlarmsFunction = function () {
                 $('#alarmTopCount').css('display', 'none');
             }
         },
-        error: function (xhr, status, err) {}
+        error: function (xhr, status, err) {
+            autoaccess()
+        }
     });
 }
 

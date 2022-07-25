@@ -1,7 +1,6 @@
-$(function(){
-    let accessToken= window.localStorage.getItem('accessToken');
-    let memNo= window.localStorage.getItem('memNo');
-
+import {autoaccess} from './autoAccess.js'
+$(function () {
+ 
     //  엔터 시 줄 바꿈 막기
     $(document).on('keydown','.comment-input',function(key){      
         if(key.keyCode==13){
@@ -15,7 +14,8 @@ $(function(){
     $(document).on('keyup','.comment-input',function(key){      
         if(key.keyCode == 13 && !key.shiftKey){
             key.preventDefault();
-            let accessToken = window.localStorage.getItem('accessToken');
+            let accessToken = window.localStorage.getItem('accessToken')
+            let memNo = window.localStorage.getItem('memNo')
             const rmNo= $(this).closest('li').attr('data-project-srno');
             const postNo= $(this).closest('li').attr('data-post-srno');
             let cmContent = this.innerText.trim();
@@ -40,10 +40,10 @@ $(function(){
                         $('.project-item[data-id='+rmNo+']').click();
                     },
                     error: function (xhr, status, err) {
+                        autoaccess()
                     }
                 })
             }).then((arg)=>{
-
                 // 현재 프로젝트 방 참여자 가져오기 (나 제외)
                 $.ajax({
                     type: 'GET',
@@ -64,10 +64,10 @@ $(function(){
                         ntTemp += '}';
                     },
                     error: function (xhr, status, err) {
+                        autoaccess()
                     }
                 });
             }).then((arg)=>{
-
                 // 댓글 알람 보내기
                 $.ajax({
                     type: 'POST',
@@ -83,6 +83,7 @@ $(function(){
                         socket.emit('test', true);
                     },
                     error: function (xhr, status, err) {
+                        autoaccess()
                     }
                 });
             })
@@ -109,7 +110,9 @@ $(function(){
             })
 
             // shift+enter 줄 바꿈 아직 미 구현, 엔터 시 값 가져오기 + ajax 통신
-            $(document).on('keyup','.edit-comment-input',function(key){      
+            $(document).on('keyup', '.edit-comment-input', function (key) { 
+                let accessToken = window.localStorage.getItem('accessToken')
+                let memNo = window.localStorage.getItem('memNo')
                 if(key.keyCode == 13){
                     if(key.shiftKey){
                         // 줄 바꿈
@@ -132,6 +135,7 @@ $(function(){
                                 $('.project-item[data-id='+rmNo+']').click();
                             },
                             error: function (xhr, status, err) {
+                                autoaccess()
                             }
                         })
                     }
@@ -156,6 +160,7 @@ $(function(){
                     $('.project-item[data-id='+rmNo+']').click();
                 },
                 error: function (xhr, status, err) {
+                    autoaccess()
                 }
             });
         }

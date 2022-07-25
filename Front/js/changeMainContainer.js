@@ -1,4 +1,5 @@
-$(function(){
+import {autoaccess} from './autoAccess.js'
+$(function () {
 
     $(document).on('click', '.project-item', function(e){
 
@@ -28,8 +29,8 @@ $(function(){
 
     // 프로젝트 방 조회
     const getRoom = function (rmNo) {
-        let accessToken= window.localStorage.getItem('accessToken');
-        let memNo= window.localStorage.getItem('memNo');
+        let accessToken = window.localStorage.getItem('accessToken')
+        let memNo = window.localStorage.getItem('memNo')
         $.ajax({
             type: 'GET',
             url: 'http://localhost:8080/api/rooms/'+rmNo,
@@ -51,7 +52,8 @@ $(function(){
                     $('#detailSettingProjectDeleteBtn').css('display', 'none');
                 }
             },
-            error: function (xhr, status, err) {      
+            error: function (xhr, status, err) {    
+                autoaccess()
             }
         });
     }

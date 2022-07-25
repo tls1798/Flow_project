@@ -1,3 +1,4 @@
+import {autoaccess} from './autoAccess.js'
 $(function () {
 
     // 초대하기 버튼 클릭
@@ -8,9 +9,8 @@ $(function () {
 
     // 참여자 초대 클릭
     $('#openTeamInvite').click(function(e){
-        let accessToken= window.localStorage.getItem('accessToken');
-        let memNo= window.localStorage.getItem('memNo');
-        // getMembers
+        let accessToken = window.localStorage.getItem('accessToken')
+       // getMembers
         $.ajax({
             type: 'GET',
             url: 'http://localhost:8080/api/members',
@@ -48,6 +48,7 @@ $(function () {
                 }
             },
             error: function (xhr, status, err) {
+                autoaccess()
             }
         });
 
@@ -144,8 +145,6 @@ $(function () {
 
     // 초대하기
     $('#inviteMembers').click(function(){
-        let accessToken= window.localStorage.getItem('accessToken');
-        let memNo= window.localStorage.getItem('memNo');
         var cnt = $('#inviteTargetList').children().length;
 
         if(cnt==0){
@@ -176,7 +175,8 @@ $(function () {
 
         let rmNo = $('#detailSettingProjectSrno').text();
 
-        if(jsonData.length>2){
+        if (jsonData.length > 2) {
+            let accessToken = window.localStorage.getItem('accessToken')
             new Promise((succ,fail)=>{
                 $.ajax({
                     type: 'POST',
@@ -194,10 +194,12 @@ $(function () {
                         $('.project-item[data-id='+rmNo+']').click();
                     },
                     error: function (xhr, status, err) {
+                        autoaccess()
                     }
                 });
             }).then((arg)=>{
-
+                let accessToken = window.localStorage.getItem('accessToken')
+                let memNo = window.localStorage.getItem('memNo')
                 // 초대 알림 보내기
                 $.ajax({
                     type: 'POST',
@@ -213,6 +215,7 @@ $(function () {
                         socket.emit('test', true);
                     },
                     error: function (xhr, status, err) {
+                        autoaccess()
                     }
                 });
             })

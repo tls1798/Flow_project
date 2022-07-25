@@ -1,8 +1,7 @@
 import projectList from './projectList.js';
-
+import {autoaccess} from './autoAccess.js'
 $(function(){
-    let accessToken = window.localStorage.getItem('accessToken');
-    let memNo = window.localStorage.getItem('memNo');
+   
 
     $('.button-close').click(function(){
         $('#projectSection').parent().css('display', 'none');
@@ -49,10 +48,13 @@ $(function(){
             }
             return str;
         }
+        let memNo = window.localStorage.getItem('memNo')
         var nowDate = new Date();
         var rmNo = nowDate.YYYYMMDDHHMMSS()+memNo;
 
-        if($(this).html()=='프로젝트 만들기'){
+        if ($(this).html() == '프로젝트 만들기') {
+            let accessToken = window.localStorage.getItem('accessToken')
+           
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost:8080/api/rooms',
@@ -69,7 +71,7 @@ $(function(){
                     // 리팩토링 후 모듈 사용 (getRoom, updateParticipant, getPostAll, display 수정)
                 },
                 error: function (xhr, status, err) {
-
+                    autoaccess()
                 }
             });
             
@@ -77,7 +79,8 @@ $(function(){
             $('#projectTitleInput').val('');
             $('#projectContentsInput').val('');
         }
-        else{
+        else {
+            let accessToken = window.localStorage.getItem('accessToken')
             $.ajax({
                 type: 'PUT',
                 url: 'http://localhost:8080/api/rooms/'+$('#detailSettingProjectSrno').text(),
@@ -88,6 +91,7 @@ $(function(){
                 },
                 success: function (result, status, xhr) {},
                 error: function (xhr, status, err) {
+                    autoaccess()
                 }
             });
 

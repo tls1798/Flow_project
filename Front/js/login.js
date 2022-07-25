@@ -8,16 +8,15 @@ $(function () {
     // 아이디와 패스워드 공백체크 
     let chkid = false;
     let chkpw = false;
-
     // 로그인 버튼을 클릭시 로그인 시도
     $('#normalLoginButton').on('click', function () {
         let id = $('#userId').val();
         let pw = $('#password').val();
-    // id와 pw가 공백이라면 에러 메시지를 출력한다
+        // id와 pw가 공백이라면 에러 메시지를 출력한다
         if (id == '') {
             $('.err-id').text($('#userId').attr('data-empty-msg'));
         }
-        else    chkid = true;
+        else chkid = true;
         if (pw == '') {
             $('.err-pw').text($('.loginpassword').attr('data-empty-msg'));
         }
@@ -32,12 +31,10 @@ $(function () {
                 contentType: 'application/json; charset=utf-8',
                 success: function (result, status, xhr) {
                     $('.err-id').text('')
-                    let expiredAt = result.expiredAt;
                     let accessToken = result.accessToken;
                     let refreshToken = result.refreshToken;
                     let memNo = result.memNo;
 
-                    window.localStorage.setItem('expiredAt', expiredAt);
                     window.localStorage.setItem('accessToken', accessToken);
                     window.localStorage.setItem('refreshToken', refreshToken);
                     window.localStorage.setItem('memNo', memNo);
@@ -54,7 +51,7 @@ $(function () {
             });
         }
     })
-
+  
      // 비밀번호 찾기 화면 보이지 않게 설정
      $('#findPassword').addClass('d-none')
      // 비밀번호 찾기 화면이 보이고 로그인 화면을 가리기

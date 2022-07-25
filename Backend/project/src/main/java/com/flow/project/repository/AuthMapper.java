@@ -16,6 +16,9 @@ public interface AuthMapper {
 
     @Select("SELECT mem_no FROM \"Members\" WHERE mem_mail = #{memMail}")
     int findNo(String memMail);
+    @Select("SELECT mem_mail FROM \"Members\" WHERE mem_No = #{memNo}")
+    String findMail(int memNo);
+
 
     // AuthService에서 리프레쉬 토큰 발급시 사용
     @Select("SELECT refresh_token FROM \"RefreshToken\" WHERE mem_No = #{memNo}")

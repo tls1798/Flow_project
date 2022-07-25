@@ -1,4 +1,5 @@
-$(function(){
+import {autoaccess} from './autoAccess.js'
+$(function () {
 
 
     // 참여자 영역 이동
@@ -44,9 +45,8 @@ $(function(){
 
     // 참여자 리스트 업데이트 함수
     const updateParticipant = function(rmNo){
-        let accessToken= window.localStorage.getItem('accessToken');
-        let memNo= window.localStorage.getItem('memNo');
-        $.ajax({
+        let accessToken = window.localStorage.getItem('accessToken')
+       $.ajax({
             type: 'GET',
             url: 'http://localhost:8080/api/rooms/'+rmNo+'/members',
             contentType: 'application/json; charset=utf-8',
@@ -105,6 +105,7 @@ $(function(){
                     $('.participants-member-span').css('display', 'block');
             },
             error: function (xhr, status, err) {    
+                autoaccess()
             }
         });
     }
@@ -142,8 +143,8 @@ $(function(){
     // 프로젝트 선택 시 해당 프로젝트에 있는 글 조회
     const getPostAll = function(rmNo){
         
-        let accessToken= window.localStorage.getItem('accessToken');
-        let memNo= window.localStorage.getItem('memNo');
+        let accessToken = window.localStorage.getItem('accessToken')
+        let memNo = window.localStorage.getItem('memNo')
         // getPosts
         $.ajax({
             type: 'GET',
@@ -332,7 +333,8 @@ $(function(){
                     }
                 }
             },
-            error: function(xhr, status, err){
+            error: function (xhr, status, err) {
+                autoaccess()
             }
         })
     }

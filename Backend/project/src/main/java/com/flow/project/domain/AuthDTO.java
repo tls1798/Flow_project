@@ -52,7 +52,7 @@ public class AuthDTO {
     @Getter
     @Setter
     public static class GetNewAccessTokenDTO {
-
+        private int memNo;
         private String accessToken;
         private String refreshToken;
     }

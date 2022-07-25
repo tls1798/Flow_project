@@ -1,22 +1,21 @@
 import updateAlarms from './socket.js';
 import getMemberInfo from '../js/getMemberInfo.js';
-
+import {autoaccess} from './autoAccess.js'
 $(function () {
-    let accessToken= window.localStorage.getItem('accessToken');
-    let memNo= window.localStorage.getItem('memNo');
-  
+   
+    let memNo = window.localStorage.getItem('memNo')
     // 사용자 프로필 업데이트
     var memInfo = getMemberInfo(memNo);
     $('.user-info').find('strong').text(memInfo.memName);
 
     // 불러올 때 프로젝트 리스트 초기화 및 업데이트
     clearAndUpdate();
-   
+
     // 즐겨찾기 별 클릭
     $(document).on('click', '.flow-content-star', function(e){
         // 현재 선택한 프로젝트 인덱스
         var rmNo = $(this).parents('.project-item').attr('data-id');
-
+        let accessToken = window.localStorage.getItem('accessToken')
         // 즐겨찾기 해제 상태일 때 -> 즐겨찾기 등록
         if($(e.target).hasClass('flow-content-star-un')){
 
@@ -35,14 +34,15 @@ $(function () {
                 success: function (result, status, xhr) {
                     clearAndUpdate();
                 },
-                error: function (xhr, status, err) {                
+                error: function (xhr, status, err) {   
+                    autoaccess()
                 }
             });
         }
 
         // 즐겨찾는 프로젝트 일 때 -> 즐겨찾기 취소
         else{
-
+            let accessToken = window.localStorage.getItem('accessToken')
             // star 이미지 교체를 위한 addClass
             $(e.target).addClass('flow-content-star-un');
 
@@ -59,7 +59,7 @@ $(function () {
                     clearAndUpdate();
                 },
                 error: function (xhr, status, err) {
-               
+                    autoaccess()
                 }
             });
         }
@@ -70,8 +70,8 @@ $(function () {
 
 // 프로젝트 리스트 업데이트 함수
 const updateProjectList = function () {
-    let accessToken= window.localStorage.getItem('accessToken');
-    let memNo= window.localStorage.getItem('memNo');
+    let accessToken = window.localStorage.getItem('accessToken')
+    let memNo = window.localStorage.getItem('memNo')
     $.ajax({
         type: 'GET',
         url: 'http://localhost:8080/api/members/'+memNo+'/rooms',
@@ -136,7 +136,7 @@ const updateProjectList = function () {
                 $('#MyProject').css('display', 'none');
         },
         error: function (xhr, status, err) {
-        
+            autoaccess()
         }
     });
 }

@@ -1,8 +1,6 @@
 import projectList from './projectList.js';
-
+import {autoaccess} from './autoAccess.js'
 $(function(){
-    let accessToken= window.localStorage.getItem('accessToken');
-    let memNo= window.localStorage.getItem('memNo');
 
     // 프로젝트 디테일 창 display:none -> false, block -> true
     var proejctDetailBool = false;
@@ -33,7 +31,8 @@ $(function(){
 
     // 즐겨찾기 버튼
     $('#projectStar').click(function(e){
-
+        let accessToken = window.localStorage.getItem('accessToken')
+        let memNo = window.localStorage.getItem('memNo')
         // 현재 선택한 프로젝트 인덱스
         var rmNo = $('#detailSettingProjectSrno').text();
 
@@ -56,7 +55,9 @@ $(function(){
                     // 프로젝트 리스트 업데이트
                     projectList();
                 },
-                error: function (xhr, status, err) {}
+                error: function (xhr, status, err) {
+                    autoaccess()
+                }
             });
         }
 
@@ -65,7 +66,8 @@ $(function(){
 
             // star 이미지 교체를 위한 addClass
             $(e.target).addClass('unstar');
-
+            let accessToken = window.localStorage.getItem('accessToken')
+            let memNo = window.localStorage.getItem('memNo')
             // 비동기 통신
             $.ajax({
                 type: 'DELETE',
@@ -79,15 +81,17 @@ $(function(){
                     // 프로젝트 리스트 업데이트
                     projectList();
                 },
-                error: function (xhr, status, err) {}
+                error: function (xhr, status, err) {
+                    autoaccess()
+                }
             });
         }
     });
 
     // 프로젝트 나가기
     $('#detailSettingProjectExitBtn').click(function(){
-        let accessToken= window.localStorage.getItem('accessToken');
-        let memNo= window.localStorage.getItem('memNo');
+        let accessToken = window.localStorage.getItem('accessToken')
+        let memNo = window.localStorage.getItem('memNo')
         $.ajax({
             type: 'DELETE',
             url: 'http://localhost:8080/api/room-members/'+$('#detailSettingProjectSrno').text(),
@@ -103,6 +107,7 @@ $(function(){
                 $('.logo-box').click();
             },
             error: function (xhr, status, err) {
+                autoaccess()
             }
         });
     });
@@ -119,8 +124,7 @@ $(function(){
 
     // 프로젝트 삭제
     $('#detailSettingProjectDeleteBtn').click(function(){
-        let accessToken= window.localStorage.getItem('accessToken');
-        let memNo= window.localStorage.getItem('memNo');
+        let accessToken = window.localStorage.getItem('accessToken')
         $.ajax({
             type: 'DELETE',
             url: 'http://localhost:8080/api/rooms/'+$('#detailSettingProjectSrno').text(),
@@ -133,10 +137,9 @@ $(function(){
                 // 로고 클릭하여 프로젝트 리스트로
                 $('.logo-box').click();
             },
-            error: function (xhr, status, err) {            
+            error: function (xhr, status, err) {    
+                autoaccess()
             }
         });
     });
-
-
 });

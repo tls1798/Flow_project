@@ -1,6 +1,7 @@
-const selectMember = function(memNo){
+import {autoaccess} from './autoAccess.js'
+const selectMember = function (memNo) {
 
-    let accessToken= window.localStorage.getItem('accessToken');
+    let accessToken = window.localStorage.getItem('accessToken')
     var res;
 
     $.ajax({
@@ -14,7 +15,9 @@ const selectMember = function(memNo){
         success: function (result, status, xhr) {
             res = result;
         },
-        error: function (xhr, status, err) {}
+        error: function (xhr, status, err) {
+            autoaccess()
+        }
     });
 
     return res;

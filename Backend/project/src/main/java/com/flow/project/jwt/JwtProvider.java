@@ -24,7 +24,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtProvider {
     private final AuthMapper authMapper;
-    private final long accessExpireTime = (30 * 60 * 1000L);   // 30분
+    private final long accessExpireTime = (60 * 60 * 1000L);   // 60분
     private final long refreshExpireTime = (60 * 60 * 1000L) *24;   // 24시간
     private final CustomUserDetailService customUserDetailService;
 
@@ -77,12 +77,8 @@ public class JwtProvider {
         String accessToken = createAccessToken(loginDTO);
         String refreshToken = refreshToken();
 
-  
-        // 프론트에서 setinterval로 사용하기 위함
-        String expiredAt = String.valueOf(accessExpireTime);
-        result.put("memMail",loginDTO.getMemMail());
+
         result.put("memNo", loginDTO.getMemNo());
-        result.put("expiredAt", expiredAt);
         result.put("accessToken", accessToken);
         result.put("refreshToken", refreshToken);
         RefreshToken insertOrUpdateRefreshToken = RefreshToken.builder()
@@ -110,7 +106,9 @@ public class JwtProvider {
             // AccessToken은 만료되었지만 RefreshToken은 만료되지 않은 경우 , db에 refresh 토큰 검증
             if (validateJwtToken(request, refreshToken, 2)) {
                 AuthDTO.LoginDTO loginDTO = new AuthDTO.LoginDTO();
-                loginDTO.setMemNo(getUserNo(accessToken));
+                loginDTO.setMemNo(getNewAccessTokenDTO.getMemNo());
+                loginDTO.setMemMail(authMapper.findMail(loginDTO.getMemNo()));
+
                 // DB에 일치하는 토큰인지
                 if (refreshToken.equals(authMapper.findByrefreshToken(loginDTO.getMemNo()))) {
                     String newToken = createAccessToken(loginDTO);
@@ -136,8 +134,6 @@ public class JwtProvider {
                 Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(token);
             else if(num == 2)
                 Jwts.parser().setSigningKey("${jwt.secretB}").parseClaimsJws(token);
-            else
-                return false;
             return true;
 
         } catch (MalformedJwtException e) {
@@ -169,10 +165,5 @@ public class JwtProvider {
     public String getUserInfo(String token) {
         return (String) Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(token).getBody().get("memMail");
     }
-    //Access 토큰을 파싱해서 Memno를 구해서 리프레쉬 토큰 DB 일치하는지 확인
-    public int getUserNo(String token) {
-        return (int) Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(token).getBody().get("memNo");
-    }
-
 
 }

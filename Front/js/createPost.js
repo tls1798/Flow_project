@@ -1,3 +1,4 @@
+import {autoaccess} from './autoAccess.js'
 // 글 생성 팝업 열기
 const postPopupOpen = function(){
     $('.back-area.temp-popup').addClass('flow-all-background-1');
@@ -113,13 +114,14 @@ $(function(){
                 return;
             }
 
-            let accessToken= window.localStorage.getItem('accessToken');
-            let memNo= window.localStorage.getItem('memNo');
+            let accessToken = window.localStorage.getItem('accessToken')
+            let memNo = window.localStorage.getItem('memNo')
             const postTitle = $('#postTitle').val();
             // const postContent = $('.create-post-content').text();
             const postContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
             console.log(postContent)
             const rmNo = $('#detailSettingProjectSrno').text();
+
             let postNo = 0;
             let ntTemp ='{';
             new Promise((succ, fail) =>{
@@ -137,6 +139,7 @@ $(function(){
                         $('.project-item[data-id='+rmNo+']').click();
                     },
                     error: function (xhr, status, err) {
+                        autoaccess()
                     }
                 });
 
@@ -162,6 +165,7 @@ $(function(){
                         ntTemp += '}';
                     },
                     error: function (xhr, status, err) {
+                        autoaccess()
                     }
                 });
             }).then((arg)=>{
@@ -181,6 +185,7 @@ $(function(){
                         socket.emit('test',result);
                     },
                     error: function (xhr, status, err) {
+                        autoaccess()
                     }
                 });
             })
@@ -243,7 +248,7 @@ $(function(){
             
             // 확인 버튼
             $('#createPostSubmit').click(function(){
-                let accessToken = window.localStorage.getItem('accessToken');
+                let accessToken = window.localStorage.getItem('accessToken')
                 const editTitle = $(this).closest('.js-editor').find('input').val();
                 // const editContent = $(this).closest('.js-editor').find('.create-post-content').text();
                 const editContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
@@ -262,6 +267,7 @@ $(function(){
                         $('.project-item[data-id='+rmNo+']').click();
                     },
                     error: function (xhr, status, err) {
+                        autoaccess()
                     }
                 });
                 
@@ -270,7 +276,7 @@ $(function(){
         }
         else if(e.target.id=='postDelBtn'){
             // 글 삭제
-            let accessToken = window.localStorage.getItem('accessToken');
+            let accessToken = window.localStorage.getItem('accessToken')
             const rmNo = $(this).closest('li').attr('data-project-srno');
             const postNo = $(this).closest('li').attr('data-post-srno');
             $.ajax({
@@ -285,6 +291,7 @@ $(function(){
                     $('.project-item[data-id='+rmNo+']').click();
                 },
                 error: function (xhr, status, err) {
+                    autoaccess()
                 }
             });
             

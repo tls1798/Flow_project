@@ -1,16 +1,13 @@
-
-let expiredAt = window.localStorage.getItem('expiredAt')
-    setInterval(autoaccess, expiredAt - 60000)
-
-function autoaccess() {
+export function autoaccess() {
     console.log('start')
     let accessToken = window.localStorage.getItem('accessToken')
     let refreshToken = window.localStorage.getItem('refreshToken')
-
+    let memNo = window.localStorage.getItem('memNo')
     $.ajax({
         type: 'POST',
         url: 'http://localhost:8080/api/auth/get-newToken',
         data: JSON.stringify({
+            memNo:memNo,
             accessToken: accessToken,
             refreshToken: refreshToken
         }),
@@ -18,6 +15,7 @@ function autoaccess() {
         success: function (result, status, xhr) {
             console.log('new token')
             let accessToken = result.accessToken
+            
             window.localStorage.setItem('accessToken', accessToken);
         },
         error: function (xhr, status, err) {

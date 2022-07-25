@@ -1,3 +1,4 @@
+import {autoaccess} from './autoAccess.js'
 $(function () {
     // 미확인, 전체 탭
     $('.js-unread').click(function () {
@@ -34,9 +35,9 @@ $(function () {
             $('#leftProjectHomeCount').css('display', 'none');
             $('#alarmTopCount').css('display', 'none');
         }
-
-        let accessToken = window.localStorage.getItem('accessToken');
-        let memNo= window.localStorage.getItem('memNo');
+        
+        let accessToken = window.localStorage.getItem('accessToken')
+        let memNo = window.localStorage.getItem('memNo')
 
         // 알림 확인 통신
         var ntNo = $(this).attr('data-notis-no');
@@ -49,7 +50,9 @@ $(function () {
                 xhr.setRequestHeader("token", accessToken);
             },
             success: function (result, status, xhr) {},
-            error: function (xhr, status, err) {}
+            error: function (xhr, status, err) {
+                autoaccess()
+            }
         });
     })
 });
