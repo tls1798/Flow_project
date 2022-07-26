@@ -48,4 +48,18 @@ public class NotificationsApiController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    // 알림 모두 읽음
+    @PutMapping("/notis/member/{memNo}")
+    public ResponseEntity<?> editNotifications(@PathVariable int memNo) {
+        try {
+            if (notificationsService.editNotifications(memNo) > 0) {
+                return ResponseEntity.ok(memNo);
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

@@ -36,4 +36,9 @@ public class NotificationsService {
     public int editNotification(Notifications bean) {
         return notificationsMapper.updateOne(bean);
     }
+
+    // 알림 모두 읽음
+    public int editNotifications(int memNo) {
+        return notificationsMapper.updateAll(memNo);
+    }
 }

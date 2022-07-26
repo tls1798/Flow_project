@@ -1,4 +1,5 @@
 import {autoaccess} from './autoAccess.js'
+
 $(function () {
     var socket = io.connect('http://localhost:3000');
     socket.on('data', () => {
@@ -32,7 +33,7 @@ const updateAlarmsFunction = function () {
                     ++cnt;
                 }
                 else
-                    checked = `<li class="js-alarm-item" style="display:none" data-notis-no=`+result[i].ntNo+`>`;
+                    checked = `<li class="js-alarm-item" data-notis-no=`+result[i].ntNo+`>`;
                 
                 // 알림 종류에 따른 문구
                 var des;
@@ -62,7 +63,7 @@ const updateAlarmsFunction = function () {
             }
 
             // 알림 count
-            if(result.length!=0){
+            if(result.length>0 && result[0].ntCount!=0){
                 $('#leftProjectHomeCount').css('display', 'inline-block');
                 $('#alarmTopCount').css('display', 'block');
                 $('#leftProjectHomeCount').text(result[0].ntCount);
@@ -71,6 +72,12 @@ const updateAlarmsFunction = function () {
                 $('#leftProjectHomeCount').css('display', 'none');
                 $('#alarmTopCount').css('display', 'none');
             }
+
+            // 알림 레이어에 모두 추가하고, 현재 on 상태인 탭 click
+            if ($('.js-read').hasClass('on'))
+                $('.js-read').click();
+            else
+                $('.js-unread').click();
         },
         error: function (xhr, status, err) {
             autoaccess()
@@ -84,10 +91,6 @@ const clearAndUpdateAlarms = function() {
     $('#alarmUl').find('li').remove();
     // 알림레이어 업데이트
     updateAlarmsFunction();
-    // 알림 레이어 전체 탭 클릭 상태일 시
-    if ($('.js-read').hasClass('on')) {
-        $('.js-read').click();
-    }
 }
 
 export default function updateAlarms() {
