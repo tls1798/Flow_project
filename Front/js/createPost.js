@@ -13,11 +13,17 @@ const postPopupClose = function(){
 const confirmOpen = function(){
     $('#popupBackground').removeClass('d-none')
     $('.confirm-popup').removeClass('d-none')
+
+    $('.popup-confirm-warp').addClass('post-confirm')
+    $('#popBack2').addClass('post-confirm-popback')
 }
 // confirm 창 닫기
 const confirmClose = function(){
     $('#popupBackground').addClass('d-none')
     $('.confirm-popup').addClass('d-none')
+
+    $('.popup-confirm-warp').removeClass('post-confirm')
+    $('#popBack2').removeClass('post-confirm-popback')
 }
 // 글 생성 팝업 초기화
 const postInit = function(){
@@ -70,6 +76,7 @@ $(function(){
         // const checkContent = $(this).closest('.js-popup-before').find('.js-upload-area').text();
         const checkContent = $('.ProseMirror.toastui-editor-contents').text();
         if(checkTitle || checkContent){
+            $('.popup-cont').text('작성을 중단하고 이동하시겠습니까?');
             confirmOpen();
         } else{
             postPopupClose()
@@ -78,6 +85,9 @@ $(function(){
     
     // confirm 취소, 확인 버튼 클릭 시
     $('.popup-confirm-warp').click(function(e){
+        if(!$(this).hasClass('post-confirm'))
+            return false;
+        
         if($(e.target).attr('class')=='flow-pop-sub-button-1 cancel-event'){
             confirmClose();
         } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
@@ -92,7 +102,7 @@ $(function(){
 
     // confirm 외부 영역 클릭 시 닫기
     $('#popBack2').click(function(e){
-        if($(e.target).attr('id')=='popBack2')
+        if($(e.target).hasClass('post-confirm-popback'))
             confirmClose();
     })
 
@@ -208,6 +218,7 @@ $(function(){
             // const checkContent = $('.js-upload-area').text();
             const checkContent = $('.ProseMirror.toastui-editor-contents').text();
             if(checkTitle || checkContent){
+                $('.popup-cont').text('작성을 중단하고 이동하시겠습니까?');
                 confirmOpen();
 
                 // confirm 외부 영역 클릭 시 닫기

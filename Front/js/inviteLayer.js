@@ -1,4 +1,39 @@
 import {autoaccess} from './autoAccess.js'
+// 초기화
+const clearInviteLayer = function(){
+    $('.js-member-item').removeClass('active');
+    $('#inviteTargetList').children('li').remove();
+    $('.project-invite-choiceList').children('li').remove();
+}
+// 닫기
+const closeInviteLayer = function(tar){
+    if($(tar).hasClass('returnInviteModal1')){
+        $('#inviteLayer').css('display', 'block');
+        $('#invitePopup').css('display', 'none');
+    }else{
+        $('#inviteLayer').css('display', 'none');
+        $('#invitePopup').css('display', 'none');
+    }
+}
+// confirm 창 열기
+const confirmOpen_invite = function(){
+    $('.back-area.temp-popup').addClass('flow-all-background-1')
+    $('#popupBackground').removeClass('d-none')
+    $('.confirm-popup').removeClass('d-none')
+
+    $('.popup-confirm-warp').addClass('invite-confirm')
+    $('#popBack2').addClass('invite-confirm-popback')
+}
+// confirm 창 닫기
+const confirmClose_invite = function(){
+    $('.back-area.temp-popup').removeClass('flow-all-background-1')
+    $('#popupBackground').addClass('d-none')
+    $('.confirm-popup').addClass('d-none')
+
+    $('.popup-confirm-warp').removeClass('invite-confirm')
+    $('#popBack2').removeClass('invite-confirm-popback')
+}
+
 $(function () {
 
     // 초대하기 버튼 클릭
@@ -56,33 +91,46 @@ $(function () {
         $('#invitePopup').css('display', 'block');
         return false;
     })
+    
+    var tar;
+    // 참여자 선택한 상태에서 뒤로/취소, X, 여백 클릭
+    $('.returnInviteModal1, .closeInviteLayerBtn, #inviteLayer, #invitePopup').click(function(e){
 
-    // 뒤로, 취소
-    $('.returnInviteModal1').click(function(){
+        tar = $(e.target);
         
-        // 초기화
-        $('.js-member-item').removeClass('active');
-        $('#inviteTargetList').children('li').remove();
+        // 선택된 참여자가 있으면 묻기
+        if($('#inviteTargetList').find('li').length!=0){
+            $('.popup-cont').text('선택된 참여자가 있습니다. 나가시겠습니까?');
+            confirmOpen_invite();
+            
+            // confirm 취소, 확인 버튼 클릭 시
+            $('.popup-confirm-warp').click(function(e){
+                if(!$(this).hasClass('invite-confirm'))
+                    return false;
 
-        // display
-        $('#inviteLayer').css('display', 'block');
-        $('#invitePopup').css('display', 'none');
-
-        return false;
+                if($(e.target).attr('class')=='flow-pop-sub-button-1 cancel-event'){
+                    confirmClose_invite();
+                } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
+                    confirmClose_invite();
+                    clearInviteLayer();
+                    closeInviteLayer(tar);
+                } else {
+                    return false;
+                }
+            })
+        }
+        else{
+            clearInviteLayer();
+            closeInviteLayer(tar);
+    
+            return false;
+        }
     })
 
-    // X 버튼
-    $('.closeInviteLayerBtn').click(function(){
-        
-        // 초기화
-        $('.js-member-item').removeClass('active');
-        $('#inviteTargetList').children('li').remove();
-
-        // display
-        $('#inviteLayer').css('display', 'none');
-        $('#invitePopup').css('display', 'none');
-
-        return false;
+    // confirm 외부 영역 클릭 시 닫기
+    $('#popBack2').click(function(e){
+        if($(e.target).hasClass('invite-confirm-popback'))
+        confirmClose_invite();
     })
 
     // 참여자 클릭
@@ -188,10 +236,11 @@ $(function () {
                     },
                     success: function (result, status, xhr) {
                         succ(result)
-                        // 닫기
-                        $('.closeInviteLayerBtn').click();
                         // 참여자 업데이트
                         $('.project-item[data-id='+rmNo+']').click();
+                        // 닫기
+                        $('#inviteTargetList').find('li').remove();
+                        $('.closeInviteLayerBtn').click();
                     },
                     error: function (xhr, status, err) {
                         autoaccess()
@@ -226,11 +275,5 @@ $(function () {
     $('#inviteMainLayer, #teamInviteLayer').click(function(){
         return false;
     });
-
-    $('html').click(function() {
-        // 초대 모달 1,2 display none
-        if($('#inviteLayer').css('display')=='block' || $('#invitePopup').css('display')=='block') {
-            $('.closeInviteLayerBtn').click();
-        }
-    });
+    
 })

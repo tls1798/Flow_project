@@ -21,7 +21,7 @@
     bottom: 0;
     left: 0;
     background: rgba(0,0,0,.6);
-    z-index: 10;
+    z-index: 50;
 }
 .flow-project-make-1.flow-project-make-1 {
     display: table;

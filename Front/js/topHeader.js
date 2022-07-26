@@ -1,5 +1,24 @@
 import logoutModule from './logoutModule.js';
 
+// confirm 창 열기
+const confirmOpen_logout = function(){
+    $('.back-area.temp-popup').addClass('flow-all-background-1');
+    $('#popupBackground').removeClass('d-none')
+    $('.confirm-popup').removeClass('d-none')
+
+    $('.popup-confirm-warp').addClass('logout-confirm')
+    $('#popBack2').addClass('logout-confirm-popback')
+}
+// confirm 창 닫기
+const confirmClose_logout = function(){
+    $('.back-area.temp-popup').removeClass('flow-all-background-1');
+    $('#popupBackground').addClass('d-none')
+    $('.confirm-popup').addClass('d-none')
+
+    $('.popup-confirm-warp').removeClass('logout-confirm')
+    $('#popBack2').removeClass('logout-confirm-popback')
+}
+
 $(function(){
     // 모달, 팝업 display:none -> false, block -> true
     var searchPopupBool = false;
@@ -16,8 +35,31 @@ $(function(){
         }
     });
 
+    // 로그아웃 클릭
     $('#logoutBtn').click(function () {
-        logoutModule();
+        $('.popup-cont').text('로그아웃 하시겠습니까?');
+        confirmOpen_logout();
+    })
+    
+    // confirm 취소, 확인 버튼 클릭 시
+    $('.popup-confirm-warp').click(function(e){
+        if(!$(this).hasClass('logout-confirm'))
+            return false;
+
+        if($(e.target).attr('class')=='flow-pop-sub-button-1 cancel-event'){
+            confirmClose_logout();
+        } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
+            confirmClose_logout();
+            logoutModule();
+        } else {
+            return false;
+        }
+    })
+
+    // confirm 외부 영역 클릭 시 닫기
+    $('#popBack2').click(function(e){
+        if($(e.target).hasClass('logout-confirm-popback'))
+            confirmClose_logout();
     })
 
     // 검색창 클릭 시 검색 팝업 띄우기
