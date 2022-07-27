@@ -1,7 +1,8 @@
 import {autoaccess} from './autoAccess.js'
+import readAlarm from './alarmLayer.js'
+import updateAlarms from './socket.js'
+
 $(function () {
-
-
     // 참여자 영역 이동
     $(document).scroll(function () {
         $('#projectParticipants').css('transform', 'translateX(' + (0 - $(document).scrollLeft()) + 'px');
@@ -42,7 +43,6 @@ $(function () {
             $(this).addClass('on');
         }
     })
-
 
     // 참여자 리스트 업데이트 함수
     const updateParticipant = function (rmNo) {
@@ -124,6 +124,45 @@ $(function () {
         getpinPosts = $(this).attr('data-id');
         // 북마크 리스트 가져오기
         bookmarkList()
+        // 알림 레이어에서 미확인 알림 가져오기
+        updateUnreadAlarmFunc($(this).attr('data-id'));
+    })
+
+    // 미확인 알림 더보기 클릭
+    $('#notReadAlarmMore').click(function(){
+        var cnt = 10;
+        $('#notReadAlarmUl .not-read-alarm-item:hidden').each(function(idx, item){
+            if(--cnt >= 0)
+                $(item).css('display','table');
+        })
+
+        if($('#notReadAlarmUl .not-read-alarm-item:hidden').length==0)
+            $('#notReadAlarmMore').css('display', 'none');
+    })
+
+    // 미확인 모두 읽기
+    $('#readAllPostBnt').click(function(){
+        let accessToken = window.localStorage.getItem('accessToken')
+        let memNo = window.localStorage.getItem('memNo')
+
+        $.ajax({
+            type: 'PUT',
+            url: 'http://localhost:8080/api/notis/member/' + memNo + '/rooms/' + $('#detailSettingProjectSrno').text(),
+            contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("token", accessToken);
+            },
+            success: function (result, status, xhr) {
+                updateAlarms();
+            },
+            error: function (xhr, status, err) {
+                autoaccess()
+            }
+        });
+    })
+
+    $(document).on('click', '.not-read-alarm-item', function(e){
+        readAlarm($(this).attr('data-notis-no'));
     })
 
     // TopSettingBar, inviteTitle 업데이트 함수
@@ -144,6 +183,7 @@ $(function () {
             initialEditType: 'wysiwyg'
         });
     }
+
     var list = new Array;
     // 프로젝트 선택 시 해당 프로젝트에 있는 글 조회
     const getPostAll = function (rmNo) {
@@ -383,6 +423,7 @@ $(function () {
             }
         })
     }
+
     //  북마크를 클릭시 리스트를 띄운다
     $('.left-menu-bookmark').click(function () {
         bookmarkList()
@@ -588,14 +629,70 @@ $(function () {
         }
     })
         
-
-    
-        // 아무 곳 클릭 시 글 디테일 버튼 사라지게 
-        $('html').click(function () {
-            if (postDetailBool) {
-                $('[id=postSetting]').next().addClass('d-none');
-                postDetailBool = !postDetailBool;
-            }
-        })
-  
+    // 아무 곳 클릭 시 글 디테일 버튼 사라지게 
+    $('html').click(function(){
+        if(postDetailBool){
+            $('[id=postSetting]').next().addClass('d-none');
+            postDetailBool=!postDetailBool;
+        }
+    })
 })
+
+// 알림 레이어에서 미확인 알림 가져오는 함수
+const updateUnreadAlarmFunc = function(rmNo){
+    // 초기화
+    $('#projectAlarmArea').css('display', 'none');
+    $('#notReadAlarmUl li').remove();
+    $('#projectNotReadCount').text(0);
+
+    let cnt=0;
+
+    // 현재 프로젝트의 미확인알림 갯수
+    $('#alarmUl li.on').each(function(idx, item){
+        let alarmRmNo = $(item).attr('data-project-no');
+
+        // 현재 프로젝트와 일치하지 않으며, 추가된 미확인 알림이 하나도 없을 경우
+        if(alarmRmNo!==rmNo){
+            if($('#notReadAlarmUl li').length==0)
+                $('#projectAlarmArea').css('display', 'none');
+
+            return true;
+        }
+
+        let ntNo = $(item).attr('data-notis-no');
+        let ntTypeNo = $(item).attr('data-type-no');
+        let des = $(item).find('.alarm-tit-ellipsis').text();
+        let content = $(item).find('.alarm-cont').text();
+        let elTime = $(item).find('.alarm-datetime').text();
+        let displayStyle = cnt>=3?'style="display:none"':'style="display:table"';
+        
+        $('#projectAlarmArea').css('display', 'block');
+        $('#projectNotReadCount').text(++cnt);
+        $('#notReadAlarmUl').append(`
+            <li class="not-read-alarm-item" data-project-no=`+alarmRmNo+` data-notis-no=`+ntNo+` data-type-no=`+ntTypeNo+` `+displayStyle+`>
+                <div class="unidentified-item profile">
+                    <span class="thumbnail size40 radius16" style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)" data=""></span>
+                </div>
+                <div class="middle-wr">
+                    <div class="unidentified-item title">
+                        <em class="unidentified-name"><i class=""></i>`+des+`</em>
+                        <span class="unidentified-time">`+elTime+`</span>
+                    </div>
+                    <div class="unidentified-item task">
+                        <div class="unidentified-task-content">
+                            <span style="display:block" data="">`+content+`</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="unidentified-item button">
+                    <button type="button" class="unidentified-detail-btn">
+                        보기
+                    </button>
+                </div>
+            </li>
+        `);
+    });
+
+    if(cnt>3)
+        $('#notReadAlarmMore').css('display', 'block');
+}

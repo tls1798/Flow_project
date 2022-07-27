@@ -9,7 +9,7 @@ import java.util.List;
 public interface NotificationsMapper {
 
     // 내가 속한 프로젝트 룸 전체 알림 가져오기
-    @Select("select n.nt_no, n.nt_type_no, nt_detail_no, n.mem_no, n.nt_datetime, n.rm_no, n.nt_temp, " +
+    @Select("select n.nt_no, n.nt_type_no, nt_detail_no, n.mem_no, to_char(n.nt_datetime, 'YYYY-MM-DD HH24:MI') nt_datetime, n.rm_no, n.nt_temp, " +
             "(select m.mem_name from \"Members\" m where m.mem_no = n.mem_no) as mem_name, " +
             "(select r.rm_title from \"Rooms\" r where r.rm_no = n.rm_no) as rm_title," +
             "(select count(*) from notis n where n.mem_no != #{memNo} and n.nt_temp -> concat(#{memNo},'') = 'null') as nt_count, " +
@@ -21,7 +21,7 @@ public interface NotificationsMapper {
             "from notis n " +
             "join (select * from \"Room_Members\" rm where rm.mem_no = #{memNo}) as myRooms on myRooms.rm_no = n.rm_no " +
             "where n.mem_no != #{memNo}" +
-            "order by nt_datetime desc")
+            "order by nt_no desc")
     List<Notifications> selectAllNotifications(int memNo);
 
     // 글, 댓글, 초대 알림 추가
@@ -32,10 +32,14 @@ public interface NotificationsMapper {
     int insertOne(Notifications notifications);
 
     // 글, 댓글, 초대 알림 수정
-    @Update("update notis set nt_temp = jsonb_set(nt_temp, concat('{',#{memNo},'}')::text[], to_char(now(),'\\\"YYYY-MM-DD HH:mm\\\"')::jsonb, true)  where nt_no = #{ntNo}")
+    @Update("update notis set nt_temp = jsonb_set(nt_temp, concat('{',#{memNo},'}')::text[], to_char(now(),'\\\"YYYY-MM-DD HH24:mm\\\"')::jsonb, true)  where nt_no = #{ntNo}")
     int updateOne(Notifications notifications);
 
     // 알림 모두 읽음
-    @Update("update notis set nt_temp = jsonb_set(nt_temp, concat('{',#{memNo},'}')::text[], to_char(now(),'\\\"YYYY-MM-DD HH:mm\\\"')::jsonb, true)  where nt_temp -> concat(#{memNo}, '') = 'null'")
+    @Update("update notis set nt_temp = jsonb_set(nt_temp, concat('{',#{memNo},'}')::text[], to_char(now(),'\\\"YYYY-MM-DD HH24:mm\\\"')::jsonb, true)  where nt_temp -> concat(#{memNo}, '') = 'null'")
     int updateAll(int memNo);
+
+    // 프로젝트 별 알림 모두 읽음
+    @Update("update notis set nt_temp = jsonb_set(nt_temp, concat('{',#{memNo},'}')::text[], to_char(now(),'\\\"YYYY-MM-DD HH:mm\\\"')::jsonb, true)  where nt_temp -> concat(#{memNo}, '') = 'null' and rm_no = concat(#{rmNo}, '')")
+    int updateNotis(int memNo, String rmNo);
 }

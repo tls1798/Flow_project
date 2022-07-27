@@ -257,7 +257,7 @@ address, em {
     border-radius: 6px;
     box-sizing: border-box;
 }
-/* 원? */
+/* 로딩 중 아이콘 */
 .unidentified-list {
     overflow: hidden;
 }
@@ -272,6 +272,132 @@ address, em {
     position: relative;
     display: inline-block;
 }
+
+/* 미확인 */
+.unidentified-list>li:first-child {
+    padding: 20px 20px 10px 20px;
+}
+.unidentified-list>li {
+    display: table;
+    width: 100%;
+    padding: 10px 20px;
+    table-layout: fixed;
+    background: rgba(255,107,107,.08);
+    cursor: pointer;
+}
+.unidentified-list>li:last-child {
+    padding: 10px 20px 20px 20px;
+}
+.unidentified-list li.not-read-alarm-item .unidentified-item.profile {
+    vertical-align: top;
+}
+.unidentified-list>li:hover {
+    background: rgba(255,107,107,.12);
+}
+.unidentified-item.profile {
+    width: 40px;
+    height: 40px;
+}
+.profile {
+    position: relative;
+    text-align: center;
+    font-size: 0;
+}
+.unidentified-item {
+    display: table-cell;
+    color: #555;
+}
+.unidentified-list li.not-read-alarm-item .unidentified-item.profile .thumbnail {
+    margin-top: 3px;
+}
+.thumbnail.size40 {
+    width: 40px;
+    height: 40px;
+}
+.radius16 {
+    border-radius: 16px;
+}
+.thumbnail {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: #fff;
+    border: 1px solid #eee;
+    cursor: pointer;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+.middle-wr {
+    width: 500px;
+    padding-left: 15px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.unidentified-item.title {
+    display: flex;
+    width: 100%;
+}
+.unidentified-item {
+    vertical-align: middle;
+    font-size: 14px;
+    color: #555;
+}
+.unidentified-name {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+}
+.unidentified-time {
+    -webkit-box-flex: 1;
+    flex: 1;
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 14px;
+    color: #999;
+}
+.unidentified-item.task {
+    display: block;
+    width: 100%;
+}
+.unidentified-task-title {
+    max-width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 21px;
+}
+.unidentified-task-content {
+    line-height: 21px;
+    max-width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.unidentified-task-content>span {
+    text-overflow: ellipsis;
+    word-break: break-word;
+}
+.unidentified-item.button {
+    text-align: right;
+}
+.unidentified-detail-btn {
+    height: 26px;
+    padding: 0 10px;
+    border: 1px solid #ff6b6b;
+    border-radius: 3px;
+    background: #fff;
+    box-sizing: border-box;
+    color: #ff6b6b;
+    font-size: 12px;
+    cursor: pointer;
+}
+.unidentified-detail-btn:focus, .unidentified-detail-btn:hover {
+    border-color: #ff6b6b;
+    background: #ff6b6b;
+    color: #fff;
+}
+
 .unidentified-more-btn {
     position: absolute;
     left: 32px;

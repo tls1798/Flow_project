@@ -731,19 +731,18 @@
                                     </div>
 
                                     <!-- 미확인 -->
-                                    <div id="projectAlarmArea" class="detail-section unidentified-alert-section" style="display: none;">
+                                    <div id="projectAlarmArea" class="detail-section unidentified-alert-section" style="display: block;">
                                         <div class="section-title-area">
                                             <h4 class="section-title">
                                                 <span>미확인</span>
-                                                <span id="projectNotReadCount" class="section-number alarm" style="display: none;">0</span>
+                                                <span id="projectNotReadCount" class="section-number alarm" style="display: inline-block;">0</span>
                                             </h4>
                                             <button id="readAllPostBnt" type="button" class="read-all-btn">모두읽음</button>
                                         </div>
                                         <div class="unidentified-content">
-
                                             <!--unidentified-content active 클래스 제어 -->
                                             <ul id="notReadAlarmUl" class="unidentified-list">
-                                                <div class="loading-area">
+                                                <!-- <div class="loading-area">
                                                     <div class="loading type2">
                                                         <i class="circle"></i>
                                                         <i class="circle"></i>
@@ -751,11 +750,10 @@
                                                         <i class="circle"></i>
                                                         <i class="circle"></i>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </ul>
-                                            <button id="notReadAlarmMore" type="button" class="unidentified-more-btn d-none" style="display: none;">
+                                            <button id="notReadAlarmMore" type="button" class="unidentified-more-btn" style="display: none;">
                                                 더보기
-                                                <span class="blind">더보기</span>
                                             </button>
                                         </div>
                                     </div>
@@ -801,11 +799,6 @@
                                                 <span>참여자</span>
                                                 <span id="participantCount"></span>
                                             </h4>
-                                            <div class="feed-type-area">
-                                                <button id="allSendienceBtn" type="button">
-                                                    전체 보기
-                                                </button>
-                                            </div>
                                         </div>
         
                                         <div id="participantArea" class="participants-container">

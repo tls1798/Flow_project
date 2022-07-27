@@ -38,7 +38,12 @@ public class NotificationsService {
     }
 
     // 알림 모두 읽음
-    public int editNotifications(int memNo) {
+    public int editAllNotifications(int memNo) {
         return notificationsMapper.updateAll(memNo);
+    }
+
+    // 프로젝트 별 알림 모두 읽음
+    public int editNotifications(int memNo, String rmNo) {
+        return notificationsMapper.updateNotis(memNo, rmNo);
     }
 }

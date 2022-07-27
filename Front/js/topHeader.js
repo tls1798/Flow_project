@@ -1,4 +1,5 @@
 import logoutModule from './logoutModule.js';
+import updateAlarms from './socket.js'
 
 // confirm 창 열기
 const confirmOpen_logout = function(){
@@ -85,6 +86,9 @@ $(function(){
     // 알림 아이콘 클릭 시 알림레이어 띄우기
     $('.btn-alarm').click(function(){
         if(!alarmLayerBool){
+            // 알림 업데이트
+            updateAlarms();
+
             $("#alarmLayer").css('display', 'block');
             alarmLayerBool=!alarmLayerBool;
 

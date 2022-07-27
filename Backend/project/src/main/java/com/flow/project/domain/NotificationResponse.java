@@ -16,7 +16,7 @@ public class NotificationResponse {
     private int ntTypeNo;
     private int ntDetailNo;
     private int memNo;
-    private Date ntDatetime;
+    private String ntDatetime;
     private String rmNo;
     private String memName;
     private String rmTitle;
