@@ -128,6 +128,25 @@ $(function () {
         updateUnreadAlarmFunc($(this).attr('data-id'));
     })
 
+    // 알림레이어 변경될 시 프로젝트 알림 배지 업데이트
+    $('#alarmTopCount').change(function(){
+        updateUnreadAlarmFunc($('#detailSettingProjectSrno').text());
+
+        $('.project-item').each(function(idx, item){
+            let rmNo = $(item).attr('data-id');
+            
+            // 초기화
+            $('.project-item[data-id='+rmNo+']').find('.project-badge').css('display', 'none');
+            $('.project-item[data-id='+rmNo+']').find('.project-badge').text(0);
+
+            let cnt = $('#alarmUl li.on[data-project-no='+rmNo+']').length
+            if(cnt>0){
+                $('.project-item[data-id='+rmNo+']').find('.project-badge').css('display', 'block');
+                $('.project-item[data-id='+rmNo+']').find('.project-badge').text(cnt);
+            }
+        })
+    })
+
     // 미확인 알림 더보기 클릭
     $('#notReadAlarmMore').click(function(){
         var cnt = 10;

@@ -87,7 +87,7 @@ const updateProjectList = function () {
                         <li class="project-item ui-state-default" data-id="`+result[i].rmNo+`" data-rm-title="`+result[i].rmTitle+`" data-rm-des="`+result[i].rmDes+`">
                             <a class="cursor-pointer">
                                 <!-- 알림 배지 -->
-                                <div class="flow-content-ct project-badge" style="display:none"></div>
+                                <div class="flow-content-ct project-badge" style="display:none">0</div>
                                 <!-- 좌측 컬러 -->
                                 <div class="color-code left-menu-type-1 color-code-1"></div>
                                 <div class="left-menu-type-con">
@@ -108,7 +108,7 @@ const updateProjectList = function () {
                         <li class="project-item ui-state-default" data-id="`+result[i].rmNo+`" data-rm-title="`+result[i].rmTitle+`" data-rm-des="`+result[i].rmDes+`">
                             <a class="cursor-pointer">
                                 <!-- 알림 배지 -->
-                                <div class="flow-content-ct project-badge" style="display:none"></div>
+                                <div class="flow-content-ct project-badge" style="display:none">0</div>
                                 <!-- 좌측 컬러 -->
                                 <div class="color-code left-menu-type-1 color-code-1"></div>
                                 <div class="left-menu-type-con">
