@@ -112,8 +112,7 @@ $(function(){
     $('html').click(function() {
         // 초대 모달 1,2 display none
         if($('.profile-popup').css('display')=='block') {
-            $('.back-area.temp-popup').removeClass('flow-all-background-1');
-            $('.profile-popup').css('display','none');
+            $('.btn-close-profile-popup').click();
         }
     });
 })

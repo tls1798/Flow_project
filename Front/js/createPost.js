@@ -211,7 +211,7 @@ $(function(){
 
     // back-area 선택 시 사라지게
     $('#popBack1').mousedown(function(e){
-        if(e.target.id=='popBack1'){
+        if(e.target.id=='popBack1' && $('.create-post-wrap').css('display')=='block'){
             
             // 내용 있을 때 confirm 창
             const checkTitle = $('#postTitle').val();
@@ -226,7 +226,7 @@ $(function(){
                 //     console.log(this)
                 //     confirmClose();
                 // })
-                }else{
+            }else{
                 postPopupClose();
             }
         }
