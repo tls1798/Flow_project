@@ -22,11 +22,11 @@ public interface AuthMapper {
 
     // AuthService에서 리프레쉬 토큰 발급시 사용
     @Select("SELECT refresh_token FROM \"RefreshToken\" WHERE mem_No = #{memNo}")
-    String findByrefreshToken(int memNo);
+    String findByRefreshToken(int memNo);
 
     // 토큰 회원 정보가 있으면 update / 없으면 insert /하기 위해서 회원정보 조회
     @Select("SELECT mem_no from \"RefreshToken\" WHERE mem_no = #{memNo}")
-    int checkone(int memNo);
+    int checkOne(int memNo);
 
     //패스워드 재발급
     @Options(keyColumn = "mem_no", useGeneratedKeys = true)
@@ -36,7 +36,7 @@ public interface AuthMapper {
     // 리프레쉬 토큰 발급 시 insert or update 시 사용
     @Options(keyColumn = "rt_no", useGeneratedKeys = true)
     @Insert("Insert into \"RefreshToken\" (mem_no,refresh_token) values(#{memNo},#{refreshToken})")
-    void insertefreshToken(RefreshToken refreshToken);
+    void insertRefreshToken(RefreshToken refreshToken);
 
     @Options(keyColumn = "rt_no", useGeneratedKeys = true)
     @Insert("Update \"RefreshToken\" set refresh_token=#{refreshToken} where mem_no=#{memNo}")

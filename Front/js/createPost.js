@@ -13,9 +13,9 @@ const postPopupClose = function(){
 const confirmOpen = function(){
     $('#popupBackground').removeClass('d-none')
     $('.confirm-popup').removeClass('d-none')
-
     $('.popup-confirm-warp').addClass('post-confirm')
     $('#popBack2').addClass('post-confirm-popback')
+    $('.popup-cont').text('작성을 중단하고 이동하시겠습니까?');
 }
 // confirm 창 닫기
 const confirmClose = function(){
@@ -287,13 +287,13 @@ $(function(){
         }
         else if(e.target.id=='postDelBtn'){
             // 글 삭제
-            let accessToken = window.localStorage.getItem('accessToken')
+            let accessToken = window.localStorage.getItem('accessToken');
+            let memNo = window.localStorage.getItem('memNo');
             const rmNo = $(this).closest('li').attr('data-project-srno');
             const postNo = $(this).closest('li').attr('data-post-srno');
             $.ajax({
                 type: 'DELETE',
-                url: 'http://localhost:8080/api/rooms/'+rmNo+'/posts/'+postNo,
-                data: JSON.stringify({"rmNo":rmNo, "postNo":postNo}),
+                url: 'http://localhost:8080/api/rooms/'+rmNo+'/posts/'+postNo+'/'+memNo,
                 contentType: 'application/json; charset=utf-8',
                 beforeSend: function (xhr) {      
                     xhr.setRequestHeader("token",accessToken);

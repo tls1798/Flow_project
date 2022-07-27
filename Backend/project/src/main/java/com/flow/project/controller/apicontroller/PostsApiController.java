@@ -48,8 +48,15 @@ public class PostsApiController {
     }
 
     //  특정 프로젝트 방 글 삭제
-    @DeleteMapping("/rooms/{rmNo}/posts/{postNo}")
-    public ResponseEntity<?> removePost(@PathVariable String rmNo, @PathVariable int postNo) {
-        return postsService.removePost(rmNo, postNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
+    @DeleteMapping("/rooms/{rmNo}/posts/{postNo}/{memNo}")
+    public ResponseEntity<?> removePost(@PathVariable String rmNo, @PathVariable int postNo,@PathVariable int memNo) {
+        return postsService.removePost(rmNo, postNo, memNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
+    }
+
+    // 특정 글 상단고정
+    @PostMapping("/rooms/posts/{postNo}/pin/{postPin}")
+    public ResponseEntity<?> editPin(@PathVariable int postNo,@PathVariable int postPin) {
+        return ResponseEntity.ok(postsService.editPin(postNo,postPin));
+
     }
 }

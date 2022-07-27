@@ -86,12 +86,12 @@ public class JwtProvider {
                 .refreshToken(refreshToken)
                 .build();
         try {
-            if (loginDTO.getMemNo() == (authMapper.checkone(loginDTO.getMemNo())))
+            if (loginDTO.getMemNo() == (authMapper.checkOne(loginDTO.getMemNo())))
                 authMapper.UpdateRefreshToken(insertOrUpdateRefreshToken);
         }
         // 토큰에 유저 넘버가 없는 신규 토큰 발급이면 exception 처리를 해서 토큰 insert
         catch (BindingException e) {
-            authMapper.insertefreshToken(insertOrUpdateRefreshToken);
+            authMapper.insertRefreshToken(insertOrUpdateRefreshToken);
         }
         return result;
     }
@@ -110,7 +110,7 @@ public class JwtProvider {
                 loginDTO.setMemMail(authMapper.findMail(loginDTO.getMemNo()));
 
                 // DB에 일치하는 토큰인지
-                if (refreshToken.equals(authMapper.findByrefreshToken(loginDTO.getMemNo()))) {
+                if (refreshToken.equals(authMapper.findByRefreshToken(loginDTO.getMemNo()))) {
                     String newToken = createAccessToken(loginDTO);
                     result.put("accessToken", newToken);
                 } else

@@ -34,7 +34,7 @@ public class CommentsService {
     }
 
     //  특정 게시 글 댓글 삭제
-    public int removeComment(int postNo, int cmNo) {
-        return commentsMapper.deleteOne(postNo, cmNo);
+    public int removeComment(int postNo, int cmNo, int memNo) {
+        return commentsMapper.deleteOne(postNo, cmNo, memNo);
     }
 }

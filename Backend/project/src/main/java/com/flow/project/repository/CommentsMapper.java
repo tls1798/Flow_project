@@ -26,6 +26,6 @@ public interface CommentsMapper {
     int updateOne(Comments comments);
 
     //  특정 게시 글 댓글 삭제
-    @Delete("delete from \"Comments\" where post_no=#{postNo} and cm_no=#{cmNo}")
-    int deleteOne(int postNo, int cmNo);
+    @Delete("delete from \"Comments\" where post_no=#{postNo} and cm_no=#{cmNo} and cm_writer=#{memNo}")
+    int deleteOne(int postNo, int cmNo, int memNo);
 }

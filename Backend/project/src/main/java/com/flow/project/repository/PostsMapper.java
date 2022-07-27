@@ -26,6 +26,10 @@ public interface PostsMapper {
     int updateOne(Posts post);
 
     //  특정 프로젝트 방 글 삭제
-    @Delete("delete from \"Posts\" where rm_no=#{rmNo} and post_no=#{postNo}")
-    int deleteOne(String rmNo, int postNo);
+    @Delete("delete from \"Posts\" where rm_no=#{rmNo} and post_no=#{postNo} and post_writer = #{memNo}")
+    int deleteOne(String rmNo, int postNo, int memNo);
+
+    // 상단고정 업데이트하기
+    @Update("update \"Posts\" set post_pin=#{postPin} where post_no= #{postNo}")
+    int updatePin(int postNo,int postPin);
 }

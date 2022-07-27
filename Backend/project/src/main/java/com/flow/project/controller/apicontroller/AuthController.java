@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 
-@Api(tags = "Auth / 로그인")
+
 @RequestMapping("/api/auth")
 @RestController
 @RequiredArgsConstructor

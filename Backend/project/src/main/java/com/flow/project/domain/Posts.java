@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Posts {
-    
+
     private int postNo;
     private String rmNo;
     private int postWriter;
@@ -16,4 +16,5 @@ public class Posts {
     private String postContent;
     private String postDatetime;
     private String postName;
+    private int postPin;
 }

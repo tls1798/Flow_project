@@ -91,7 +91,7 @@ $(function () {
    })
    
    $(document).on('click','.comment-writer-menu',function(e){
-
+    let memNo = window.localStorage.getItem('memNo')
         // 댓글 수정
         if(e.target.id=='cmEditBtn'){
             const cmContent = $(this).closest('.comment-container').find('.comment-text').text();
@@ -112,7 +112,6 @@ $(function () {
             // shift+enter 줄 바꿈 아직 미 구현, 엔터 시 값 가져오기 + ajax 통신
             $(document).on('keyup', '.edit-comment-input', function (key) { 
                 let accessToken = window.localStorage.getItem('accessToken')
-                let memNo = window.localStorage.getItem('memNo')
                 if(key.keyCode == 13){
                     if(key.shiftKey){
                         // 줄 바꿈
@@ -150,8 +149,7 @@ $(function () {
             const cmNo = $(this).closest('li').attr('remark-srno');
             $.ajax({
                 type: 'DELETE',
-                url: 'http://localhost:8080/api/posts/'+postNo+'/comments/'+cmNo,
-                data: JSON.stringify({"postNo":postNo, "cmNo":cmNo}),
+                url: 'http://localhost:8080/api/posts/'+postNo+'/comments/'+cmNo+'/'+memNo,
                 contentType: 'application/json; charset=utf-8',
                 beforeSend: function (xhr) {      
                     xhr.setRequestHeader("token",accessToken);

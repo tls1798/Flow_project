@@ -33,7 +33,11 @@ public class PostsService {
     }
 
     //  특정 프로젝트 방 글 삭제
-    public int removePost(String rmNo, int postNo) {
-        return postsMapper.deleteOne(rmNo, postNo);
+    public int removePost(String rmNo, int postNo, int memNo) {
+        return postsMapper.deleteOne(rmNo, postNo, memNo);
+    }
+    // 특정 글 상단고정
+    public int editPin(int postNo, int postPin){
+        return postsMapper.updatePin(postNo,postPin);
     }
 }

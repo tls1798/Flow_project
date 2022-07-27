@@ -54,8 +54,8 @@ public class CommentsApiController {
     }
 
     //  특정 게시 글 댓글 삭제
-    @DeleteMapping("/posts/{postNo}/comments/{cmNo}")
-    public ResponseEntity<?> removeComment(@PathVariable int postNo, @PathVariable int cmNo) {
-        return commentsService.removeComment(postNo, cmNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
+    @DeleteMapping("/posts/{postNo}/comments/{cmNo}/{memNo}")
+    public ResponseEntity<?> removeComment(@PathVariable int postNo, @PathVariable int cmNo,@PathVariable int memNo) {
+        return commentsService.removeComment(postNo, cmNo, memNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 }

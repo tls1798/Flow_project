@@ -45,13 +45,13 @@
     <script defer type="module" src="../js/projectList.js"></script>
     <script defer type="module" src="../js/detailLayer.js"></script>
     <script defer type="module" src="../js/topSettingBar.js"></script>
+    <script defer type="module" src="../js/createProject.js"></script>
     <script defer type="module" src="../js/topHeader.js"></script>
     <script defer type="module" src="../js/alarmLayer.js"></script>
     <script defer type="module" src="../js/profilePopup.js"></script>
     <script defer type="module" src="../js/socket.js"> </script>
     <script defer type="module" src="../js/autoAccess.js"></script>
-    <script defer type="module" src="../js/createProject.js"></script>
-    
+
     <script type="text/javascript" src="../js/leftTask.js"></script>
     <script defer type="module" src="../js/changeMainContainer.js"></script>
     <script defer type="module" src="../js/createPost.js"></script>
@@ -403,7 +403,7 @@
                                                     <button id="movePost" class="btn-go d-none" style="display: inline-block;">
                                                         게시글 바로가기
                                                     </button>
-                                                    <button id="pinToTopBnt" class="js-pin-post fixed-btn js-pin-authority on" style="display:block" data="">
+                                                    <button  class="js-pin-post fixed-btn js-pin-authority on" style="display:block" data="">
                                                         
                                                         <!-- fixed-btn on class -->
                                                         <span class="blind">상단 고정 등록</span>
@@ -599,17 +599,18 @@
                     </div>
                 </div>
             </div>
-            
+       
             <!-- 메인 컨테이너 -->
             <div class="main-act main-container">
 
                 <!-- 프로젝트 상단바 -->
                 <div class="top-setting-bar">
                     <div id="topSettingBar" class="main-header" style="display: block;">
+                        
+                        
                         <div id="mainTop" class="title-1" data-code="main" style="display: block;">
                             <div>내 프로젝트</div>
                         </div>
-
                         <!-- ??? -->
                         <span id="allCollectionCount" class="js-collection-total-count js-collection-count top-task-num"
                             style="display: none;"></span>
@@ -761,14 +762,16 @@
                                     <!-- //미확인 -->
 
                                     <!-- 상단고정 -->
-                                    <div id="projectPinArea" class="detail-section fix-section" style="display: none;">
+                                    <div id="projectPinArea" class="detail-section fix-section">
                                         <div class="section-title-area">
                                             <h4 class="section-title">
                                                 <span>상단고정</span>
-                                                <span id="projectPinCount" class="section-number">3</span>
+                                                <span id="projectPinCount" class="section-number"></span>
                                             </h4>
                                         </div>
-                                        <ul id="pinPostUl" class="ui-sortable pin-list fixed-list" data-project-srno="1402344" data-sortable-ul="true"></ul>
+                                        <ul id="pinPostUl" class="ui-sortable pin-list fixed-list" data-project-srno="1402344" data-sortable-ul="true">
+                                            
+                                        </ul>
                                     </div>
                                     <!-- //상단고정 -->
 
@@ -776,6 +779,12 @@
                                     <div id="projectFeedArea" class="detail-section feed-section">
                                         <div class="section-title-area">
                                             <h4 id="allPostsFilterTitle" class="section-title ellipsis">전체</h4>
+                                        </div>
+                                             <!-- 북마크 팝업 -->
+                                        <div class="alert-wrap alert-bookmark" id="toastPopup" style="display:none" >
+                                            <div class="alert-type success">
+                                                <div class="text">적용되었습니다.</div>
+                                            </div>
                                         </div>
                                         <div class="feed-content">
                                             <ul id="detailUl" class="post-group post-card" style="display: block;">
@@ -826,6 +835,20 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div id="allPostsLayer" class="me-post-wrap layer-scroll">
+                        <div class="small-style-wrap-2">
+                            <div class="feed-content me-content">
+                                <div class="search-title-area">
+                                    <span id="allPostsFilterTitle" class="search-result-title">전체</span>
+                                    <span id="postCount" class="count-number"></span>
+                                </div>
+                                <ul id="myPostContentUl" class="all-seach-list-type-1 post-group scroll-mask" scroll-direction="0">
+                                    
+
+                                </ul>
+                            </div>
+                        </div>
                     </div> 
                 </div>
             </div>
@@ -870,6 +893,7 @@
             $('#detailTop').css('display', 'none');
             $('#projectHomeLayer').css('display', 'block');
             $('#detailLayer').css('display', 'none');
+            $('#allPostsLayer').css('display','none');
         })        
     </script>
 
