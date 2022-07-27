@@ -191,8 +191,8 @@ $(function(){
                         xhr.setRequestHeader("token",accessToken);
                     },
                     success: function (result, status, xhr) {
-                        var socket = io.connect('http://192.168.240.127:3000');
-                        socket.emit('test',result);
+                        var socket = io.connect('http://localhost:3000');
+                        socket.emit('test');
                     },
                     error: function (xhr, status, err) {
                         autoaccess()
