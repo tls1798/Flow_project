@@ -115,17 +115,17 @@ $(function () {
 
         // 이메일 정규식 검사 
         function validEmailCheck(memMail) {
-            var pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            let pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
             return (memMail.match(pattern) != null)
         }
 
         // 패스워드 유효성 검사
         function chkPW(password) {
 
-            var pw = password;
-            var num = pw.search(/[0-9]/g);
-            var eng = pw.search(/[a-z]/ig);
-            var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+            let pw = password;
+            let num = pw.search(/[0-9]/g);
+            let eng = pw.search(/[a-z]/ig);
+            let spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
        
             if (pw.length < 8 || pw.length > 20) {
                 $('.error-pw').text($('.js-join-password').attr('data-length-msg'))

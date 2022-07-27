@@ -12,6 +12,7 @@ $(function () {
 
     // 글 수정 삭제 디테일 버튼 클릭 시
     $("#postSetting").click(function () {
+        console.log('aaa')
         if (!postSettingBool) {
             $(".js-setting-layer").css('display', 'block');
             postSettingBool = !postSettingBool;
@@ -203,7 +204,7 @@ $(function () {
                             )
                         }
                         $('#detailUl').append(`
-                            <li id="post-`+ result[i].posts.postNo + `" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="` + rmNo + ` " data-post-srno=" ` + result[i].posts.postNo + ` "data-post-pin= "` + result[i].posts.postPin + `" data-remark-srno="" data-section-srno=""  mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
+                            <li id="post-`+ result[i].posts.postNo + `" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + `"data-post-pin= "` + result[i].posts.postPin + `" data-remark-srno="" data-section-srno=""  mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
                                 <div class="js-post-nav card-item post-card-wrapper write2 ">
                                     <div class="post-card-header">
                                         <div class="post-card-scroll">
@@ -228,14 +229,14 @@ $(function () {
                                                             <!-- fixed-btn on class -->
                                                             <span class="blind">상단 고정 등록</span>
                                                         </button>
-                                                        <button id="postSetting" class="js-setting-button set-btn">
+                                                        <button id="postSetting" class="js-setting-button set-btn" data-mem-id="`+ result[i].posts.postWriter + `">
                                                             <i class="bi bi-three-dots-vertical"></i>
                                                         </button>
                                                         <ul class="js-setting-ul js-setting-layer setup-group d-none">
                                                             <li class="js-setting-item" data-code="modify" style="display:block" data="">
                                                                 <a id="postEditBtn" href="#"><i class="bi bi-card-text"></i>수정</a>
                                                             </li>
-                                                            <li class="js-setting-item" data-code="delete" style="display:block" data="">
+                                                            <li id='auth-delete' class="js-setting-item" data-code="delete" style="display:block" data="">
                                                                 <a id="postDelBtn" href="#"> <i class="bi bi-trash"></i>삭제</a>
                                                             </li>
                                                         </ul>
@@ -259,7 +260,7 @@ $(function () {
                                                                 <i class="icon-reaction"></i>
                                                                 <span>좋아요</span>
                                                             </button>
-                                                            <button class="js-post-bookmark post-bottom-button" id="bookmark-`+ result[i].posts.postNo + `" data-pst-id="`+ result[i].posts.postNo + `" data-book-value="0">
+                                                            <button class="js-post-bookmark post-bottom-button" id="bookmark-`+ result[i].posts.postNo + `" data-pst-id="` + result[i].posts.postNo + `" data-book-value="0">
                                                                 <i class="icon-bookmark"></i>
                                                                 <span>북마크</span>
                                                             </button>
@@ -301,17 +302,17 @@ $(function () {
                                 </div>
                             </li>
                         `)
+               
                         // 상단 고정이면 클래스 on을 추가해준다
-                       if (result[i].posts.postPin == 1) {
-                            $('#pin-'+ result[i].posts.postNo +'').addClass('on')
+                        if (result[i].posts.postPin == 1) {
+                            $('#pin-' + result[i].posts.postNo + '').addClass('on')
                         }
                         // 북마크 글이면 클래스 on을 추가한다
-                        for (let j = 0; j < list.length;j++){
+                        for (let j = 0; j < list.length; j++) {
                             if (result[i].posts.postNo == list[j].postNo && memNo == list[j].memNo) {
-                               $('#bookmark-' + result[i].posts.postNo + '').addClass('on');
+                                $('#bookmark-' + result[i].posts.postNo + '').addClass('on');
                             }
                         }
-
                         if (result[i].commentsList.length > 0) {
 
                             // 댓글 가져오기
@@ -332,7 +333,7 @@ $(function () {
                                                         <span class="js-remark-like-count comment-like-count ">0</span>
                                                     </div>
                                                 </div>
-                                                <div class="comment-writer-menu">
+                                                <div id="`+result[i].commentsList[j].cmWriter+`" class="comment-writer-menu">
                                                     <button id="cmEditBtn" type="button" class="js-remark-update js-remark-edit-button comment-writer-button on">
                                                         수정</button>
                                                     <button id="cmDelBtn" type="button" class="js-remark-delete js-remark-edit-button comment-writer-button on">
@@ -363,6 +364,10 @@ $(function () {
                                         </div>
                                     </li>
                                 `)
+                                // 자신이 작성한 댓글이 아니면 수정 삭제를 할 수 없게 수정 삭제 버튼을 없앤다
+                                if (result[i].commentsList[j].cmWriter != memNo) {
+                                    $('#'+result[i].commentsList[j].cmWriter+'').remove()
+                                }
                             }
                         }
 
@@ -383,10 +388,10 @@ $(function () {
         bookmarkList()
         let bookcount = 0;
 
-        for (let k = 0; k < list.length; k++){
+        for (let k = 0; k < list.length; k++) {
             bookcount++;
             $('#myPostContentUl').append(`
-            <li id="allPosts-18521976" class="js-all-post-item post-search-item post-list-wrapper" data-post-id="`+list[k].postNo+`" data-mem-id="`+list[k].memNo+`">
+            <li id="allPosts-18521976" class="js-all-post-item post-search-item post-list-wrapper" data-post-id="`+ list[k].postNo + `" data-mem-id="` + list[k].memNo + `">
             <div class="fixed-kind">
                 <i class="icons-write2"></i>
                 <span class="post-type">글</span>
@@ -396,16 +401,16 @@ $(function () {
                     <p class="search-text-type-3 contents-tit">`+ list[k].postTitle + `</p>
                     <div class="post-list comment" style="display:inline-block" data="">
                         <i class="icons-comment2"></i>
-                        <span class="js-post-comment-count">`+list[k].cmCount+`</span>
+                        <span class="js-post-comment-count">`+ list[k].cmCount + `</span>
                     </div>
                 </div>
                 <p class="search-text-type-3 contents-project">
-                    <em class="ellipsis"><i class="seach-type-2"></i>`+list[k].rmTitle+`</em>
+                    <em class="ellipsis"><i class="seach-type-2"></i>`+ list[k].rmTitle + `</em>
                 </p>
             </div>
             <div class="post-list-right">
-                <div class="post-list name">`+list[k].memName+`</div>
-                <div class="post-list date">`+list[k].postDatetime+`</div>
+                <div class="post-list name">`+ list[k].memName + `</div>
+                <div class="post-list date">`+ list[k].postDatetime + `</div>
                 <!--
                 <div class="fixed-value">
                     <span class="state request" style="display:none" data>-1%</span>
@@ -430,13 +435,13 @@ $(function () {
         let accessToken = window.localStorage.getItem('accessToken')
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8080/api/bookmark/'+memNo,
+            url: 'http://localhost:8080/api/bookmark/' + memNo,
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("token", accessToken);
             },
             success: function (result, status, xhr) {
-                list = result;  
+                list = result;
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -457,8 +462,8 @@ $(function () {
                 url: 'http://localhost:8080/api/bookmark/',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify({
-                   "memNo": memNo,
-                    "postNo" : postNo
+                    "memNo": memNo,
+                    "postNo": postNo
                 }),
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("token", accessToken);
@@ -473,40 +478,40 @@ $(function () {
         }
         // 북마크를 추가할 때
         else {
-        $(this).addClass('on')
-        $.ajax({
-            type: 'POST',
-            url: 'http://localhost:8080/api/bookmark/',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({
-                "memNo": memNo,
-                "postNo" : postNo
-            }),
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("token", accessToken);
-            },
-            success: function (result, status, xhr) {
-                alert();
-            },
-            error: function (xhr, status, err) {
-                autoaccess()
-            }
-        });
+            $(this).addClass('on')
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8080/api/bookmark/',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    "memNo": memNo,
+                    "postNo": postNo
+                }),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("token", accessToken);
+                },
+                success: function (result, status, xhr) {
+                    alert();
+                },
+                error: function (xhr, status, err) {
+                    autoaccess()
+                }
+            });
         }
     })
     // 북마크 적용 알림창
     const alert = function () {
-        $('.alert-bookmark').css('display','block')
+        $('.alert-bookmark').css('display', 'block')
 
-        setTimeout(function() {
+        setTimeout(function () {
             $('.alert-bookmark').fadeOut(500, "swing");
         }, 2000);
         return;
     }
 
     // 상단 고정 누를시
-    $(document).on('click', '.js-pin-post', function () {
-       // 제출 누르면 저 클래스가 사라져서 임의로 추가해져서 팝업창을 계속 띄우게 유지함
+    $(document).on('click', '.js-pin-post', function (e) {
+        // 제출 누르면 저 클래스가 사라져서 임의로 추가해져서 팝업창을 계속 띄우게 유지함
         $('#popupBackground').addClass('flow-all-background-1')
 
         let accessToken = window.localStorage.getItem('accessToken')
@@ -518,7 +523,7 @@ $(function () {
         // 포스트핀이 0이면 포스트핀 1로 바꾸고 on이 있으면 on을 없애고 없으면 on을 만든다
         postPin == 0 ? postPin = 1 : postPin = 0
         if (postPin == 1)
-            $('.popup-cont').text('이 글을 상단고정 하시겠습니까');
+            $('.popup-cont').text(' 상단고정 하시겠습니까');
         else
             $('.popup-cont').text('이 글을 상단고정 해제 하시겠습니까');
         // 팝업창을 띄운다
@@ -540,20 +545,50 @@ $(function () {
                     autoaccess()
                 }
             });
-            $('.flow-project-popup-6').addClass('d-none'), $('#popupBackground').addClass('d-none')
+            popupclose()
         })
-    })
-        // 글 디테일 창
-        var postDetailBool = false;
+        // 취소 시키기
+        $('.flow-pop-sub-button-1').on('click', function () {
+            popupclose()
+        }) 
+        // 아무데나 눌러도 팝업 사라지게 하기
+        $('#popBack2').on('click', function () {
+            popupclose()
+        })
+    }
+    )
+    // 팝업 종료 함수
+    const popupclose = function () {
+        $('.flow-project-popup-6').addClass('d-none')
+        $('#popupBackground').addClass('d-none')
+    }
+    // 글 디테일 창
+    var postDetailBool = false;
 
-        // 글 디테일 버튼 클릭 시
-        $(document).on('click', '#postSetting', function () {
+    // 글 디테일 버튼 클릭 시
+    $(document).on('click', '#postSetting', function () {
+        let memNo = window.localStorage.getItem('memNo')
+        console.log('멤버 번호'+memNo+'버튼 번호'+$(this).attr('data-mem-id') )
+        if ($(this).attr('data-mem-id') != memNo) {
+            console.log('불일치')
+            $(this).next().children('#auth-delete').css('display','none')
             if (!postDetailBool) {
                 $(this).next().removeClass('d-none');
                 postDetailBool = !postDetailBool;
             }
             return false;
-        })
+        } if ($(this).attr('data-mem-id') == memNo) {
+            console.log('일치')
+            $(this).next().children('#auth-delete').css('display','block')
+            if (!postDetailBool) {
+                $(this).next().removeClass('d-none');
+                postDetailBool = !postDetailBool;
+            }
+            return false
+        }
+    })
+        
+
     
         // 아무 곳 클릭 시 글 디테일 버튼 사라지게 
         $('html').click(function () {

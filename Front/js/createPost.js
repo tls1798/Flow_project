@@ -191,7 +191,7 @@ $(function(){
                         xhr.setRequestHeader("token",accessToken);
                     },
                     success: function (result, status, xhr) {
-                        var socket = io.connect('http://localhost:3000');
+                        var socket = io.connect('http://192.168.240.127:3000');
                         socket.emit('test',result);
                     },
                     error: function (xhr, status, err) {
@@ -289,8 +289,9 @@ $(function(){
             // 글 삭제
             let accessToken = window.localStorage.getItem('accessToken');
             let memNo = window.localStorage.getItem('memNo');
-            const rmNo = $(this).closest('li').attr('data-project-srno');
+            let rmNo = $(this).closest('li').attr('data-project-srno');
             const postNo = $(this).closest('li').attr('data-post-srno');
+
             $.ajax({
                 type: 'DELETE',
                 url: 'http://localhost:8080/api/rooms/'+rmNo+'/posts/'+postNo+'/'+memNo,
