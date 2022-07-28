@@ -846,7 +846,7 @@ address, em {
     border-top: 1px solid #ddd;
 }
 .comment-more-button {
-    display: none;
+    margin-top: 10px;
     font-size: 13px;
     color: #777;
     font-weight: 700;
@@ -895,6 +895,12 @@ fieldset, img {
     content: attr(placeholder);
     color: #999;
 }
+
+.comment-more-button:hover, .comment-writer-button:hover {
+    color: #6449fc;
+    text-decoration: underline;
+}
+
 .post-bottom-area::after {
     display: block;
     content: "";

@@ -362,9 +362,9 @@ $(function () {
                                                 </div>
                                             </div>
                                             <div class="post-card-footer js-comment-area" >
-                                                <div class="comment-header">
+                                                <div class="comment-header d-none">
                                                     <button type="button" class="js-remark-prev-button comment-more-button d-none">
-                                                        이전 댓글 더보기 (0)
+                                                        이전 댓글 더보기 (<span id="cm-count-id">0</span>)
                                                     </button>
                                                 </div>
                                                 <ul class="post-comment-group" data-id="`+ result[i].posts.postNo + `"></ul>
@@ -401,7 +401,7 @@ $(function () {
                             // 댓글 가져오기
                             for (var j = 0; j < result[i].commentsList.length; j++) {
                                 $('.post-comment-group[data-id=' + result[i].commentsList[j].postNo + ']').append(`
-                                    <li class="remark-item" remark-srno="`+ result[i].commentsList[j].cmNo + `" data-user-id="` + result[i].commentsList[j].cmWriter + `">
+                                    <li class="remark-item" id="cm-`+result[i].commentsList[j].cmNo+`" remark-srno="`+ result[i].commentsList[j].cmNo + `" data-cm-id=`+(j+1)+` data-user-id="` + result[i].commentsList[j].cmWriter + `">
                                         <div class="comment-thumbnail js-comment-thumbnail">
                                             <span class="thumbnail size40 radius16" data=""></span>
                                         </div>
@@ -448,13 +448,25 @@ $(function () {
                                     </li>
                                 `)
                                 commentcount++;
+                                // 댓글이 3개 이상일시 보이지 않게 숨긴다
+                                if ($('#cm-' + result[i].commentsList[j].cmNo + '').attr('data-cm-id') > 2) {
+                                    $('#cm-' + result[i].commentsList[j].cmNo + '').addClass('d-none')
+                                }
                                 // 자신이 작성한 댓글이 아니면 수정 삭제를 할 수 없게 수정 삭제 버튼을 없앤다
                                 if (result[i].commentsList[j].cmWriter != memNo) {
                                     $('#'+result[i].commentsList[j].cmWriter+'').remove()
                                 }
                             }
-                            $('#post-' + result[i].posts.postNo + '').attr('data-comment-count',commentcount)
-                            $('#post-' + result[i].posts.postNo + '').children('.comment-more-button').removeClass('d-none')
+                            // 이전 댓글 더보기 숫자를 설정
+                            $('#post-' + result[i].posts.postNo + '').find('#cm-count-id').text(commentcount-2)
+                            // 계시판의 댓글 설정
+                            $('#post-' + result[i].posts.postNo + '').attr('data-comment-count', commentcount)
+                            
+                            // 계시판의 댓글이 2개 이상일경우 댓글 더보기 div를 보여준다
+                            if($('#post-' + result[i].posts.postNo + '').attr('data-comment-count')>2){
+                            $('#post-' + result[i].posts.postNo + '').find('.comment-header').removeClass('d-none')
+                                $('#post-' + result[i].posts.postNo + '').find('.comment-more-button').removeClass('d-none')
+                            }
                         }
                        
                         // Toast ui viewer 불러오기
@@ -469,6 +481,26 @@ $(function () {
             }
         })
     }
+    // 이전 댓글 더보기 클릭할시
+    $(document).on('click', '.comment-more-button', function () {
+        var cnt = 10;
+        // 남은 댓글의 수
+        let cmcnt = $(this).parent().parent().find('#cm-count-id').text()
+      
+        $(this).parent().parent().find('.remark-item').each(function (idx, item) {
+            // 처음 보여주는 댓글 2개를 빼고 시작하기 위함
+            if ($(this).hasClass('d-none')) {   
+            if (--cnt >= 0) {
+                $(item).removeClass('d-none');
+                cmcnt--;
+                }
+            }
+        })
+        // 남은 댓글이 없을시 버튼을 삭제하기 위함
+        if (cmcnt == 0)
+        $(this).addClass('d-none')
+        $(this).parent().parent().find('#cm-count-id').text(cmcnt)
+    })
 
     //  북마크를 클릭시 리스트를 띄운다
     $('.left-menu-bookmark').on('click', function (e) {
