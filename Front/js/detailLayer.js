@@ -362,7 +362,7 @@ $(function () {
                                                 </div>
                                             </div>
                                             <div class="post-card-footer js-comment-area" >
-                                                <div class="comment-header d-none">
+                                                <div class="comment-header">
                                                     <button type="button" class="js-remark-prev-button comment-more-button d-none">
                                                         이전 댓글 더보기 (<span id="cm-count-id">0</span>)
                                                     </button>
@@ -464,7 +464,6 @@ $(function () {
                             
                             // 계시판의 댓글이 2개 이상일경우 댓글 더보기 div를 보여준다
                             if($('#post-' + result[i].posts.postNo + '').attr('data-comment-count')>2){
-                            $('#post-' + result[i].posts.postNo + '').find('.comment-header').removeClass('d-none')
                                 $('#post-' + result[i].posts.postNo + '').find('.comment-more-button').removeClass('d-none')
                             }
                         }
@@ -514,7 +513,7 @@ $(function () {
         for (let k = 0; k < list.length; k++) {
             bookcount++;
             $('#myPostContentUl').append(`
-            <li id="allPosts-18521976" class="js-all-post-item post-search-item post-list-wrapper" data-post-id="`+ list[k].postNo + `" data-mem-id="` + list[k].memNo + `">
+            <li id="allPosts-18521976" class="js-all-post-item post-search-item post-list-wrapper" data-room-id="`+list[k].rmNo+`" data-post-id="`+ list[k].postNo + `" data-mem-id="` + list[k].memNo + `">
             <div class="fixed-kind">
                 <i class="icons-write2"></i>
                 <span class="post-type">글</span>
