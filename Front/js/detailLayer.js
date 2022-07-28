@@ -173,11 +173,13 @@ $(function () {
     // 미확인 알림 더보기 클릭
     $('#notReadAlarmMore').click(function(){
         var cnt = 10;
-        $('#notReadAlarmUl .not-read-alarm-item:hidden').each(function(idx, item){
-            if(--cnt >= 0)
-                $(item).css('display','table');
-        })
 
+        $('.not-read-alarm-item').each(function(idx, item){
+            if($(item).css('display')=='table') return true;
+            if(cnt==10) $('.not-read-alarm-item:eq('+(idx-1)+')').css('padding','10px 20px 10px 20px');
+            if(--cnt >= 0) $(item).css('display','table');
+        })
+        
         if($('#notReadAlarmUl .not-read-alarm-item:hidden').length==0)
             $('#notReadAlarmMore').css('display', 'none');
     })
@@ -722,6 +724,8 @@ const updateUnreadAlarmFunc = function(rmNo){
         `);
     });
 
-    if(cnt>3)
+    if(cnt>3){
         $('#notReadAlarmMore').css('display', 'block');
+        $('.not-read-alarm-item:eq(2)').css('padding', '10px 20px 20px 20px');
+    }
 }
