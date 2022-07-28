@@ -1,4 +1,23 @@
 import {autoaccess} from './autoAccess.js'
+
+// Date format
+Date.prototype.YYYYMMDDHHMMSS = function () {
+    var yyyy = this.getFullYear().toString();
+    var MM = pad(this.getMonth() + 1, 2);
+    var dd = pad(this.getDate(), 2);
+    var hh = pad(this.getHours(), 2);
+    var mm = pad(this.getMinutes(), 2)
+
+    return yyyy+'-'+MM+'-'+dd+' '+hh+':'+mm;
+};
+function pad(number, length) {
+    var str = '' + number;
+    while (str.length < length) {
+        str = '0' + str;
+    }
+    return str;
+}
+
 $(function () {
  
     //  엔터 시 줄 바꿈 막기
@@ -37,7 +56,58 @@ $(function () {
                     success: function (result, status, xhr) {
                         succ(result);
                         cmNo=result.cmNo;
-                        $('.project-item[data-id='+rmNo+']').click();
+                        
+                        // 새로고침X, 바로 아래에 추가하기
+                        $('.post-comment-group[data-id='+postNo+']').append(`
+                            <li class="remark-item" remark-srno="`+ cmNo + `" data-user-id="` + memNo + `">
+                                <div class="comment-thumbnail js-comment-thumbnail">
+                                    <span class="thumbnail size40 radius16" data=""></span>
+                                </div>
+                                <div class="js-remark-view comment-container on ">
+                                    <div class="comment-user-area">
+                                        <div class="comment-user">
+                                            <span class="user-name js-comment-user-name">`+ $('.user-info strong').text() + `</span>
+                                            <span class="user-position"></span>
+                                            <span class="record-date">`+ new Date().YYYYMMDDHHMMSS() + `</span>
+                                            <div class="js-remark-like comment-like ">
+                                                <span class="js-remark-like-button"><em class="txt-like">좋아요</em></span>
+                                                <span class="js-remark-like-count comment-like-count ">0</span>
+                                            </div>
+                                        </div>
+                                        <div id="`+memNo+`" class="comment-writer-menu">
+                                            <button id="cmEditBtn" type="button" class="js-remark-update js-remark-edit-button comment-writer-button on">
+                                                수정</button>
+                                            <button id="cmDelBtn" type="button" class="js-remark-delete js-remark-edit-button comment-writer-button on">
+                                                삭제</button>
+                                        </div>
+                                    </div>
+                                    <div class="js-remark-layer comment-content">
+                                        <div class="comment-text-area">
+                                            <div class="js-remark-text comment-text"><div>`+ cmContent + `</div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="js-remark-edit comment-container">
+                                    <div class="js-remark-layer comment-content modify">
+                                        <form class="js-remark-form comment-text-area">
+                                            <fieldset>
+                                                <legend class="blind">댓글 입력</legend>
+                                                <div class="js-remark-area js-paste-layer edit-comment-input " contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                    <div class="comment-like-area d-none">
+                                        <div class="js-remark-like comment-like ">
+                                            <span class="js-remark-like-button"><em class="txt-like">좋아요</em></span>
+                                            <span class="js-remark-like-count comment-like-count ">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        `);
+
+                        // text input 비우기
+                        $('.comment-input').text('');
                     },
                     error: function (xhr, status, err) {
                         autoaccess()
@@ -90,12 +160,14 @@ $(function () {
         }
    })
    
+   let cmNo;
    $(document).on('click','.comment-writer-menu',function(e){
-    let memNo = window.localStorage.getItem('memNo')
+        let memNo = window.localStorage.getItem('memNo')
+        
         // 댓글 수정
         if(e.target.id=='cmEditBtn'){
             const cmContent = $(this).closest('.comment-container').find('.comment-text').text();
-            const cmNo = $(this).closest('li').attr('remark-srno')
+            cmNo = $(this).closest('li').attr('remark-srno')
             $(this).closest('.comment-container').removeClass('on');
             $(this).closest('.comment-container').next().addClass('on');
             $(this).closest('.comment-container').next().find('.edit-comment-input').text(cmContent);
@@ -109,13 +181,11 @@ $(function () {
                 }
             })
 
-            // shift+enter 줄 바꿈 아직 미 구현, 엔터 시 값 가져오기 + ajax 통신
+            // 엔터 시 값 가져오기 + ajax 통신
             $(document).on('keyup', '.edit-comment-input', function (key) { 
                 let accessToken = window.localStorage.getItem('accessToken')
                 if(key.keyCode == 13){
-                    if(key.shiftKey){
-                        // 줄 바꿈
-                    } 
+                    if(key.shiftKey){} // 줄 바꿈 
                     else{
                         key.preventDefault();
                         let accessToken = window.localStorage.getItem('accessToken');
@@ -131,7 +201,12 @@ $(function () {
                                 xhr.setRequestHeader("token",accessToken);
                             },
                             success: function (result, status, xhr) {
-                                $('.project-item[data-id='+rmNo+']').click();
+                                // text 수정
+                                $('.remark-item[remark-srno='+cmNo+'] .comment-text').text(cmContent);
+                                
+                                // text input 닫기
+                                $('.remark-item[remark-srno='+cmNo+'] .js-remark-view.comment-container').addClass('on');
+                                $('.remark-item[remark-srno='+cmNo+'] .js-remark-edit.comment-container').removeClass('on');
                             },
                             error: function (xhr, status, err) {
                                 autoaccess()
@@ -142,11 +217,15 @@ $(function () {
             })
         }
         else if(e.target.id=='cmDelBtn'){
+
             // 댓글 삭제
             let accessToken = window.localStorage.getItem('accessToken');
             const rmNo = $(this).closest('li').parent().closest('li').attr('data-project-srno');
             const postNo = $(this).closest('li').parent().closest('li').attr('data-post-srno');
             const cmNo = $(this).closest('li').attr('remark-srno');
+            
+            let myCm = $(this).parents('.remark-item');
+
             $.ajax({
                 type: 'DELETE',
                 url: 'http://localhost:8080/api/posts/'+postNo+'/comments/'+cmNo+'/'+memNo,
@@ -155,7 +234,7 @@ $(function () {
                     xhr.setRequestHeader("token",accessToken);
                 },
                 success: function (result, status, xhr) {
-                    $('.project-item[data-id='+rmNo+']').click();
+                    myCm.remove();
                 },
                 error: function (xhr, status, err) {
                     autoaccess()
