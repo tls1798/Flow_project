@@ -129,7 +129,6 @@ $(function(){
             const postTitle = $('#postTitle').val();
             // const postContent = $('.create-post-content').text();
             const postContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
-            console.log(postContent)
             const rmNo = $('#detailSettingProjectSrno').text();
 
             let postNo = 0;

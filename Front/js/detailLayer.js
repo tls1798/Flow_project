@@ -36,7 +36,6 @@ $(function () {
 
     // 글 수정 삭제 디테일 버튼 클릭 시
     $("#postSetting").click(function () {
-        console.log('aaa')
         if (!postSettingBool) {
             $(".js-setting-layer").css('display', 'block');
             postSettingBool = !postSettingBool;
@@ -227,6 +226,7 @@ $(function () {
             initialEditType: 'wysiwyg'
         });
     }
+
     // 프로젝트 선택 시 해당 프로젝트에 있는 글 조회
     const getPostAll = function (rmNo) {
        
@@ -454,8 +454,7 @@ $(function () {
                                 }
                             }
                             $('#post-' + result[i].posts.postNo + '').attr('data-comment-count',commentcount)
-                            console.log($('#post-' + result[i].posts.postNo + '').attr('data-comment-count'))
-                           $('#post-' + result[i].posts.postNo + '').children('.comment-more-button').removeClass('d-none')
+                            $('#post-' + result[i].posts.postNo + '').children('.comment-more-button').removeClass('d-none')
                         }
                        
                         // Toast ui viewer 불러오기
@@ -475,6 +474,7 @@ $(function () {
     $('.left-menu-bookmark').on('click', function (e) {
         getbooklist()
     })
+
     const getbooklist = function () {
         bookmarkList()
         let bookcount = 0;
@@ -520,6 +520,7 @@ $(function () {
         // 북마크 리스트의 count
         $('#postCount').text(bookcount)
     }
+
     // 북마크 누를시
     $(document).on('click', '.js-post-bookmark', function () {
         let accessToken = window.localStorage.getItem('accessToken')
@@ -571,6 +572,7 @@ $(function () {
             });
         }
     })
+
     // 북마크 적용 알림창
     const alert = function () {
         $('.alert-bookmark').css('display', 'block')
@@ -629,20 +631,19 @@ $(function () {
         })
     }
     )
-    // 팝업 종료 함수
+
+    // 상단고정 팝업 종료 함수
     const popupclose = function () {
         $('.flow-project-popup-6').addClass('d-none')
         $('#popupBackground').addClass('d-none')
     }
+
     // 글 디테일 창
     var postDetailBool = false;
-
     // 글 디테일 버튼 클릭 시
     $(document).on('click', '#postSetting', function () {
         let memNo = window.localStorage.getItem('memNo')
-        console.log('멤버 번호'+memNo+'버튼 번호'+$(this).attr('data-mem-id') )
         if ($(this).attr('data-mem-id') != memNo) {
-            console.log('불일치')
             $(this).next().children('#auth-delete').css('display','none')
             if (!postDetailBool) {
                 $(this).next().removeClass('d-none');
@@ -650,7 +651,6 @@ $(function () {
             }
             return false;
         } if ($(this).attr('data-mem-id') == memNo) {
-            console.log('일치')
             $(this).next().children('#auth-delete').css('display','block')
             if (!postDetailBool) {
                 $(this).next().removeClass('d-none');
