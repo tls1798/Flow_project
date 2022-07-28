@@ -18,7 +18,7 @@ function pad(number, length) {
     return str;
 }
 
-$(function () {
+// $(function () {
  
     //  엔터 시 줄 바꿈 막기
     $(document).on('keydown','.comment-input',function(key){      
@@ -29,7 +29,7 @@ $(function () {
         }
     })
 
-    // shift+enter 줄 바꿈 아직 미 구현, 엔터 시 값 가져오기 + ajax 통신
+    // shift+enter 줄 바꿈, 엔터 시 값 가져오기 + ajax 통신
     $(document).on('keyup','.comment-input',function(key){      
         if(key.keyCode == 13 && !key.shiftKey){
             key.preventDefault();
@@ -56,6 +56,10 @@ $(function () {
                     success: function (result, status, xhr) {
                         succ(result);
                         cmNo=result.cmNo;
+
+                        // 댓글 카운트 증가
+                        let cnt = parseInt($(key.target).closest('li').find('.comment-count').text()) + 1;
+                        $(key.target).closest('li').find('.comment-count').text(cnt);
                         
                         // 새로고침X, 바로 아래에 추가하기
                         $('.post-comment-group[data-id='+postNo+']').append(`
@@ -69,10 +73,6 @@ $(function () {
                                             <span class="user-name js-comment-user-name">`+ $('.user-info strong').text() + `</span>
                                             <span class="user-position"></span>
                                             <span class="record-date">`+ new Date().YYYYMMDDHHMMSS() + `</span>
-                                            <div class="js-remark-like comment-like ">
-                                                <span class="js-remark-like-button"><em class="txt-like">좋아요</em></span>
-                                                <span class="js-remark-like-count comment-like-count ">0</span>
-                                            </div>
                                         </div>
                                         <div id="`+memNo+`" class="comment-writer-menu">
                                             <button id="cmEditBtn" type="button" class="js-remark-update js-remark-edit-button comment-writer-button on">
@@ -95,12 +95,6 @@ $(function () {
                                                 <div class="js-remark-area js-paste-layer edit-comment-input " contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
                                             </fieldset>
                                         </form>
-                                    </div>
-                                    <div class="comment-like-area d-none">
-                                        <div class="js-remark-like comment-like ">
-                                            <span class="js-remark-like-button"><em class="txt-like">좋아요</em></span>
-                                            <span class="js-remark-like-count comment-like-count ">0</span>
-                                        </div>
                                     </div>
                                 </div>
                             </li>
@@ -161,19 +155,18 @@ $(function () {
    })
    
    let cmNo;
-   $(document).on('click','.comment-writer-menu',function(e){
-        let memNo = window.localStorage.getItem('memNo')
+    $(document).on('click', '.comment-writer-menu',function(e){
         
         // 댓글 수정
         if(e.target.id=='cmEditBtn'){
             const cmContent = $(this).closest('.comment-container').find('.comment-text').text();
-            cmNo = $(this).closest('li').attr('remark-srno')
+            cmNo = $(this).closest('li').attr('remark-srno');
             $(this).closest('.comment-container').removeClass('on');
             $(this).closest('.comment-container').next().addClass('on');
             $(this).closest('.comment-container').next().find('.edit-comment-input').text(cmContent);
             
             //  엔터 시 줄 바꿈 막기
-            $(document).on('keydown','.edit-comment-input',function(key){      
+            $(document).on('keydown', '.edit-comment-input',function(key){      
                 if(key.keyCode==13){
                     if(!key.shiftKey){
                         key.preventDefault();
@@ -181,7 +174,7 @@ $(function () {
                 }
             })
 
-            // 엔터 시 값 가져오기 + ajax 통신
+            // shift+enter 줄 바꿈, 엔터 시 값 가져오기 + ajax 통신
             $(document).on('keyup', '.edit-comment-input', function (key) { 
                 let accessToken = window.localStorage.getItem('accessToken')
                 if(key.keyCode == 13){
@@ -189,9 +182,11 @@ $(function () {
                     else{
                         key.preventDefault();
                         let accessToken = window.localStorage.getItem('accessToken');
+                        let memNo = window.localStorage.getItem('memNo')
                         const rmNo= $(this).closest('[id^="post"]').attr('data-project-srno');
                         const postNo= $(this).closest('[id^="post"]').attr('data-post-srno');
                         const cmContent = this.innerText;
+                   
                         $.ajax({
                             type: 'PUT',
                             url: 'http://localhost:8080/api/posts/'+postNo+'/comments/'+cmNo,
@@ -210,7 +205,7 @@ $(function () {
                             },
                             error: function (xhr, status, err) {
                                 autoaccess()
-                            }
+                            },
                         })
                     }
                 }
@@ -220,6 +215,7 @@ $(function () {
 
             // 댓글 삭제
             let accessToken = window.localStorage.getItem('accessToken');
+            let memNo = window.localStorage.getItem('memNo')
             const rmNo = $(this).closest('li').parent().closest('li').attr('data-project-srno');
             const postNo = $(this).closest('li').parent().closest('li').attr('data-post-srno');
             const cmNo = $(this).closest('li').attr('remark-srno');
@@ -234,6 +230,10 @@ $(function () {
                     xhr.setRequestHeader("token",accessToken);
                 },
                 success: function (result, status, xhr) {
+                    
+                    // 댓글 카운트 감소
+                    let cnt = parseInt($(e.target).closest("[id^='post-']").find('.comment-count').text()) - 1;
+                    $(e.target).closest("[id^='post-']").find('.comment-count').text(cnt);
                     myCm.remove();
 
                     var socket = io.connect('http://localhost:3000');
@@ -244,5 +244,6 @@ $(function () {
                 }
             });
         }
-   })
-});
+    })
+    
+// });

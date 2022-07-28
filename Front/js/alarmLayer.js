@@ -1,5 +1,6 @@
 import {autoaccess} from './autoAccess.js'
 import updateAlarms from './socket.js'
+import updatePopup from '../js/detailPopup.js';
 
 let accessToken = window.localStorage.getItem('accessToken')
 let memNo = window.localStorage.getItem('memNo')
@@ -39,6 +40,11 @@ $(function () {
     $('#alarmLayer').on('click', '.js-alarm-item', function (e) {
         if($(this).hasClass('on'))
             readAlarm($(this).attr('data-notis-no'));
+        
+        var ntNo = $(this).attr('data-notis-no');
+        var typeNo = $(this).attr('data-type-no');
+        var rmNo = $(this).attr('data-project-no');
+        updatePopup(ntNo, typeNo, rmNo);
     })
     
     // 모두 읽음

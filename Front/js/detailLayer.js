@@ -1,7 +1,9 @@
 import {autoaccess} from './autoAccess.js'
 import readAlarm from './alarmLayer.js'
 import updateAlarms from './socket.js'
-$(function () {
+import updateRight from '../js/rightPostCard.js';
+
+// $(function () {
     
     // 북마크 조회 list에 담기 위함
     const bookmarkList = function () {
@@ -29,32 +31,6 @@ $(function () {
     // 참여자 영역 이동
     $(document).scroll(function () {
         $('#projectParticipants').css('transform', 'translateX(' + (0 - $(document).scrollLeft()) + 'px');
-    });
-
-    // 글 수정 삭제 창 display:none -> false, block -> true
-    var postSettingBool = false;
-
-    // 글 수정 삭제 디테일 버튼 클릭 시
-    $("#postSetting").click(function () {
-        if (!postSettingBool) {
-            $(".js-setting-layer").css('display', 'block');
-            postSettingBool = !postSettingBool;
-            // html.click 동작시키지 않기 위해 작성
-            return false;
-        }
-    });
-
-    // 프로젝트 디테일 창 클릭할 시엔 display none X
-    $('.js-setting-layer').click(function () {
-        return false;
-    });
-
-    $('html').click(function () {
-        // 프로젝트 디테일 창 display none
-        if (postSettingBool) {
-            $(".js-setting-layer").css('display', 'none');
-            postSettingBool = !postSettingBool;
-        }
     });
 
     // 글 고정
@@ -204,8 +180,40 @@ $(function () {
         });
     })
 
+    // 미확인 알림 읽기
     $(document).on('click', '.not-read-alarm-item', function(e){
+        let rmNo = $(this).attr('data-project-no');
+        let typeNo = $(this).attr('data-type-no');
+        let postNo = $(this).attr('data-detail-no');
+        // // 댓글이면 글 번호 가져오기
+        if(typeNo==2){
+            new Promise((succ, fail)=>{
+                let accessToken= window.localStorage.getItem('accessToken');
+                let memNo= window.localStorage.getItem('memNo');
+                let ntNo = $(this).attr('data-notis-no');
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://localhost:8080/api/notis/'+ntNo+'/posts',
+                        contentType: 'application/json; charset=utf-8',
+                        beforeSend: function (xhr) {      
+                            xhr.setRequestHeader("token",accessToken);
+                        },
+                        success: function(result, status, xhr){
+                            succ(result);
+                            postNo=result;
+                        },
+                        error: function (xhr, status, err) {}
+                    });
+            }).then((arg)=>{
+                // 오른쪽 글 카드
+                updateRight(rmNo, postNo);
+            })
+        }
+        else{
+            updateRight(rmNo, postNo);
+        }
         readAlarm($(this).attr('data-notis-no'));
+
     })
 
     // TopSettingBar, inviteTitle 업데이트 함수
@@ -339,10 +347,6 @@ $(function () {
                                                 <div class="post-bottom-area">
                                                     <div class="post-bottom-menu js-reaction-bookmark">
                                                         <div class="bottom-button-area">
-                                                            <button class="js-post-reaction post-bottom-button ">
-                                                                <i class="icon-reaction"></i>
-                                                                <span>좋아요</span>
-                                                            </button>
                                                             <button class="js-post-bookmark post-bottom-button" id="bookmark-`+ result[i].posts.postNo + `" data-pst-id="` + result[i].posts.postNo + `" data-book-value="0">
                                                                 <i class="icon-bookmark"></i>
                                                                 <span>북마크</span>
@@ -352,7 +356,7 @@ $(function () {
                                                     <div class="cmt-read-wr">
                                                         <div class="comment-count-area">
                                                             <span>댓글</span>
-                                                            <span class="comment-count">0</span>
+                                                            <span class="comment-count">`+result[i].commentsList.length+`</span>
                                                         </div>
                                                         <div class="js-read-check-button read-confirmation" style="display:block" data="">
                                                             <span>읽음</span>
@@ -410,11 +414,7 @@ $(function () {
                                                 <div class="comment-user">
                                                     <span class="user-name js-comment-user-name">`+ result[i].commentsList[j].cmName + `</span>
                                                     <span class="user-position"></span>
-                                                    <span class="record-date">"`+ result[i].commentsList[j].cmDatetime + `"</span>
-                                                    <div class="js-remark-like comment-like ">
-                                                        <span class="js-remark-like-button"><em class="txt-like">좋아요</em></span>
-                                                        <span class="js-remark-like-count comment-like-count ">0</span>
-                                                    </div>
+                                                    <span class="record-date">`+result[i].commentsList[j].cmDatetime+`</span>
                                                 </div>
                                                 <div id="`+result[i].commentsList[j].cmWriter+`" class="comment-writer-menu">
                                                     <button id="cmEditBtn" type="button" class="js-remark-update js-remark-edit-button comment-writer-button on">
@@ -437,12 +437,6 @@ $(function () {
                                                         <div class="js-remark-area js-paste-layer edit-comment-input " contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
                                                     </fieldset>
                                                 </form>
-                                            </div>
-                                            <div class="comment-like-area d-none">
-                                                <div class="js-remark-like comment-like ">
-                                                    <span class="js-remark-like-button"><em class="txt-like">좋아요</em></span>
-                                                    <span class="js-remark-like-count comment-like-count ">0</span>
-                                                </div>
                                             </div>
                                         </div>
                                     </li>
@@ -698,7 +692,7 @@ $(function () {
             postDetailBool=!postDetailBool;
         }
     })
-})
+// })
 
 // 알림 레이어에서 미확인 알림 가져오는 함수
 const updateUnreadAlarmFunc = function(rmNo){
@@ -723,6 +717,7 @@ const updateUnreadAlarmFunc = function(rmNo){
 
         let ntNo = $(item).attr('data-notis-no');
         let ntTypeNo = $(item).attr('data-type-no');
+        let ntDetailNo = $(item).attr('data-detail-no');
         let des = $(item).find('.alarm-tit-ellipsis').text();
         let content = $(item).find('.alarm-cont').text();
         let elTime = $(item).find('.alarm-datetime').text();
@@ -731,7 +726,7 @@ const updateUnreadAlarmFunc = function(rmNo){
         $('#projectAlarmArea').css('display', 'block');
         $('#projectNotReadCount').text(++cnt);
         $('#notReadAlarmUl').append(`
-            <li class="not-read-alarm-item" data-project-no=`+alarmRmNo+` data-notis-no=`+ntNo+` data-type-no=`+ntTypeNo+` `+displayStyle+`>
+            <li class="not-read-alarm-item" data-project-no=`+alarmRmNo+` data-notis-no=`+ntNo+` data-type-no=`+ntTypeNo+` data-detail-no=`+ntDetailNo+` `+displayStyle+`>
                 <div class="unidentified-item profile">
                     <span class="thumbnail size40 radius16" style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)" data=""></span>
                 </div>

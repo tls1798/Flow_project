@@ -21,6 +21,12 @@ public class NotificationsApiController {
         return ResponseEntity.status(HttpStatus.OK).body(notificationsService.getNotifications(memNo));
     }
 
+    // 알림의 글 번호 가져오기
+    @GetMapping("/notis/{ntNo}/posts")
+    public ResponseEntity<?> getNotification(@PathVariable int ntNo) {
+        return ResponseEntity.status(HttpStatus.OK).body(notificationsService.getNotiPostNo(ntNo));
+    }
+
     // 글, 댓글, 초대 알림 추가
     @PostMapping("/notis/rooms/{rmNo}")
     public ResponseEntity<?> addNotification(@RequestBody Notifications bean) {

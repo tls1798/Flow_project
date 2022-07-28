@@ -17,4 +17,5 @@ public class Posts {
     private String postDatetime;
     private String postName;
     private int postPin;
+    private String rmTitle;
 }

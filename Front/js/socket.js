@@ -2,7 +2,7 @@ import {autoaccess} from './autoAccess.js'
 import projectList from './projectList.js';
 
 $(function () {
-    var socket = io.connect('http://localhost:3000');
+    var socket = io.connect('http://192.168.240.127:3000');
     socket.on('data', () => {
         clearAndUpdateAlarms();
     })
@@ -32,15 +32,15 @@ const updateAlarmsFunction = function () {
                     // 읽음 여부
                     var checked;
                     if(result[i].ntTemp[memNo]==null){
-                        checked = `<li class="js-alarm-item on" data-project-no=`+result[i].rmNo+` data-notis-no=`+result[i].ntNo+` data-type-no=`+result[i].ntTypeNo+`>`;
+                        checked = `<li class="js-alarm-item on" data-project-no=`+result[i].rmNo+` data-notis-no=`+result[i].ntNo+` data-type-no=`+result[i].ntTypeNo+ ` data-detail-no=`+result[i].ntDetailNo+`>`;
                         ++cnt;
                     }
                     else
-                        checked = `<li class="js-alarm-item" data-project-no=`+result[i].rmNo+` data-notis-no=`+result[i].ntNo+` data-type-no=`+result[i].ntTypeNo+`>`;
+                        checked = `<li class="js-alarm-item" data-project-no=`+result[i].rmNo+` data-notis-no=`+result[i].ntNo+` data-type-no=`+result[i].ntTypeNo+ ` data-detail-no=`+result[i].ntDetailNo+`>`;
                     
                     // 알림 종류에 따른 문구
                     var des;
-                    var content = `<div class="all-text-wrap-type-3 alarm-cont">`+result[i].notiContent+`</div>`;;
+                    var content = `<div class="all-text-wrap-type-3 alarm-cont">`+result[i].notiContent+`</div>`;
                     if(result[i].ntTypeNo==1)
                         des = `님의 글 등록`;
                     else if(result[i].ntTypeNo==2)

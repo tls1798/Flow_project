@@ -16,10 +16,10 @@ public class PostsApiController {
     final NotificationsService notificationsService;
 
     //  특정 프로젝트 방 특정 글 하나 가져오기
-    @GetMapping("/rooms/{rmNo}/posts/{postNo}")
-    public ResponseEntity<?> getPost(@PathVariable String rmNo, @PathVariable int postNo) {
-        return ResponseEntity.status(HttpStatus.OK).body(postsService.getPost(rmNo, postNo));
-    }
+//    @GetMapping("/rooms/{rmNo}/posts/{postNo}")
+//    public ResponseEntity<?> getPost(@PathVariable String rmNo, @PathVariable int postNo) {
+//        return ResponseEntity.status(HttpStatus.OK).body(postsService.getPost(rmNo, postNo));
+//    }
 
     //  특정 프로젝트 방 글 작성
     @PostMapping("/rooms/{rmNo}/posts")

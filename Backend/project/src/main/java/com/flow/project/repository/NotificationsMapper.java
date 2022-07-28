@@ -24,6 +24,17 @@ public interface NotificationsMapper {
             "order by nt_no desc")
     List<Notifications> selectAllNotifications(int memNo);
 
+    // 알림 하나 가져오기
+    @Select("select case " +
+            "when ((select n2.nt_type_no from notis n2 where n2.nt_no = #{ntNo}) = 1) then (select n3.nt_detail_no from notis n3 where n3.nt_no = #{ntNo}) " +
+            "when ((select n4.nt_type_no from notis n4 where n4.nt_no = #{ntNo}) = 2) then (select c.post_no from \"Comments\" c where c.cm_no = (select n5.nt_detail_no from notis n5 where n5.nt_no = #{ntNo})) " +
+            "when ((select n6.nt_type_no from notis n6 where n6.nt_no = #{ntNo}) = 3) then (select cast (n7.rm_no as int) from notis n7 where n7.nt_no = #{ntNo}) " +
+            "else -1 " +
+            "end as rp_no " +
+            "from notis n " +
+            "where n.nt_no = #{ntNo}")
+    int selectNotiPostNo(int ntNo);
+
     // 글, 댓글, 초대 알림 추가
     @Options(keyColumn = "nt_no", useGeneratedKeys = true)
     @Insert("insert into " +

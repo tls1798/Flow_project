@@ -1,0 +1,7 @@
+#detailPostCard{
+    position: relative;
+    width: 674px;
+    margin: 30px auto 0 auto;
+    background: #f9f9f9;
+    overflow: hidden;
+}

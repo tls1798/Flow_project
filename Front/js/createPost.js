@@ -1,4 +1,6 @@
 import {autoaccess} from './autoAccess.js'
+import updateRight from '../js/rightPostCard.js';
+
 // 글 생성 팝업 열기
 const postPopupOpen = function(){
     $('.back-area.temp-popup').addClass('flow-all-background-1');
@@ -58,7 +60,7 @@ const toastEditor = function(){
     });
 }
 
-$(function(){
+// $(function(){
 
     // 글 생성 버튼 클릭 시 글 생성 팝업 보이기 
     $('#createPostArea').click(function(){
@@ -73,7 +75,6 @@ $(function(){
 
         // 내용 있을 때 confirm 창
         const checkTitle = $(this).closest('.js-popup-before').find('#postTitle').val();
-        // const checkContent = $(this).closest('.js-popup-before').find('.js-upload-area').text();
         const checkContent = $('.ProseMirror.toastui-editor-contents').text();
         if(checkTitle || checkContent){
             $('.popup-cont').text('작성을 중단하고 이동하시겠습니까?');
@@ -111,7 +112,6 @@ $(function(){
 
         // 글 쓰기 버튼 클릭 시
         if (e.target.type == 'submit') {
-            
             // 내용 없으면 경고창
             const checkContent = $('.ProseMirror.toastui-editor-contents').text();
             if(checkContent===""){
@@ -127,7 +127,6 @@ $(function(){
             let accessToken = window.localStorage.getItem('accessToken')
             let memNo = window.localStorage.getItem('memNo')
             const postTitle = $('#postTitle').val();
-            // const postContent = $('.create-post-content').text();
             const postContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
             const rmNo = $('#detailSettingProjectSrno').text();
 
@@ -214,41 +213,39 @@ $(function(){
             
             // 내용 있을 때 confirm 창
             const checkTitle = $('#postTitle').val();
-            // const checkContent = $('.js-upload-area').text();
             const checkContent = $('.ProseMirror.toastui-editor-contents').text();
             if(checkTitle || checkContent){
                 $('.popup-cont').text('작성을 중단하고 이동하시겠습니까?');
                 confirmOpen();
-
-                // confirm 외부 영역 클릭 시 닫기
-                // $('#popBack2').click(function(e){
-                //     console.log(this)
-                //     confirmClose();
-                // })
             }else{
                 postPopupClose();
             }
         }
     })
     
-
-    $(document).on('click','.post-option>ul',function(e){
+    $(document).on('click', '.post-option>ul',function(e){
         // 글 수정
-        if(e.target.id=='postEditBtn'){
-            
+        if(e.target.id=='postEditBtn' || e.target.id=='rightEditBtn'){
+            // 오른쪽 글 카드 있을 때
+            if(e.target.id=='rightEditBtn'){
+                $('#rightComment').children().remove();
+                $('#popBack1').find('li').children().remove()
+                $('#popBack1').find('li').remove();
+            }
+
             // 글 생성 팝업 띄우고 수정으로 변경
             postEditor();
             postPopupOpen();
             toastEditor();
+            
             // 기존 값 가져오기
             const title = $(this).closest('.post-card-scroll').find('.post-title').text();
-            // const content = $(this).closest('.post-card-scroll').find('#originalPost').text();
             const content = $(this).closest('.post-card-scroll').find('#originalPost')[0].innerHTML;
             const rmNo = $(this).closest('li').attr('data-project-srno');
             const postNo = $(this).closest('li').attr('data-post-srno');
             $('#postTitle').val(title);
-            // $('.create-post-content').text(content);
             $('.ProseMirror.toastui-editor-contents').html(content);
+
             // 취소 버튼
             $('.cancel-button.create-post-button').click(function(e){
                 postPopupClose();
@@ -257,10 +254,9 @@ $(function(){
             })
             
             // 확인 버튼
-            $('#createPostSubmit').click(function(){
+            $("#createPostSubmit").off().on('click', function(){
                 let accessToken = window.localStorage.getItem('accessToken')
                 const editTitle = $(this).closest('.js-editor').find('input').val();
-                // const editContent = $(this).closest('.js-editor').find('.create-post-content').text();
                 const editContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
                 $.ajax({
                     type: 'PUT',
@@ -275,21 +271,31 @@ $(function(){
                         postInit();
                         postClear();
                         $('.project-item[data-id='+rmNo+']').click();
+
+                        // 오른쪽 글 카드
+                        updateRight(rmNo, postNo);
                     },
                     error: function (xhr, status, err) {
                         autoaccess()
                     }
                 });
-                
             })
 
         }
-        else if(e.target.id=='postDelBtn'){
+        else if(e.target.id=='postDelBtn' || e.target.id=='rightDelBtn'){
+
             // 글 삭제
             let accessToken = window.localStorage.getItem('accessToken');
             let memNo = window.localStorage.getItem('memNo');
-            let rmNo = $(this).closest('li').attr('data-project-srno');
-            const postNo = $(this).closest('li').attr('data-post-srno');
+            let rmNo = $(e.target).closest("[id^='post-']").attr('data-project-srno');
+            const postNo = $(e.target).closest("[id^='post-']").attr('data-post-srno');
+            
+            // 오른쪽 글 카드 있을 때
+            if(e.target.id=='rightDelBtn'){
+                $('#rightComment').children().remove();
+                $('#popBack1').find('li').children().remove()
+                $('#popBack1').find('li').remove();
+            }
 
             $.ajax({
                 type: 'DELETE',
@@ -313,5 +319,4 @@ $(function(){
             
         return false
     })
-
-})
+// }
