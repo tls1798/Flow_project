@@ -1,8 +1,31 @@
 import {autoaccess} from './autoAccess.js'
 import readAlarm from './alarmLayer.js'
 import updateAlarms from './socket.js'
-
 $(function () {
+    
+    // 북마크 조회 list에 담기 위함
+    const bookmarkList = function () {
+        let memNo = window.localStorage.getItem('memNo')
+        let accessToken = window.localStorage.getItem('accessToken')
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/api/bookmark/' + memNo,
+            contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("token", accessToken);
+            },
+            success: function (result, status, xhr) {
+                list = result;
+            },
+            error: function (xhr, status, err) {
+                autoaccess()
+            }
+        });
+    }
+    // 북마크 누르기전에 list 업데이트 해놔서 바로 띄우기 위함
+    var list = new Array;
+    bookmarkList()
+
     // 참여자 영역 이동
     $(document).scroll(function () {
         $('#projectParticipants').css('transform', 'translateX(' + (0 - $(document).scrollLeft()) + 'px');
@@ -122,7 +145,7 @@ $(function () {
         getPostAll($(this).attr('data-id'));
         // 상단고정에서 사용할 변수에 값 담기
         getpinPosts = $(this).attr('data-id');
-        // 북마크 리스트 가져오기
+        // 북마크 리스트 가져오기 위에 선언되어있지만 갱신하기 위함
         bookmarkList()
         // 알림 레이어에서 미확인 알림 가져오기
         updateUnreadAlarmFunc($(this).attr('data-id'));
@@ -202,13 +225,12 @@ $(function () {
             initialEditType: 'wysiwyg'
         });
     }
-
-    var list = new Array;
     // 프로젝트 선택 시 해당 프로젝트에 있는 글 조회
     const getPostAll = function (rmNo) {
        
         let accessToken = window.localStorage.getItem('accessToken')
         let memNo = window.localStorage.getItem('memNo')
+    
         // getPosts
         $.ajax({
             type: 'GET',
@@ -239,12 +261,12 @@ $(function () {
                     
                     // 게시글 있을 때
                     for (var i = 0; i < result.length; i++) {
-                        
+                        let commentcount = 0;
                         // 상단고정일 경우
                         if (result[i].posts.postPin) {
                             count++;
                             $('#pinPostUl').append(
-                                `<li id="post-` + result[i].posts.postNo + `" class="js-pin-item" index="4" data-project-srno="` + rmNo + ` " data-post-srno=" ` + result[i].posts.postNo + ` "data-post-pin= "` + result[i].posts.postPin + `">
+                                `<li id="post-` + result[i].posts.postNo + `" class="js-pin-item" index="4" data-project-srno="` + rmNo + ` " data-post-srno=" ` + result[i].posts.postNo + ` "data-post-pin= "` + result[i].posts.postPin + `" >
                                                 <a href="#">
                                                     <div class="fixed-kind">
                                                         <i class="icons-write2"></i>
@@ -263,7 +285,7 @@ $(function () {
                             )
                         }
                         $('#detailUl').append(`
-                            <li id="post-`+ result[i].posts.postNo + `" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + `"data-post-pin= "` + result[i].posts.postPin + `" data-remark-srno="" data-section-srno=""  mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
+                            <li id="post-`+ result[i].posts.postNo + `" class="js-popup-before detail-item back-area" data-read-yn="Y" data-comment-count="0"  data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + `"data-post-pin= "` + result[i].posts.postPin + `" data-remark-srno="" data-section-srno=""  mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
                                 <div class="js-post-nav card-item post-card-wrapper write2 ">
                                     <div class="post-card-header">
                                         <div class="post-card-scroll">
@@ -337,15 +359,15 @@ $(function () {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="post-card-footer js-comment-area">
+                                            <div class="post-card-footer js-comment-area" >
                                                 <div class="comment-header">
-                                                    <button type="button" class="js-remark-prev-button comment-more-button ">
+                                                    <button type="button" class="js-remark-prev-button comment-more-button d-none">
                                                         이전 댓글 더보기 (0)
                                                     </button>
                                                 </div>
-                                                <ul class="post-comment-group" data-id=`+ result[i].posts.postNo + `></ul>
+                                                <ul class="post-comment-group" data-id="`+ result[i].posts.postNo + `"></ul>
                                             </div>
-                                            <div class="js-remark-layer js-edit-layer comment-input-wrap">
+                                            <div class="js-remark-layer js-edit-layer comment-input-wrap" >
                                                 <div class="comment-thumbnail">
                                                     <span class="thumbnail size40 radius16" data=""></span>
                                                 </div>
@@ -373,7 +395,7 @@ $(function () {
                             }
                         }
                         if (result[i].commentsList.length > 0) {
-
+                            
                             // 댓글 가져오기
                             for (var j = 0; j < result[i].commentsList.length; j++) {
                                 $('.post-comment-group[data-id=' + result[i].commentsList[j].postNo + ']').append(`
@@ -423,13 +445,17 @@ $(function () {
                                         </div>
                                     </li>
                                 `)
+                                commentcount++;
                                 // 자신이 작성한 댓글이 아니면 수정 삭제를 할 수 없게 수정 삭제 버튼을 없앤다
                                 if (result[i].commentsList[j].cmWriter != memNo) {
                                     $('#'+result[i].commentsList[j].cmWriter+'').remove()
                                 }
                             }
+                            $('#post-' + result[i].posts.postNo + '').attr('data-comment-count',commentcount)
+                            console.log($('#post-' + result[i].posts.postNo + '').attr('data-comment-count'))
+                           $('#post-' + result[i].posts.postNo + '').children('.comment-more-button').removeClass('d-none')
                         }
-
+                       
                         // Toast ui viewer 불러오기
                         view(result[i].posts.postNo);
                     }
@@ -444,10 +470,13 @@ $(function () {
     }
 
     //  북마크를 클릭시 리스트를 띄운다
-    $('.left-menu-bookmark').click(function () {
+    $('.left-menu-bookmark').on('click', function (e) {
+        getbooklist()
+    })
+    const getbooklist = function () {
         bookmarkList()
         let bookcount = 0;
-
+        
         for (let k = 0; k < list.length; k++) {
             bookcount++;
             $('#myPostContentUl').append(`
@@ -488,25 +517,6 @@ $(function () {
         }
         // 북마크 리스트의 count
         $('#postCount').text(bookcount)
-    })
-    // 북마크 조회
-    const bookmarkList = function () {
-        let memNo = window.localStorage.getItem('memNo')
-        let accessToken = window.localStorage.getItem('accessToken')
-        $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8080/api/bookmark/' + memNo,
-            contentType: 'application/json; charset=utf-8',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("token", accessToken);
-            },
-            success: function (result, status, xhr) {
-                list = result;
-            },
-            error: function (xhr, status, err) {
-                autoaccess()
-            }
-        });
     }
     // 북마크 누를시
     $(document).on('click', '.js-post-bookmark', function () {
@@ -529,7 +539,7 @@ $(function () {
                     xhr.setRequestHeader("token", accessToken);
                 },
                 success: function (result, status, xhr) {
-                    alert()
+                    alert();getbooklist()
                 },
                 error: function (xhr, status, err) {
                     autoaccess()
@@ -551,7 +561,7 @@ $(function () {
                     xhr.setRequestHeader("token", accessToken);
                 },
                 success: function (result, status, xhr) {
-                    alert();
+                    alert(); getbooklist();
                 },
                 error: function (xhr, status, err) {
                     autoaccess()
