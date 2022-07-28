@@ -2,6 +2,7 @@ package com.flow.project.controller.apicontroller;
 
 import com.flow.project.domain.Comments;
 import com.flow.project.service.CommentsService;
+import com.flow.project.service.NotificationsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class CommentsApiController {
 
     final CommentsService commentsService;
+    final NotificationsService notificationsService;
 
     //  특정 게시 글 전체 댓글 가져오기
     @GetMapping("/posts/{postNo}/comments")
@@ -55,7 +57,10 @@ public class CommentsApiController {
 
     //  특정 게시 글 댓글 삭제
     @DeleteMapping("/posts/{postNo}/comments/{cmNo}/{memNo}")
-    public ResponseEntity<?> removeComment(@PathVariable int postNo, @PathVariable int cmNo,@PathVariable int memNo) {
-        return commentsService.removeComment(postNo, cmNo, memNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
+    public ResponseEntity<?> removeComment(@PathVariable int postNo, @PathVariable int cmNo, @PathVariable int memNo) {
+        return commentsService.removeComment(postNo, cmNo, memNo) > 0
+                && notificationsService.removeCommentNoti(cmNo)
+                ? ResponseEntity.ok().build()
+                : ResponseEntity.badRequest().build();
     }
 }

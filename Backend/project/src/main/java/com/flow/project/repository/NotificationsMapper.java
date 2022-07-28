@@ -40,6 +40,18 @@ public interface NotificationsMapper {
     int updateAll(int memNo);
 
     // 프로젝트 별 알림 모두 읽음
-    @Update("update notis set nt_temp = jsonb_set(nt_temp, concat('{',#{memNo},'}')::text[], to_char(now(),'\\\"YYYY-MM-DD HH:mm\\\"')::jsonb, true)  where nt_temp -> concat(#{memNo}, '') = 'null' and rm_no = concat(#{rmNo}, '')")
+    @Update("update notis set nt_temp = jsonb_set(nt_temp, concat('{',#{memNo},'}')::text[], to_char(now(),'\\\"YYYY-MM-DD HH24:mm\\\"')::jsonb, true)  where nt_temp -> concat(#{memNo}, '') = 'null' and rm_no = concat(#{rmNo}, '')")
     int updateNotis(int memNo, String rmNo);
+
+    // 댓글 삭제 시 해당 알림 삭제 (댓글)
+    @Delete("delete from notis where nt_type_no=2 and nt_detail_no=#{cmNo}")
+    int deleteCommentNoti(int cmNo);
+
+    // 프로젝트 삭제 시 해당 알림 삭제 (글, 댓글, 초대)
+    @Delete("delete from notis where rm_no=#{rmNo}")
+    int deleteRoomNoti(String rmNo);
+
+    // 글 삭제 시 해당 알림 삭제 (글, 댓글)
+    @Delete("delete from notis where (nt_type_no=1 and nt_detail_no=#{postNo}) or (nt_type_no=2 and nt_detail_no in (select c.cm_no from \"Comments\" c where c.post_no=#{postNo}))")
+    int deletePostNoti(int postNo);
 }

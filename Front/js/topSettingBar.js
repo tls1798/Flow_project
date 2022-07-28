@@ -6,7 +6,7 @@ const confirmOpen_project_setting = function(cls){
     $('.back-area.temp-popup').addClass('flow-all-background-1');
     $('#popupBackground').removeClass('d-none')
     $('.confirm-popup').removeClass('d-none')
-
+    
     $('.popup-confirm-warp').addClass(cls)
     $('#popBack2').addClass(cls)
 }
@@ -15,13 +15,15 @@ const confirmClose_project_setting = function(cls){
     $('.back-area.temp-popup').removeClass('flow-all-background-1');
     $('#popupBackground').addClass('d-none')
     $('.confirm-popup').addClass('d-none')
-
+    
     $('.popup-confirm-warp').removeClass(cls)
     $('#popBack2').removeClass(cls)
 }
 
 $(function(){
-
+    let accessToken = window.localStorage.getItem('accessToken')
+    let memNo = window.localStorage.getItem('memNo')
+    
     // 프로젝트 디테일 창 display:none -> false, block -> true
     var proejctDetailBool = false;
 
@@ -51,8 +53,6 @@ $(function(){
 
     // 즐겨찾기 버튼
     $('#projectStar').click(function(e){
-        let accessToken = window.localStorage.getItem('accessToken')
-        let memNo = window.localStorage.getItem('memNo')
         // 현재 선택한 프로젝트 인덱스
         var rmNo = $('#detailSettingProjectSrno').text();
 
@@ -167,6 +167,9 @@ $(function(){
                         projectList();
                         // 로고 클릭하여 프로젝트 리스트로
                         $('.logo-box').click();
+                        
+                        var socket = io.connect('http://localhost:3000');
+                        socket.emit('test');
                     },
                     error: function (xhr, status, err) {        
                         autoaccess()    

@@ -1,6 +1,7 @@
 package com.flow.project.controller.apicontroller;
 
 import com.flow.project.domain.Rooms;
+import com.flow.project.service.NotificationsService;
 import com.flow.project.service.RoomsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class RoomsApiController {
 
     final RoomsService roomsService;
+    final NotificationsService notificationsService;
 
     // 프로젝트 조회
     @GetMapping("/rooms/{rmNo}")
@@ -37,6 +39,9 @@ public class RoomsApiController {
     // 프로젝트 삭제
     @DeleteMapping("/rooms/{rmNo}")
     public ResponseEntity<?> removeRoom(@PathVariable String rmNo) {
-        return ResponseEntity.ok(roomsService.removeRoom(rmNo));
+        Rooms room = roomsService.removeRoom(rmNo);
+        return room!=null && notificationsService.removeRoomNoti(rmNo)
+                ? ResponseEntity.ok(room)
+                : ResponseEntity.badRequest().build();
     }
 }

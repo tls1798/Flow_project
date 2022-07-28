@@ -3,8 +3,10 @@ package com.flow.project.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.flow.project.domain.NotificationResponse;
 import com.flow.project.domain.Notifications;
+import com.flow.project.domain.RoomMembers;
 import com.flow.project.repository.NotificationsMapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -45,5 +47,20 @@ public class NotificationsService {
     // 프로젝트 별 알림 모두 읽음
     public int editNotifications(int memNo, String rmNo) {
         return notificationsMapper.updateNotis(memNo, rmNo);
+    }
+
+    // 댓글 삭제 시 해당 알림 삭제 (댓글)
+    public boolean removeCommentNoti(int cmNo) {
+        return notificationsMapper.deleteCommentNoti(cmNo)>0;
+    }
+
+    // 프로젝트 삭제 시 해당 알림 삭제 (글, 댓글, 초대)
+    public boolean removeRoomNoti(String rmNo) {
+        return notificationsMapper.deleteRoomNoti(rmNo)>0;
+    }
+
+    // 글 삭제 시 해당 알림 삭제 (글, 댓글)
+    public boolean removePostNoti(int postNo) {
+        return notificationsMapper.deletePostNoti(postNo)>0;
     }
 }

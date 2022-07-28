@@ -300,6 +300,9 @@ $(function(){
                 },
                 success: function (result, status, xhr) {
                     $('.project-item[data-id='+rmNo+']').click();
+
+                    var socket = io.connect('http://localhost:3000');
+                    socket.emit('test');
                 },
                 error: function (xhr, status, err) {
                     autoaccess()
