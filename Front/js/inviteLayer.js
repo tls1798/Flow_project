@@ -253,7 +253,7 @@ $(function () {
                 $.ajax({
                     type: 'POST',
                     url: 'http://localhost:8080/api/notis/rooms/'+rmNo,
-                    data: JSON.stringify({"ntTypeNo":3, "ntDetailNo":null, "memNo":memNo, "rmNo":rmNo, "ntTemp":ntTemp}),
+                    data: JSON.stringify({"ntTypeNo":3, "ntDetailNo":null, "memNo":memNo, "rmNo":rmNo, "ntTemp":ntTemp, "postNo":null}),
                     contentType: 'application/json; charset=utf-8',
                     async: false,
                     beforeSend: function (xhr) {      

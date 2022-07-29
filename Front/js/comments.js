@@ -136,7 +136,7 @@ function pad(number, length) {
                 $.ajax({
                     type: 'POST',
                     url: 'http://localhost:8080/api/notis/rooms/'+rmNo,
-                    data: JSON.stringify({"ntTypeNo":2, "ntDetailNo":cmNo, "memNo":memNo, "rmNo":rmNo, "ntTemp":ntTemp}),
+                    data: JSON.stringify({"ntTypeNo":2, "ntDetailNo":cmNo, "memNo":memNo, "rmNo":rmNo, "ntTemp":ntTemp, "postNo":postNo}),
                     contentType: 'application/json; charset=utf-8',
                     async: false,
                     beforeSend: function (xhr) {      

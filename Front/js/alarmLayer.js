@@ -44,7 +44,9 @@ $(function () {
         var ntNo = $(this).attr('data-notis-no');
         var typeNo = $(this).attr('data-type-no');
         var rmNo = $(this).attr('data-project-no');
-        updatePopup(ntNo, typeNo, rmNo);
+        let postNo = $(this).attr('data-post-no');
+        
+        updatePopup(ntNo, typeNo, rmNo, postNo);
     })
     
     // 모두 읽음

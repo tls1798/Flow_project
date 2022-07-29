@@ -32,11 +32,13 @@ const updateAlarmsFunction = function () {
                     // 읽음 여부
                     var checked;
                     if(result[i].ntTemp[memNo]==null){
-                        checked = `<li class="js-alarm-item on" data-project-no=`+result[i].rmNo+` data-notis-no=`+result[i].ntNo+` data-type-no=`+result[i].ntTypeNo+ ` data-detail-no=`+result[i].ntDetailNo+`>`;
+                        checked = `<li class="js-alarm-item on" data-project-no=`+result[i].rmNo+` data-notis-no=`+result[i].ntNo
+                            +` data-type-no=`+result[i].ntTypeNo+ ` data-detail-no=`+result[i].ntDetailNo+` data-post-no=`+result[i].postNo+`>`;
                         ++cnt;
                     }
                     else
-                        checked = `<li class="js-alarm-item" data-project-no=`+result[i].rmNo+` data-notis-no=`+result[i].ntNo+` data-type-no=`+result[i].ntTypeNo+ ` data-detail-no=`+result[i].ntDetailNo+`>`;
+                        checked = `<li class="js-alarm-item" data-project-no=`+result[i].rmNo+` data-notis-no=`+result[i].ntNo
+                            +` data-type-no=`+result[i].ntTypeNo+ ` data-detail-no=`+result[i].ntDetailNo+` data-post-no=`+result[i].postNo+`>`;
                     
                     // 알림 종류에 따른 문구
                     var des;

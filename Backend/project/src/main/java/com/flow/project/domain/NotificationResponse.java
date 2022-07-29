@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.Map;
 
 @Getter
@@ -23,4 +22,5 @@ public class NotificationResponse {
     private String notiContent;
     private Map<String, String> ntTemp;
     private int ntCount;
+    private int postNo;
 }

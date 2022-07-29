@@ -29,11 +29,6 @@ public class NotificationsService {
         return notificationResponses;
     }
 
-    // 알림의 글 번호 가져오기
-    public int getNotiPostNo(int ntNo){
-        return notificationsMapper.selectNotiPostNo(ntNo);
-    }
-
     // 글, 댓글, 초대 알림 추가
     public int addNotification(Notifications bean) {
         return notificationsMapper.insertOne(bean);

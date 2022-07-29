@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.Map;
 
 @Data
@@ -24,6 +23,7 @@ public class Notifications {
     private String notiContent;
     private String ntTemp;
     private int ntCount;
+    private int postNo;
 
     public NotificationResponse toNotificationResponse() throws JsonProcessingException {
 
@@ -43,6 +43,7 @@ public class Notifications {
                 .notiContent(notiContent)
                 .ntTemp(map)
                 .ntCount(ntCount)
+                .postNo(postNo)
                 .build();
     }
 }

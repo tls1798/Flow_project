@@ -160,6 +160,7 @@ import updateRight from '../js/rightPostCard.js';
             if($(item).css('display')=='table') return true;
             if(cnt==10) $('.not-read-alarm-item:eq('+(idx-1)+')').css('padding','10px 20px 10px 20px');
             if(--cnt >= 0) $(item).css('display','table');
+            if(cnt==0) $('.not-read-alarm-item:eq('+idx+')').css('padding', '10px 20px 20px 20px');
         })
         
         if($('#notReadAlarmUl .not-read-alarm-item:hidden').length==0)
@@ -190,37 +191,10 @@ import updateRight from '../js/rightPostCard.js';
     // 미확인 알림 읽기
     $(document).on('click', '.not-read-alarm-item', function(e){
         let rmNo = $(this).attr('data-project-no');
-        let typeNo = $(this).attr('data-type-no');
-        let postNo = $(this).attr('data-detail-no');
-        // // 댓글이면 글 번호 가져오기
-        if(typeNo==2){
-            new Promise((succ, fail)=>{
-                let accessToken= window.localStorage.getItem('accessToken');
-                let memNo= window.localStorage.getItem('memNo');
-                let ntNo = $(this).attr('data-notis-no');
-                    $.ajax({
-                        type: 'GET',
-                        url: 'http://localhost:8080/api/notis/'+ntNo+'/posts',
-                        contentType: 'application/json; charset=utf-8',
-                        beforeSend: function (xhr) {      
-                            xhr.setRequestHeader("token",accessToken);
-                        },
-                        success: function(result, status, xhr){
-                            succ(result);
-                            postNo=result;
-                        },
-                        error: function (xhr, status, err) {}
-                    });
-            }).then((arg)=>{
-                // 오른쪽 글 카드
-                updateRight(rmNo, postNo);
-            })
-        }
-        else{
-            updateRight(rmNo, postNo);
-        }
-        readAlarm($(this).attr('data-notis-no'));
+        let postNo = $(this).attr('data-post-no');
 
+        updateRight(rmNo, postNo);
+        readAlarm($(this).attr('data-notis-no'));
     })
 
     // TopSettingBar, inviteTitle 업데이트 함수
@@ -713,27 +687,27 @@ const updateUnreadAlarmFunc = function(rmNo){
     // 현재 프로젝트의 미확인알림 갯수
     $('#alarmUl li.on').each(function(idx, item){
         let alarmRmNo = $(item).attr('data-project-no');
-
-        // 현재 프로젝트와 일치하지 않으며, 추가된 미확인 알림이 하나도 없을 경우
-        if(alarmRmNo!==rmNo){
-            if($('#notReadAlarmUl li').length==0)
-                $('#projectAlarmArea').css('display', 'none');
-
-            return true;
-        }
-
         let ntNo = $(item).attr('data-notis-no');
         let ntTypeNo = $(item).attr('data-type-no');
         let ntDetailNo = $(item).attr('data-detail-no');
+        let postNo = $(item).attr('data-post-no');
         let des = $(item).find('.alarm-tit-ellipsis').text();
         let content = $(item).find('.alarm-cont').text();
         let elTime = $(item).find('.alarm-datetime').text();
         let displayStyle = cnt>=3?'style="display:none"':'style="display:table"';
         
+        // 현재 프로젝트와 일치하지 않으며, 추가된 미확인 알림이 하나도 없을 경우
+        if(alarmRmNo!==rmNo || ntTypeNo==3){
+            if($('#notReadAlarmUl li').length==0)
+                $('#projectAlarmArea').css('display', 'none');
+
+            return true;
+        }
+        
         $('#projectAlarmArea').css('display', 'block');
         $('#projectNotReadCount').text(++cnt);
         $('#notReadAlarmUl').append(`
-            <li class="not-read-alarm-item" data-project-no=`+alarmRmNo+` data-notis-no=`+ntNo+` data-type-no=`+ntTypeNo+` data-detail-no=`+ntDetailNo+` `+displayStyle+`>
+            <li class="not-read-alarm-item" data-project-no=`+alarmRmNo+` data-notis-no=`+ntNo+` data-type-no=`+ntTypeNo+` data-detail-no=`+ntDetailNo+` data-post-no=`+postNo+` `+displayStyle+`>
                 <div class="unidentified-item profile">
                     <span class="thumbnail size40 radius16" style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)" data=""></span>
                 </div>
