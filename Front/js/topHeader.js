@@ -89,7 +89,10 @@ $(function(){
         if($('#alarmLayer').css('display')=='none'){
             // 알림 업데이트
             updateAlarms();
-
+            console.log($('#rightPostCard').length>0)
+            if($('#rightPostCard').length>0){
+                $('#popBack1>li').remove();
+            }
             $("#alarmLayer").css('display', 'block');
         }
         else {
