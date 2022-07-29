@@ -226,12 +226,6 @@ const toastEditor = function(){
     $(document).on('click', '.post-option>ul',function(e){
         // 글 수정
         if(e.target.id=='postEditBtn' || e.target.id=='rightEditBtn'){
-            // 오른쪽 글 카드 있을 때
-            if(e.target.id=='rightEditBtn'){
-                $('#rightComment').children().remove();
-                $('#popBack1>li').children().remove()
-                $('#popBack1>li').remove();
-            }
 
             // 글 생성 팝업 띄우고 수정으로 변경
             postEditor();
@@ -246,6 +240,13 @@ const toastEditor = function(){
             $('#postTitle').val(title);
             $('.ProseMirror.toastui-editor-contents').html(content);
 
+            // 오른쪽 글 카드 있을 때
+            if(e.target.id=='rightEditBtn'){
+                $('#rightComment').children().remove();
+                $('#popBack1>li').children().remove()
+                $('#popBack1>li').remove();
+            }
+            
             // 취소 버튼
             $('.cancel-button.create-post-button').click(function(e){
                 postPopupClose();
