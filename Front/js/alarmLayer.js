@@ -38,13 +38,13 @@ $(function () {
 
     // 알림 클릭
     $('#alarmLayer').on('click', '.js-alarm-item', function (e) {
-        if($(this).hasClass('on'))
-            readAlarm($(this).attr('data-notis-no'));
-        
         var ntNo = $(this).attr('data-notis-no');
         var typeNo = $(this).attr('data-type-no');
         var rmNo = $(this).attr('data-project-no');
         let postNo = $(this).attr('data-post-no');
+
+        if($(this).hasClass('on'))
+            readAlarm($(this).attr('data-notis-no'), postNo);
         
         updatePopup(ntNo, typeNo, rmNo, postNo);
     })
@@ -68,43 +68,51 @@ $(function () {
     })
 });
 
-const readAlarmFunc = function(ntNo){
+const readAlarmFunc = function(ntNo, postNo){
     // 알림 카운트 -1 (추후 같은 글/댓글 읽었을 경우 한꺼번에 처리)
-    var cnt = parseInt($('#leftProjectHomeCount').text());
-    if(cnt>1){
-        $('#leftProjectHomeCount').text(cnt-1);
-        $('#alarmTopCount').text(cnt-1);
-        $('#projectNotReadCount').text(cnt-1);
-    }else{
-        $('#leftProjectHomeCount').css('display', 'none');
-        $('#alarmTopCount').css('display', 'none');
-        $('#projectAlarmArea').css('display', 'none');
-    }
+    let alarmCnt = $('#alarmUl li.on').length;
+    let readAlarmCnt = $('#alarmUl li.on[data-post-no='+postNo+']').length;
+    let leftAlarmCnt = alarmCnt-readAlarmCnt;
 
-    // 해당 알림 피드 미확인, 알림레이어에서 지워지도록
-    $('.js-alarm-item[data-notis-no='+ntNo+']').removeClass('on');
-    $('.not-read-alarm-item[data-notis-no='+ntNo+']').remove();
-
-    // 알림 4개 미만일 경우 더보기 버튼 display none
-    if(cnt<4)
-        $('#notReadAlarmMore').css('display', 'none');
-
-    // 알림 확인 통신
+    // 알림 확인
     $.ajax({
         type: 'PUT',
         url: 'http://localhost:8080/api/notis/' + ntNo + '/member/' + memNo,
-        data: JSON.stringify({"ntNo":ntNo, "memNo":memNo}),
+        data: JSON.stringify({"ntNo":ntNo, "memNo":memNo, "postNo":postNo}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
             xhr.setRequestHeader("token", accessToken);
         },
-        success: function (result, status, xhr) {},
+        success: function (result, status, xhr) {
+            if(leftAlarmCnt>0){
+                $('#leftProjectHomeCount').text(leftAlarmCnt);
+                $('#alarmTopCount').text(leftAlarmCnt);
+                $('#projectNotReadCount').text(leftAlarmCnt);
+            }else{
+                $('#leftProjectHomeCount').css('display', 'none');
+                $('#alarmTopCount').css('display', 'none');
+                $('#projectAlarmArea').css('display', 'none');
+            }
+        
+            // 해당 알림 + 연관된 알림 피드 미확인, 알림레이어에서 지워지도록
+            $('.js-alarm-item[data-notis-no='+ntNo+']').removeClass('on');
+            $('.js-alarm-item[data-post-no='+postNo+']').removeClass('on');
+            $('.not-read-alarm-item[data-notis-no='+ntNo+']').remove();
+            $('.not-read-alarm-item[data-post-no='+postNo+']').remove();
+        
+            // 알림 4개 미만일 경우 더보기 버튼 display none
+            if(leftAlarmCnt<4)
+                $('#notReadAlarmMore').css('display', 'none');
+
+            // change 이벤트 일으켜서 피드 미확인도 갱신하도록 함
+            $('#alarmTopCount').change();
+        },
         error: function (xhr, status, err) {
             autoaccess()
         }
     });
 }
 
-export default function readAlarm(ntNo){
-    return readAlarmFunc(ntNo);
+export default function readAlarm(ntNo, postNo){
+    return readAlarmFunc(ntNo, postNo);
 }

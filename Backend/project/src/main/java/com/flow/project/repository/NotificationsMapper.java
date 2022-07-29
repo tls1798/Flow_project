@@ -33,7 +33,7 @@ public interface NotificationsMapper {
     int insertOne(Notifications notifications);
 
     // 글, 댓글, 초대 알림 수정
-    @Update("update notis set nt_temp = jsonb_set(nt_temp, concat('{',#{memNo},'}')::text[], to_char(now(),'\\\"YYYY-MM-DD HH24:mm\\\"')::jsonb, true)  where nt_no = #{ntNo}")
+    @Update("update notis set nt_temp = jsonb_set(nt_temp, concat('{',#{memNo},'}')::text[], to_char(now(),'\\\"YYYY-MM-DD HH24:mm\\\"')::jsonb, true)  where nt_no = #{ntNo} or (#{postNo}!=0 and post_no=#{postNo})")
     int updateOne(Notifications notifications);
 
     // 알림 모두 읽음

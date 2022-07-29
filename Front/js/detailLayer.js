@@ -193,7 +193,7 @@ import updateRight from '../js/rightPostCard.js';
         let postNo = $(this).attr('data-post-no');
 
         updateRight(rmNo, postNo);
-        readAlarm($(this).attr('data-notis-no'));
+        readAlarm($(this).attr('data-notis-no'), postNo);
     })
 
     // TopSettingBar, inviteTitle 업데이트 함수
