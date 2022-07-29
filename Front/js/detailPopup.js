@@ -2,7 +2,7 @@
 const closeCard = function(){
     $('.close-detail').click(function(){
         $('#detailComment').children().remove();
-        $('#popBack1').find('li').remove();
+        $('#popBack1>li').remove();
         $('#postPopup').removeClass('flow-all-background-1');
     })
 }
@@ -11,7 +11,7 @@ const closeCard = function(){
 $('#popBack1').click(function(e){
     if(!$(e.target).closest('#rightPostCard').length>0&&!$(e.target).closest('#detailPostCard').length>0){
         $('#detailComment').children().remove();
-        $('#popBack1').find('li').remove();
+        $('#popBack1>li').remove();
         $('#postPopup').removeClass('flow-all-background-1');
     }
 
@@ -123,9 +123,6 @@ const createPopup = function(ntNo, typeNo, rmNo, postNo){
                                 </div>
                                 <div class="post-card-footer js-comment-area">
                                     <div class="comment-header">
-                                        <button type="button" class="js-remark-prev-button comment-more-button">
-                                            <br>이전 댓글 더보기 (0)<br>                            
-                                        </button>
                                     </div>
                                     <ul id="detailComment" class="post-comment-group" data-id=`+result.posts.postNo+`></ul>
                                 </div>
@@ -157,7 +154,7 @@ const createPopup = function(ntNo, typeNo, rmNo, postNo){
                                         <span class="user-name js-comment-user-name">`+result.commentsList[i].cmName+`</span>
                                         <span class="record-date">`+result.commentsList[i].cmDatetime+`</span>
                                     </div>
-                                    <div class="comment-writer-menu">
+                                    <div id="`+result.commentsList[i].cmWriter+`" class="comment-writer-menu">
                                         <button type="button" class="js-remark-update js-remark-edit-button comment-writer-button on">수정</button>
                                         <button type="button" class="js-remark-delete js-remark-edit-button comment-writer-button on">삭제</button>
                                     </div>
@@ -180,6 +177,10 @@ const createPopup = function(ntNo, typeNo, rmNo, postNo){
                             </div>
                         </li>
                     `)
+                    // 자신이 작성한 댓글이 아니면 수정 삭제를 할 수 없게 수정 삭제 버튼을 없앤다
+                    if (result.commentsList[i].cmWriter != window.localStorage.getItem('memNo')) {
+                        $('#'+result.commentsList[i].cmWriter+'').remove()
+                    }
                 }
 
                 closeCard();
@@ -193,8 +194,8 @@ const createPopup = function(ntNo, typeNo, rmNo, postNo){
 const clearAndUpdatePopup = function(ntNo, typeNo, rmNo, postNo) {
     // 초기화
     $('#detailComment').children().remove();
-    $('#popBack1').find('li').children().remove();
-    $('#popBack1').find('li').remove();
+    $('#popBack1>li').children().remove();
+    $('#popBack1>li').remove();
     $('#postPopup').addClass('flow-all-background-1');
     // detailPopup 업데이트
     createPopup(ntNo, typeNo, rmNo, postNo);

@@ -455,16 +455,7 @@
 .post-card-footer {
     background: #f9f9f9;
 }
-.comment-header {
-    padding: 0 30px 0 30px;
-    border-top: 1px solid #ddd;
-}
-.comment-more-button {
-    font-size: 13px;
-    color: #777;
-    font-weight: 700;
-    cursor: pointer;
-}
+
 .comment-header::after {
     display: block;
     content: "";

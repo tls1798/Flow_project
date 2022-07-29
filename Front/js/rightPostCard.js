@@ -2,8 +2,8 @@
 const closeCard = function(){
     $('.close-side').click(function(){
         $('#rightComment').children().remove();
-        $('#popBack1').find('li').children().remove()
-        $('#popBack1').find('li').remove();
+        $('#popBack1>li').children().remove()
+        $('#popBack1>li').remove();
     })
 }
 
@@ -143,7 +143,7 @@ const createRightPost = function(rmNo, postNo){
                                 </div>
                                 <div class="post-card-footer js-comment-area">
                                     <div class="comment-header">
-                                        <button type="button" class="js-remark-prev-button comment-more-button ">
+                                        <button type="button" class="js-remark-prev-button comment-more-button d-none">
                                         이전 댓글 더보기 (<span id="cm-count-id">0</span>)
                                         </button>
                                     </div>
@@ -218,8 +218,8 @@ const createRightPost = function(rmNo, postNo){
 // 오른쪽 글 카드 초기화 및 업데이트 함수
 const clearAndUpdateRight = function(rmNo, postNo) {
     $('#rightComment').children().remove();
-    $('#popBack1').find('li').children().remove()
-    $('#popBack1').find('li').remove();
+    $('#popBack1>li').children().remove()
+    $('#popBack1>li').remove();
 
     // 오른쪽 글 카드 업데이트
     createRightPost(rmNo, postNo);

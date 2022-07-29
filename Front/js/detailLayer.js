@@ -2,9 +2,8 @@ import {autoaccess} from './autoAccess.js'
 import readAlarm from './alarmLayer.js'
 import updateAlarms from './socket.js'
 import updateRight from '../js/rightPostCard.js';
-
-// $(function () {
-
+$(function () {
+    
     // 북마크 조회 list에 담기 위함
     const bookmarkList = function () {
         let memNo = window.localStorage.getItem('memNo')
@@ -124,51 +123,50 @@ import updateRight from '../js/rightPostCard.js';
         bookmarkList()
         // 알림 레이어에서 미확인 알림 가져오기
         updateUnreadAlarmFunc($(this).attr('data-id'));
-        
-        // 프로젝트 내부 즐겨찾기
-        if($(this).find('.project-star').hasClass('flow-content-star-un')){
+         // 프로젝트 내부 즐겨찾기
+        if ($(this).find('.project-star').hasClass('flow-content-star-un')) {
             $('#projectStar').addClass('unstar')
-        } else{
+        } else {
             $('#projectStar').removeClass('unstar')
         }
     })
 
     // 알림레이어 변경될 시 프로젝트 알림 배지 업데이트
-    $('#alarmTopCount').change(function(){
+    $('#alarmTopCount').change(function () {
         updateUnreadAlarmFunc($('#detailSettingProjectSrno').text());
 
-        $('.project-item').each(function(idx, item){
+        $('.project-item').each(function (idx, item) {
             let rmNo = $(item).attr('data-id');
             
             // 초기화
-            $('.project-item[data-id='+rmNo+']').find('.project-badge').css('display', 'none');
-            $('.project-item[data-id='+rmNo+']').find('.project-badge').text(0);
+            $('.project-item[data-id=' + rmNo + ']').find('.project-badge').css('display', 'none');
+            $('.project-item[data-id=' + rmNo + ']').find('.project-badge').text(0);
 
-            let cnt = $('#alarmUl li.on[data-project-no='+rmNo+']').length
-            if(cnt>0){
-                $('.project-item[data-id='+rmNo+']').find('.project-badge').css('display', 'block');
-                $('.project-item[data-id='+rmNo+']').find('.project-badge').text(cnt);
+            let cnt = $('#alarmUl li.on[data-project-no=' + rmNo + ']').length
+            if (cnt > 0) {
+                $('.project-item[data-id=' + rmNo + ']').find('.project-badge').css('display', 'block');
+                $('.project-item[data-id=' + rmNo + ']').find('.project-badge').text(cnt);
             }
         })
     })
 
     // 미확인 알림 더보기 클릭
-    $('#notReadAlarmMore').click(function(){
+    $('#notReadAlarmMore').click(function () {
         var cnt = 10;
 
-        $('.not-read-alarm-item').each(function(idx, item){
-            if($(item).css('display')=='table') return true;
-            if(cnt==10) $('.not-read-alarm-item:eq('+(idx-1)+')').css('padding','10px 20px 10px 20px');
-            if(--cnt >= 0) $(item).css('display','table');
-            if(cnt==0) $('.not-read-alarm-item:eq('+idx+')').css('padding', '10px 20px 20px 20px');
+        $('.not-read-alarm-item').each(function (idx, item) {
+            if ($(item).css('display') == 'table') return true;
+            if (cnt == 10) $('.not-read-alarm-item:eq(' + (idx - 1) + ')').css('padding', '10px 20px 10px 20px');
+            if (--cnt >= 0) $(item).css('display', 'table');
+            if (cnt == 0) $('.not-read-alarm-item:eq(' + idx + ')').css('padding', '10px 20px 20px 20px');
         })
         
-        if($('#notReadAlarmUl .not-read-alarm-item:hidden').length==0)
+        if ($('#notReadAlarmUl .not-read-alarm-item:hidden').length == 0)
             $('#notReadAlarmMore').css('display', 'none');
     })
 
     // 미확인 모두 읽기
-    $('#readAllPostBnt').click(function(){
+    $('#readAllPostBnt').click(function () {
         let accessToken = window.localStorage.getItem('accessToken')
         let memNo = window.localStorage.getItem('memNo')
 
@@ -189,7 +187,7 @@ import updateRight from '../js/rightPostCard.js';
     })
 
     // 미확인 알림 읽기
-    $(document).on('click', '.not-read-alarm-item', function(e){
+    $(document).on('click', '.not-read-alarm-item', function (e) {
         let rmNo = $(this).attr('data-project-no');
         let postNo = $(this).attr('data-post-no');
 
@@ -257,7 +255,7 @@ import updateRight from '../js/rightPostCard.js';
                         if (result[i].posts.postPin) {
                             count++;
                             $('#pinPostUl').append(
-                                `<li id="post-` + result[i].posts.postNo + `" class="js-pin-item" index="4" data-project-srno="`+rmNo+`" data-post-srno="`+result[i].posts.postNo +` "data-post-pin="`+result[i].posts.postPin+`" >
+                                `<li id="post-` + result[i].posts.postNo + `" class="js-pin-item" index="4" data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + ` "data-post-pin="` + result[i].posts.postPin + `" >
                                                 <a href="#">
                                                     <div class="fixed-kind">
                                                         <i class="icons-write2"></i>
@@ -292,7 +290,7 @@ import updateRight from '../js/rightPostCard.js';
                                                         </dt>
                                                     </dl>
                                                 </div>
-                                                <div>
+                                                <div id = "option-`+ result[i].posts.postNo + `">
                                                     <div class="post-option">
                                                         <button id="movePost" class="btn-go" style="display: none;">
                                                             게시글 바로가기
@@ -337,7 +335,7 @@ import updateRight from '../js/rightPostCard.js';
                                                     <div class="cmt-read-wr">
                                                         <div class="comment-count-area">
                                                             <span>댓글</span>
-                                                            <span class="comment-count">`+result[i].commentsList.length+`</span>
+                                                            <span class="comment-count">`+ result[i].commentsList.length + `</span>
                                                         </div>
                                                         <div class="js-read-check-button read-confirmation" style="display:block" data="">
                                                             <span>읽음</span>
@@ -370,7 +368,11 @@ import updateRight from '../js/rightPostCard.js';
                                 </div>
                             </li>
                         `)
-               
+                        // 자신의 글이 아니면 상단고정 , 메뉴를 안보이게 한다
+                        if (result[i].posts.postWriter != memNo) {
+                            $('#option-' + result[i].posts.postNo + '').remove()
+                        }
+                       
                         // 상단 고정이면 클래스 on을 추가해준다
                         if (result[i].posts.postPin == 1) {
                             $('#pin-' + result[i].posts.postNo + '').addClass('on')
@@ -386,7 +388,7 @@ import updateRight from '../js/rightPostCard.js';
                             // 댓글 가져오기
                             for (var j = 0; j < result[i].commentsList.length; j++) {
                                 $('.post-comment-group[data-id=' + result[i].commentsList[j].postNo + ']').append(`
-                                    <li class="remark-item" id="cm-`+result[i].commentsList[j].cmNo+`" remark-srno="`+ result[i].commentsList[j].cmNo + `" data-cm-id=`+(j+1)+` data-user-id="` + result[i].commentsList[j].cmWriter + `">
+                                    <li class="remark-item" id="cm-`+ result[i].commentsList[j].cmNo + `" remark-srno="` + result[i].commentsList[j].cmNo + `" data-cm-id=` + (j + 1) + ` data-user-id="` + result[i].commentsList[j].cmWriter + `">
                                         <div class="comment-thumbnail js-comment-thumbnail">
                                             <span class="thumbnail size40 radius16" data=""></span>
                                         </div>
@@ -395,9 +397,9 @@ import updateRight from '../js/rightPostCard.js';
                                                 <div class="comment-user">
                                                     <span class="user-name js-comment-user-name">`+ result[i].commentsList[j].cmName + `</span>
                                                     <span class="user-position"></span>
-                                                    <span class="record-date">`+result[i].commentsList[j].cmDatetime+`</span>
+                                                    <span class="record-date">"`+ result[i].commentsList[j].cmDatetime + `"</span>
                                                 </div>
-                                                <div id="`+result[i].commentsList[j].cmWriter+`" class="comment-writer-menu">
+                                                <div id="`+ result[i].commentsList[j].cmWriter + `" class="comment-writer-menu">
                                                     <button id="cmEditBtn" type="button" class="js-remark-update js-remark-edit-button comment-writer-button on">
                                                         수정</button>
                                                     <button id="cmDelBtn" type="button" class="js-remark-delete js-remark-edit-button comment-writer-button on">
@@ -429,16 +431,16 @@ import updateRight from '../js/rightPostCard.js';
                                 }
                                 // 자신이 작성한 댓글이 아니면 수정 삭제를 할 수 없게 수정 삭제 버튼을 없앤다
                                 if (result[i].commentsList[j].cmWriter != memNo) {
-                                    $('#'+result[i].commentsList[j].cmWriter+'').remove()
+                                    $('#' + result[i].commentsList[j].cmWriter + '').remove()
                                 }
                             }
                             // 이전 댓글 더보기 숫자를 설정
-                            $('#post-' + result[i].posts.postNo + '').find('#cm-count-id').text(commentcount-2)
+                            $('#post-' + result[i].posts.postNo + '').find('#cm-count-id').text(commentcount - 2)
                             // 계시판의 댓글 설정
                             $('#post-' + result[i].posts.postNo + '').attr('data-comment-count', commentcount)
                             
                             // 계시판의 댓글이 2개 이상일경우 댓글 더보기 div를 보여준다
-                            if($('#post-' + result[i].posts.postNo + '').attr('data-comment-count')>2){
+                            if ($('#post-' + result[i].posts.postNo + '').attr('data-comment-count') > 2) {
                                 $('#post-' + result[i].posts.postNo + '').find('.comment-more-button').removeClass('d-none')
                             }
                         }
@@ -463,16 +465,16 @@ import updateRight from '../js/rightPostCard.js';
       
         $(this).parent().parent().find('.remark-item').each(function (idx, item) {
             // 처음 보여주는 댓글 2개를 빼고 시작하기 위함
-            if ($(this).hasClass('d-none')) {   
-            if (--cnt >= 0) {
-                $(item).removeClass('d-none');
-                cmcnt--;
+            if ($(this).hasClass('d-none')) {
+                if (--cnt >= 0) {
+                    $(item).removeClass('d-none');
+                    cmcnt--;
                 }
             }
         })
         // 남은 댓글이 없을시 버튼을 삭제하기 위함
         if (cmcnt == 0)
-        $(this).addClass('d-none')
+            $(this).addClass('d-none')
         $(this).parent().parent().find('#cm-count-id').text(cmcnt)
     })
 
@@ -480,15 +482,21 @@ import updateRight from '../js/rightPostCard.js';
     $('.left-menu-bookmark').on('click', function (e) {
         getbooklist()
     })
-
+    $(document).on('click', '.booklist', function () {
+        let rmNo = $(this).attr('data-room-id')
+        let postNo = $(this).attr('data-post-id')
+        updateRight(rmNo, postNo)
+    })
+    // 리스트에 북마크 리스트를 넣는다
     const getbooklist = function () {
+        $('#myPostContentUl').text('')
         bookmarkList()
         let bookcount = 0;
         
         for (let k = 0; k < list.length; k++) {
             bookcount++;
             $('#myPostContentUl').append(`
-            <li id="allPosts-18521976" class="js-all-post-item post-search-item post-list-wrapper" data-room-id="`+list[k].rmNo+`" data-post-id="`+ list[k].postNo + `" data-mem-id="` + list[k].memNo + `">
+            <li class="js-all-post-item post-search-item post-list-wrapper booklist" data-room-id="`+ list[k].rmNo + `"data-post-id="` + list[k].postNo + `" data-mem-id="` + list[k].memNo + `">
             <div class="fixed-kind">
                 <i class="icons-write2"></i>
                 <span class="post-type">글</span>
@@ -531,8 +539,8 @@ import updateRight from '../js/rightPostCard.js';
     $(document).on('click', '.js-post-bookmark', function () {
         let accessToken = window.localStorage.getItem('accessToken')
         let memNo = window.localStorage.getItem('memNo')
-        let postNo = ($(this).attr('data-pst-id'))
-  
+        let postNo = $(this).attr('data-pst-id')
+
         //북마크를 삭제 때 
         if ($(this).hasClass('on')) {
             $(this).removeClass('on')
@@ -548,7 +556,7 @@ import updateRight from '../js/rightPostCard.js';
                     xhr.setRequestHeader("token", accessToken);
                 },
                 success: function (result, status, xhr) {
-                    alert();getbooklist()
+                    alert(); getbooklist()
                 },
                 error: function (xhr, status, err) {
                     autoaccess()
@@ -597,9 +605,10 @@ import updateRight from '../js/rightPostCard.js';
         let accessToken = window.localStorage.getItem('accessToken')
         let postNo = ($(this).attr('data-post-srno'))
         let postPin = ($(this).attr('data-post-pin'))
+
         // 현재 버튼 id를 담아준다
         let pinid = ($(this).attr('id'))
-       
+
         // 포스트핀이 0이면 포스트핀 1로 바꾸고 on이 있으면 on을 없애고 없으면 on을 만든다
         postPin == 0 ? postPin = 1 : postPin = 0
         if (postPin == 1)
@@ -630,7 +639,7 @@ import updateRight from '../js/rightPostCard.js';
         // 취소 시키기
         $('.flow-pop-sub-button-1').on('click', function () {
             popupclose()
-        }) 
+        })
         // 아무데나 눌러도 팝업 사라지게 하기
         $('#popBack2').on('click', function () {
             popupclose()
@@ -646,79 +655,67 @@ import updateRight from '../js/rightPostCard.js';
 
     // 글 디테일 창
     var postDetailBool = false;
-    // 글 디테일 버튼 클릭 시
+    // 글 디테일 버튼 클릭 시 작성자가 아니면 수정 삭제 안보이게
     $(document).on('click', '#postSetting', function () {
-        let memNo = window.localStorage.getItem('memNo')
-        if ($(this).attr('data-mem-id') != memNo) {
-            $(this).next().children('#auth-delete').css('display','none')
-            if (!postDetailBool) {
-                $(this).next().removeClass('d-none');
-                postDetailBool = !postDetailBool;
-            }
-            return false;
-        } if ($(this).attr('data-mem-id') == memNo) {
-            $(this).next().children('#auth-delete').css('display','block')
-            if (!postDetailBool) {
-                $(this).next().removeClass('d-none');
-                postDetailBool = !postDetailBool;
-            }
-            return false
+        if (!postDetailBool) {
+            $(this).next().removeClass('d-none');
+            postDetailBool = !postDetailBool;
         }
+        return false;
     })
         
     // 아무 곳 클릭 시 글 디테일 버튼 사라지게 
-    $('html').click(function(){
-        if(postDetailBool){
+    $('html').click(function () {
+        if (postDetailBool) {
             $('[id=postSetting]').next().addClass('d-none');
-            postDetailBool=!postDetailBool;
+            postDetailBool = !postDetailBool;
         }
     })
-// })
 
-// 알림 레이어에서 미확인 알림 가져오는 함수
-const updateUnreadAlarmFunc = function(rmNo){
-    // 초기화
-    $('#projectAlarmArea').css('display', 'none');
-    $('#notReadAlarmUl li').remove();
-    $('#projectNotReadCount').text(0);
+    // 알림 레이어에서 미확인 알림 가져오는 함수
+    const updateUnreadAlarmFunc = function (rmNo) {
+        // 초기화
+        $('#projectAlarmArea').css('display', 'none');
+        $('#notReadAlarmUl li').remove();
+        $('#projectNotReadCount').text(0);
 
-    let cnt=0;
+        let cnt = 0;
 
-    // 현재 프로젝트의 미확인알림 갯수
-    $('#alarmUl li.on').each(function(idx, item){
-        let alarmRmNo = $(item).attr('data-project-no');
-        let ntNo = $(item).attr('data-notis-no');
-        let ntTypeNo = $(item).attr('data-type-no');
-        let ntDetailNo = $(item).attr('data-detail-no');
-        let postNo = $(item).attr('data-post-no');
-        let des = $(item).find('.alarm-tit-ellipsis').text();
-        let content = $(item).find('.alarm-cont').text();
-        let elTime = $(item).find('.alarm-datetime').text();
-        let displayStyle = cnt>=3?'style="display:none"':'style="display:table"';
+        // 현재 프로젝트의 미확인알림 갯수
+        $('#alarmUl li.on').each(function (idx, item) {
+            let alarmRmNo = $(item).attr('data-project-no');
+            let ntNo = $(item).attr('data-notis-no');
+            let ntTypeNo = $(item).attr('data-type-no');
+            let ntDetailNo = $(item).attr('data-detail-no');
+            let postNo = $(item).attr('data-post-no');
+            let des = $(item).find('.alarm-tit-ellipsis').text();
+            let content = $(item).find('.alarm-cont').text();
+            let elTime = $(item).find('.alarm-datetime').text();
+            let displayStyle = cnt >= 3 ? 'style="display:none"' : 'style="display:table"';
         
-        // 현재 프로젝트와 일치하지 않으며, 추가된 미확인 알림이 하나도 없을 경우
-        if(alarmRmNo!==rmNo || ntTypeNo==3){
-            if($('#notReadAlarmUl li').length==0)
-                $('#projectAlarmArea').css('display', 'none');
+            // 현재 프로젝트와 일치하지 않으며, 추가된 미확인 알림이 하나도 없을 경우
+            if (alarmRmNo !== rmNo || ntTypeNo == 3) {
+                if ($('#notReadAlarmUl li').length == 0)
+                    $('#projectAlarmArea').css('display', 'none');
 
-            return true;
-        }
+                return true;
+            }
         
-        $('#projectAlarmArea').css('display', 'block');
-        $('#projectNotReadCount').text(++cnt);
-        $('#notReadAlarmUl').append(`
-            <li class="not-read-alarm-item" data-project-no=`+alarmRmNo+` data-notis-no=`+ntNo+` data-type-no=`+ntTypeNo+` data-detail-no=`+ntDetailNo+` data-post-no=`+postNo+` `+displayStyle+`>
+            $('#projectAlarmArea').css('display', 'block');
+            $('#projectNotReadCount').text(++cnt);
+            $('#notReadAlarmUl').append(`
+            <li class="not-read-alarm-item" data-project-no=`+ alarmRmNo + ` data-notis-no=` + ntNo + ` data-type-no=` + ntTypeNo + ` data-detail-no=` + ntDetailNo + ` data-post-no=` + postNo + ` ` + displayStyle + `>
                 <div class="unidentified-item profile">
                     <span class="thumbnail size40 radius16" style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)" data=""></span>
                 </div>
                 <div class="middle-wr">
                     <div class="unidentified-item title">
-                        <em class="unidentified-name"><i class=""></i>`+des+`</em>
-                        <span class="unidentified-time">`+elTime+`</span>
+                        <em class="unidentified-name"><i class=""></i>`+ des + `</em>
+                        <span class="unidentified-time">`+ elTime + `</span>
                     </div>
                     <div class="unidentified-item task">
                         <div class="unidentified-task-content">
-                            <span style="display:block" data="">`+content+`</span>
+                            <span style="display:block" data="">`+ content + `</span>
                         </div>
                     </div>
                 </div>
@@ -729,10 +726,11 @@ const updateUnreadAlarmFunc = function(rmNo){
                 </div>
             </li>
         `);
-    });
+        });
 
-    if(cnt>3){
-        $('#notReadAlarmMore').css('display', 'block');
-        $('.not-read-alarm-item:eq(2)').css('padding', '10px 20px 20px 20px');
+        if (cnt > 3) {
+            $('#notReadAlarmMore').css('display', 'block');
+            $('.not-read-alarm-item:eq(2)').css('padding', '10px 20px 20px 20px');
+        }
     }
-}
+})
