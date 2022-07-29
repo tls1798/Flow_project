@@ -76,7 +76,7 @@ const createRightPost = function(rmNo, postNo){
                                                 <strong class="author ellipsis">`+result.posts.postName+`</strong>
                                                 <em class="position ellipsis" style="display:inline" data=""></em>
                                                 <span class="date">`+result.posts.postDatetime+`</span>
-                                                <span class="post-security"> <i class="icons-person-7 js-mouseover" mouseover-text="전체 공개"></i></span>
+                                                <span class="post-security"> <i class="bi bi-people" mouseover-text="전체 공개"></i></span>
                                             </dt>
                                         </dl>
                                     </div>
