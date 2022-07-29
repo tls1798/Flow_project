@@ -23,7 +23,7 @@ const confirmClose_logout = function(){
 $(function(){
     // 모달, 팝업 display:none -> false, block -> true
     var searchPopupBool = false;
-    var alarmLayerBool = false;
+    // var alarmLayerBool = false;
 
     // 프로필 사진 클릭 시 프로필 모달 띄우기
     $(".btn-profile").click(function(e){
@@ -32,7 +32,7 @@ $(function(){
             $(".modal-account").css('display', 'block');
 
             // html.click 동작시키지 않기 위해 작성
-            return false;
+            // return false;
         }
     });
 
@@ -85,21 +85,21 @@ $(function(){
 
     // 알림 아이콘 클릭 시 알림레이어 띄우기
     $('.btn-alarm').click(function(){
-        if(!alarmLayerBool){
+        // if(!alarmLayerBool){
+        if($('#alarmLayer').css('display')=='none'){
             // 알림 업데이트
             updateAlarms();
 
             $("#alarmLayer").css('display', 'block');
-            alarmLayerBool=!alarmLayerBool;
-
-            // html.click 동작시키지 않기 위해 작성
-            return false;
+        }
+        else {
+            $("#alarmLayer").css('display', 'none');
         }
     });
 
     $('html').click(function(e) {
         // 어디든 클릭하면 프로필 모달 display none
-        if($('#accountLayer').css('display')=='block') {
+        if(!$(e.target).closest('#accountTopButton').length>0 && $('#accountLayer').css('display')=='block') {
             $(this).removeClass('active');
             $(".modal-account").css('display', 'none');
         }
@@ -111,9 +111,8 @@ $(function(){
         }
 
         // 알림 레이어 display none (알림 버튼 클릭할 시엔 X)
-        if(alarmLayerBool && !$(e.target).hasClass('alarmLayer')) {
+        if(!$(e.target).closest('#alarmTopButton').length>0 && !$(e.target).hasClass('alarmLayer') && !($(e.target).closest('#popBack1').length>0) && !($(e.target).hasClass('close-detail'))) {
             $("#alarmLayer").css('display', 'none');
-            alarmLayerBool=!alarmLayerBool;
         }
     });
 });

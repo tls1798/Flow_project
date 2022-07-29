@@ -25,16 +25,14 @@ $(function(){
     let memNo = window.localStorage.getItem('memNo')
     
     // 프로젝트 디테일 창 display:none -> false, block -> true
-    var proejctDetailBool = false;
 
     // 프로젝트 디테일 버튼 클릭 시
     $("#detailSettingTopButton").click(function(){
-        if(!proejctDetailBool){
-            $("#detailSettingLayer").css('display', 'block');
-            proejctDetailBool=!proejctDetailBool;
-
-            // html.click 동작시키지 않기 위해 작성
-            return false;
+        if($("#detailSettingLayer").css('display')=='block'){
+            $("#detailSettingLayer").css('display','none');
+        } 
+        else{
+            $("#detailSettingLayer").css('display','block');
         }
     });
     
@@ -43,12 +41,11 @@ $(function(){
         return false;
     });
 
-    $('html').click(function() {
+    $('html').click(function(e) {
         // 프로젝트 디테일 창 display none
-        if(proejctDetailBool) {
-            $("#detailSettingLayer").css('display', 'none');
-            proejctDetailBool=!proejctDetailBool;
-        }
+        if(!$(e.target).closest('#detailSettingTopButton').length > 0 && $("#detailSettingLayer").css('display')=='block'){
+            $("#detailSettingLayer").css('display','none');
+        } 
     });
 
     // 즐겨찾기 버튼

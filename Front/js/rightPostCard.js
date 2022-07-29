@@ -42,7 +42,6 @@ const settingButtonClose = function(){
 
 // 오른쪽 글 카드 가져오는 함수
 const createRightPost = function(rmNo, postNo){
-    console.log(rmNo, postNo)
     let accessToken= window.localStorage.getItem('accessToken');
     let memNo= window.localStorage.getItem('memNo');
     $.ajax({

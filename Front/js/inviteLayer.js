@@ -39,7 +39,7 @@ $(function () {
     // 초대하기 버튼 클릭
     $('#openInviteLayerBtn, #noDetailDataBnt').click(function(e){
         $('#inviteLayer').css('display', 'block');
-        return false;
+        // return false;
     })
 
     // 참여자 초대 클릭

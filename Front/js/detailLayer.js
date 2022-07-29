@@ -2,7 +2,8 @@ import {autoaccess} from './autoAccess.js'
 import readAlarm from './alarmLayer.js'
 import updateAlarms from './socket.js'
 import updateRight from '../js/rightPostCard.js';
-$(function () {
+
+// $(function () {
     
     // 북마크 조회 list에 담기 위함
     const bookmarkList = function () {
@@ -255,7 +256,7 @@ $(function () {
                         if (result[i].posts.postPin) {
                             count++;
                             $('#pinPostUl').append(
-                                `<li id="post-` + result[i].posts.postNo + `" class="js-pin-item" index="4" data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + ` "data-post-pin="` + result[i].posts.postPin + `" >
+                                `<li id="post-`+result[i].posts.postNo+`" class="js-pin-item" index="4" data-project-srno="`+rmNo+`" data-post-srno="`+result[i].posts.postNo+`" data-post-pin="`+result[i].posts.postPin+`" >
                                                 <a href="#">
                                                     <div class="fixed-kind">
                                                         <i class="icons-write2"></i>
@@ -274,7 +275,7 @@ $(function () {
                             )
                         }
                         $('#detailUl').append(`
-                            <li id="post-`+ result[i].posts.postNo + `" class="js-popup-before detail-item back-area" data-read-yn="Y" data-comment-count="0"  data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + `"data-post-pin= "` + result[i].posts.postPin + `" data-remark-srno="" data-section-srno=""  mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
+                            <li id="post-`+result[i].posts.postNo+`" class="js-popup-before detail-item back-area" data-read-yn="Y" data-comment-count="0"  data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + `"data-post-pin= "` + result[i].posts.postPin + `" data-remark-srno="" data-section-srno=""  mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
                                 <div class="js-post-nav card-item post-card-wrapper write2 ">
                                     <div class="post-card-header">
                                         <div class="post-card-scroll">
@@ -295,7 +296,7 @@ $(function () {
                                                         <button id="movePost" class="btn-go" style="display: none;">
                                                             게시글 바로가기
                                                         </button>
-                                                        <button id="pin-`+ result[i].posts.postNo + `" class="js-pin-post fixed-btn js-pin-authority" data-project-srno="` + rmNo + ` " data-post-srno="` + result[i].posts.postNo + `"  data-post-pin= "` + result[i].posts.postPin + ` " style="display:block" data="">
+                                                        <button id="pin-`+ result[i].posts.postNo + `" class="js-pin-post fixed-btn js-pin-authority" data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + `"  data-post-pin= "` + result[i].posts.postPin + `" style="display:block" data="">
                                                             <!-- fixed-btn on class -->
                                                             <span class="blind">상단 고정 등록</span>
                                                         </button>
@@ -473,8 +474,9 @@ $(function () {
             }
         })
         // 남은 댓글이 없을시 버튼을 삭제하기 위함
-        if (cmcnt == 0)
+        if (cmcnt == 0){
             $(this).addClass('d-none')
+        }
         $(this).parent().parent().find('#cm-count-id').text(cmcnt)
     })
 
@@ -654,21 +656,37 @@ $(function () {
     }
 
     // 글 디테일 창
-    var postDetailBool = false;
-    // 글 디테일 버튼 클릭 시 작성자가 아니면 수정 삭제 안보이게
-    $(document).on('click', '#postSetting', function () {
-        if (!postDetailBool) {
-            $(this).next().removeClass('d-none');
-            postDetailBool = !postDetailBool;
+    // var postDetailBool = false;
+    // 글 디테일 버튼 클릭 시
+    $(document).on('click', '#postSetting', function (e) {
+        let postDetailBool = $(this).next().hasClass('d-none');
+        let memNo = window.localStorage.getItem('memNo')
+        if ($(this).attr('data-mem-id') != memNo) {
+            $(this).next().children('#auth-delete').css('display','none')
+            if (postDetailBool) {
+                $(this).next().removeClass('d-none');
+                // postDetailBool = !postDetailBool;
+            } else {
+                $(this).next().addClass('d-none');
+            }
+            // return false;
+        } if ($(this).attr('data-mem-id') == memNo) {
+            $(this).next().children('#auth-delete').css('display','block')
+            if (postDetailBool) {
+                $(this).next().removeClass('d-none');
+                // postDetailBool = !postDetailBool;
+            } else {
+                $(this).next().addClass('d-none');
+            }
+            // return false;
         }
         return false;
     })
         
     // 아무 곳 클릭 시 글 디테일 버튼 사라지게 
-    $('html').click(function () {
-        if (postDetailBool) {
-            $('[id=postSetting]').next().addClass('d-none');
-            postDetailBool = !postDetailBool;
+    $('html').click(function(){
+        if($('.js-setting-ul.js-setting-layer.setup-group').hasClass('d-none')){
+            $('.js-setting-ul').addClass('d-none');
         }
     })
 
@@ -733,4 +751,4 @@ $(function () {
             $('.not-read-alarm-item:eq(2)').css('padding', '10px 20px 20px 20px');
         }
     }
-})
+// })

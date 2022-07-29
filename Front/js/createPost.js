@@ -67,7 +67,7 @@ const toastEditor = function(){
         postPopupOpen();
         toastEditor();
         postClear();
-        return false;
+        // return false;
     })
 
     // 글 작성 닫기
@@ -121,7 +121,7 @@ const toastEditor = function(){
                     $('.alert-wrap-post').fadeOut(500, "swing");
                 }, 2000);
     
-                return;
+                return false;
             }
 
             let accessToken = window.localStorage.getItem('accessToken')
@@ -229,8 +229,8 @@ const toastEditor = function(){
             // 오른쪽 글 카드 있을 때
             if(e.target.id=='rightEditBtn'){
                 $('#rightComment').children().remove();
-                $('#popBack1').find('li').children().remove()
-                $('#popBack1').find('li').remove();
+                $('#popBack1>li').children().remove()
+                $('#popBack1>li').remove();
             }
 
             // 글 생성 팝업 띄우고 수정으로 변경
@@ -293,8 +293,8 @@ const toastEditor = function(){
             // 오른쪽 글 카드 있을 때
             if(e.target.id=='rightDelBtn'){
                 $('#rightComment').children().remove();
-                $('#popBack1').find('li').children().remove()
-                $('#popBack1').find('li').remove();
+                $('#popBack1>li').children().remove()
+                $('#popBack1>li').remove();
             }
 
             $.ajax({
