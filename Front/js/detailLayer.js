@@ -4,7 +4,7 @@ import updateAlarms from './socket.js'
 import updateRight from '../js/rightPostCard.js';
 
 // $(function () {
-    
+
     // 북마크 조회 list에 담기 위함
     const bookmarkList = function () {
         let memNo = window.localStorage.getItem('memNo')
@@ -124,6 +124,13 @@ import updateRight from '../js/rightPostCard.js';
         bookmarkList()
         // 알림 레이어에서 미확인 알림 가져오기
         updateUnreadAlarmFunc($(this).attr('data-id'));
+        
+        // 프로젝트 내부 즐겨찾기
+        if($(this).find('.project-star').hasClass('flow-content-star-un')){
+            $('#projectStar').addClass('unstar')
+        } else{
+            $('#projectStar').removeClass('unstar')
+        }
     })
 
     // 알림레이어 변경될 시 프로젝트 알림 배지 업데이트
@@ -276,7 +283,7 @@ import updateRight from '../js/rightPostCard.js';
                         if (result[i].posts.postPin) {
                             count++;
                             $('#pinPostUl').append(
-                                `<li id="post-` + result[i].posts.postNo + `" class="js-pin-item" index="4" data-project-srno="` + rmNo + ` " data-post-srno=" ` + result[i].posts.postNo + ` "data-post-pin= "` + result[i].posts.postPin + `" >
+                                `<li id="post-` + result[i].posts.postNo + `" class="js-pin-item" index="4" data-project-srno="`+rmNo+`" data-post-srno="`+result[i].posts.postNo +` "data-post-pin="`+result[i].posts.postPin+`" >
                                                 <a href="#">
                                                     <div class="fixed-kind">
                                                         <i class="icons-write2"></i>
