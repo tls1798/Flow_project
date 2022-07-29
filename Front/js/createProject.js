@@ -142,10 +142,12 @@ $(function(){
         }
         else {
             let accessToken = window.localStorage.getItem('accessToken')
+            let title = $('#projectTitleInput').val();
+            let content = $('#projectContentsInput').val();
             $.ajax({
                 type: 'PUT',
                 url: 'http://localhost:8080/api/rooms/'+$('#detailSettingProjectSrno').text(),
-                data: JSON.stringify({"rmNo":$('#detailSettingProjectSrno').text(), "rmTitle":$('#projectTitleInput').val(), "rmDes":$('#projectContentsInput').val()}),
+                data: JSON.stringify({"rmNo":$('#detailSettingProjectSrno').text(), "rmTitle":title, "rmDes":content}),
                 contentType: 'application/json; charset=utf-8',
                 beforeSend: function (xhr) {      
                     xhr.setRequestHeader("token",accessToken);
@@ -155,10 +157,15 @@ $(function(){
                     autoaccess()
                 }
             });
-
+            
+            // topSettingBar 수정
+            $('#projectTitle').text(title);
+            $('#projectContents').text(content);
+            
             // input, textarea 비우기
             $('#projectTitleInput').val('');
             $('#projectContentsInput').val('');
+
         }
 
         // 새 프로젝트 생성 관련 모달 안보이도록

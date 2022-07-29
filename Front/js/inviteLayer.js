@@ -238,9 +238,6 @@ $(function () {
                         succ(result)
                         // 참여자 업데이트
                         $('.project-item[data-id='+rmNo+']').click();
-                        // 닫기
-                        $('#inviteTargetList').find('li').remove();
-                        $('.closeInviteLayerBtn').click();
                     },
                     error: function (xhr, status, err) {
                         autoaccess()
@@ -269,6 +266,10 @@ $(function () {
                 });
             })
         }
+
+        // 닫기
+        $('#inviteTargetList').find('li').remove();
+        $('.closeInviteLayerBtn').click();
     })
 
     // 초대 모달 1,2 클릭 시 display none X
