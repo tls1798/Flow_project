@@ -15,7 +15,7 @@ public interface PostsMapper {
     //  특정 프로젝트 방 특정 글 하나 가져오기
 //    @Select("select * from \"Posts\" where rm_no=#{rmNo} and post_no=#{postNo}")
 //    Posts selectOne(String rmNo, int postNo);
-    @Select("select p.post_no, p.rm_no, p.post_writer, p.post_title, p.post_content, to_char(p.post_datetime, 'YYYY-MM-DD HH24:MI') post_datetime, to_char(p.post_edit_datetime, 'YYYY-MM-DD HH24:MI') post_edit_datetime, " +
+    @Select("select p.post_no, p.rm_no, p.post_writer, p.post_title, p.post_content, p.post_pin, to_char(p.post_datetime, 'YYYY-MM-DD HH24:MI') post_datetime, to_char(p.post_edit_datetime, 'YYYY-MM-DD HH24:MI') post_edit_datetime, " +
             "(select r.rm_title from \"Rooms\" r where r.rm_no = p.rm_no) as rm_title, " +
             "(select m.mem_name from \"Members\" m where m.mem_no = p.post_writer) as post_name " +
             "from \"Posts\" p " +

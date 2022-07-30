@@ -3,7 +3,7 @@ import readAlarm from './alarmLayer.js'
 import updateAlarms from './socket.js'
 import updateRight from '../js/rightPostCard.js';
 
-// $(function () {
+$(function () {
     
     // 북마크 조회 list에 담기 위함
     const bookmarkList = function () {
@@ -217,7 +217,7 @@ import updateRight from '../js/rightPostCard.js';
 
     // 프로젝트 선택 시 해당 프로젝트에 있는 글 조회
     const getPostAll = function (rmNo) {
-       
+       $('#rightComment').children().remove()
         let accessToken = window.localStorage.getItem('accessToken')
         let memNo = window.localStorage.getItem('memNo')
     
@@ -606,21 +606,34 @@ import updateRight from '../js/rightPostCard.js';
         let accessToken = window.localStorage.getItem('accessToken')
         let postNo = ($(this).attr('data-post-srno'))
         let postPin = ($(this).attr('data-post-pin'))
-
         // 현재 버튼 id를 담아준다
         let pinid = ($(this).attr('id'))
-
+        var bool = 0;
+        if ($(this).attr('data-post-pin') == 0)
+            $(this).attr('data-post-pin', 1)
+        else
+            $(this).attr('data-post-pin', 0)
         // 포스트핀이 0이면 포스트핀 1로 바꾸고 on이 있으면 on을 없애고 없으면 on을 만든다
         postPin == 0 ? postPin = 1 : postPin = 0
-        if (postPin == 1)
-            $('.popup-cont').text(' 상단고정 하시겠습니까');
-        else
-            $('.popup-cont').text('이 글을 상단고정 해제 하시겠습니까');
-        // 팝업창을 띄운다
-        $('.flow-project-popup-6').removeClass('d-none'), $('#popupBackground').removeClass('d-none')
-        // 확인을 누르면 상단고정 또는 해제를 한다
-        $('.submit-event').on('click', function (e) {
-            $('#pinid').hasClass('on') ? $('#pinid').removeClass('on') : $('#pinid').addClass('on')
+        // if (postPin == 1)
+        //     $('.popup-cont').text('상단고정 하시겠습니까');
+        // else if (postPin == 0)
+        //     $('.popup-cont').text('이 글을 상단고정 해제 하시겠습니까');
+        // // 팝업창을 띄운다
+        // $('.flow-project-popup-6').removeClass('d-none'), $('#popupBackground').removeClass('d-none')
+        // // 확인을 누르면 상단고정 또는 해제를 한다
+        
+        // $('.submit-event').on('click', function (e) {
+        //     if ($('.popup-cont').text() == '상단고정 하시겠습니까' || $('.popup-cont').text() == '이 글을 상단고정 해제 하시겠습니까') {
+        //         // $('#' + pinid).hasClass('on') ? $('#' + pinid).removeClass('on') : $('#'+pinid).addClass('on')
+        
+  
+                if ($('#' + pinid).hasClass('on')) {
+                    $('#' + pinid).removeClass('on')
+                }
+                else
+                    $('#' + pinid).addClass('on')
+        async function a() {
             $.ajax({
                 type: 'POST',
                 url: 'http://localhost:8080/api/rooms/posts/' + postNo + '/pin/' + postPin,
@@ -630,13 +643,20 @@ import updateRight from '../js/rightPostCard.js';
                 },
                 success: function (result, status, xhr) {
                     getPostAll(getpinPosts)
+                    $('#detailComment').children().remove();
+                    bool = 1;
                 },
                 error: function (xhr, status, err) {
                     autoaccess()
                 }
             });
-            popupclose()
-        })
+        }
+           
+        
+ 
+                // popupclose()
+            // }
+// })
         // 취소 시키기
         $('.flow-pop-sub-button-1').on('click', function () {
             popupclose()
@@ -645,6 +665,7 @@ import updateRight from '../js/rightPostCard.js';
         $('#popBack2').on('click', function () {
             popupclose()
         })
+        a().then()
     }
     )
 
@@ -659,26 +680,10 @@ import updateRight from '../js/rightPostCard.js';
     // 글 디테일 버튼 클릭 시
     $(document).on('click', '#postSetting', function (e) {
         let postDetailBool = $(this).next().hasClass('d-none');
-        let memNo = window.localStorage.getItem('memNo')
-        if ($(this).attr('data-mem-id') != memNo) {
-            $(this).next().children('#auth-delete').css('display','none')
             if (postDetailBool) {
                 $(this).next().removeClass('d-none');
                 // postDetailBool = !postDetailBool;
-            } else {
-                $(this).next().addClass('d-none');
-            }
-            // return false;
-        } if ($(this).attr('data-mem-id') == memNo) {
-            $(this).next().children('#auth-delete').css('display','block')
-            if (postDetailBool) {
-                $(this).next().removeClass('d-none');
-                // postDetailBool = !postDetailBool;
-            } else {
-                $(this).next().addClass('d-none');
-            }
-            // return false;
-        }
+            } 
         return false;
     })
         
@@ -750,4 +755,4 @@ import updateRight from '../js/rightPostCard.js';
             $('.not-read-alarm-item:eq(2)').css('padding', '10px 20px 20px 20px');
         }
     }
-// })
+})

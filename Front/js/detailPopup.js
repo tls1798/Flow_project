@@ -61,11 +61,11 @@ const createPopup = function(ntNo, typeNo, rmNo, postNo){
                                         </dl>
                                     </div>
                                     <div>
-                                        <div class="post-option">
+                                        <div id = "option-`+result.posts.postNo +`" class="post-option">
                                             <button id="movePost" class="btn-go d-none" style="display: inline-block;">
                                                 게시글 바로가기
                                             </button>
-                                            <button id="pinToTopBnt" class="js-pin-post fixed-btn js-pin-authority " style="display:block" data="">
+                                            <button id="centerpin-`+ result.posts.postNo + `" data-post-srno="`+result.posts.postNo+`" class="js-pin-post fixed-btn js-pin-authority " data-post-pin= "` + result.posts.postPin + `" style="display:block" data="">
                                                 <!-- fixed-btn on class -->
                                                 <span class="blind">상단 고정 등록</span>
                                             </button>
@@ -96,7 +96,6 @@ const createPopup = function(ntNo, typeNo, rmNo, postNo){
                                 
                                     <div id="summaryPost" class="post-card-content hidden" style="display:block" data=""><div>`+result.posts.postContent+`</div></div>
                                 
-                                    <button id="postMoreButton" type="button" class="js-contents-more-btn post-more-btn" style="display:block" data="">더보기</button>
                                     <div id="summaryFoldArea" class="content-fold" style="display:block" data=""></div>
                 
                                     <div class="post-bottom-area">
@@ -142,6 +141,14 @@ const createPopup = function(ntNo, typeNo, rmNo, postNo){
                     </div>
                 </li>
                 `)
+                 // 자신의 글이 아니면 상단고정 , 메뉴를 안보이게 한다
+                 if (result.posts.postWriter != memNo) {
+                    $('#option-'+result.posts.postNo+'').remove()
+                }
+                // 상단 고정이면 클래스 on을 추가해준다
+                if (result.posts.postPin == 1) {
+                    $('#centerpin-' + result.posts.postNo + '').addClass('on')
+                }
                 for(let i=0;i<result.commentsList.length;i++){
                     $('#detailPostCard #detailComment[data-id='+result.commentsList[i].postNo+']').append(`
                         <li class="remark-item" remark-srno="`+result.commentsList[i].cmNo+`" data-user-id="`+result.commentsList[i].cmWriter+`" ">
