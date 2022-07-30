@@ -262,7 +262,7 @@ import updateRight from '../js/rightPostCard.js';
                                                         <i class="icons-write2"></i>
                                                         <span>글</span>
                                                     </div>
-                                                    <p class="js-post-title fixed-text ">`+ result[i].posts.postTitle + `</p>
+                                                    <p class="js-post-title fixed-text ">`+ (result[i].posts.postTitle==''?result[i].posts.postContent:result[i].posts.postTitle) + `</p>
                                                     <div class="fixed-value">
                                                         <span class="js-task-state js-todo-state d-none"></span>
                                                         <div class="date-time d-none">
@@ -385,9 +385,8 @@ import updateRight from '../js/rightPostCard.js';
                             }
                         }
                         if (result[i].commentsList.length > 0) {
-                            
                             // 댓글 가져오기
-                            for (var j = 0; j < result[i].commentsList.length; j++) {
+                            for (var j=result[i].commentsList.length-1; j>=0; j--) {
                                 $('.post-comment-group[data-id=' + result[i].commentsList[j].postNo + ']').append(`
                                     <li class="remark-item" id="cm-`+ result[i].commentsList[j].cmNo + `" remark-srno="` + result[i].commentsList[j].cmNo + `" data-cm-id=` + (j + 1) + ` data-user-id="` + result[i].commentsList[j].cmWriter + `">
                                         <div class="comment-thumbnail js-comment-thumbnail">
@@ -398,7 +397,7 @@ import updateRight from '../js/rightPostCard.js';
                                                 <div class="comment-user">
                                                     <span class="user-name js-comment-user-name">`+ result[i].commentsList[j].cmName + `</span>
                                                     <span class="user-position"></span>
-                                                    <span class="record-date">"`+ result[i].commentsList[j].cmDatetime + `"</span>
+                                                    <span class="record-date">`+ result[i].commentsList[j].cmDatetime + `</span>
                                                 </div>
                                                 <div id="`+ result[i].commentsList[j].cmWriter + `" class="comment-writer-menu">
                                                     <button id="cmEditBtn" type="button" class="js-remark-update js-remark-edit-button comment-writer-button on">
@@ -460,11 +459,11 @@ import updateRight from '../js/rightPostCard.js';
     }
     // 이전 댓글 더보기 클릭할시
     $(document).on('click', '.comment-more-button', function () {
-        var cnt = 10;
         // 남은 댓글의 수
-        let cmcnt = $(this).parent().parent().find('#cm-count-id').text()
-      
-        $(this).parent().parent().find('.remark-item').each(function (idx, item) {
+        let cmcnt = $('#cm-count-id').text()
+        let cnt = 10;
+        
+        $($(this).closest('.post-card-footer.js-comment-area').find('.remark-item').get().reverse()).each(function (idx, item) {
             // 처음 보여주는 댓글 2개를 빼고 시작하기 위함
             if ($(this).hasClass('d-none')) {
                 if (--cnt >= 0) {
@@ -474,10 +473,10 @@ import updateRight from '../js/rightPostCard.js';
             }
         })
         // 남은 댓글이 없을시 버튼을 삭제하기 위함
-        if (cmcnt == 0){
+        if (cmcnt == 0)
             $(this).addClass('d-none')
-        }
-        $(this).parent().parent().find('#cm-count-id').text(cmcnt)
+
+        $('#cm-count-id').text(cmcnt);
     })
 
     //  북마크를 클릭시 리스트를 띄운다
