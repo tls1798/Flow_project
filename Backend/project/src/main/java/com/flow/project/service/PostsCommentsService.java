@@ -22,7 +22,7 @@ public class PostsCommentsService {
 
 
     // 특정 프로젝트룸 글 전체, 댓글 전체 가져오기
-    public List<PostsComments> getPosts(String rmNo) {
+    public List<PostsComments> getPosts(int memNo, String rmNo) {
 
         // 글 전체 댓글 전체
         List<PostsComments> postsComments = new ArrayList<>();
@@ -31,7 +31,7 @@ public class PostsCommentsService {
         PostsComments postComments;
 
         // 글 리스트
-        List<Posts> posts = postsCommentsMapper.selectAllPost(rmNo);
+        List<Posts> posts = postsCommentsMapper.selectAllPost(memNo, rmNo);
         for (Posts post : posts) {
             postComments = new PostsComments();
 
@@ -47,13 +47,13 @@ public class PostsCommentsService {
     }
 
     // 특정 프로젝트 특정 글, 댓글 전체 가져오기
-    public PostsComments getPost(String rmNo, int postNo){
+    public PostsComments getPost(int memNo, String rmNo, int postNo){
 
         // 글 하나 댓글 여러개
         PostsComments postComments = new PostsComments();
 
         // 글 하나
-        Posts post = postsMapper.selectOne(rmNo, postNo);
+        Posts post = postsMapper.selectOne(memNo, rmNo, postNo);
         postComments.setPosts(post);
 
         // 댓글 리스트

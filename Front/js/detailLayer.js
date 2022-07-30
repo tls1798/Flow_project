@@ -3,31 +3,7 @@ import readAlarm from './alarmLayer.js'
 import updateAlarms from './socket.js'
 import updateRight from '../js/rightPostCard.js';
 
-$(function () {
-    
-    // 북마크 조회 list에 담기 위함
-    const bookmarkList = function () {
-        let memNo = window.localStorage.getItem('memNo')
-        let accessToken = window.localStorage.getItem('accessToken')
-        $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8080/api/bookmark/' + memNo,
-            contentType: 'application/json; charset=utf-8',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("token", accessToken);
-            },
-            success: function (result, status, xhr) {
-                list = result;
-            },
-            error: function (xhr, status, err) {
-                autoaccess()
-            }
-        });
-    }
-    // 북마크 누르기전에 list 업데이트 해놔서 바로 띄우기 위함
-    var list = new Array;
-    bookmarkList()
-
+// $(function () {
     // 참여자 영역 이동
     $(document).scroll(function () {
         $('#projectParticipants').css('transform', 'translateX(' + (0 - $(document).scrollLeft()) + 'px');
@@ -114,16 +90,19 @@ $(function () {
 
         // 참여자 리스트 업데이트
         updateParticipant($(this).attr('data-id'));
+
         // TopSettingBar, inviteTitle 업데이트
         updateTopSettingBar($(this).attr('data-id'), $(this).attr('data-rm-title'), $(this).attr('data-rm-des'));
+
         // 글, 댓글 가져오기
         getPostAll($(this).attr('data-id'));
+
         // 상단고정에서 사용할 변수에 값 담기
         getpinPosts = $(this).attr('data-id');
-        // 북마크 리스트 가져오기 위에 선언되어있지만 갱신하기 위함
-        bookmarkList()
+
         // 알림 레이어에서 미확인 알림 가져오기
         updateUnreadAlarmFunc($(this).attr('data-id'));
+
          // 프로젝트 내부 즐겨찾기
         if ($(this).find('.project-star').hasClass('flow-content-star-un')) {
             $('#projectStar').addClass('unstar')
@@ -224,7 +203,7 @@ $(function () {
         // getPosts
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8080/api/rooms/' + rmNo + '/posts',
+            url: 'http://localhost:8080/api/members/'+ memNo +'/rooms/'+ rmNo +'/posts',
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("token", accessToken);
@@ -275,7 +254,7 @@ $(function () {
                             )
                         }
                         $('#detailUl').append(`
-                            <li id="post-`+result[i].posts.postNo+`" class="js-popup-before detail-item back-area" data-read-yn="Y" data-comment-count="0"  data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + `"data-post-pin= "` + result[i].posts.postPin + `" data-remark-srno="" data-section-srno=""  mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
+                            <li id="post-`+result[i].posts.postNo+`" class="js-popup-before detail-item back-area" data-read-yn="Y" data-comment-count="0"  data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + `" data-post-pin= "`+ result[i].posts.postPin +`" data-remark-srno="" data-bookmark="`+result[i].posts.postBookmark+`" data-section-srno=""  mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
                                 <div class="js-post-nav card-item post-card-wrapper write2 ">
                                     <div class="post-card-header">
                                         <div class="post-card-scroll">
@@ -369,6 +348,7 @@ $(function () {
                                 </div>
                             </li>
                         `)
+
                         // 자신의 글이 아니면 상단고정 , 메뉴를 안보이게 한다
                         if (result[i].posts.postWriter != memNo) {
                             $('#option-' + result[i].posts.postNo + '').remove()
@@ -378,11 +358,10 @@ $(function () {
                         if (result[i].posts.postPin == 1) {
                             $('#pin-' + result[i].posts.postNo + '').addClass('on')
                         }
+
                         // 북마크 글이면 클래스 on을 추가한다
-                        for (let j = 0; j < list.length; j++) {
-                            if (result[i].posts.postNo == list[j].postNo && memNo == list[j].memNo) {
-                                $('#bookmark-' + result[i].posts.postNo + '').addClass('on');
-                            }
+                        if(result[i].posts.postBookmark == 1) {
+                            $('#bookmark-'+result[i].posts.postNo).addClass('on');
                         }
                         if (result[i].commentsList.length > 0) {
                             // 댓글 가져오기
@@ -425,23 +404,27 @@ $(function () {
                                     </li>
                                 `)
                                 commentcount++;
+
                                 // 댓글이 3개 이상일시 보이지 않게 숨긴다
                                 if ($('#cm-' + result[i].commentsList[j].cmNo + '').attr('data-cm-id') > 2) {
-                                    $('#cm-' + result[i].commentsList[j].cmNo + '').addClass('d-none')
+                                    $('#cm-' + result[i].commentsList[j].cmNo + '').addClass('d-none');
                                 }
+
                                 // 자신이 작성한 댓글이 아니면 수정 삭제를 할 수 없게 수정 삭제 버튼을 없앤다
                                 if (result[i].commentsList[j].cmWriter != memNo) {
-                                    $('#' + result[i].commentsList[j].cmWriter + '').remove()
+                                    $('#' + result[i].commentsList[j].cmWriter + '').remove();
                                 }
                             }
+
                             // 이전 댓글 더보기 숫자를 설정
-                            $('#post-' + result[i].posts.postNo + '').find('#cm-count-id').text(commentcount - 2)
+                            $('#post-' + result[i].posts.postNo + '').find('#cm-count-id').text(commentcount - 2);
+
                             // 계시판의 댓글 설정
-                            $('#post-' + result[i].posts.postNo + '').attr('data-comment-count', commentcount)
+                            $('#post-' + result[i].posts.postNo + '').attr('data-comment-count', commentcount);
                             
                             // 계시판의 댓글이 2개 이상일경우 댓글 더보기 div를 보여준다
                             if ($('#post-' + result[i].posts.postNo + '').attr('data-comment-count') > 2) {
-                                $('#post-' + result[i].posts.postNo + '').find('.comment-more-button').removeClass('d-none')
+                                $('#post-' + result[i].posts.postNo + '').find('.comment-more-button').removeClass('d-none');
                             }
                         }
                        
@@ -453,7 +436,7 @@ $(function () {
                 $('#projectPinCount').text(count);
             },
             error: function (xhr, status, err) {
-                autoaccess()
+                autoaccess();
             }
         })
     }
@@ -479,129 +462,11 @@ $(function () {
         $('#cm-count-id').text(cmcnt);
     })
 
-    //  북마크를 클릭시 리스트를 띄운다
-    $('.left-menu-bookmark').on('click', function (e) {
-        getbooklist()
-    })
-    $(document).on('click', '.booklist', function () {
-        let rmNo = $(this).attr('data-room-id')
-        let postNo = $(this).attr('data-post-id')
-        updateRight(rmNo, postNo)
-    })
-    // 리스트에 북마크 리스트를 넣는다
-    const getbooklist = function () {
-        $('#myPostContentUl').text('')
-        bookmarkList()
-        let bookcount = 0;
-        
-        for (let k = 0; k < list.length; k++) {
-            bookcount++;
-            $('#myPostContentUl').append(`
-            <li class="js-all-post-item post-search-item post-list-wrapper booklist" data-room-id="`+ list[k].rmNo + `"data-post-id="` + list[k].postNo + `" data-mem-id="` + list[k].memNo + `">
-            <div class="fixed-kind">
-                <i class="icons-write2"></i>
-                <span class="post-type">글</span>
-            </div>
-            <div class="search-sub-text-wrap">
-                <div class="contents-cmt">
-                    <p class="search-text-type-3 contents-tit">`+ list[k].postTitle + `</p>
-                    <div class="post-list comment" style="display:inline-block" data="">
-                        <i class="icons-comment2"></i>
-                        <span class="js-post-comment-count">`+ list[k].cmCount + `</span>
-                    </div>
-                </div>
-                <p class="search-text-type-3 contents-project">
-                    <em class="ellipsis"><i class="seach-type-2"></i>`+ list[k].rmTitle + `</em>
-                </p>
-            </div>
-            <div class="post-list-right">
-                <div class="post-list name">`+ list[k].memName + `</div>
-                <div class="post-list date">`+ list[k].postDatetime + `</div>
-                <!--
-                <div class="fixed-value">
-                    <span class="state request" style="display:none" data>-1%</span>
-                    <span class="js-task-state state " ></span>
-                    <div class="date-time" style="display:none" data>
-                        <em class="date"></em>
-                        <span></span>
-                    </div>
-                </div>
-                -->
-            </div>
-            <i class="js-temporary-delete icons-close-2 d-none" style="display:none" data=""></i>
-        </li>
-            `)
-        }
-        // 북마크 리스트의 count
-        $('#postCount').text(bookcount)
-    }
-
-    // 북마크 누를시
-    $(document).on('click', '.js-post-bookmark', function () {
-        let accessToken = window.localStorage.getItem('accessToken')
-        let memNo = window.localStorage.getItem('memNo')
-        let postNo = $(this).attr('data-pst-id')
-
-        //북마크를 삭제 때 
-        if ($(this).hasClass('on')) {
-            $(this).removeClass('on')
-            $.ajax({
-                type: 'DELETE',
-                url: 'http://localhost:8080/api/bookmark/',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify({
-                    "memNo": memNo,
-                    "postNo": postNo
-                }),
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("token", accessToken);
-                },
-                success: function (result, status, xhr) {
-                    alert(); getbooklist()
-                },
-                error: function (xhr, status, err) {
-                    autoaccess()
-                }
-            });
-        }
-        // 북마크를 추가할 때
-        else {
-            $(this).addClass('on')
-            $.ajax({
-                type: 'POST',
-                url: 'http://localhost:8080/api/bookmark/',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify({
-                    "memNo": memNo,
-                    "postNo": postNo
-                }),
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("token", accessToken);
-                },
-                success: function (result, status, xhr) {
-                    alert(); getbooklist();
-                },
-                error: function (xhr, status, err) {
-                    autoaccess()
-                }
-            });
-        }
-    })
-
-    // 북마크 적용 알림창
-    const alert = function () {
-        $('.alert-bookmark').css('display', 'block')
-
-        setTimeout(function () {
-            $('.alert-bookmark').fadeOut(500, "swing");
-        }, 2000);
-        return;
-    }
-
     // 상단 고정 누를시
     $(document).on('click', '.js-pin-post', function (e) {
+
         // 제출 누르면 저 클래스가 사라져서 임의로 추가해져서 팝업창을 계속 띄우게 유지함
-        $('#popupBackground').addClass('flow-all-background-1')
+        $('#popupBackground').addClass('flow-all-background-1');
 
         let accessToken = window.localStorage.getItem('accessToken')
         let postNo = ($(this).attr('data-post-srno'))
@@ -647,43 +512,40 @@ $(function () {
                     bool = 1;
                 },
                 error: function (xhr, status, err) {
-                    autoaccess()
+                    autoaccess();
                 }
             });
         }
-           
-        
- 
+
                 // popupclose()
             // }
 // })
         // 취소 시키기
         $('.flow-pop-sub-button-1').on('click', function () {
-            popupclose()
+            popupclose();
         })
+
         // 아무데나 눌러도 팝업 사라지게 하기
         $('#popBack2').on('click', function () {
-            popupclose()
+            popupclose();
         })
         a().then()
-    }
-    )
+    })
 
     // 상단고정 팝업 종료 함수
     const popupclose = function () {
-        $('.flow-project-popup-6').addClass('d-none')
-        $('#popupBackground').addClass('d-none')
+        $('.flow-project-popup-6').addClass('d-none');
+        $('#popupBackground').addClass('d-none');
     }
 
-    // 글 디테일 창
-    // var postDetailBool = false;
     // 글 디테일 버튼 클릭 시
     $(document).on('click', '#postSetting', function (e) {
         let postDetailBool = $(this).next().hasClass('d-none');
             if (postDetailBool) {
                 $(this).next().removeClass('d-none');
-                // postDetailBool = !postDetailBool;
-            } 
+            } else {
+                $(this).next().addClass('d-none');
+            }
         return false;
     })
         
@@ -696,6 +558,7 @@ $(function () {
 
     // 알림 레이어에서 미확인 알림 가져오는 함수
     const updateUnreadAlarmFunc = function (rmNo) {
+
         // 초기화
         $('#projectAlarmArea').css('display', 'none');
         $('#notReadAlarmUl li').remove();
@@ -755,4 +618,5 @@ $(function () {
             $('.not-read-alarm-item:eq(2)').css('padding', '10px 20px 20px 20px');
         }
     }
-})
+    
+// })

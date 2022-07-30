@@ -8,8 +8,8 @@ const closeCard = function(){
 }
 
 // 중앙 팝업 영역 외 클릭 시 닫기
-$('#popBack1').click(function(e){
-    if(!$(e.target).closest('#rightPostCard').length>0&&!$(e.target).closest('#detailPostCard').length>0){
+$('#popBack1').mousedown(function(e){
+    if(!$(e.target).closest('.js-popup-before').length>0&&!$(e.target).closest('#rightPostCard').length>0&&!$(e.target).closest('#detailPostCard').length>0){
         $('#detailComment').children().remove();
         $('#popBack1>li').remove();
         $('#postPopup').removeClass('flow-all-background-1');
@@ -27,7 +27,7 @@ const createPopup = function(ntNo, typeNo, rmNo, postNo){
     } else{
         $.ajax({
             type:'GET',
-            url: 'http://localhost:8080/api/rooms/'+rmNo+'/posts/'+postNo,
+            url: 'http://localhost:8080/api/members/'+memNo+'/rooms/'+rmNo+'/posts/'+postNo,
             contentType: 'application/json; charset=utf-8',
             async : false,
             beforeSend: function (xhr) {      
@@ -35,7 +35,7 @@ const createPopup = function(ntNo, typeNo, rmNo, postNo){
             },
             success: function(result, status, xhr){
                 $('#popBack1').append(`
-                <li id="post-`+result.posts.postNo+`" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="`+result.posts.rmNo+`" data-post-srno="`+result.posts.postNo+`" data-remark-srno="36233808" data-section-srno="" data-rgsr-id="`+result.posts.postWriter+`" mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" status="" time="" data-code="VIEW" data-post-url="https://flow.team/l/0fXYO">
+                <li id="post-`+result.posts.postNo+`" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="`+result.posts.rmNo+`" data-post-srno="`+result.posts.postNo+`" data-remark-srno="" data-bookmark="`+result.posts.postBookmark+`" data-section-srno="" data-rgsr-id="`+result.posts.postWriter+`" mngr-wryn="" mngr-dsnc="" data-post-code="1" data-post-pin="`+result.posts.postPin+`" status="" time="" data-code="VIEW" data-post-url="https://flow.team/l/0fXYO">
                     <div id="detailPostCard" class="js-post-nav card-item post-card-wrapper write2">
                         <div class="post-popup-header card-popup-header " style="display: block;">
                             <h3 class="card-popup-title">
@@ -65,7 +65,7 @@ const createPopup = function(ntNo, typeNo, rmNo, postNo){
                                             <button id="movePost" class="btn-go d-none" style="display: inline-block;">
                                                 게시글 바로가기
                                             </button>
-                                            <button id="centerpin-`+ result.posts.postNo + `" data-post-srno="`+result.posts.postNo+`" class="js-pin-post fixed-btn js-pin-authority " data-post-pin= "` + result.posts.postPin + `" style="display:block" data="">
+                                            <button id="centerpin-`+ result.posts.postNo + `" class="js-pin-post fixed-btn js-pin-authority" data-project-srno="` + rmNo + `" data-post-srno="` + result.posts.postNo + `"  data-post-pin= "` + result.posts.postPin + `" style="display:block" data="">
                                                 <!-- fixed-btn on class -->
                                                 <span class="blind">상단 고정 등록</span>
                                             </button>
@@ -101,7 +101,7 @@ const createPopup = function(ntNo, typeNo, rmNo, postNo){
                                     <div class="post-bottom-area">
                                         <div class="post-bottom-menu js-reaction-bookmark">
                                             <div class="bottom-button-area">
-                                                <button class="js-post-bookmark post-bottom-button ">
+                                                <button class="js-post-bookmark post-bottom-button" id="bookmark-`+ result.posts.postNo + `" data-pst-id="` + result.posts.postNo + `" data-book-value="0">
                                                     <i class="icon-bookmark"></i>
                                                     <span>북마크</span>
                                                 </button>
@@ -141,13 +141,20 @@ const createPopup = function(ntNo, typeNo, rmNo, postNo){
                     </div>
                 </li>
                 `)
-                 // 자신의 글이 아니면 상단고정 , 메뉴를 안보이게 한다
-                 if (result.posts.postWriter != memNo) {
-                    $('#option-'+result.posts.postNo+'').remove()
+
+                // 자신의 글이 아니면 상단고정 , 메뉴를 안보이게 한다
+                if (result.posts.postWriter != memNo) {
+                    $('#option-' + result.posts.postNo + '').remove()
                 }
+               
                 // 상단 고정이면 클래스 on을 추가해준다
                 if (result.posts.postPin == 1) {
                     $('#centerpin-' + result.posts.postNo + '').addClass('on')
+                }
+
+                // 북마크 글이면 클래스 on을 추가한다
+                if(result.posts.postBookmark == 1) {
+                    $('#bookmark-'+result.posts.postNo).addClass('on');
                 }
                 for(let i=0;i<result.commentsList.length;i++){
                     $('#detailPostCard #detailComment[data-id='+result.commentsList[i].postNo+']').append(`

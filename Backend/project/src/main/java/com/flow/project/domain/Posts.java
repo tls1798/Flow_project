@@ -18,4 +18,5 @@ public class Posts {
     private String postName;
     private int postPin;
     private String rmTitle;
+    private int postBookmark;
 }

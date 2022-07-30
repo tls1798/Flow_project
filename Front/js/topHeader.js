@@ -85,10 +85,10 @@ $(function(){
 
     // 알림 아이콘 클릭 시 알림레이어 띄우기
     $('.btn-alarm').click(function(){
-        // if(!alarmLayerBool){
         if($('#alarmLayer').css('display')=='none'){
             // 알림 업데이트
             updateAlarms();
+            
             if($('#rightPostCard').length>0){
                 $('#popBack1>li').remove();
             }
@@ -96,6 +96,18 @@ $(function(){
         }
         else {
             $("#alarmLayer").css('display', 'none');
+        }
+    });
+    
+    // popBack이 열려있는지 확인
+    let isPopBack = false;
+    $('html').mousedown(function(e) {
+        
+        if(e.target.id == 'popBack1'){
+            isPopBack = true;
+        }
+        else{
+            isPopBack = false;
         }
     });
 
@@ -113,7 +125,7 @@ $(function(){
         }
 
         // 알림 레이어 display none (알림 버튼 클릭할 시엔 X)
-        if(!$(e.target).closest('#alarmTopButton').length>0 && !$(e.target).hasClass('alarmLayer') && !($(e.target).closest('#popBack1').length>0) && !($(e.target).hasClass('close-detail'))) {
+        if(!$(e.target).closest('#alarmTopButton').length>0 && !$(e.target).hasClass('alarmLayer') && !isPopBack && !($(e.target).hasClass('close-detail'))) {
             $("#alarmLayer").css('display', 'none');
         }
     });

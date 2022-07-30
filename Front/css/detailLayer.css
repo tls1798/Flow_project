@@ -985,12 +985,31 @@ fieldset, img {
 .post-bottom-button.on {
     color: #6449fc;
 }
+.fixed-kind>.bi{
+    font-family: icon-contents!important;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+}
+.fixed-kind .bi::before {
+    color: #fd7900;
+}
+.fixed-kind i:before {
+    margin-right: 10px;
+    font-size: 16px;
+}
+.me-post-wrap .post-list-wrapper .fixed-kind>span.post-type {
+    font-weight: 500;
+}
 .post-bottom-button.on .icon-bookmark {
     background-position: -350px -75px;
 }
 #allPostsLayer {
     height: -webkit-calc(100% - 45px);
     height: calc(100% - 45px);
+    border-top: 1px solid #ddd;
 }
 .me-content {
     height: 100%;
@@ -1040,6 +1059,7 @@ fieldset, img {
     -moz-box-align: center;
     align-items: center;
     color: #333;
+    cursor: pointer;
 }
 .all-seach-list-type-1 .fixed-kind {
     padding: 0;
