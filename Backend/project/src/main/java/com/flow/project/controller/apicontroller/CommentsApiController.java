@@ -16,19 +16,19 @@ public class CommentsApiController {
     final CommentsService commentsService;
     final NotificationsService notificationsService;
 
-    //  특정 게시 글 전체 댓글 가져오기
+    // 특정 게시 글 전체 댓글 가져오기
     @GetMapping("/posts/{postNo}/comments")
     public ResponseEntity<?> getComments(@PathVariable int postNo) {
         return ResponseEntity.status(HttpStatus.OK).body(commentsService.getComments(postNo));
     }
 
-    //  특정 게시 글 특정 댓글 가져오기
+    // 특정 게시 글 특정 댓글 가져오기
     @GetMapping("/posts/{postNo}/comments/{cmNo}")
     public ResponseEntity<?> getComment(@PathVariable int postNo, @PathVariable int cmNo) {
         return ResponseEntity.status(HttpStatus.OK).body(commentsService.getComment(postNo, cmNo));
     }
 
-    //  특정 게시 글 댓글 작성
+    // 특정 게시 글 댓글 작성
     @PostMapping("/posts/{postNo}/comments")
     public ResponseEntity<?> addComment(@RequestBody Comments bean) {
         try {
@@ -42,7 +42,7 @@ public class CommentsApiController {
         }
     }
 
-    //  특정 게시 글 댓글 수정
+    // 특정 게시 글 댓글 수정
     @PutMapping("/posts/{postNo}/comments/{cmNo}")
     public ResponseEntity<?> editComment(@RequestBody Comments bean) {
         try {
@@ -55,7 +55,7 @@ public class CommentsApiController {
         return ResponseEntity.badRequest().build();
     }
 
-    //  특정 게시 글 댓글 삭제
+    // 특정 게시 글 댓글 삭제
     @DeleteMapping("/posts/{postNo}/comments/{cmNo}/{memNo}")
     public ResponseEntity<?> removeComment(@PathVariable int postNo, @PathVariable int cmNo, @PathVariable int memNo) {
         // 댓글 삭제 시, 관련 알림도 삭제

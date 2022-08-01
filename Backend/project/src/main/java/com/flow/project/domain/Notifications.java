@@ -26,7 +26,6 @@ public class Notifications {
     private int postNo;
 
     public NotificationResponse toNotificationResponse() throws JsonProcessingException {
-
         // String -> JSON
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> map = objectMapper.readValue(ntTemp, Map.class);

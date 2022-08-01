@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Comments {
 
-    private int cmNo, postNo, cmWriter;
+    private int cmNo;
+    private int postNo;
+    private int cmWriter;
     private String cmContent;
     private String cmDatetime;
     private String cmName;

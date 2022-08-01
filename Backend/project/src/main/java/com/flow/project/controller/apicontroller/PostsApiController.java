@@ -15,13 +15,7 @@ public class PostsApiController {
     final PostsService postsService;
     final NotificationsService notificationsService;
 
-    //  특정 프로젝트 방 특정 글 하나 가져오기
-//    @GetMapping("/rooms/{rmNo}/posts/{postNo}")
-//    public ResponseEntity<?> getPost(@PathVariable String rmNo, @PathVariable int postNo) {
-//        return ResponseEntity.status(HttpStatus.OK).body(postsService.getPost(rmNo, postNo));
-//    }
-
-    //  특정 프로젝트 방 글 작성
+    // 특정 프로젝트 방 글 작성
     @PostMapping("/rooms/{rmNo}/posts")
     public ResponseEntity<?> addPost(@RequestBody Posts bean) {
         try {
@@ -35,7 +29,7 @@ public class PostsApiController {
         }
     }
 
-    //  특정 프로젝트 방 글 수정
+    // 특정 프로젝트 방 글 수정
     @PutMapping("/rooms/{rmNo}/posts/{postNo}")
     public ResponseEntity<?> editPost(@RequestBody Posts bean) {
         try {
@@ -49,7 +43,7 @@ public class PostsApiController {
 
     }
 
-    //  특정 프로젝트 방 글 삭제
+    // 특정 프로젝트 방 글 삭제
     @DeleteMapping("/rooms/{rmNo}/posts/{postNo}/{memNo}")
     public ResponseEntity<?> removePost(@PathVariable String rmNo, @PathVariable int postNo, @PathVariable int memNo) {
         // 글 삭제 시, 관련 알림도 삭제

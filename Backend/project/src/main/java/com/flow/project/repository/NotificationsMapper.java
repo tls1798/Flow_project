@@ -8,12 +8,11 @@ import java.util.List;
 @Mapper
 public interface NotificationsMapper {
 
-
     // 내가 속한 프로젝트 룸 전체 알림 가져오기 (알림레이어)
     @Select("select n.nt_no, n.nt_type_no, nt_detail_no, n.mem_no, " +
             "to_char(n.nt_datetime, 'YYYY-MM-DD HH24:MI') nt_datetime, n.rm_no, n.nt_temp, n.post_no, " +
             "(select m.mem_name from \"Members\" m where m.mem_no = n.mem_no) as mem_name, " +
-            "(select r.rm_title from \"Rooms\" r where r.rm_no = n.rm_no) as rm_title," +
+            "(select r.rm_title from \"Rooms\" r where r.rm_no = n.rm_no) as rm_title, " +
             "(select count(*) from notis n where n.mem_no != #{memNo} and n.nt_temp -> concat(#{memNo},'') = 'null') as nt_count, " +
             "case " +
                 "when(nt_type_no=1) then (select case " +
@@ -25,7 +24,7 @@ public interface NotificationsMapper {
             "end as noti_content " +
             "from notis n " +
             "join (select * from \"Room_Members\" rm where rm.mem_no = #{memNo}) as myRooms on myRooms.rm_no = n.rm_no " +
-            "where n.mem_no != #{memNo}" +
+            "where n.mem_no != #{memNo} " +
             "order by nt_no desc")
     List<Notifications> selectAllNotifications(int memNo);
 

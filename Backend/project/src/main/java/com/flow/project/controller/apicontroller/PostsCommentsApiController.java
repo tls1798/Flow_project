@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class PostsCommentsApiController {
 
     final PostsCommentsService postsCommentsService;
 
     // 특정 프로젝트 방 글 전체, 댓글 전체 가져오기
-    @GetMapping("members/{memNo}/rooms/{rmNo}/posts")
+    @GetMapping("/members/{memNo}/rooms/{rmNo}/posts")
     public ResponseEntity<?> getPosts(@PathVariable int memNo, @PathVariable String rmNo) {
         return ResponseEntity.status(HttpStatus.OK).body(postsCommentsService.getPosts(memNo, rmNo));
     }
