@@ -58,6 +58,7 @@ public class CommentsApiController {
     //  특정 게시 글 댓글 삭제
     @DeleteMapping("/posts/{postNo}/comments/{cmNo}/{memNo}")
     public ResponseEntity<?> removeComment(@PathVariable int postNo, @PathVariable int cmNo, @PathVariable int memNo) {
+        // 댓글 삭제 시, 관련 알림도 삭제
         return commentsService.removeComment(postNo, cmNo, memNo) > 0
                 && notificationsService.removeCommentNoti(cmNo)
                 ? ResponseEntity.ok().build()

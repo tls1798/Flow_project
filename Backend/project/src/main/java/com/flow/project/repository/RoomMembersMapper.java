@@ -13,7 +13,7 @@ import java.util.List;
 @Mapper
 public interface RoomMembersMapper {
 
-    // 멤버 별 프로젝트 리스트
+    // 멤버 별 프로젝트 리스트 (프로젝트 리스트)
     @Select("select rmmems.rm_no, rms.rm_title, rms.rm_des, " +
             "(select count(*) from \"Room_Members\" as rmmems2 where rmmems2.rm_no=rmmems.rm_no group by rm_no) as rm_mem_count, " +
             "(select rm_no from \"Favorites\" where rm_no=rmmems.rm_no and mem_no=rmmems.mem_no) as favorite_project " +
@@ -22,8 +22,9 @@ public interface RoomMembersMapper {
             "and rmmems.mem_no=#{memNo} order by rm_no ASC")
     List<ProjectListData> selectRooms(int memNo);
 
-    // 프로젝트 별 참여자 리스트
-    @Select("select rmmems.rm_no, rmmems.mem_no, rms.rm_admin, (select mems2.mem_name as admin_name from \"Members\" mems2 where mem_no=rms.rm_admin), mems.mem_name " +
+    // 프로젝트 별 참여자 리스트 (피드 참여자)
+    @Select("select rmmems.rm_no, rmmems.mem_no, rms.rm_admin, " +
+            "(select mems2.mem_name as admin_name from \"Members\" mems2 where mem_no=rms.rm_admin), mems.mem_name " +
             "from \"Room_Members\" as rmmems " +
             "inner join \"Rooms\" as rms on rmmems.rm_no=rms.rm_no AND rmmems.rm_no = #{rmNo} " +
             "inner join \"Members\" mems on rmmems.mem_no=mems.mem_no")

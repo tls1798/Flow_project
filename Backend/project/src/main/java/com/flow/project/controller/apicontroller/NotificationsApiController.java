@@ -15,7 +15,7 @@ public class NotificationsApiController {
 
     private final NotificationsService notificationsService;
 
-    // 내가 속한 프로젝트 룸 전체 알림 가져오기
+    // 내가 속한 프로젝트 룸 알림 모두 가져오기 (알림레이어)
     @GetMapping("/notis/member/{memNo}")
     public ResponseEntity<?> getNotifications(@PathVariable int memNo) throws JsonProcessingException {
         return ResponseEntity.status(HttpStatus.OK).body(notificationsService.getNotifications(memNo));
@@ -49,7 +49,7 @@ public class NotificationsApiController {
         }
     }
 
-    // 알림 모두 읽음
+    // 알림 모두 읽음 (알림레이어)
     @PutMapping("/notis/member/{memNo}")
     public ResponseEntity<?> editNotifications(@PathVariable int memNo) {
         try {
@@ -63,7 +63,7 @@ public class NotificationsApiController {
         }
     }
 
-    // 알림 모두 읽음
+    // 프로젝트 별 알림 모두 읽음 (피드 미확인)
     @PutMapping("/notis/member/{memNo}/rooms/{rmNo}")
     public ResponseEntity<?> editNotifications(@PathVariable int memNo, @PathVariable String rmNo) {
         try {

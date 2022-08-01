@@ -34,6 +34,7 @@ public class RoomMembersService {
     public boolean addMember(List<RoomMembers> roomMembers) {
 
         try {
+            // 여러명 한 번에 초대할 수 있으므로 List를 돌며 insert
             for (RoomMembers roomMember : roomMembers)
                 roomMembersMapper.insertOne(roomMember);
 

@@ -69,10 +69,4 @@ public class AuthController {
     public ResponseEntity<?> removePost(@PathVariable int memNo) {
         return membersService.deleteMem(memNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
-
-    // 회원 탈퇴
-    @DeleteMapping("/members/temp/{memNo}")
-    public ResponseEntity<?> removeMember(@PathVariable int memNo) {
-        return ResponseEntity.ok(membersService.removeMember(memNo));
-    }
 }

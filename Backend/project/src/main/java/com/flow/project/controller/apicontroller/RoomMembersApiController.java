@@ -16,14 +16,14 @@ public class RoomMembersApiController {
 
     final RoomMembersService roomMembersService;
 
-    // 멤버 별 프로젝트 리스트
+    // 멤버 별 프로젝트 리스트 (프로젝트 리스트)
     @GetMapping("/members/{memNo}/rooms")
     public ResponseEntity<?> getRooms(@PathVariable int memNo) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(roomMembersService.getRooms(memNo));
     }
 
-    // 프로젝트 별 참여자 리스트
+    // 프로젝트 별 참여자 리스트 (피드 참여자 목록)
     @GetMapping("/rooms/{rmNo}/members")
     public ResponseEntity<?> getMembers(@PathVariable String rmNo) {
         return ResponseEntity.status(HttpStatus.OK)

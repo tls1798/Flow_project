@@ -13,6 +13,7 @@ public class FavoritesApiController {
 
     final FavoritesService favoritesService;
 
+    // 즐겨찾기 추가
     @PostMapping("/favorites")
     public ResponseEntity<?> addFavorite(@RequestBody Favorites favorite) {
         if (favoritesService.addFavorite(favorite))
@@ -20,6 +21,7 @@ public class FavoritesApiController {
         return ResponseEntity.badRequest().build();
     }
 
+    // 즐겨찾기 해제
     @DeleteMapping("/favorites")
     public ResponseEntity<?> removeRoom(@RequestBody Favorites favorite) {
         return ResponseEntity.ok(favoritesService.removeFavorite(favorite));

@@ -52,6 +52,7 @@ public class PostsApiController {
     //  특정 프로젝트 방 글 삭제
     @DeleteMapping("/rooms/{rmNo}/posts/{postNo}/{memNo}")
     public ResponseEntity<?> removePost(@PathVariable String rmNo, @PathVariable int postNo, @PathVariable int memNo) {
+        // 글 삭제 시, 관련 알림도 삭제
         return notificationsService.removePostNoti(postNo)
                 && postsService.removePost(rmNo, postNo, memNo) > 0
                 ? ResponseEntity.ok().build()

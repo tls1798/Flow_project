@@ -14,8 +14,4 @@ public class ProjectListData {
     private String rmDes;
     private int rmMemCount;
     private String favoriteProject;
-
-    public Boolean getFavoriteProject() {
-        return favoriteProject != null;
-    }
 }

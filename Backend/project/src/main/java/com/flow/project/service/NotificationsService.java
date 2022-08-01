@@ -18,7 +18,7 @@ public class NotificationsService {
 
     private final NotificationsMapper notificationsMapper;
 
-    // 내가 속한 프로젝트 룸 전체 알림 가져오기
+    // 내가 속한 프로젝트 룸 전체 알림 가져오기 (알림레이어)
     public List<NotificationResponse> getNotifications(int memNo) throws JsonProcessingException {
         List<Notifications> notifications = notificationsMapper.selectAllNotifications(memNo);
 
@@ -39,12 +39,12 @@ public class NotificationsService {
         return notificationsMapper.updateOne(bean);
     }
 
-    // 알림 모두 읽음
+    // 알림 모두 읽음 (알림레이어)
     public int editAllNotifications(int memNo) {
         return notificationsMapper.updateAll(memNo);
     }
 
-    // 프로젝트 별 알림 모두 읽음
+    // 프로젝트 별 알림 모두 읽음 (피드 미확인)
     public int editNotifications(int memNo, String rmNo) {
         return notificationsMapper.updateNotis(memNo, rmNo);
     }

@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.*;
 @Mapper
 public interface RoomsMapper {
 
-    // 프로젝트 번호로 프로젝트 선택
+    // 프로젝트 조회 (프로젝트 리스트에서 프로젝트 선택)
     @Select("select * from \"Rooms\" where rm_no=#{rmNo}")
     Rooms selectOne(String rmNo);
 
