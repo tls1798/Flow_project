@@ -443,7 +443,7 @@ import updateRight from '../js/rightPostCard.js';
     // 이전 댓글 더보기 클릭할시
     $(document).on('click', '.comment-more-button', function () {
         // 남은 댓글의 수
-        let cmcnt = $('#cm-count-id').text()
+        let cmcnt = $(this).closest('.comment-header').find('#cm-count-id').text()
         let cnt = 10;
         
         $($(this).closest('.post-card-footer.js-comment-area').find('.remark-item').get().reverse()).each(function (idx, item) {
@@ -459,7 +459,7 @@ import updateRight from '../js/rightPostCard.js';
         if (cmcnt == 0)
             $(this).addClass('d-none')
 
-        $('#cm-count-id').text(cmcnt);
+        $(this).closest('.comment-header').find('#cm-count-id').text(cmcnt);
     })
 
     // 상단 고정 누를시
