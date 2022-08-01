@@ -14,4 +14,9 @@ public class ProjectListData {
     private String rmDes;
     private int rmMemCount;
     private String favoriteProject;
+
+    // favoriteProject getter (boolean 타입으로 반환하기 위함)
+    public Boolean getFavoriteProject() {
+        return favoriteProject != null;
+    }
 }
