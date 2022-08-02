@@ -12,7 +12,8 @@ public interface CommentsMapper {
     @Select("select c.cm_no, c.post_no, c.cm_content, c.cm_writer, to_char(c.cm_datetime, 'YYYY-MM-DD HH24:MI') cm_datetime, to_char(c.cm_edit_datetime, 'YYYY-MM-DD HH24:MI') cm_edit_datetime, " +
             "(select m.mem_name from \"Members\" m where c.cm_writer = m.mem_no) as cm_name " +
             "from \"Comments\" c " +
-            "where post_no = #{postNo}")
+            "where post_no = #{postNo} " +
+            "order by cm_no desc")
     List<Comments> selectAll(int postNo);
 
     // 특정 게시 글 특정 댓글 가져오기

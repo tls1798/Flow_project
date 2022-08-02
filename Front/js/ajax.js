@@ -463,7 +463,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntTemp, cmNo){
 
                 // 댓글 카운트 증가
                 let cnt = parseInt($(key.target).closest('li').find('.comment-count').text()) + 1;
-                $(key.target).closest('li').find('.comment-count').text(cnt);
+                $('.js-popup-before.detail-item.back-area[data-post-srno='+postNo+']').find('.comment-count').text(cnt);
                 
                 // 새로고침X, 바로 아래에 추가하기
                 $('.post-comment-group[data-id='+postNo+']').append(`
@@ -559,8 +559,8 @@ export function editCommentAjax(postNo, cmContent, cmNo){
     })
 }
 
-// 댓글 삭제 기존 댓글은 안되고 새로 단 댓글은 됨 개빡침
-export function removeCommentAjax(e, postNo, cmNo, myCm){
+// 댓글 삭제
+export function removeCommentAjax(e, postNo, cmNo){
     $.ajax({
         type: 'DELETE',
         url: 'http://localhost:8080/api/posts/'+postNo+'/comments/'+cmNo+'/'+memNo,
@@ -570,10 +570,18 @@ export function removeCommentAjax(e, postNo, cmNo, myCm){
         },
         success: function (result, status, xhr) {
             
-            // 댓글 카운트 감소
+            // 현재 팝업, 피드 댓글 카운트 감소
             let cnt = parseInt($(e.target).closest("[id^='post-']").find('.comment-count').text()) - 1;
-            $(e.target).closest("[id^='post-']").find('.comment-count').text(cnt);
-            myCm.remove();
+            $('.js-popup-before.detail-item.back-area[data-post-srno='+postNo+']').find('.comment-count').text(cnt);
+
+            // 삭제한 댓글이 이전 댓글일 경우 이전 댓글 count-1
+            let myCm = $('.remark-item[remark-srno='+cmNo+']');
+            if(myCm.hasClass('d-none')){
+                let preCm = $('.js-popup-before.detail-item.back-area.feed-card[data-post-srno='+postNo+']').find('#cm-count-id');
+                let preCmCnt = parseInt(preCm.text())-1;
+                preCm.text(preCmCnt);
+            }
+            $('.remark-item[remark-srno='+cmNo+']').remove();
 
             var socket = io.connect('http://localhost:3000');
             socket.emit('updateAlarmsEventToServer');
@@ -924,7 +932,7 @@ export function getAllPostsByProjectAjax(rmNo){
                         } 
                     }
                     $('#detailUl').append(`
-                        <li id="post-`+result[i].posts.postNo+`" class="js-popup-before detail-item back-area" data-read-yn="Y" data-comment-count="0"  data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + `" data-post-pin= "`+ result[i].posts.postPin +`" data-remark-srno="" data-bookmark="`+result[i].posts.postBookmark+`" data-section-srno=""  mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
+                        <li id="post-`+result[i].posts.postNo+`" class="js-popup-before detail-item back-area feed-card" data-read-yn="Y" data-comment-count="0"  data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + `" data-post-pin= "`+ result[i].posts.postPin +`" data-remark-srno="" data-bookmark="`+result[i].posts.postBookmark+`" data-section-srno=""  mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
                             <div class="js-post-nav card-item post-card-wrapper write2 ">
                                 <div class="post-card-header">
                                     <div class="post-card-scroll">
@@ -1239,7 +1247,8 @@ export function getPostToCenterPopupAjax(rmNo, postNo){
             if(result.posts.postBookmark == 1) {
                 $('#bookmark-'+result.posts.postNo).addClass('on');
             }
-            for(let i=0;i<result.commentsList.length;i++){
+            
+            for(let i=result.commentsList.length-1; i>=0; i--){
                 $('#detailPostCard #detailComment[data-id='+result.commentsList[i].postNo+']').append(`
                     <li class="remark-item" remark-srno="`+result.commentsList[i].cmNo+`" data-user-id="`+result.commentsList[i].cmWriter+`" ">
                         <div class="comment-thumbnail js-comment-thumbnail">

@@ -77,8 +77,7 @@ $(document).on('click', '.comment-writer-menu',function(e){
     else if(e.target.id=='cmDelBtn'){
         const postNo = $(this).closest('li').parent().closest('li').attr('data-post-srno');
         const cmNo = $(this).closest('li').attr('remark-srno');
-        const myCm = $(this).parents('.remark-item');
 
-        removeCommentAjax(e, postNo, cmNo, myCm);
+        removeCommentAjax(e, postNo, cmNo);
     }
 })
