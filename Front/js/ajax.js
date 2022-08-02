@@ -770,7 +770,7 @@ export function removeProjectAjax(){
 }
 
 // 상단고정 등록
-export function addPinAjax(bool, postNo, postPin, getpinPosts){
+export function addPinAjax(postNo, postPin, getpinPosts){
     $.ajax({
         type: 'POST',
         url: 'http://localhost:8080/api/rooms/posts/' + postNo + '/pin/' + postPin,
@@ -781,14 +781,11 @@ export function addPinAjax(bool, postNo, postPin, getpinPosts){
         success: function (result, status, xhr) {
             getPostAll(getpinPosts)
             $('#detailComment').children().remove();
-            bool = 1;
         },
         error: function (xhr, status, err) {
             autoaccess();
         }
     });
-
-    return bool;
 }
 
 // 피드 우측 참여자 가져오기

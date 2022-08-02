@@ -96,6 +96,25 @@ const updateUnreadAlarmFunc = function (rmNo) {
     }
 }
 
+// confirm 창 열기
+const confirmOpen_postPin = function(){
+    $('.back-area.temp-popup').addClass('flow-all-background-1');
+    $('#popupBackground').removeClass('d-none')
+    $('.confirm-popup').removeClass('d-none')
+
+    $('.popup-confirm-warp').addClass('postPin-confirm')
+    $('#popBack2').addClass('postPin-confirm-popback')
+}
+// confirm 창 닫기
+const confirmClose_postPin = function(){
+    $('.back-area.temp-popup').removeClass('flow-all-background-1');
+    $('#popupBackground').addClass('d-none')
+    $('.confirm-popup').addClass('d-none')
+
+    $('.popup-confirm-warp').removeClass('postPin-confirm')
+    $('#popBack2').removeClass('postPin-confirm-popback')
+}
+
 // 참여자 영역 이동
 $(document).scroll(function () {
     $('#projectParticipants').css('transform', 'translateX(' + (0 - $(document).scrollLeft()) + 'px');
@@ -216,7 +235,6 @@ $(document).on('click', '.js-pin-post', function (e) {
     let postNo = ($(this).attr('data-post-srno'))
     let postPin = ($(this).attr('data-post-pin'))
     let pinid = ($(this).attr('id'))
-    var bool = 0;
 
     if ($(this).attr('data-post-pin') == 0)
         $(this).attr('data-post-pin', 1)
@@ -226,38 +244,33 @@ $(document).on('click', '.js-pin-post', function (e) {
     // 포스트핀이 0이면 포스트핀 1로 바꾸고 on이 있으면 on을 없애고 없으면 on을 만든다
     postPin == 0 ? postPin = 1 : postPin = 0
 
-    // if (postPin == 1)
-    //     $('.popup-cont').text('상단고정 하시겠습니까');
-    // else if (postPin == 0)
-    //     $('.popup-cont').text('이 글을 상단고정 해제 하시겠습니까');
-    // // 팝업창을 띄운다
-    // $('.flow-project-popup-6').removeClass('d-none'), $('#popupBackground').removeClass('d-none')
-    // // 확인을 누르면 상단고정 또는 해제를 한다
+    if (postPin == 1) $('.popup-cont').text('상단고정 하시겠습니까');
+    else if (postPin == 0) $('.popup-cont').text('이 글을 상단고정 해제 하시겠습니까');
+    confirmOpen_postPin();
+
+    // confirm 취소, 확인 버튼 클릭 시
+    $('.popup-confirm-warp').click(function(e){
+        if($(e.target).attr('class')=='flow-pop-sub-button-1 cancel-event'){
+            confirmClose_postPin('postPin-confirm');
+        } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
+            confirmClose_postPin('postPin-confirm');
+            $('#' + pinid).hasClass('on') ? $('#' + pinid).removeClass('on') : $('#'+pinid).addClass('on')
+            addPinAjax(postNo, postPin, getpinPosts);
+        } else {
+            return false;
+        }
+    })
     
-    // $('.submit-event').on('click', function (e) {
-    //     if ($('.popup-cont').text() == '상단고정 하시겠습니까' || $('.popup-cont').text() == '이 글을 상단고정 해제 하시겠습니까') {
-    //         // $('#' + pinid).hasClass('on') ? $('#' + pinid).removeClass('on') : $('#'+pinid).addClass('on')
-
-    if ($('#' + pinid).hasClass('on')) {
-        $('#' + pinid).removeClass('on')
-    }
-    else
-        $('#' + pinid).addClass('on')
-
-    async function a() {
-        bool = addPinAjax(bool, postNo, postPin, getpinPosts);
-    }
+    // confirm 외부 영역 클릭 시 닫기
+    $('#popBack2').click(function(e){
+        if($(e.target).hasClass('postPin-confirm-popback'))
+            confirmClose_postPin();
+    })
 
     // 취소 시키기
     $('.flow-pop-sub-button-1').on('click', function () {
         popupclose();
     })
-
-    // 아무데나 눌러도 팝업 사라지게 하기
-    $('#popBack2').on('click', function () {
-        popupclose();
-    })
-    a().then()
 })
 
 // 글 디테일 버튼 클릭 시
