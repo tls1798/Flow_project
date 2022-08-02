@@ -26,7 +26,7 @@ $(function(){
         $('#accountTopButton').removeClass('active');
         $(".modal-account").css('display', 'none');
 
-        var memInfo = getMemberAjax(selectedMemNo, memInfo);
+        var memInfo = getMemberAjax(window.localStorage.getItem('memNo'), memInfo);
         
         // 이름, 이메일 넣기
         $('.info-box').find('span').text(memInfo.memName);
@@ -40,7 +40,7 @@ $(function(){
 
     // 참여자 클릭 시 팝업 띄우기
     $(document).on('click', '.js-participant-item', function(){
-        var memInfo = getMemberAjax(selectedMemNo, memInfo);
+        var memInfo = getMemberAjax($(this).attr('data-id'), memInfo);
 
         // 이름, 이메일 넣기
         $('.info-box').find('span').text(memInfo.memName);
