@@ -208,6 +208,18 @@ $(document).on('click', '.comment-more-button', function () {
     $(this).closest('.comment-header').find('#cm-count-id').text(cmcnt);
 })
 
+// 상단고정 리스트 클릭 시
+$(document).on('click','#pinPostUl',function(e){
+    let rmNo, postNo; 
+    new Promise((succ, fail)=>{
+        rmNo = $(e.target).closest('li').attr('data-project-srno');
+        postNo = $(e.target).closest('li').attr('data-post-srno');
+        succ(rmNo, postNo);
+    }).then((arg)=>{
+        updateRight(rmNo, postNo);
+    })
+})
+
 // 상단 고정 누를시
 let postNo, postPin, pinid;
 $(document).on('click', '.js-pin-post', function (e) {

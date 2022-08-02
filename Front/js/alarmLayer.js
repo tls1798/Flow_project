@@ -1,4 +1,4 @@
-import {updatePopup} from './detailPopup.js';
+import {updatePopup} from './centerPostPopup.js';
 import {readAllAlarmAjax, readAlarmAjax} from './ajax.js'
 
 export function readAlarm(ntNo, postNo){

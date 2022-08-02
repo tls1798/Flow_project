@@ -4,8 +4,8 @@ import {bookmarkList, alert} from './bookmark.js'
 import {updateRight} from './rightPostCard.js';
 import {postPopupClose, postInit, postClear} from './createPost.js'
 import {updateList} from './projectList.js';
-import {view, getPostAll} from './detailLayer.js';
-import {closeCenterPopup} from './detailPopup.js';
+import {view, getPostAll} from './feed.js';
+import {closeCenterPopup} from './centerPostPopup.js';
 import {closeRightPostCard, settingButtonClose} from './rightPostCard.js'
 
 let memNo = window.localStorage.getItem('memNo')

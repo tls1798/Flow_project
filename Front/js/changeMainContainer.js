@@ -12,7 +12,7 @@ $(function () {
         $('#mainTop').css('display','none');
         $('#detailTop').css('display','block');
         $('#projectHomeLayer').css('display','none');
-        $('#detailLayer').css('display','block');
+        $('#feed').css('display','block');
 
         // 프로젝트 관리자/참여자 별 디테일 메뉴 다르게 보이도록
         getAllRoomsAjax($(this).attr('data-id'));

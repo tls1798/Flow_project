@@ -24,7 +24,7 @@ $(function(){
         $('#mainTop').css('display', 'block');
         $('#detailTop').css('display','none');
         $('#projectHomeLayer').css('display','block');
-        $('#detailLayer').css('display','none');
+        $('#feed').css('display','none');
         $('#allPostsLayer').css('display','none');
         $('.left-menu-main').addClass('flow-active');
     });
@@ -35,7 +35,7 @@ $(function(){
         $('#mainTop').css('display','block');
         $('#detailTop').css('display', 'none');
         $('#projectHomeLayer').css('display','none');
-        $('#detailLayer').css('display', 'none');
+        $('#feed').css('display', 'none');
         $('#allPostsLayer').css('display', 'block');
     })
 });
