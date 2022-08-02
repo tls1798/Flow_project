@@ -1,6 +1,7 @@
 import {readAlarm} from './alarmLayer.js'
 import {updateRight} from './rightPostCard.js';
 import {getAllParticipantsAjax, readAllAlarmsByProjectAjax, getAllPostsByProjectAjax, addPinAjax} from './ajax.js'
+import {confirmOpen, confirmClose} from './confirm.js'
 
 // Toast ui viewer 
 export function view(idx) {
@@ -94,25 +95,6 @@ const updateUnreadAlarmFunc = function (rmNo) {
         $('#notReadAlarmMore').css('display', 'block');
         $('.not-read-alarm-item:eq(2)').css('padding', '10px 20px 20px 20px');
     }
-}
-
-// confirm 창 열기
-const confirmOpen_postPin = function(){
-    $('.back-area.temp-popup').addClass('flow-all-background-1');
-    $('#popupBackground').removeClass('d-none')
-    $('.confirm-popup').removeClass('d-none')
-
-    $('.popup-confirm-warp').addClass('postPin-confirm')
-    $('#popBack2').addClass('postPin-confirm-popback')
-}
-// confirm 창 닫기
-const confirmClose_postPin = function(){
-    $('.back-area.temp-popup').removeClass('flow-all-background-1');
-    $('#popupBackground').addClass('d-none')
-    $('.confirm-popup').addClass('d-none')
-
-    $('.popup-confirm-warp').removeClass('postPin-confirm')
-    $('#popBack2').removeClass('postPin-confirm-popback')
 }
 
 // 참여자 영역 이동
@@ -227,14 +209,15 @@ $(document).on('click', '.comment-more-button', function () {
 })
 
 // 상단 고정 누를시
+let postNo, postPin, pinid;
 $(document).on('click', '.js-pin-post', function (e) {
 
     // 제출 누르면 저 클래스가 사라져서 임의로 추가해져서 팝업창을 계속 띄우게 유지함
     $('#popupBackground').addClass('flow-all-background-1');
 
-    let postNo = ($(this).attr('data-post-srno'))
-    let postPin = ($(this).attr('data-post-pin'))
-    let pinid = ($(this).attr('id'))
+    postNo = ($(this).attr('data-post-srno'))
+    postPin = ($(this).attr('data-post-pin'))
+    pinid = ($(this).attr('id'))
 
     if ($(this).attr('data-post-pin') == 0)
         $(this).attr('data-post-pin', 1)
@@ -246,15 +229,18 @@ $(document).on('click', '.js-pin-post', function (e) {
 
     if (postPin == 1) $('.popup-cont').text('상단고정 하시겠습니까');
     else if (postPin == 0) $('.popup-cont').text('이 글을 상단고정 해제 하시겠습니까');
-    confirmOpen_postPin();
+    confirmOpen('postPin-confirm');
 
     // confirm 취소, 확인 버튼 클릭 시
     $('.popup-confirm-warp').click(function(e){
+        if(!$(this).hasClass('postPin-confirm'))
+            return false;
+        
         if($(e.target).attr('class')=='flow-pop-sub-button-1 cancel-event'){
-            confirmClose_postPin('postPin-confirm');
+            confirmClose('postPin-confirm');
         } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
-            confirmClose_postPin('postPin-confirm');
-            $('#' + pinid).hasClass('on') ? $('#' + pinid).removeClass('on') : $('#'+pinid).addClass('on')
+            confirmClose('postPin-confirm');
+            $('#' + pinid).hasClass('on') ? $('#' + pinid).removeClass('on') : $('#'+pinid).addClass('on');
             addPinAjax(postNo, postPin, getpinPosts);
         } else {
             return false;
@@ -263,8 +249,8 @@ $(document).on('click', '.js-pin-post', function (e) {
     
     // confirm 외부 영역 클릭 시 닫기
     $('#popBack2').click(function(e){
-        if($(e.target).hasClass('postPin-confirm-popback'))
-            confirmClose_postPin();
+        if($(e.target).hasClass('postPin-confirm'))
+            confirmClose('postPin-confirm');
     })
 
     // 취소 시키기

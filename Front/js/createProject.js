@@ -1,4 +1,5 @@
 import {addProjectAjax, editProjectAjax} from './ajax.js'
+import {confirmOpen, confirmClose} from './confirm.js'
 
 // input, textarea 비우기
 const clearCreateProject = function(){
@@ -16,24 +17,6 @@ const closeCreateProject = function(tar){
         $('.project-template-intro').css('display','flex');
     }
 }
-// confirm 창 열기
-const confirmOpen_create_project = function(){
-    $('.back-area.temp-popup').addClass('flow-all-background-1')
-    $('#popupBackground').removeClass('d-none')
-    $('.confirm-popup').removeClass('d-none')
-
-    $('.popup-confirm-warp').addClass('create-project-confirm')
-    $('#popBack2').addClass('create-project-confirm-popback')
-}
-// confirm 창 닫기
-const confirmClose_create_project = function(){
-    $('.back-area.temp-popup').removeClass('flow-all-background-1')
-    $('#popupBackground').addClass('d-none')
-    $('.confirm-popup').addClass('d-none')
-
-    $('.popup-confirm-warp').removeClass('create-project-confirm')
-    $('#popBack2').removeClass('create-project-confirm-popback')
-}
 
 $(function(){
     // 프로젝트 생성
@@ -49,7 +32,7 @@ $(function(){
 
         if($('#projectTitleInput').val()!=="" || $('#projectContentsInput').val()!==""){
             $('.popup-cont').text('작성을 중단하고 이동하시겠습니까?');
-            confirmOpen_create_project();
+            confirmOpen('create-project-confirm');
 
             // confirm 취소, 확인 버튼 클릭 시
             $('.popup-confirm-warp').click(function(e){
@@ -57,9 +40,9 @@ $(function(){
                     return false;
 
                 if($(e.target).attr('class')=='flow-pop-sub-button-1 cancel-event'){
-                    confirmClose_create_project();
+                    confirmClose('create-project-confirm');
                 } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
-                    confirmClose_create_project();
+                    confirmClose('create-project-confirm');
                     clearCreateProject();
                     closeCreateProject(tar);
                 } else {
@@ -75,8 +58,8 @@ $(function(){
 
     // confirm 외부 영역 클릭 시 닫기
     $('#popBack2').click(function(e){
-        if($(e.target).hasClass('create-project-confirm-popback'))
-        confirmClose_invite();
+        if($(e.target).hasClass('create-project-confirm'))
+            confirmClose('create-project-confirm');
     })
 
     // 프로젝트 만들기, 수정

@@ -1,23 +1,5 @@
 import {deleteMemberAjax, logoutAjax, getMemberAjax} from './ajax.js'
-
-// confirm 창 열기
-const confirmOpen_profile = function(){
-    $('.back-area.temp-popup').addClass('flow-all-background-1');
-    $('#popupBackground').removeClass('d-none')
-    $('.confirm-popup').removeClass('d-none')
-
-    $('.popup-confirm-warp').addClass('profile-confirm')
-    $('#popBack2').addClass('profile-confirm-popback')
-}
-// confirm 창 닫기
-const confirmClose_profile = function(){
-    $('.back-area.temp-popup').removeClass('flow-all-background-1');
-    $('#popupBackground').addClass('d-none')
-    $('.confirm-popup').addClass('d-none')
-
-    $('.popup-confirm-warp').removeClass('profile-confirm')
-    $('#popBack2').removeClass('profile-confirm-popback')
-}
+import {confirmOpen, confirmClose} from './confirm.js'
 
 $(function(){
     // profile li 클릭 시 팝업 띄우기
@@ -62,7 +44,7 @@ $(function(){
     // 회원 탈퇴 버튼 클릭
     $('.btn-del-mem').click(function(){
         $('.popup-cont').text('정말로 탈퇴하시겠습니까?');
-        confirmOpen_profile();
+        confirmOpen('profile-confirm');
     })
 
     // confirm 취소, 확인 버튼 클릭 시
@@ -71,9 +53,9 @@ $(function(){
             return false;
 
         if($(e.target).attr('class')=='flow-pop-sub-button-1 cancel-event'){
-            confirmClose_profile();
+            confirmClose('profile-confirm');
         } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
-            confirmClose_profile();
+            confirmClose('profile-confirm');
             deleteMemberAjax();
             logoutAjax();
         } else {
@@ -83,8 +65,8 @@ $(function(){
 
     // confirm 외부 영역 클릭 시 닫기
     $('#popBack2').click(function(e){
-        if($(e.target).hasClass('profile-confirm-popback'))
-            confirmClose_profile();
+        if($(e.target).hasClass('profile-confirm'))
+            confirmClose('profile-confirm');
     })
 
     // 초대 모달 1,2 클릭 시 display none X

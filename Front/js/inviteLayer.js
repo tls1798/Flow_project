@@ -1,4 +1,5 @@
 import {getAllMembers, addMembersToProject} from './ajax.js'
+import {confirmOpen, confirmClose} from './confirm.js'
 
 // 초기화
 const clearInviteLayer = function(){
@@ -15,24 +16,6 @@ const closeInviteLayer = function(tar){
         $('#inviteLayer').css('display', 'none');
         $('#invitePopup').css('display', 'none');
     }
-}
-// confirm 창 열기
-const confirmOpen_invite = function(){
-    $('.back-area.temp-popup').addClass('flow-all-background-1')
-    $('#popupBackground').removeClass('d-none')
-    $('.confirm-popup').removeClass('d-none')
-
-    $('.popup-confirm-warp').addClass('invite-confirm')
-    $('#popBack2').addClass('invite-confirm-popback')
-}
-// confirm 창 닫기
-const confirmClose_invite = function(){
-    $('.back-area.temp-popup').removeClass('flow-all-background-1')
-    $('#popupBackground').addClass('d-none')
-    $('.confirm-popup').addClass('d-none')
-
-    $('.popup-confirm-warp').removeClass('invite-confirm')
-    $('#popBack2').removeClass('invite-confirm-popback')
 }
 
 $(function () {
@@ -61,7 +44,7 @@ $(function () {
         // 선택된 참여자가 있으면 묻기
         if($('#inviteTargetList').find('li').length!=0){
             $('.popup-cont').text('선택된 참여자가 있습니다. 나가시겠습니까?');
-            confirmOpen_invite();
+            confirmOpen('invite-confirm');
             
             // confirm 취소, 확인 버튼 클릭 시
             $('.popup-confirm-warp').click(function(e){
@@ -69,9 +52,9 @@ $(function () {
                     return false;
 
                 if($(e.target).attr('class')=='flow-pop-sub-button-1 cancel-event'){
-                    confirmClose_invite();
+                    confirmClose('invite-confirm');
                 } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
-                    confirmClose_invite();
+                    confirmClose('invite-confirm');
                     clearInviteLayer();
                     closeInviteLayer(tar);
                 } else {
@@ -89,8 +72,8 @@ $(function () {
 
     // confirm 외부 영역 클릭 시 닫기
     $('#popBack2').click(function(e){
-        if($(e.target).hasClass('invite-confirm-popback'))
-        confirmClose_invite();
+        if($(e.target).hasClass('invite-confirm'))
+            confirmClose('invite-confirm');
     })
 
     // 참여자 클릭

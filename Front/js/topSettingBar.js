@@ -1,23 +1,5 @@
 import {exitProjectAjax, removeProjectAjax, addFavoriteProjectAjax, deleteFavoriteProjectAjax} from './ajax.js';
-
-// confirm 창 열기
-const confirmOpen_project_setting = function(cls){
-    $('.back-area.temp-popup').addClass('flow-all-background-1');
-    $('#popupBackground').removeClass('d-none')
-    $('.confirm-popup').removeClass('d-none')
-    
-    $('.popup-confirm-warp').addClass(cls)
-    $('#popBack2').addClass(cls)
-}
-// confirm 창 닫기
-const confirmClose_project_setting = function(cls){
-    $('.back-area.temp-popup').removeClass('flow-all-background-1');
-    $('#popupBackground').addClass('d-none')
-    $('.confirm-popup').addClass('d-none')
-    
-    $('.popup-confirm-warp').removeClass(cls)
-    $('#popBack2').removeClass(cls)
-}
+import {confirmOpen, confirmClose} from './confirm.js'
 
 $(function(){
 
@@ -70,22 +52,22 @@ $(function(){
     // 프로젝트 나가기
     $('#detailSettingProjectExitBtn').click(function(){
         $('.popup-cont').text('프로젝트 나가기 시, 프로젝트 목록에서 삭제되며\n작성하신 게시물 확인이 불가합니다.');
-        confirmOpen_project_setting('exit-confirm');
+        confirmOpen('exit-confirm');
     });
     
     // 프로젝트 삭제
     $('#detailSettingProjectDeleteBtn').click(function(){
         $('.popup-cont').text('프로젝트를 삭제하시겠습니까?');
-        confirmOpen_project_setting('del-confirm');
+        confirmOpen('del-confirm');
     });
     
     // confirm 취소, 확인 버튼 클릭 시
     $('.popup-confirm-warp').click(function(e){
         if($(this).hasClass('exit-confirm')){
             if($(e.target).attr('class')=='flow-pop-sub-button-1 cancel-event'){
-                confirmClose_project_setting('exit-confirm');
+                confirmClose('exit-confirm');
             } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
-                confirmClose_project_setting('exit-confirm');
+                confirmClose('exit-confirm');
                 exitProjectAjax();
             } else {
                 return false;
@@ -93,9 +75,9 @@ $(function(){
         }
         else if($(this).hasClass('del-confirm')){
             if($(e.target).attr('class')=='flow-pop-sub-button-1 cancel-event'){
-                confirmClose_project_setting('del-confirm');
+                confirmClose('del-confirm');
             } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
-                confirmClose_project_setting('del-confirm');
+                confirmClose('del-confirm');
                 removeProjectAjax();
             } else {
                 return false;
@@ -105,8 +87,8 @@ $(function(){
     
     // confirm 외부 영역 클릭 시 닫기
     $('#popBack2').click(function(e){
-        if($(e.target).hasClass('exit-confirm') || $(e.target).hasClass('del-confirm'))
-            confirmClose_project_setting();
+        if($(e.target).hasClass('exit-confirm')) confirmClose('exit-confirm');
+        else if($(e.target).hasClass('del-confirm')) confirmClose('del-confirm');
     })
 
     // 프로젝트 수정

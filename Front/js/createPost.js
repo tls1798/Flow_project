@@ -1,4 +1,5 @@
 import {addPostAjax, editPostAjax, removePostAjax} from './ajax.js'
+import {confirmOpen_post, confirmClose_post} from './confirm.js'
 
 // 글 생성 팝업 열기
 export function postPopupOpen(){
@@ -9,22 +10,6 @@ export function postPopupOpen(){
 export function postPopupClose(){
     $('.back-area.temp-popup').removeClass('flow-all-background-1');
     $('.create-post-wrap').css('display','none');
-}
-// confirm 창 열기
-export function confirmOpen(){
-    $('#popupBackground').removeClass('d-none')
-    $('.confirm-popup').removeClass('d-none')
-    $('.popup-confirm-warp').addClass('post-confirm')
-    $('#popBack2').addClass('post-confirm-popback')
-    $('.popup-cont').text('작성을 중단하고 이동하시겠습니까?');
-}
-// confirm 창 닫기
-export function confirmClose(){
-    $('#popupBackground').addClass('d-none')
-    $('.confirm-popup').addClass('d-none')
-
-    $('.popup-confirm-warp').removeClass('post-confirm')
-    $('#popBack2').removeClass('post-confirm-popback')
 }
 // 글 생성 팝업 초기화
 export function postInit(){
@@ -75,7 +60,7 @@ $('.btn-close').click(function(){
     const checkContent = $('.ProseMirror.toastui-editor-contents').text();
     if(checkTitle || checkContent){
         $('.popup-cont').text('작성을 중단하고 이동하시겠습니까?');
-        confirmOpen();
+        confirmOpen_post();
     } else{
         postPopupClose()
     }
@@ -87,9 +72,9 @@ $('.popup-confirm-warp').click(function(e){
         return false;
     
     if($(e.target).attr('class')=='flow-pop-sub-button-1 cancel-event'){
-        confirmClose();
+        confirmClose_post();
     } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
-        confirmClose();
+        confirmClose_post();
         postPopupClose();
         postInit();
         postClear();
@@ -101,7 +86,7 @@ $('.popup-confirm-warp').click(function(e){
 // confirm 외부 영역 클릭 시 닫기
 $('#popBack2').click(function(e){
     if($(e.target).hasClass('post-confirm-popback'))
-        confirmClose();
+        confirmClose_post();
 })
 
 // 글 작성 영역 클릭 시 닫기 안되게
@@ -147,7 +132,7 @@ $('#popBack1').mousedown(function(e){
         const checkContent = $('.ProseMirror.toastui-editor-contents').text();
         if(checkTitle || checkContent){
             $('.popup-cont').text('작성을 중단하고 이동하시겠습니까?');
-            confirmOpen();
+            confirmOpen_post();
         }else{
             postPopupClose();
         }
