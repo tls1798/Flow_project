@@ -19,7 +19,6 @@ $(function () {
 
     // 사이드바의 메뉴, 프로젝트 카드, 로고 클릭 시 사이드바 메뉴 active 해제 (this 제외)
     $(document).on('click', '.left-menu-item, .project-item, .logo-box', function(){
-        console.log('ㅇ')
         $('.left-menu-item').not(this).removeClass('flow-active');
         
         // 만약 로고 클릭 시, 내 프로젝트 active
