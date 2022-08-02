@@ -129,7 +129,6 @@ $('.create-post-wrap').click(function(e){
 // back-area 선택 시 사라지게
 $('#popBack1').mousedown(function(e){
     if(e.target.id=='popBack1' && $('.create-post-wrap').css('display')=='block'){
-        
         // 내용 있을 때 confirm 창
         const checkTitle = $('#postTitle').val();
         const checkContent = $('.ProseMirror.toastui-editor-contents').text();
@@ -145,7 +144,6 @@ $('#popBack1').mousedown(function(e){
 $(document).on('click', '.post-option>ul',function(e){
     // 글 수정
     if(e.target.id=='postEditBtn' || e.target.id=='rightEditBtn'){
-
         // 글 생성 팝업 띄우고 수정으로 변경
         postEditor();
         postPopupOpen();
@@ -183,7 +181,6 @@ $(document).on('click', '.post-option>ul',function(e){
 
     }
     else if(e.target.id=='postDelBtn' || e.target.id=='rightDelBtn'){
-
         // 글 삭제
         let rmNo = $(e.target).closest("[id^='post-']").attr('data-project-srno');
         const postNo = $(e.target).closest("[id^='post-']").attr('data-post-srno');

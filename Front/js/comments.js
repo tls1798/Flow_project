@@ -47,7 +47,6 @@ $(document).on('keyup','.comment-input',function(key){
 
 let cmNo;
 $(document).on('click', '.comment-writer-menu',function(e){
-    
     // 댓글 수정
     if(e.target.id=='cmEditBtn'){
         let cmContent = $(this).closest('.comment-container').find('.comment-text div').html();
@@ -72,7 +71,6 @@ $(document).on('click', '.comment-writer-menu',function(e){
             }
         })
     }
-
     // 댓글 삭제
     else if(e.target.id=='cmDelBtn'){
         const postNo = $(this).closest('li').parent().closest('li').attr('data-post-srno');

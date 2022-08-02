@@ -19,17 +19,17 @@ $(function () {
     })
 })
 
-    // 사이드바의 메뉴, 프로젝트 카드, 로고 클릭 시 사이드바 메뉴 active 해제 (this 제외)
-    $(document).on('click', '.left-menu-item, .project-item, .logo-box', function(){
-        $('.left-menu-item').not(this).removeClass('flow-active');
-        
-        // 만약 로고 클릭 시, 내 프로젝트 active
-        if($(this).hasClass('logo-box')){
-            $('.left-menu-main').addClass('flow-active');
-        }
+// 사이드바의 메뉴, 프로젝트 카드, 로고 클릭 시 사이드바 메뉴 active 해제 (this 제외)
+$(document).on('click', '.left-menu-item, .project-item, .logo-box', function(){
+    $('.left-menu-item').not(this).removeClass('flow-active');
+    
+    // 만약 로고 클릭 시, 내 프로젝트 active
+    if($(this).hasClass('logo-box')){
+        $('.left-menu-main').addClass('flow-active');
+    }
 
-        // 오른쪽 글 카드 열려있으면 닫기
-        if($('#popBack1>li').length > 0){
-            initRightPostCard();
-        }
-    });
+    // 오른쪽 글 카드 열려있으면 닫기
+    if($('#popBack1>li').length > 0){
+        initRightPostCard();
+    }
+});

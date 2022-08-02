@@ -7,6 +7,7 @@ export function confirmOpen(clsName){
     $('.popup-confirm-warp').addClass(clsName);
     $('#popBack2').addClass(clsName);
 }
+
 // confirm 창 닫기
 export function  confirmClose(clsName){
     $('.back-area.temp-popup').removeClass('flow-all-background-1');

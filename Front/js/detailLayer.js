@@ -211,7 +211,6 @@ $(document).on('click', '.comment-more-button', function () {
 // 상단 고정 누를시
 let postNo, postPin, pinid;
 $(document).on('click', '.js-pin-post', function (e) {
-
     // 제출 누르면 저 클래스가 사라져서 임의로 추가해져서 팝업창을 계속 띄우게 유지함
     $('#popupBackground').addClass('flow-all-background-1');
 

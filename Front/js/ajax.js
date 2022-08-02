@@ -8,7 +8,6 @@ import {view, getPostAll} from './detailLayer.js';
 import {closeCenterPopup} from './detailPopup.js';
 import {closeRightPostCard, settingButtonClose} from './rightPostCard.js'
 
-
 let memNo = window.localStorage.getItem('memNo')
 
 // 알림 모두 가져오기
@@ -1187,7 +1186,7 @@ export function getPostToCenterPopupAjax(rmNo, postNo){
                                 </div>
                                 <div class="post-card-container">
                                     
-                                    <div id="originalPost" class="post-card-content " style="display:none" data=""><div id="viewer" class="viewers`+ result.posts.postNo + `">`+result.posts.postContent+`</div></div>
+                                    <div id="originalPost" class="post-card-content " style="display:none" data=""><div id="viewer" class="viewer`+ result.posts.postNo + `">`+result.posts.postContent+`</div></div>
                                 
                                     <div class="post-bottom-area">
                                         <div class="post-bottom-menu js-reaction-bookmark">
@@ -1367,7 +1366,7 @@ export function getPostToRightPostCardAjax(rmNo, postNo){
                                 </div>
                                 <div class="post-card-container">
                                 
-                                    <div id="originalPost" class="post-card-content " style="display:block" data=""><div id="viewer" class="viewers`+ result.posts.postNo + `">`+result.posts.postContent+`</div></div>
+                                    <div id="originalPost" class="post-card-content " style="display:block" data=""><div id="viewer" class="viewer`+ result.posts.postNo + `">`+result.posts.postContent+`</div></div>
                                 
                                     <div id="summaryPost" class="post-card-content hidden" style="display:none" data=""><div>`+result.posts.postContent+`</div></div>
                                 

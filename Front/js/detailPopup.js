@@ -36,7 +36,8 @@ export function updatePopup(typeNo, rmNo, postNo) {
 
 // 중앙 팝업 영역 외 클릭 시 닫기
 $('#popBack1').mousedown(function(e){
-    if(!$(e.target).closest('.js-popup-before').length>0&&!$(e.target).closest('#rightPostCard').length>0&&!$(e.target).closest('#detailPostCard').length>0){
+    if($(this).find("[id^='post-']").length > 0 && !$(e.target).closest('#rightPostCard').length>0 
+        && !$(e.target).closest('#detailPostCard').length>0 && $('.create-post-wrap').css('display')=='none'){
         $('#detailComment').children().remove();
         $('#popBack1>li').remove();
         $('#postPopup').removeClass('flow-all-background-1');
