@@ -7,11 +7,6 @@
 .small-style-wrap {
     position: relative;
 }
-ul {
-    margin: 0;
-    padding: 0;
-}
-
 
 /* 즐겨찾기-참여중 섹션 나누기 */
 .section-1:after {

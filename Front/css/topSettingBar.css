@@ -143,11 +143,6 @@
     vertical-align: middle;
     font-weight: bold;
 }
-.ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
 .project-status-group {
     display: inline-block;
     margin: 2px 0 0 8px;

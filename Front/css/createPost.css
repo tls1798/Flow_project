@@ -10,15 +10,7 @@
     background: rgba(0,0,0,.6);
     z-index: 10;
 }
-.flow-project-make-1.flow-project-make-1 {
-    display: table;
-    width: 100%;
-    height: 100%;
-}
-.flow-project-make-2 {
-    display: table-cell;
-    vertical-align: middle;
-}
+
 /* create-post-wrap */
 .create-post-wrap {
     position: relative;
@@ -32,6 +24,7 @@
     box-shadow: 20px 20px 30px rgb(0 0 0 / 20%);
     border-radius: 10px;
 }
+
 /* create-post-header */
 .create-post-header {
     position: relative;
@@ -58,14 +51,7 @@
     position: absolute;
     top: 0;
 }
-[class^=icons-] {
-    font-style: normal;
-    font-weight: 400;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-}
+
 /* create-post-nav */
 .create-post-nav {
     display: flex;
@@ -87,15 +73,6 @@
     border-color: #333;
     font-weight: 600;
 }
-.create-post-nav li {
-    display: flex;
-    -webkit-box-flex: 1;
-    flex: 1;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-}
 .bi.bi-fonts {
     font-family: icon-contents!important;
     font-style: normal;
@@ -109,6 +86,7 @@
 .create-post-nav li .create-tab i~span {
     line-height: 1.2em;
 }
+
 /* create-post-container */
 .scroll-mask {
     overflow-y: scroll;
@@ -135,8 +113,7 @@
     font-size: 18px;
     border-bottom: 1px solid #eee;
     resize: none;
-    overflow-y: hidden;
-    
+    overflow-y: hidden; 
 }
 .create-title-input:focus,.create-post-content:focus-visible{
     outline: none;
@@ -164,6 +141,7 @@
     word-break: break-all;
     line-height: 25px;
 }
+
 /* create-post-footer */
 .create-post-footer {
     margin-left: 30px;
@@ -216,6 +194,7 @@
     color: #fff;
     text-align: center;
 }
+
 /* 글 수정 버튼 */
 .create-post-button {
     float: left;
@@ -245,6 +224,7 @@
 .js-editing-buttons{
     display: inline-block;
 }
+
 /* 글 작성 중단 팝업 */
 .flow-project-popup-6 {
     position: relative;
@@ -295,9 +275,6 @@
 }
 .flow-pop-button-type-1 {
     text-align: center;
-}
-.cursor-pointer {
-    cursor: pointer;
 }
 .flow-pop-sub-button-1 {
     display: inline-block;

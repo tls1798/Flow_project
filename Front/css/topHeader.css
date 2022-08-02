@@ -1,16 +1,3 @@
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-html {
-    line-height: normal;
-    -webkit-text-size-adjust: 100%;
-}
-
-header {
-    display: block;
-}
 .header {
     display: flex;
     height: 40px;
@@ -29,9 +16,6 @@ header {
 
     transition: background-color .5s linear;
 }
-div {
-    display: block;
-}
 
 /* 헤더 우측 아이콘 */
 .top-btns {
@@ -42,11 +26,6 @@ div {
     font-size: 0;
 }
 button {
-    cursor: pointer;
-
-    background-color: transparent;
-    border: 0px;
-    
     writing-mode: horizontal-tb !important;
     text-rendering: auto;
     letter-spacing: normal;
@@ -123,13 +102,7 @@ button {
     text-align: left;
     color: #555;
 }
-ul, li, p, form, input {
-    margin: 0;
-    padding: 0;
-}
 ul {
-    list-style: none;
-
     margin-block-start: 1em;
     margin-block-end: 1em;
     margin-inline-start: 0px;
@@ -165,9 +138,6 @@ li {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-strong {
-    font-weight: bold;
 }
 .modal-account .user-img {
     width: 40px;
@@ -248,17 +218,6 @@ form {
     margin: 0 11px 0 0;
     background: url(https://flow.team/flow-renewal/assets/images/icon-search-dark.png);
     vertical-align: middle;
-}
-button, input {
-    border-radius: 0;
-    border: 0;
-}
-button, input {
-    font-family: inherit;
-    font-size: 100%;
-    line-height: normal;
-    margin: 0;
-    color: #333;
 }
 .main-search input {
     padding-right: 10px;

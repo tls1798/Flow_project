@@ -45,6 +45,7 @@ section.project-template-layer>article {
     left: 0;
     right: 0;
 }
+
 /* project-template-intro */
 article.project-template-intro {
     background: #ece9fc url(https://flow.team/flow-renewal/assets/images/project_template/project-template-intro.svg) no-repeat top 180px right -470px;

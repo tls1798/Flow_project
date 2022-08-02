@@ -1,12 +1,3 @@
-body, pre, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, select, table, td, textarea, th, ul {
-    margin: 0;
-    padding: 0;
-}
-
-address, em {
-    font-style: normal;
-}
-
 .participants-list li::after {
     display: block;
     content: "";
@@ -64,6 +55,7 @@ address, em {
     background: #333;
     border-radius: 10px;
 }
+
 /* detail timeline */
 #detailTimeline{
     display: block;
@@ -83,6 +75,7 @@ address, em {
     max-width: 1151px;
     margin: 0 auto;
 }
+
 /* detail feed */
 .project-detail-container {
     display: block;
@@ -90,6 +83,7 @@ address, em {
     max-width: 674px;
     margin: 20px 30px 0 0;
 }
+
 /* 글 쓰기 버튼 */
 .project-detail-content {
     margin-top: 20px;
@@ -128,15 +122,6 @@ address, em {
 .post-filter i {
     margin-right: 10px;
 }
-[class*=" icons-"], [class^=icons-] {
-    font-family: icon-contents!important;
-    font-style: normal;
-    font-weight: 400;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-}
 .work-desing-element {
     overflow: hidden;
     padding: 15px 30px;
@@ -150,6 +135,7 @@ address, em {
     margin-top: 2px;
     float: right;
 }
+
 /* 게시 글 없을 때 */
 .detail-data-none {
     text-align: center;
@@ -257,6 +243,7 @@ address, em {
     border-radius: 6px;
     box-sizing: border-box;
 }
+
 /* 로딩 중 아이콘 */
 .unidentified-list {
     overflow: hidden;
@@ -309,24 +296,6 @@ address, em {
 }
 .unidentified-list li.not-read-alarm-item .unidentified-item.profile .thumbnail {
     margin-top: 3px;
-}
-.thumbnail.size40 {
-    width: 40px;
-    height: 40px;
-}
-.radius16 {
-    border-radius: 16px;
-}
-.thumbnail {
-    display: inline-block;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-color: #fff;
-    border: 1px solid #eee;
-    cursor: pointer;
-    box-sizing: border-box;
-    vertical-align: middle;
 }
 .middle-wr {
     width: 500px;
@@ -397,7 +366,6 @@ address, em {
     background: #ff6b6b;
     color: #fff;
 }
-
 .unidentified-more-btn {
     position: absolute;
     left: 32px;
@@ -414,14 +382,7 @@ address, em {
     border-radius: 200px;
     cursor: pointer;
 }
-.blind {
-    position: absolute;
-    clip: rect(0 0 0 0);
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-}
+
 /* 상단 고정 */
 .detail-section {
     margin: 0 0 15px 0;
@@ -481,15 +442,6 @@ address, em {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
-}
-[class*=" icons-"], [class^=icons-] {
-    font-family: icon-contents!important;
-    font-style: normal;
-    font-weight: 400;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
 }
 .fixed-text {
     max-width: 72%;
@@ -560,12 +512,7 @@ address, em {
     background-position: -48px 0;
     vertical-align: middle;
 }
-/* feed title 전체 */
-.ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
+
 /* feed detail 글 카드 */
 .feed-content {
     margin-top: 8px;
@@ -604,25 +551,6 @@ address, em {
     display: flex;
     float: initial;
     width: calc(100vh - 77px);
-}
-.thumbnail.size40 {
-    width: 40px;
-    height: 40px;
-}
-.radius16 {
-    border-radius: 16px;
-}
-.thumbnail {
-    display: inline-block;
-    background-image: url(https://flow.team/flow-renewal/assets/images/profile-default.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-color: #fff;
-    border: 1px solid #eee;
-    cursor: pointer;
-    box-sizing: border-box;
-    vertical-align: middle;
 }
 .post-card-wrapper .card-header-top .post-author .post-author-info {
     display: flex;
@@ -676,6 +604,7 @@ address, em {
 .post-security i {
     margin-right: 4px;
 }
+
 /* 카드 제목 */
 .card-header-bottom {
     position: relative;
@@ -709,6 +638,7 @@ address, em {
     vertical-align: middle;
     word-break: break-word;
 }
+
 /* 카드 내용 */
 .post-card-container {
     padding: 10px 0 20px;
@@ -791,12 +721,6 @@ address, em {
 .post-bottom-button+.post-bottom-button {
     margin-left: 10px;
 }
-.post-bottom-button i {
-    margin: -2px 4px 0 0;
-    content: "";
-    background-image: url(https://flow.team/flow-renewal/assets/images/sprite-project-detail.png);
-    background-size: 844px auto;
-}
 .post-bottom-button:hover .icon-bookmark {
     background-position: -350px -75px;
 }
@@ -808,6 +732,7 @@ address, em {
     vertical-align: middle;
 }
 
+/* 댓글 */
 .cmt-read-wr {
     position: absolute;
     bottom: 0;
@@ -874,9 +799,6 @@ address, em {
 .comment-container fieldset {
     position: relative;
 }
-fieldset, img {
-    border: 0;
-}
 .comment-input[contenteditable], .edit-comment-input[contenteditable] {
     width: 100%;
     padding: 11px 60px 11px 20px;
@@ -906,6 +828,7 @@ fieldset, img {
     content: "";
     clear: both;
 }
+
 /* 참여자 영역 */
 .participants-section {
     width: 100%;
@@ -981,6 +904,7 @@ fieldset, img {
     width: 90%;
     float: left;
 }
+
 /* 북마크 */
 .post-bottom-button.on {
     color: #6449fc;
@@ -1066,7 +990,6 @@ fieldset, img {
     min-width: 100px;
     width: auto;
 }
-
 .post-list-wrapper .fixed-kind {
     min-width: 105px;
     padding-left: 20px;
@@ -1134,7 +1057,6 @@ fieldset, img {
 .search-text-type-3.contents-project {
     color: #999;
 }
-
 .search-text-type-3 {
     overflow: hidden;
     display: block;
@@ -1157,7 +1079,6 @@ fieldset, img {
     -moz-box-pack: end;
     justify-content: flex-end;
 }
-
 .post-list-right {
     padding-right: 15px;
     overflow: hidden;
@@ -1187,6 +1108,7 @@ fieldset, img {
 .js-all-post-item:hover{
 background-color: rgb(239, 236, 255);
 }
+
 /* 북마크 알림창 */
 .alert-type.success {
     background: rgb(100,73,252);
