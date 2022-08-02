@@ -55,7 +55,7 @@ $(document).on('click', '.comment-writer-menu',function(e){
         $(this).closest('.comment-container').removeClass('on');
         $(this).closest('.comment-container').next().addClass('on');
         // 줄바꿈을 포함하여 div에 들어가도록 수정해야 함
-        $(this).closest('.comment-container').next().find('.edit-comment-input').text(cmContent);
+        $(this).closest('.comment-container').next().find('.edit-comment-input').text((cmContent).replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
 
         // shift+enter 줄 바꿈, 엔터 시 입력
         $(document).on('keyup', '.edit-comment-input', function (key) {

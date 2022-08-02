@@ -8,7 +8,7 @@ import {view, getPostAll} from './detailLayer.js';
 import {closeCenterPopup} from './detailPopup.js';
 import {closeRightPostCard, settingButtonClose} from './rightPostCard.js'
 
-let accessToken = window.localStorage.getItem('accessToken')
+
 let memNo = window.localStorage.getItem('memNo')
 
 // 알림 모두 가져오기
@@ -19,7 +19,7 @@ export function getAllAlarmsAjax(){
             url: 'http://localhost:8080/api/notis/member/' + memNo,
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {
-                xhr.setRequestHeader("token", accessToken);
+                xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
                 succ(result);
@@ -102,7 +102,7 @@ export function readAllAlarmAjax() {
         url: 'http://localhost:8080/api/notis/member/' + memNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("token", accessToken);
+            xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             updateAlarms();
@@ -120,7 +120,7 @@ export function readAllAlarmsByProjectAjax() {
         url: 'http://localhost:8080/api/notis/member/' + memNo + '/rooms/' + $('#detailSettingProjectSrno').text(),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("token", accessToken);
+            xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             updateAlarms();
@@ -139,7 +139,7 @@ export function readAlarmAjax(ntNo, postNo, leftAlarmCnt){
         data: JSON.stringify({"ntNo":ntNo, "memNo":memNo, "postNo":postNo}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("token", accessToken);
+            xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             // 알림 카운팅
@@ -179,7 +179,7 @@ export function getBookmarkAjax(){
         url: 'http://localhost:8080/api/bookmark/' + memNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("token", accessToken);
+            xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
 
@@ -252,7 +252,7 @@ export function removeBookmarkAjax(postNo){
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({"memNo": memNo,"postNo": postNo}),
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("token", accessToken);
+            xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             alert();
@@ -272,7 +272,7 @@ export function addBookmarkAjax(postNo){
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({"memNo": memNo,"postNo": postNo}),
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("token", accessToken);
+            xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             alert();
@@ -291,7 +291,7 @@ export function getAllRoomsAjax(rmNo){
         url: 'http://localhost:8080/api/rooms/'+rmNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             // 내가 관리자일 경우
@@ -321,7 +321,7 @@ export function getMemberAjax(memNo, memInfo){
         contentType: 'application/json; charset=utf-8',
         async: false,
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             memInfo = result;
@@ -340,7 +340,7 @@ export function getAllMembers(){
         url: 'http://localhost:8080/api/members',
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             if(result.length == 0){
@@ -386,7 +386,7 @@ export function addMembersToProject(jsonData, rmNo, ntTemp){
             data: jsonData,
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {      
-                xhr.setRequestHeader("token",accessToken);
+                xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
                 succ(result)
@@ -406,7 +406,7 @@ export function addMembersToProject(jsonData, rmNo, ntTemp){
             contentType: 'application/json; charset=utf-8',
             async: false,
             beforeSend: function (xhr) {      
-                xhr.setRequestHeader("token",accessToken);
+                xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
                 var socket = io.connect('http://localhost:3000');
@@ -427,7 +427,7 @@ export function getParticipantsWithoutMeAjax(rmNo, ntTemp){
         contentType: 'application/json; charset=utf-8',
         async : false,
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             for(let i=0;i<result.length;i++){
@@ -455,7 +455,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntTemp, cmNo){
             data: JSON.stringify({"postNo" : postNo, "cmContent" : cmContent, "cmWriter" : memNo}),
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {      
-                xhr.setRequestHeader("token",accessToken);
+                xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
                 succ(result);
@@ -522,7 +522,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntTemp, cmNo){
             contentType: 'application/json; charset=utf-8',
             async: false,
             beforeSend: function (xhr) {      
-                xhr.setRequestHeader("token",accessToken);
+                xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
                 var socket = io.connect('http://localhost:3000');
@@ -543,7 +543,7 @@ export function editCommentAjax(postNo, cmContent, cmNo){
         data: JSON.stringify({"postNo" : postNo, "cmNo":cmNo, "cmContent" : cmContent, "cmWriter" : memNo}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             // text 수정
@@ -566,7 +566,7 @@ export function removeCommentAjax(e, postNo, cmNo, myCm){
         url: 'http://localhost:8080/api/posts/'+postNo+'/comments/'+cmNo+'/'+memNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             
@@ -586,14 +586,14 @@ export function removeCommentAjax(e, postNo, cmNo, myCm){
 
 // 글 작성
 export function addPostAjax(rmNo, postNo, postTitle, postContent, ntTemp){
-    new Promise((succ, fail) =>{
+    new Promise((succ, fail) => {
         $.ajax({
             type: 'POST',
             url: 'http://localhost:8080/api/rooms/'+rmNo+'/posts',
             data: JSON.stringify({"rmNo":rmNo, "postWriter":memNo, "postTitle":postTitle, "postContent":postContent}),
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {      
-                xhr.setRequestHeader("token",accessToken);
+                xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
                 succ(result);
@@ -602,6 +602,7 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntTemp){
             },
             error: function (xhr, status, err) {
                 autoaccess()
+                addPostAjax(rmNo, postNo, postTitle, postContent, ntTemp)
             }
         });
 
@@ -616,7 +617,7 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntTemp){
             contentType: 'application/json; charset=utf-8',
             async: false,
             beforeSend: function (xhr) {      
-                xhr.setRequestHeader("token",accessToken);
+                xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
                 var socket = io.connect('http://localhost:3000');
@@ -637,7 +638,7 @@ export function editPostAjax(rmNo, postNo, editTitle, editContent){
         data: JSON.stringify({"postTitle":editTitle, "postContent":editContent, "rmNo":rmNo, "postNo":postNo}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             postPopupClose();
@@ -661,7 +662,7 @@ export function removePostAjax(rmNo, postNo){
         url: 'http://localhost:8080/api/rooms/'+rmNo+'/posts/'+postNo+'/'+memNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             $('.project-item[data-id='+rmNo+']').click();
@@ -684,7 +685,7 @@ export function addProjectAjax(rmNo){
             "rmDes":$('#projectContentsInput').val(), "rmAdmin" : memNo}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             // 프로젝트 리스트 업데이트
@@ -706,7 +707,7 @@ export function editProjectAjax(title, content){
         data: JSON.stringify({"rmNo":$('#detailSettingProjectSrno').text(), "rmTitle":title, "rmDes":content}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             // topSettingBar 수정
@@ -731,7 +732,7 @@ export function exitProjectAjax(){
         data: JSON.stringify({"rmNo":$('#detailSettingProjectSrno').text(), "memNo":memNo}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             // 프로젝트 리스트 업데이트
@@ -751,7 +752,7 @@ export function removeProjectAjax(){
         type: 'DELETE',
         url: 'http://localhost:8080/api/rooms/'+$('#detailSettingProjectSrno').text(),
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             // 프로젝트 리스트 업데이트
@@ -775,7 +776,7 @@ export function addPinAjax(postNo, postPin, getpinPosts){
         url: 'http://localhost:8080/api/rooms/posts/' + postNo + '/pin/' + postPin,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("token", accessToken);
+            xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             getPostAll(getpinPosts)
@@ -794,7 +795,7 @@ export function getAllParticipantsAjax(rmNo){
         url: 'http://localhost:8080/api/rooms/' + rmNo + '/members',
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("token", accessToken);
+            xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
 
@@ -860,7 +861,7 @@ export function getAllPostsByProjectAjax(rmNo){
         url: 'http://localhost:8080/api/members/'+ memNo +'/rooms/'+ rmNo +'/posts',
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("token", accessToken);
+            xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             
@@ -1117,7 +1118,7 @@ export function getPostToCenterPopupAjax(rmNo, postNo){
         contentType: 'application/json; charset=utf-8',
         async : false,
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function(result, status, xhr){
             $('#popBack1').append(`
@@ -1296,7 +1297,7 @@ export function getPostToRightPostCardAjax(rmNo, postNo){
         url: 'http://localhost:8080/api/members/'+memNo+'/rooms/'+rmNo+'/posts/'+postNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function(result, status, xhr) {
             $('#popBack1').append(`
@@ -1534,7 +1535,7 @@ export function logoutAjax(){
         url: 'http://localhost:8080/api/auth/members/' + memNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("token", accessToken);
+            xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             window.localStorage.setItem('accessToken', '');
@@ -1573,7 +1574,7 @@ export function deleteMemberAjax(){
         url: 'http://localhost:8080/api/auth/members/temp/' + memNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             alert('성공');
@@ -1592,7 +1593,7 @@ export function getAllProjectsByMeAjax(){
             url: 'http://localhost:8080/api/members/'+memNo+'/rooms',
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {      
-                xhr.setRequestHeader("token",accessToken);
+                xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
                 succ(result);
@@ -1670,7 +1671,7 @@ export function addFavoriteProjectAjax(rmNo){
         data: JSON.stringify({"rmNo": rmNo, "memNo": memNo}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             updateList();
@@ -1689,7 +1690,7 @@ export function deleteFavoriteProjectAjax(rmNo){
         data: JSON.stringify({"rmNo": rmNo, "memNo": memNo}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",accessToken);
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             updateList();
