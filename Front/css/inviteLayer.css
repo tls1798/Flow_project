@@ -206,7 +206,9 @@
 .btn-close-invite:hover .icons-close-1::before{
     color: #6449fc;
 }
-
+#inviteTargetList a{
+    color: #555;
+}
 
 .project-invite-popup .project-invite-popup-body {
     display: flex;

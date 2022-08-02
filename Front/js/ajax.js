@@ -330,7 +330,6 @@ export function getMemberAjax(memNo, memInfo){
             autoaccess()
         }
     });
-
     return memInfo;
 }
 
@@ -889,26 +888,25 @@ export function getAllPostsByProjectAjax(rmNo){
                     // 상단고정일 경우
                     if (result[i].posts.postPin) {
                         count++;
-                        $('#pinPostUl').append(
-                            `<li id="posts-`+result[i].posts.postNo+`" class="js-pin-item" index="4" data-project-srno="`+rmNo+`" data-post-srno="`+result[i].posts.postNo+`" data-post-pin="`+result[i].posts.postPin+`" >
-                                            <a href="#">
-                                                <div class="fixed-kind">
-                                                    <i class="icons-write2"></i>
-                                                    <span>글</span>
-                                                </div>
-                                                <p id="fixed-`+result[i].posts.postNo+`" class="js-post-title fixed-text ">`+result[i].posts.postTitle
-                            // (result[i].posts.postTitle == '' ? (result[i].posts.postContent.length > 30 ? (result[i].posts.postContent.substr(0, 30) + '···') : result[i].posts.postContent) : result[i].posts.postTitle)
-                            + `</p>
-                                                <div class="fixed-value">
-                                                    <span class="js-task-state js-todo-state d-none"></span>
-                                                    <div class="date-time d-none">
-                                                        <em class="date"></em>
-                                                        <span></span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>`
-                        )
+                        $('#pinPostUl').append(`
+                            <li id="posts-`+result[i].posts.postNo+`" class="js-pin-item" index="4" data-project-srno="`+rmNo+`" data-post-srno="`+result[i].posts.postNo+`" data-post-pin="`+result[i].posts.postPin+`" >
+                                <a href="#">
+                                    <div class="fixed-kind">
+                                        <i class="icons-write2"></i>
+                                        <span>글</span>
+                                    </div>
+                                    <p id="fixed-`+result[i].posts.postNo+`" class="js-post-title fixed-text ">`+result[i].posts.postTitle+ `</p>
+                                    <div class="fixed-value">
+                                        <span class="js-task-state js-todo-state d-none"></span>
+                                        <div class="date-time d-none">
+                                            <em class="date"></em>
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        `)
+
                         // 타이틀이 null 이면
                         if (result[i].posts.postTitle == '') {
                             // 길이가 30자 이상이면 30자 까지
@@ -920,7 +918,7 @@ export function getAllPostsByProjectAjax(rmNo){
                                 $('#fixed-' + result[i].posts.postNo + '').text((result[i].posts.postContent.substr(0, result[i].posts.postContent.search('</p>'))).replace(/(<([^>]+)>)/ig,""))
                             }
                             else {
-                                    $('#fixed-' + result[i].posts.postNo + '').text((result[i].posts.postContent).replace(/(<([^>]+)>)/ig,""))                        
+                                $('#fixed-' + result[i].posts.postNo + '').text((result[i].posts.postContent).replace(/(<([^>]+)>)/ig,""))                        
                             }
                         } 
                     }
@@ -1046,7 +1044,6 @@ export function getAllPostsByProjectAjax(rmNo){
                                         <div class="comment-user-area">
                                             <div class="comment-user">
                                                 <span class="user-name js-comment-user-name">`+ result[i].commentsList[j].cmName + `</span>
-                                                <span class="user-position"></span>
                                                 <span class="record-date">`+ result[i].commentsList[j].cmDatetime + `</span>
                                             </div>
                                             <div id="`+ result[i].commentsList[j].cmWriter + `" class="comment-writer-menu">
@@ -1124,111 +1121,107 @@ export function getPostToCenterPopupAjax(rmNo, postNo){
         },
         success: function(result, status, xhr){
             $('#popBack1').append(`
-            <li id="post-`+result.posts.postNo+`" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="`+result.posts.rmNo+`" data-post-srno="`+result.posts.postNo+`" data-remark-srno="" data-bookmark="`+result.posts.postBookmark+`" data-section-srno="" data-rgsr-id="`+result.posts.postWriter+`" mngr-wryn="" mngr-dsnc="" data-post-code="1" data-post-pin="`+result.posts.postPin+`" status="" time="" data-code="VIEW" data-post-url="https://flow.team/l/0fXYO">
-                <div id="detailPostCard" class="js-post-nav card-item post-card-wrapper write2">
-                    <div class="post-popup-header card-popup-header " style="display: block;">
-                        <h3 class="card-popup-title">
-                            <i id="projectTitleColor" class="project-color color-code-3"></i>
-                            <span class="js-project-title-button">`+result.posts.rmTitle+`</span>
-                        </h3>
-                        <button class="btn-close card-popup-close close-detail">
-                            <i class="icons-close-1"></i>
-                        </button>
-                    </div>
-                    <div class="post-card-header">
-                        <div class="post-card-scroll">
-                            <div class="card-header-top">
-                                <div class="post-author js-post-author" data-author-id="`+result.posts.postWriter+`">
-                                    <span class="thumbnail size40 radius16" data=""></span>
-                                    <dl class="post-author-info">
-                                        <dt>
-                                            <strong class="author ellipsis">`+result.posts.postName+`</strong>
-                                            <em class="position ellipsis" style="display:inline" data=""></em>
-                                            <span class="date">`+result.posts.postDatetime+`</span>
-                                            <span class="post-security"> <i class="icons-person-7 js-mouseover" mouseover-text="전체 공개"></i></span>
-                                        </dt>
-                                    </dl>
-                                </div>
-                                <div>
-                                    <div id = "option-`+result.posts.postNo +`" class="post-option">
-                                        <button id="movePost" class="btn-go d-none" style="display: inline-block;">
-                                            게시글 바로가기
-                                        </button>
-                                        <button id="centerpin-`+ result.posts.postNo + `" class="js-pin-post fixed-btn js-pin-authority" data-project-srno="` + rmNo + `" data-post-srno="` + result.posts.postNo + `"  data-post-pin= "` + result.posts.postPin + `" style="display:block" data="">
-                                            <!-- fixed-btn on class -->
-                                            <span class="blind">상단 고정 등록</span>
-                                        </button>
-                                        <button id="detailSetting" class="js-setting-button set-btn">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </button>
-                                        <ul id="detailSettingList" class="js-setting-ul js-setting-layer setup-group d-none">
-                                            <li class="js-setting-item" data-code="modify" style="display:block" data="">
-                                                <a id="detailEditBtn" href="#"> <i class="bi bi-card-text"></i>수정
-                                                    <i class="edit-auth-icon icons-question js-mouseover d-none" mouseover-text="공동 수정 권한이 활성화 되어있습니다." style="display:none" data=""></i>
-                                                </a>
-                                            </li>
-                                            <li class="js-setting-item" data-code="delete" style="display:block" data="">
-                                                <a id="detailDelBtn" href="#"> <i class="bi bi-trash"></i>삭제</a>
-                                            </li>
-                                        </ul>
+                <li id="post-`+result.posts.postNo+`" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="`+result.posts.rmNo+`" data-post-srno="`+result.posts.postNo+`" data-remark-srno="" data-bookmark="`+result.posts.postBookmark+`" data-section-srno="" data-rgsr-id="`+result.posts.postWriter+`" mngr-wryn="" mngr-dsnc="" data-post-code="1" data-post-pin="`+result.posts.postPin+`" status="" time="" data-code="VIEW" data-post-url="https://flow.team/l/0fXYO">
+                    <div id="detailPostCard" class="js-post-nav card-item post-card-wrapper write2">
+                        <div class="post-popup-header card-popup-header " style="display: block;">
+                            <h3 class="card-popup-title">
+                                <i id="projectTitleColor" class="project-color color-code-3"></i>
+                                <span class="js-project-title-button">`+result.posts.rmTitle+`</span>
+                            </h3>
+                            <button class="btn-close card-popup-close close-detail">
+                                <i class="icons-close-1"></i>
+                            </button>
+                        </div>
+                        <div class="post-card-header">
+                            <div class="post-card-scroll">
+                                <div class="card-header-top">
+                                    <div class="post-author js-post-author" data-author-id="`+result.posts.postWriter+`">
+                                        <span class="thumbnail size40 radius16" data=""></span>
+                                        <dl class="post-author-info">
+                                            <dt>
+                                                <strong class="author ellipsis">`+result.posts.postName+`</strong>
+                                                <em class="position ellipsis" style="display:inline" data=""></em>
+                                                <span class="date">`+result.posts.postDatetime+`</span>
+                                                <span class="post-security"> <i class="icons-person-7 js-mouseover" mouseover-text="전체 공개"></i></span>
+                                            </dt>
+                                        </dl>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="js-card-header-bottom card-header-bottom ">
-                                <div class="post-title-area">
-                                    <h4 class="js-post-title post-title ">`+result.posts.postTitle+`</h4>
-                                </div>
-                            </div>
-                            <div class="post-card-container">
-                                
-                                <div id="originalPost" class="post-card-content " style="display:none" data=""><div>`+result.posts.postContent+`</div></div>
-                            
-                                <div id="summaryPost" class="post-card-content hidden" style="display:block" data=""><div>`+result.posts.postContent+`</div></div>
-                            
-                                <div id="summaryFoldArea" class="content-fold" style="display:block" data=""></div>
-            
-                                <div class="post-bottom-area">
-                                    <div class="post-bottom-menu js-reaction-bookmark">
-                                        <div class="bottom-button-area">
-                                            <button class="js-post-bookmark post-bottom-button" id="bookmark-`+ result.posts.postNo + `" data-pst-id="` + result.posts.postNo + `" data-book-value="0">
-                                                <i class="icon-bookmark"></i>
-                                                <span>북마크</span>
+                                    <div>
+                                        <div id = "option-`+result.posts.postNo +`" class="post-option">
+                                            <button id="movePost" class="btn-go d-none" style="display: inline-block;">
+                                                게시글 바로가기
                                             </button>
+                                            <button id="centerpin-`+ result.posts.postNo + `" class="js-pin-post fixed-btn js-pin-authority" data-project-srno="` + rmNo + `" data-post-srno="` + result.posts.postNo + `"  data-post-pin= "` + result.posts.postPin + `" style="display:block" data="">
+                                                <!-- fixed-btn on class -->
+                                                <span class="blind">상단 고정 등록</span>
+                                            </button>
+                                            <button id="detailSetting" class="js-setting-button set-btn">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+                                            <ul id="detailSettingList" class="js-setting-ul js-setting-layer setup-group d-none">
+                                                <li class="js-setting-item" data-code="modify" style="display:block" data="">
+                                                    <a id="detailEditBtn" href="#"> <i class="bi bi-card-text"></i>수정
+                                                        <i class="edit-auth-icon icons-question js-mouseover d-none" mouseover-text="공동 수정 권한이 활성화 되어있습니다." style="display:none" data=""></i>
+                                                    </a>
+                                                </li>
+                                                <li class="js-setting-item" data-code="delete" style="display:block" data="">
+                                                    <a id="detailDelBtn" href="#"> <i class="bi bi-trash"></i>삭제</a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
-                                    <div class="cmt-read-wr">
-                                        <div class="comment-count-area">
-                                            <span>댓글</span>
-                                            <span class="comment-count">`+result.commentsList.length+`</span>
-                                        </div>
-                                        <div class="js-read-check-button read-confirmation" style="display:block" data="">
-                                            <span>읽음</span>
-                                            <span class="confirmation-number">1</span>
-                                        </div>
+                                </div>
+                                <div class="js-card-header-bottom card-header-bottom ">
+                                    <div class="post-title-area">
+                                        <h4 class="js-post-title post-title ">`+result.posts.postTitle+`</h4>
                                     </div>
                                 </div>
-                                <!-- //post-card-container -->
-                            </div>
-                            <div class="post-card-footer js-comment-area">
-                                <div class="comment-header">
+                                <div class="post-card-container">
+                                    
+                                    <div id="originalPost" class="post-card-content " style="display:none" data=""><div id="viewer" class="viewers`+ result.posts.postNo + `">`+result.posts.postContent+`</div></div>
+                                
+                                    <div class="post-bottom-area">
+                                        <div class="post-bottom-menu js-reaction-bookmark">
+                                            <div class="bottom-button-area">
+                                                <button class="js-post-bookmark post-bottom-button" id="bookmark-`+ result.posts.postNo + `" data-pst-id="` + result.posts.postNo + `" data-book-value="0">
+                                                    <i class="icon-bookmark"></i>
+                                                    <span>북마크</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="cmt-read-wr">
+                                            <div class="comment-count-area">
+                                                <span>댓글</span>
+                                                <span class="comment-count">`+result.commentsList.length+`</span>
+                                            </div>
+                                            <div class="js-read-check-button read-confirmation" style="display:block" data="">
+                                                <span>읽음</span>
+                                                <span class="confirmation-number">1</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- //post-card-container -->
                                 </div>
-                                <ul id="detailComment" class="post-comment-group" data-id=`+result.posts.postNo+`></ul>
-                            </div>
-                            <div class="js-remark-layer js-edit-layer comment-input-wrap">
-                                <div class="comment-thumbnail">
-                                    <span class="thumbnail size40 radius16" data=""></span>
+                                <div class="post-card-footer js-comment-area">
+                                    <div class="comment-header">
+                                    </div>
+                                    <ul id="detailComment" class="post-comment-group" data-id=`+result.posts.postNo+`></ul>
                                 </div>
-                                <form class="js-remark-form comment-container on ">
-                                    <fieldset>
-                                        <legend class="blind">댓글 입력</legend>
-                                        <div class="js-remark-area js-paste-layer comment-input" contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
-                                    </fieldset>
-                                </form>
+                                <div class="js-remark-layer js-edit-layer comment-input-wrap">
+                                    <div class="comment-thumbnail">
+                                        <span class="thumbnail size40 radius16" data=""></span>
+                                    </div>
+                                    <form class="js-remark-form comment-container on ">
+                                        <fieldset>
+                                            <legend class="blind">댓글 입력</legend>
+                                            <div class="js-remark-area js-paste-layer comment-input" contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
+                                        </fieldset>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </li>
+                </li>
             `)
 
             // 자신의 글이 아니면 상단고정 , 메뉴를 안보이게 한다
@@ -1258,8 +1251,8 @@ export function getPostToCenterPopupAjax(rmNo, postNo){
                                     <span class="record-date">`+result.commentsList[i].cmDatetime+`</span>
                                 </div>
                                 <div id="`+result.commentsList[i].cmWriter+`" class="comment-writer-menu">
-                                    <button type="button" class="js-remark-update js-remark-edit-button comment-writer-button on">수정</button>
-                                    <button type="button" class="js-remark-delete js-remark-edit-button comment-writer-button on">삭제</button>
+                                    <button id="cmEditBtn" type="button" class="js-remark-update js-remark-edit-button comment-writer-button on">수정</button>
+                                    <button id="cmDelBtn" type="button" class="js-remark-delete js-remark-edit-button comment-writer-button on">삭제</button>
                                 </div>
                             </div>
                             <div class="js-remark-layer comment-content">
@@ -1273,19 +1266,23 @@ export function getPostToCenterPopupAjax(rmNo, postNo){
                                 <form class="js-remark-form comment-text-area">
                                     <fieldset>
                                         <legend class="blind">댓글 입력</legend>
-                                        <div class="js-remark-area js-paste-layer comment-input" contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
+                                        <div class="js-remark-area js-paste-layer edit-comment-input" contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
                                     </fieldset>
                                 </form>
                             </div>
                         </div>
                     </li>
                 `)
+
                 // 자신이 작성한 댓글이 아니면 수정 삭제를 할 수 없게 수정 삭제 버튼을 없앤다
                 if (result.commentsList[i].cmWriter != memNo) {
                     $('#'+result.commentsList[i].cmWriter+'').remove()
                 }
             }
+            // Toast ui viewer 불러오기
+            view(result.posts.postNo);
 
+            //중앙 팝업 닫기
             closeCenterPopup();
         },
         error: function (xhr, status, err) {}
@@ -1428,9 +1425,10 @@ export function getPostToRightPostCardAjax(rmNo, postNo){
             if(result.posts.postBookmark == 1) {
                 $('#bookmark-'+result.posts.postNo).addClass('on');
             }
-            for(let k=0;k<result.commentsList.length;k++){
+            let commentcount = 0;
+            for(let k=result.commentsList.length-1; k>=0; k--){
                 $('#rightPostCard #rightComment[data-id='+result.commentsList[k].postNo+']').append(`
-                    <li class="remark-item" remark-srno="`+result.commentsList[k].cmNo+`" data-user-id="`+result.commentsList[k].cmWriter+`">
+                    <li class="remark-item" id="cm-`+ result.commentsList[k].cmNo + `" remark-srno="`+result.commentsList[k].cmNo+`" data-cm-id=` + (k + 1) + ` data-user-id="`+result.commentsList[k].cmWriter+`">
                         <div class="comment-thumbnail js-comment-thumbnail">
                             <span class="thumbnail size40 radius16" data=""></span>
                         </div>
@@ -1440,9 +1438,9 @@ export function getPostToRightPostCardAjax(rmNo, postNo){
                                     <span class="user-name js-comment-user-name">`+result.commentsList[k].cmName+`</span>
                                     <span class="record-date">`+result.commentsList[k].cmDatetime+`</span>
                                 </div>
-                                <div class="comment-writer-menu">
-                                    <button type="button" class="js-remark-update js-remark-edit-button comment-writer-button on">수정</button>
-                                    <button type="button" class="js-remark-delete js-remark-edit-button comment-writer-button on">삭제</button>
+                                <div id="`+ result.commentsList[k].cmWriter + `" class="comment-writer-menu">
+                                    <button id="cmEditBtn" type="button" class="js-remark-update js-remark-edit-button comment-writer-button on">수정</button>
+                                    <button id="cmDelBtn" type="button" class="js-remark-delete js-remark-edit-button comment-writer-button on">삭제</button>
                                 </div>
                             </div>
                             <div class="js-remark-layer comment-content">
@@ -1456,13 +1454,35 @@ export function getPostToRightPostCardAjax(rmNo, postNo){
                                 <form class="js-remark-form comment-text-area">
                                     <fieldset>
                                         <legend class="blind">댓글 입력</legend>
-                                        <div class="js-remark-area js-paste-layer comment-input" contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
+                                        <div class="js-remark-area js-paste-layer edit-comment-input" contenteditable="true" placeholder="줄바꿈 Shift + Enter / 입력 Enter 입니다."></div>
                                     </fieldset>
                                 </form>
                             </div>
                         </div>
                     </li>
                 `)
+                commentcount++;
+
+                // 댓글이 3개 이상일시 보이지 않게 숨긴다
+                if ($('#cm-' + result.commentsList[k].cmNo + '').attr('data-cm-id') > 2) {
+                    $('#cm-' + result.commentsList[k].cmNo + '').addClass('d-none');
+                }
+
+                // 자신이 작성한 댓글이 아니면 수정 삭제를 할 수 없게 수정 삭제 버튼을 없앤다
+                if (result.commentsList[k].cmWriter != memNo) {
+                    $('#'+result.commentsList[k].cmWriter+'').remove()
+                }
+            }
+
+            // 이전 댓글 더보기 숫자를 설정
+            $('#post-' + result.posts.postNo + '').find('#cm-count-id').text(commentcount - 2);
+
+            // 계시판의 댓글 설정
+            $('#post-' + result.posts.postNo + '').attr('data-comment-count', commentcount);
+            
+            // 계시판의 댓글이 2개 이상일경우 댓글 더보기 div를 보여준다
+            if ($('#post-' + result.posts.postNo + '').attr('data-comment-count') > 2) {
+                $('#post-' + result.posts.postNo + '').find('.comment-more-button').removeClass('d-none');
             }
 
             // Toast ui viewer 불러오기
