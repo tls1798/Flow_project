@@ -411,7 +411,7 @@ export function addMembersToProject(jsonData, rmNo, ntTemp){
             },
             success: function (result, status, xhr) {
                 var socket = io.connect('http://localhost:3000');
-                socket.emit('test');
+                socket.emit('updateAlarmsEventToServer');
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -527,7 +527,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntTemp, cmNo){
             },
             success: function (result, status, xhr) {
                 var socket = io.connect('http://localhost:3000');
-                socket.emit('test');
+                socket.emit('updateAlarmsEventToServer');
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -577,7 +577,7 @@ export function removeCommentAjax(e, postNo, cmNo, myCm){
             myCm.remove();
 
             var socket = io.connect('http://localhost:3000');
-            socket.emit('test');
+            socket.emit('updateAlarmsEventToServer');
         },
         error: function (xhr, status, err) {
             autoaccess()
@@ -621,7 +621,7 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntTemp){
             },
             success: function (result, status, xhr) {
                 var socket = io.connect('http://localhost:3000');
-                socket.emit('test');
+                socket.emit('updateAlarmsEventToServer');
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -668,7 +668,7 @@ export function removePostAjax(rmNo, postNo){
             $('.project-item[data-id='+rmNo+']').click();
 
             var socket = io.connect('http://localhost:3000');
-            socket.emit('test');
+            socket.emit('updateAlarmsEventToServer');
         },
         error: function (xhr, status, err) {
             autoaccess()
@@ -761,7 +761,7 @@ export function removeProjectAjax(){
             $('.logo-box').click();
             
             var socket = io.connect('http://localhost:3000');
-            socket.emit('test');
+            socket.emit('updateAlarmsEventToServer');
         },
         error: function (xhr, status, err) {        
             autoaccess()    
