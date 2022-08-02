@@ -1,4 +1,5 @@
-import {autoaccess} from './autoAccess.js'
+import {getAllMembers, addMembersToProject} from './ajax.js'
+
 // 초기화
 const clearInviteLayer = function(){
     $('.js-member-item').removeClass('active');
@@ -44,48 +45,7 @@ $(function () {
 
     // 참여자 초대 클릭
     $('#openTeamInvite').click(function(e){
-        let accessToken = window.localStorage.getItem('accessToken')
-       // getMembers
-        $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8080/api/members',
-            contentType: 'application/json; charset=utf-8',
-            beforeSend: function (xhr) {      
-                xhr.setRequestHeader("token",accessToken);
-            },
-            success: function (result, status, xhr) {
-                if(result.length == 0){
-                    $('.invite-blank-txt').removeClass('d-none');
-                }
-                else {
-                    for(var i=0; i<result.length; i++){
-                        $('.project-invite-choiceList').append(`
-                            <li class="js-member-item" data-id="`+result[i].memNo+`" data-name="`+result[i].memName+`">
-                                <div class="my-check-2 js-select-Btn"></div>
-                                <div class="post-author">
-                                    <span class="js-profile thumbnail size40 radius16"
-                                        style="background-image:url(https://flow.team/flow-renewal/assets/images/profile-default.png), url(https://flow.team/flow-renewal/assets/images/profile-default.png)"
-                                        data=""></span>
-                                    <dl class="post-author-info">
-                                        <dt>
-                                            <strong id="name" class="author">`+result[i].memName+`</strong>
-                                            <em></em>
-                                        </dt>
-                                        <dd>
-                                            <strong class="company"></strong>
-                                            <span class="team"></span>
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </li>
-                        `);
-                    }
-                }
-            },
-            error: function (xhr, status, err) {
-                autoaccess()
-            }
-        });
+        getAllMembers();
 
         $('#inviteLayer').css('display', 'none');
         $('#invitePopup').css('display', 'block');
@@ -224,47 +184,7 @@ $(function () {
         let rmNo = $('#detailSettingProjectSrno').text();
 
         if (jsonData.length > 2) {
-            let accessToken = window.localStorage.getItem('accessToken')
-            new Promise((succ,fail)=>{
-                $.ajax({
-                    type: 'POST',
-                    url: 'http://localhost:8080/api/room-members',
-                    data: jsonData,
-                    contentType: 'application/json; charset=utf-8',
-                    beforeSend: function (xhr) {      
-                        xhr.setRequestHeader("token",accessToken);
-                    },
-                    success: function (result, status, xhr) {
-                        succ(result)
-                        // 참여자 업데이트
-                        $('.project-item[data-id='+rmNo+']').click();
-                    },
-                    error: function (xhr, status, err) {
-                        autoaccess()
-                    }
-                });
-            }).then((arg)=>{
-                let accessToken = window.localStorage.getItem('accessToken')
-                let memNo = window.localStorage.getItem('memNo')
-                // 초대 알림 보내기
-                $.ajax({
-                    type: 'POST',
-                    url: 'http://localhost:8080/api/notis/rooms/'+rmNo,
-                    data: JSON.stringify({"ntTypeNo":3, "ntDetailNo":null, "memNo":memNo, "rmNo":rmNo, "ntTemp":ntTemp, "postNo":null}),
-                    contentType: 'application/json; charset=utf-8',
-                    async: false,
-                    beforeSend: function (xhr) {      
-                        xhr.setRequestHeader("token",accessToken);
-                    },
-                    success: function (result, status, xhr) {
-                        var socket = io.connect('http://localhost:3000');
-                        socket.emit('test');
-                    },
-                    error: function (xhr, status, err) {
-                        autoaccess()
-                    }
-                });
-            })
+            addMembersToProject(jsonData, rmNo, ntTemp)
         }
 
         // 닫기

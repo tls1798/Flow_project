@@ -1,5 +1,4 @@
-import logoutModule from './logoutModule.js';
-import getMemberInfo from '../js/getMemberInfo.js';
+import {deleteMemberAjax, logoutAjax, getMemberAjax} from './ajax.js'
 
 // confirm 창 열기
 const confirmOpen_profile = function(){
@@ -21,34 +20,35 @@ const confirmClose_profile = function(){
 }
 
 $(function(){
-    let accessToken= window.localStorage.getItem('accessToken');
-    let memNo= window.localStorage.getItem('memNo');
-
     // profile li 클릭 시 팝업 띄우기
     $('#profileBtn').click(function(){
         // 프로필 모달 닫기
         $('#accountTopButton').removeClass('active');
         $(".modal-account").css('display', 'none');
 
+        var memInfo = getMemberAjax(selectedMemNo, memInfo);
+        
         // 이름, 이메일 넣기
-        var memInfo = getMemberInfo(memNo);
         $('.info-box').find('span').text(memInfo.memName);
         $('#profileEml').find('span').text(memInfo.memMail);
 
         $('.back-area.temp-popup').addClass('flow-all-background-1');
         $('.profile-popup').css('display','block');
+
         return false;
     })
 
     // 참여자 클릭 시 팝업 띄우기
     $(document).on('click', '.js-participant-item', function(){
+        var memInfo = getMemberAjax(selectedMemNo, memInfo);
+
         // 이름, 이메일 넣기
-        var memInfo = getMemberInfo($(this).attr('data-id'));
         $('.info-box').find('span').text(memInfo.memName);
         $('#profileEml').find('span').text(memInfo.memMail);
 
         $('.back-area.temp-popup').addClass('flow-all-background-1');
         $('.profile-popup').css('display','block');
+
         return false;
     })
 
@@ -74,25 +74,8 @@ $(function(){
             confirmClose_profile();
         } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
             confirmClose_profile();
-
-            // 탈퇴
-            $.ajax({
-                type: 'DELETE',
-                url: 'http://localhost:8080/api/auth/members/temp/' + memNo,
-                contentType: 'application/json; charset=utf-8',
-                beforeSend: function (xhr) {      
-                    xhr.setRequestHeader("token",accessToken);
-                },
-                success: function (result, status, xhr) {
-                    alert('성공');
-                },
-                error: function (xhr, status, err) {
-                    alert(err);
-                }
-            });
-
-            // 로그아웃
-            logoutModule();
+            deleteMemberAjax();
+            logoutAjax();
         } else {
             return false;
         }

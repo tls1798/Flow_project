@@ -1,4 +1,4 @@
-import logout from './logoutModule.js';
+import {logoutAjax} from './ajax.js'
 
 $(function(){
     let memNo= window.localStorage.getItem('memNo');
@@ -15,7 +15,7 @@ $(function(){
 
     $('#home_login').click(function(e){
         if ($('#home_login').text() == '로그아웃') {
-            logout();
+            logoutAjax();
         }
         location.href='./login.html'
     })

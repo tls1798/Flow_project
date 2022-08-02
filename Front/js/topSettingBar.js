@@ -1,5 +1,4 @@
-import projectList from './projectList.js';
-import {autoaccess} from './autoAccess.js'
+import {exitProjectAjax, removeProjectAjax, addFavoriteProjectAjax, deleteFavoriteProjectAjax} from './ajax.js';
 
 // confirm 창 열기
 const confirmOpen_project_setting = function(cls){
@@ -21,9 +20,7 @@ const confirmClose_project_setting = function(cls){
 }
 
 $(function(){
-    let accessToken = window.localStorage.getItem('accessToken')
-    let memNo = window.localStorage.getItem('memNo')
-    
+
     // 프로젝트 디테일 창 display:none -> false, block -> true
 
     // 프로젝트 디테일 버튼 클릭 시
@@ -55,53 +52,18 @@ $(function(){
 
         // 즐겨찾기 해제 상태일 때 -> 즐겨찾기 등록
         if($(e.target).hasClass('unstar')){
-
             // star 이미지 교체를 위한 removeClass
             $(e.target).removeClass('unstar');
 
-            // 비동기 통신
-            $.ajax({
-                type: 'POST',
-                url: 'http://localhost:8080/api/favorites',
-                data: JSON.stringify({"rmNo": rmNo, "memNo": memNo}),
-                contentType: 'application/json; charset=utf-8',
-                beforeSend: function (xhr) {      
-                    xhr.setRequestHeader("token",accessToken);
-                },
-                success: function (result, status, xhr) {
-                    // 프로젝트 리스트 업데이트
-                    projectList();
-                },
-                error: function (xhr, status, err) {
-                    autoaccess()
-                }
-            });
+            addFavoriteProjectAjax(rmNo);
         }
 
         // 즐겨찾는 프로젝트 일 때 -> 즐겨찾기 취소
         else{
-
             // star 이미지 교체를 위한 addClass
             $(e.target).addClass('unstar');
-            let accessToken = window.localStorage.getItem('accessToken')
-            let memNo = window.localStorage.getItem('memNo')
-            // 비동기 통신
-            $.ajax({
-                type: 'DELETE',
-                url: 'http://localhost:8080/api/favorites',
-                data: JSON.stringify({"rmNo": rmNo, "memNo": memNo}),
-                contentType: 'application/json; charset=utf-8',
-                beforeSend: function (xhr) {      
-                    xhr.setRequestHeader("token",accessToken);
-                },
-                success: function (result, status, xhr) {
-                    // 프로젝트 리스트 업데이트
-                    projectList();
-                },
-                error: function (xhr, status, err) {
-                    autoaccess()
-                }
-            });
+
+            deleteFavoriteProjectAjax(rmNo);
         }
     });
 
@@ -124,25 +86,7 @@ $(function(){
                 confirmClose_project_setting('exit-confirm');
             } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
                 confirmClose_project_setting('exit-confirm');
-                
-                $.ajax({
-                    type: 'DELETE',
-                    url: 'http://localhost:8080/api/room-members/'+$('#detailSettingProjectSrno').text(),
-                    data: JSON.stringify({"rmNo":$('#detailSettingProjectSrno').text(), "memNo":memNo}),
-                    contentType: 'application/json; charset=utf-8',
-                    beforeSend: function (xhr) {      
-                        xhr.setRequestHeader("token",accessToken);
-                    },
-                    success: function (result, status, xhr) {
-                        // 프로젝트 리스트 업데이트
-                        projectList();
-                        // 로고 클릭하여 프로젝트 리스트로
-                        $('.logo-box').click();
-                    },
-                    error: function (xhr, status, err) {
-                        autoaccess()
-                    }
-                });
+                exitProjectAjax();
             } else {
                 return false;
             }
@@ -152,26 +96,7 @@ $(function(){
                 confirmClose_project_setting('del-confirm');
             } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
                 confirmClose_project_setting('del-confirm');
-                
-                $.ajax({
-                    type: 'DELETE',
-                    url: 'http://localhost:8080/api/rooms/'+$('#detailSettingProjectSrno').text(),
-                    beforeSend: function (xhr) {      
-                        xhr.setRequestHeader("token",accessToken);
-                    },
-                    success: function (result, status, xhr) {
-                        // 프로젝트 리스트 업데이트
-                        projectList();
-                        // 로고 클릭하여 프로젝트 리스트로
-                        $('.logo-box').click();
-                        
-                        var socket = io.connect('http://localhost:3000');
-                        socket.emit('test');
-                    },
-                    error: function (xhr, status, err) {        
-                        autoaccess()    
-                    }
-                });
+                removeProjectAjax();
             } else {
                 return false;
             }

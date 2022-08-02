@@ -1,4 +1,5 @@
-import updateRight from '../js/rightPostCard.js';
+import {updateRight} from './rightPostCard.js';
+
 // 상단고정 클릭 시
 $(document).on('click','#pinPostUl',function(e){
     let rmNo; 

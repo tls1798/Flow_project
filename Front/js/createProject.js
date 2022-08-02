@@ -1,5 +1,4 @@
-import projectList from './projectList.js';
-import {autoaccess} from './autoAccess.js'
+import {addProjectAjax, editProjectAjax} from './ajax.js'
 
 // input, textarea 비우기
 const clearCreateProject = function(){
@@ -111,61 +110,18 @@ $(function(){
             }
             return str;
         }
-        let memNo = window.localStorage.getItem('memNo')
         var nowDate = new Date();
-        var rmNo = nowDate.YYYYMMDDHHMMSS()+memNo;
+        var rmNo = nowDate.YYYYMMDDHHMMSS()+window.localStorage.getItem('memNo');
 
         if ($(this).html() == '프로젝트 만들기') {
-            let accessToken = window.localStorage.getItem('accessToken')
-           
-            $.ajax({
-                type: 'POST',
-                url: 'http://localhost:8080/api/rooms',
-                data: JSON.stringify({"rmNo":rmNo, "rmTitle":$('#projectTitleInput').val(), 
-                    "rmDes":$('#projectContentsInput').val(), "rmAdmin" : memNo}),
-                contentType: 'application/json; charset=utf-8',
-                beforeSend: function (xhr) {      
-                    xhr.setRequestHeader("token",accessToken);
-                },
-                success: function (result, status, xhr) {
-                    // 프로젝트 리스트 업데이트
-                    projectList();
-                    // 해당 프로젝트 피드로 이동
-                    // 리팩토링 후 모듈 사용 (getRoom, updateParticipant, getPostAll, display 수정)
-                },
-                error: function (xhr, status, err) {
-                    autoaccess()
-                }
-            });
-            
+            addProjectAjax(rmNo);
             clearCreateProject();
         }
         else {
-            let accessToken = window.localStorage.getItem('accessToken')
             let title = $('#projectTitleInput').val();
             let content = $('#projectContentsInput').val();
-            $.ajax({
-                type: 'PUT',
-                url: 'http://localhost:8080/api/rooms/'+$('#detailSettingProjectSrno').text(),
-                data: JSON.stringify({"rmNo":$('#detailSettingProjectSrno').text(), "rmTitle":title, "rmDes":content}),
-                contentType: 'application/json; charset=utf-8',
-                beforeSend: function (xhr) {      
-                    xhr.setRequestHeader("token",accessToken);
-                },
-                success: function (result, status, xhr) {},
-                error: function (xhr, status, err) {
-                    autoaccess()
-                }
-            });
-            
-            // topSettingBar 수정
-            $('#projectTitle').text(title);
-            $('#projectContents').text(content);
-            
-            // input, textarea 비우기
-            $('#projectTitleInput').val('');
-            $('#projectContentsInput').val('');
 
+            editProjectAjax(title, content);
         }
 
         // 새 프로젝트 생성 관련 모달 안보이도록

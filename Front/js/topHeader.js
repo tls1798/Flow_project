@@ -1,5 +1,5 @@
-import logoutModule from './logoutModule.js';
-import updateAlarms from './socket.js'
+import {updateAlarms} from './socket.js'
+import {logoutAjax} from './ajax.js'
 
 // confirm 창 열기
 const confirmOpen_logout = function(){
@@ -51,7 +51,7 @@ $(function(){
             confirmClose_logout();
         } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
             confirmClose_logout();
-            logoutModule();
+            logoutAjax();
         } else {
             return false;
         }

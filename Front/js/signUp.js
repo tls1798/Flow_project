@@ -1,3 +1,5 @@
+import {postEmailCodeAjax} from './ajax.js';
+
 $(function () {
     
     // 1. 각 이메일 , 이름 , 패스워드 , 체크박스에 Valdation 체크를 한다.
@@ -40,48 +42,15 @@ $(function () {
 
         // 모든 검증에 통과하면 ajax 실행
         if (name == true && password == true && email == true && checkpassword == true && checkbox == true) {
-        
+
             // 이메일 팝업창을 띄운다
-        $('.temp-popup').addClass('flow-all-background-1')
-        $('.flow-project-popup-6').removeClass('d-none')
+            $('.temp-popup').addClass('flow-all-background-1')
+            $('.flow-project-popup-6').removeClass('d-none')
+
             // 입력된 이메일에 8자리 인증 코드를 전송한다
-            $.ajax({
-                type: 'POST',
-                url: 'http://localhost:8080/api/auth/email',
-                data: JSON.stringify({
-                    memMail: memMail
-                }),
-                contentType: 'application/json; charset=utf-8',
-                success: function (result, status, xhr) {
-                    // 이메일 전송이 완료되면 8자리 코드를 return 받는다
-                    const ePw = result.ePw
-                    $('.confirm-button').on('click', function () {           
-                        let num = $('#authInput').val();
-                        // 사용자가 입력한 인증 코드와 생성한 인증코드 일치하는지 확인
-                        if (num == ePw) {
-                            $.ajax({
-                                type: 'POST',
-                                url: 'http://localhost:8080/api/auth/members/new',
-                                data: JSON.stringify({
-                                    memMail: memMail,
-                                    memName: memName,
-                                    memPw: memPw
-                                }),
-                                contentType: 'application/json; charset=utf-8',
-                                success: function (result, status, xhr) {
-                                    location.href = 'login.html'
-                                },
-                                error: function (xhr, status, err) {}
-                            });
-                        } else {
-                            alert('인증코드가 맞지않습니다')
-                            location.href = 'signUp.html'
-                        }
-                    })
-                },
-                error: function (xhr, status, err) {}
-            });
+            postEmailCodeAjax(memMail, memName, memPw);
         }
+
         // ------------- 에러 메시지 혹은 input 비우기 ----------------
         // Value가 True 이면 에러 메시지를 지워준다 False 이면 input을 비워준다
         (email) // 이메일 칸
@@ -93,11 +62,11 @@ $(function () {
         (checkpassword) // 패스워드 두번째 칸
         ? $('.error-pw2').text(''):$('#password2').val('');
         if(checkbox) { // 체크박스
-        $('.js-error-text').addClass('d-none');
+            $('.js-error-text').addClass('d-none');
             $('.addbr').html('<br><br>')
         }
         else
-        $('input:checkbox[id="joinConfirmCheck"]').prop('checked', false);
+            $('input:checkbox[id="joinConfirmCheck"]').prop('checked', false);
         // ------------- 에러 메시지 혹은 input 비우기 ----------------
 
         // 인증 번호 치는 칸은 눌러도 팝업창이 닫히지 않게 설정
