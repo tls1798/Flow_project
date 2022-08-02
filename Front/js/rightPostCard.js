@@ -1,11 +1,16 @@
 import {getPostToRightPostCardAjax} from './ajax.js'
 
+// 오른쪽 글 카드 초기화
+export function initRightPostCard(){
+    $('#rightComment').children().remove();
+    $('#popBack1>li').children().remove()
+    $('#popBack1>li').remove();
+}
+
 // 오른쪽 글 카드 닫기
 export function closeRightPostCard(){
     $('.close-side').click(function(){
-        $('#rightComment').children().remove();
-        $('#popBack1>li').children().remove()
-        $('#popBack1>li').remove();
+        initRightPostCard();
     })
 }
 
@@ -21,9 +26,7 @@ export function settingButtonClose(){
 
 // 오른쪽 글 카드 초기화 및 업데이트 함수
 export function updateRight(rmNo, postNo) {
-    $('#rightComment').children().remove();
-    $('#popBack1>li').children().remove()
-    $('#popBack1>li').remove();
+    initRightPostCard();
 
     // 오른쪽 글 카드 업데이트
     getPostToRightPostCardAjax(rmNo, postNo);

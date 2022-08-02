@@ -1,5 +1,6 @@
 import {addPostAjax, editPostAjax, removePostAjax} from './ajax.js'
 import {confirmOpen_post, confirmClose_post} from './confirm.js'
+import {initRightPostCard} from './rightPostCard.js'
 
 // 글 생성 팝업 열기
 export function postPopupOpen(){
@@ -46,6 +47,8 @@ const toastEditor = function(){
 
 // 글 생성 버튼 클릭 시 글 생성 팝업 보이기 
 $('#createPostArea').click(function(){
+    // 오른쪽 글 카드 열려있으면 닫기
+    initRightPostCard();
     postPopupOpen();
     toastEditor();
     postClear();
