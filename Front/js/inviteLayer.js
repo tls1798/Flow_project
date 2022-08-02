@@ -147,7 +147,7 @@ $(function () {
             return;
         }
 
-        let ntTemp = '{';
+        let ntCheck = '{';
         var jsonData = "[";
         for(var i=0; i<cnt; i++){
             var curMem = $('#inviteTargetList').children('li:eq('+i+')').attr('data-id');
@@ -156,18 +156,18 @@ $(function () {
             
             if(jsonData.length!=1) {
                 jsonData += ",";
-                ntTemp += ",";
+                ntCheck += ",";
             }
             jsonData += "{\"rmNo\":"+$('#detailSettingProjectSrno').text()+", \"memNo\":"+curMem+"}";
-            ntTemp += '"'+curMem+'" : null';
+            ntCheck += '"'+curMem+'" : null';
         }
         jsonData += "]";
-        ntTemp += "}";
+        ntCheck += "}";
 
         let rmNo = $('#detailSettingProjectSrno').text();
 
         if (jsonData.length > 2) {
-            addMembersToProject(jsonData, rmNo, ntTemp)
+            addMembersToProject(jsonData, rmNo, ntCheck)
         }
 
         // 닫기

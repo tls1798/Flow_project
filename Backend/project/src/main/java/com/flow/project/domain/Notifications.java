@@ -21,14 +21,14 @@ public class Notifications {
     private String memName;
     private String rmTitle;
     private String notiContent;
-    private String ntTemp;
+    private String ntCheck;
     private int ntCount;
     private int postNo;
 
     public NotificationResponse toNotificationResponse() throws JsonProcessingException {
         // String -> JSON
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, String> map = objectMapper.readValue(ntTemp, Map.class);
+        Map<String, String> map = objectMapper.readValue(ntCheck, Map.class);
 
         return NotificationResponse.builder()
                 .ntNo(ntNo)
@@ -40,7 +40,7 @@ public class Notifications {
                 .memName(memName)
                 .rmTitle(rmTitle)
                 .notiContent(notiContent)
-                .ntTemp(map)
+                .ntCheck(map)
                 .ntCount(ntCount)
                 .postNo(postNo)
                 .build();

@@ -114,9 +114,9 @@ $('.create-post-wrap').click(function(e){
         const rmNo = $('#detailSettingProjectSrno').text();
 
         let postNo = 0;
-        let ntTemp ='{';
+        let ntCheck ='{';
         
-        addPostAjax(rmNo, postNo, postTitle, postContent, ntTemp);
+        addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck);
 
         postPopupClose();
         postClear();

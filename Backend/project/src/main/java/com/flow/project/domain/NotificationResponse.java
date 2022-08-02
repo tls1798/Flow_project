@@ -20,7 +20,7 @@ public class NotificationResponse {
     private String memName;
     private String rmTitle;
     private String notiContent;
-    private Map<String, String> ntTemp;
+    private Map<String, String> ntCheck;
     private int ntCount;
     private int postNo;
 }

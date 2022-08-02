@@ -31,7 +31,7 @@ export function getAllAlarmsAjax(){
     
                     // 읽음 여부
                     var checked;
-                    if(result[i].ntTemp[memNo]==null){
+                    if(result[i].ntCheck[memNo]==null){
                         checked = `<li class="js-alarm-item on" data-project-no=`+result[i].rmNo+` data-notis-no=`+result[i].ntNo
                             +` data-type-no=`+result[i].ntTypeNo+ ` data-detail-no=`+result[i].ntDetailNo+` data-post-no=`+result[i].postNo+`>`;
                         ++cnt;
@@ -377,7 +377,7 @@ export function getAllMembers(){
 }
 
 // 회원 초대
-export function addMembersToProject(jsonData, rmNo, ntTemp){
+export function addMembersToProject(jsonData, rmNo, ntCheck){
     new Promise((succ,fail)=>{
         $.ajax({
             type: 'POST',
@@ -401,7 +401,7 @@ export function addMembersToProject(jsonData, rmNo, ntTemp){
         $.ajax({
             type: 'POST',
             url: 'http://localhost:8080/api/notis/rooms/'+rmNo,
-            data: JSON.stringify({"ntTypeNo":3, "ntDetailNo":null, "memNo":memNo, "rmNo":rmNo, "ntTemp":ntTemp, "postNo":null}),
+            data: JSON.stringify({"ntTypeNo":3, "ntDetailNo":null, "memNo":memNo, "rmNo":rmNo, "ntCheck":ntCheck, "postNo":null}),
             contentType: 'application/json; charset=utf-8',
             async: false,
             beforeSend: function (xhr) {      
@@ -419,7 +419,7 @@ export function addMembersToProject(jsonData, rmNo, ntTemp){
 }
 
 // 현재 프로젝트 방 참여자 가져오기 (나 제외)
-export function getParticipantsWithoutMeAjax(rmNo, ntTemp){
+export function getParticipantsWithoutMeAjax(rmNo, ntCheck){
     $.ajax({
         type: 'GET',
         url: 'http://localhost:8080/api/rooms/'+rmNo+'/members/'+memNo,
@@ -431,22 +431,22 @@ export function getParticipantsWithoutMeAjax(rmNo, ntTemp){
         success: function (result, status, xhr) {
             for(let i=0;i<result.length;i++){
                 if(i!=0){
-                    ntTemp += ', '
+                    ntCheck += ', '
                 }
-                ntTemp += '"'+result[i]+'" : null';
+                ntCheck += '"'+result[i]+'" : null';
             }
-            ntTemp += '}';
+            ntCheck += '}';
         },
         error: function (xhr, status, err) {
             autoaccess()
         }
     });
 
-    return ntTemp;
+    return ntCheck;
 }
 
 // 댓글 작성
-export function addCommentAjax(key, rmNo, postNo, cmContent, ntTemp, cmNo){
+export function addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo){
     new Promise((succ,fail) => {
         $.ajax({
             type: 'POST',
@@ -511,13 +511,13 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntTemp, cmNo){
             }
         })
     }).then((arg)=>{
-        ntTemp = getParticipantsWithoutMeAjax(rmNo, ntTemp);
+        ntCheck = getParticipantsWithoutMeAjax(rmNo, ntCheck);
     }).then((arg)=>{
         // 댓글 알람 보내기
         $.ajax({
             type: 'POST',
             url: 'http://localhost:8080/api/notis/rooms/'+rmNo,
-            data: JSON.stringify({"ntTypeNo":2, "ntDetailNo":cmNo, "memNo":memNo, "rmNo":rmNo, "ntTemp":ntTemp, "postNo":postNo}),
+            data: JSON.stringify({"ntTypeNo":2, "ntDetailNo":cmNo, "memNo":memNo, "rmNo":rmNo, "ntCheck":ntCheck, "postNo":postNo}),
             contentType: 'application/json; charset=utf-8',
             async: false,
             beforeSend: function (xhr) {      
@@ -592,7 +592,7 @@ export function removeCommentAjax(e, postNo, cmNo){
 }
 
 // 글 작성
-export function addPostAjax(rmNo, postNo, postTitle, postContent, ntTemp){
+export function addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck){
     new Promise((succ, fail) => {
         $.ajax({
             type: 'POST',
@@ -609,18 +609,18 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntTemp){
             },
             error: function (xhr, status, err) {
                 autoaccess()
-                addPostAjax(rmNo, postNo, postTitle, postContent, ntTemp)
+                addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck)
             }
         });
 
     }).then((arg) => {
-        ntTemp = getParticipantsWithoutMeAjax(rmNo, ntTemp);
+        ntCheck = getParticipantsWithoutMeAjax(rmNo, ntCheck);
     }).then((arg)=>{
         // 글 알림 보내기
         $.ajax({
             type: 'POST',
             url: 'http://localhost:8080/api/notis/rooms/'+rmNo,
-            data: JSON.stringify({"ntTypeNo":1, "ntDetailNo":postNo, "memNo":memNo, "rmNo":rmNo, "ntTemp":ntTemp, "postNo":postNo}),
+            data: JSON.stringify({"ntTypeNo":1, "ntDetailNo":postNo, "memNo":memNo, "rmNo":rmNo, "ntCheck":ntCheck, "postNo":postNo}),
             contentType: 'application/json; charset=utf-8',
             async: false,
             beforeSend: function (xhr) {      

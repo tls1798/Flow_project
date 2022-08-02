@@ -40,8 +40,8 @@ $(document).on('keyup','.comment-input',function(key){
         cmContent = cmContent.replace(/(\n|\r\n)/g, '<br>');
 
         let cmNo = 0;
-        let ntTemp ='{';
-        addCommentAjax(key, rmNo, postNo, cmContent, ntTemp, cmNo);
+        let ntCheck ='{';
+        addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo);
     }
 })
 
