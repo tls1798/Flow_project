@@ -38,7 +38,7 @@ export function elapsedTime(date) {
 
 $(function () {
     var socket = io.connect('http://localhost:3000');
-    socket.on('data', () => {
-        clearAndUpdateAlarms();
+    socket.on('updateAlarmsEventToClient', () => {
+        updateAlarms();
     })
 })

@@ -8,7 +8,7 @@ http.listen(port, () => {
 });
 
 io.on('connection', function (socket) {
-    socket.on('test', function () {
-        socket.broadcast.emit('data');
+    socket.on('updateAlarmsEventToServer', function () {
+        socket.broadcast.emit('updateAlarmsEventToClient');
     })
 })
