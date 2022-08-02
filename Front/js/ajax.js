@@ -43,7 +43,7 @@ export function getAllAlarmsAjax(){
                     
                     // 알림 종류에 따른 문구
                     var des;
-                    var content = `<div class="all-text-wrap-type-3 alarm-cont">`+result[i].notiContent+`</div>`;
+                    var content = `<div class="all-text-wrap-type-3 alarm-cont">`+(result[i].notiContent.length>50?result[i].notiContent.substr(0,50):result[i].notiContent)+`</div>`;
                     if(result[i].ntTypeNo==1)
                         des = `님의 글 등록`;
                     else if(result[i].ntTypeNo==2)
@@ -195,7 +195,7 @@ export function getBookmarkAjax(){
                         </div>
                         <div class="search-sub-text-wrap">
                             <div class="contents-cmt">
-                                <p class="search-text-type-3 contents-tit">`+ result[i].postTitle + `</p>
+                                <p id="bookmarklist-`+result[i].postNo+`" class="search-text-type-3 contents-tit">`+ result[i].postTitle + `</p>
                                 <div class="post-list comment" style="display:inline-block" data="">
                                     <i class="bi bi-chat-square-text"></i>
                                     <span class="js-post-comment-count">`+ result[i].cmCount + `</span>
@@ -222,6 +222,20 @@ export function getBookmarkAjax(){
                         <i class="js-temporary-delete icons-close-2 d-none" style="display:none" data=""></i>
                     </li>
                 `)
+                // 타이틀이 null 이면
+                if (result[i].postTitle == '') {
+                    // 길이가 30자 이상이면 30자 까지
+                    if (result[i].postContent.length > 30) {
+                        $('#bookmarklist-' + result[i].postNo + '').text((result[i].postContent.substr(0, 30) + '···').replace(/(<([^>]+)>)/ig,""))
+                    }
+                    // 내용의 줄바꿈 전까지 출력
+                    else if (result[i].postContent.search('</p>')) {
+                        $('#bookmarklist-' + result[i].postNo + '').text((result[i].postContent.substr(0, result[i].postContent.search('</p>'))).replace(/(<([^>]+)>)/ig,""))
+                    }
+                    else {
+                        $('#bookmarklist-' + result[i].postNo + '').text((result[i].postContent).replace(/(<([^>]+)>)/ig,""))                        
+                    }
+                } 
             }
         },
         error: function (xhr, status, err) {
@@ -879,13 +893,15 @@ export function getAllPostsByProjectAjax(rmNo){
                     if (result[i].posts.postPin) {
                         count++;
                         $('#pinPostUl').append(
-                            `<li id="post-`+result[i].posts.postNo+`" class="js-pin-item" index="4" data-project-srno="`+rmNo+`" data-post-srno="`+result[i].posts.postNo+`" data-post-pin="`+result[i].posts.postPin+`" >
+                            `<li id="posts-`+result[i].posts.postNo+`" class="js-pin-item" index="4" data-project-srno="`+rmNo+`" data-post-srno="`+result[i].posts.postNo+`" data-post-pin="`+result[i].posts.postPin+`" >
                                             <a href="#">
                                                 <div class="fixed-kind">
                                                     <i class="icons-write2"></i>
                                                     <span>글</span>
                                                 </div>
-                                                <p class="js-post-title fixed-text ">`+ (result[i].posts.postTitle==''?result[i].posts.postContent:result[i].posts.postTitle) + `</p>
+                                                <p id="fixed-`+result[i].posts.postNo+`" class="js-post-title fixed-text ">`+result[i].posts.postTitle
+                            // (result[i].posts.postTitle == '' ? (result[i].posts.postContent.length > 30 ? (result[i].posts.postContent.substr(0, 30) + '···') : result[i].posts.postContent) : result[i].posts.postTitle)
+                            + `</p>
                                                 <div class="fixed-value">
                                                     <span class="js-task-state js-todo-state d-none"></span>
                                                     <div class="date-time d-none">
@@ -896,6 +912,20 @@ export function getAllPostsByProjectAjax(rmNo){
                                             </a>
                                         </li>`
                         )
+                        // 타이틀이 null 이면
+                        if (result[i].posts.postTitle == '') {
+                            // 길이가 30자 이상이면 30자 까지
+                            if (result[i].posts.postContent.length > 30) {
+                                $('#fixed-' + result[i].posts.postNo + '').text((result[i].posts.postContent.substr(0, 30) + '···').replace(/(<([^>]+)>)/ig,""))
+                            }
+                            // 내용의 줄바꿈 전까지 출력
+                            else if (result[i].posts.postContent.search('</p>')) {
+                                $('#fixed-' + result[i].posts.postNo + '').text((result[i].posts.postContent.substr(0, result[i].posts.postContent.search('</p>'))).replace(/(<([^>]+)>)/ig,""))
+                            }
+                            else {
+                                    $('#fixed-' + result[i].posts.postNo + '').text((result[i].posts.postContent).replace(/(<([^>]+)>)/ig,""))                        
+                            }
+                        } 
                     }
                     $('#detailUl').append(`
                         <li id="post-`+result[i].posts.postNo+`" class="js-popup-before detail-item back-area" data-read-yn="Y" data-comment-count="0"  data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + `" data-post-pin= "`+ result[i].posts.postPin +`" data-remark-srno="" data-bookmark="`+result[i].posts.postBookmark+`" data-section-srno=""  mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">

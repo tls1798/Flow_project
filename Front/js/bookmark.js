@@ -1,5 +1,5 @@
 import {updateRight} from './rightPostCard.js';
-import {getBookmarkAjax, addBookmarkAjax} from './ajax.js'
+import {getBookmarkAjax, addBookmarkAjax,removeBookmarkAjax} from './ajax.js'
 
 // 내 북마크 조회
 export function bookmarkList(){

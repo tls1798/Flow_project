@@ -17,6 +17,7 @@ public class Bookmark {
         private String memName;
         private String postDatetime;
         private String rmNo;
+        private String postContent;
         private int CmCount;
         private int memNo;
         private int postNo;
