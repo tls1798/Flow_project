@@ -4,7 +4,7 @@ export function autoaccess() {
     let memNo = window.localStorage.getItem('memNo')
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8080/api/auth/get-newToken',
+        url: 'http://localhost:8080/api/auth/reissue',
         data: JSON.stringify({
             memNo:memNo,
             accessToken: accessToken,

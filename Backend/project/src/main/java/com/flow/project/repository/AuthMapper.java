@@ -20,7 +20,7 @@ public interface AuthMapper {
     String findMail(int memNo);
 
 
-    // AuthService에서 리프레쉬 토큰 발급시 사용
+    // JwtProvider 회원 번호의 리프레쉬 토큰과 일치하는지 확인하기 위함
     @Select("SELECT refresh_token FROM \"RefreshToken\" WHERE mem_No = #{memNo}")
     String findByRefreshToken(int memNo);
 
@@ -38,6 +38,7 @@ public interface AuthMapper {
     @Insert("Insert into \"RefreshToken\" (mem_no,refresh_token) values(#{memNo},#{refreshToken})")
     void insertRefreshToken(RefreshToken refreshToken);
 
+    // 리프레쉬 토큰 발급 시 insert or update 시 사용
     @Options(keyColumn = "rt_no", useGeneratedKeys = true)
     @Insert("Update \"RefreshToken\" set refresh_token=#{refreshToken} where mem_no=#{memNo}")
     void UpdateRefreshToken(RefreshToken refreshToken);

@@ -4,7 +4,6 @@ import com.flow.project.domain.AuthDTO;
 import com.flow.project.service.AuthService;
 import com.flow.project.service.EmailService;
 import com.flow.project.service.MembersService;
-import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,7 @@ import javax.validation.Valid;
 @RequestMapping("/api/auth")
 @RestController
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthApiController {
     final EmailService emailService;
     final MembersService membersService;
     private final AuthService authService;
@@ -58,7 +57,7 @@ public class AuthController {
     }
 
     // 새로운 토큰 발급
-    @PostMapping("/get-newToken")
+    @PostMapping("/reissue")
     public ResponseEntity<?> newAccessToken(@RequestBody AuthDTO.GetNewAccessTokenDTO getNewAccessTokenDTO, HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(authService.reissue(getNewAccessTokenDTO, request));
 

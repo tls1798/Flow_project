@@ -23,7 +23,7 @@ public class AuthService {
     // 로그인
     public Map<String, Object> login(AuthDTO.LoginDTO loginDTO) {
         Map<String, Object> result = new HashMap<>();
-
+        // UsernamePasswordAuthenticationToken 해당 요청을 처리할 수 있는 AuthenticationProvider  찾아 인증을 시도
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginDTO.getMemMail(), loginDTO.getMemPw()));
@@ -39,9 +39,9 @@ public class AuthService {
         }
         return result;
     }
-
+    // 토큰 재발급
     public Map<String, Object> reissue(AuthDTO.GetNewAccessTokenDTO getNewAccessTokenDTO, HttpServletRequest request) {
-        return jwtProvider.newAccessToken(getNewAccessTokenDTO, request);
+        return jwtProvider.reissue(getNewAccessTokenDTO, request);
     }
 
 }

@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
+// UserDetails 객체를 통한 정보를 관리하기 때문에 UserDetails 구현해서 리턴
 @Getter
 @Setter
 public class Members implements UserDetails {

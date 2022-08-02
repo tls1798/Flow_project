@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+// DB에서 유저의 정보를 조회하는 역할
 
 @Service
 @RequiredArgsConstructor

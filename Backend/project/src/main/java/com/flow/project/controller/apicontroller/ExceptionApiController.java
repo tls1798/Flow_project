@@ -11,7 +11,7 @@ import java.util.Map;
 
 
 @RestControllerAdvice
-public class ExceptionController {
+public class ExceptionApiController {
 
     @ExceptionHandler(UserException.class)
     public ResponseEntity<?> LoginException(UserException e) {

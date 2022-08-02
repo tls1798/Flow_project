@@ -22,6 +22,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+// WebSecurityConfigurerAdapter 상속받은 클래스에
+// EnableWebSecurity 어노테이션을 붙이면 Web 보안 활성화
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -38,13 +40,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder);
     }
-
+    // Spring Boot 2.x 부터는 자동으로 등록되지 않기 때문에 등록을 해주어야한다
+    // Authentication 객체 생성
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
+    // Web swagger 관련 접속 허용
     @Override
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/v2/api-docs",
@@ -60,17 +64,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().configurationSource(corsConfigurationSource())
                 .and()
                 .httpBasic().disable()
+                // rest Api는 csrf 보안이 필요없으므로 disable 처리
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                // Jwt Token으로 인증하므로 Stateless 처리
+               .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                 .mvcMatchers(HttpMethod.OPTIONS, ("/**")).permitAll()
                 .antMatchers("/api/auth/*", "/api/auth/members/new", "/api/auth/email/new").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                // 인증 처리 과정에서 예외가 발생한 경우 예외를 핸들링하는 인터페이스
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPointHandler)
                 .and()
+                // JWT 필터를 UsernamePasswordAuthenticationFilter 전에 넣는다
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
     }
 

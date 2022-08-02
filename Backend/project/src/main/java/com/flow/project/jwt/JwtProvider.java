@@ -76,11 +76,12 @@ public class JwtProvider {
   
         String accessToken = createAccessToken(loginDTO);
         String refreshToken = refreshToken();
-
-
+        // 사용자에게 주기 위한 정보들
         result.put("memNo", loginDTO.getMemNo());
         result.put("accessToken", accessToken);
         result.put("refreshToken", refreshToken);
+        
+        // Refresh 토큰과 사용자 번호를 DB에 저장하기 위함
         RefreshToken insertOrUpdateRefreshToken = RefreshToken.builder()
                 .memNo(loginDTO.getMemNo())
                 .refreshToken(refreshToken)
@@ -97,13 +98,13 @@ public class JwtProvider {
     }
 
     // 새로운 AccessToken 발급
-    public Map<String, Object> newAccessToken(AuthDTO.GetNewAccessTokenDTO getNewAccessTokenDTO, HttpServletRequest request) {
+    public Map<String, Object> reissue(AuthDTO.GetNewAccessTokenDTO getNewAccessTokenDTO, HttpServletRequest request) {
         Map<String, Object> result = new HashMap<>();
         String accessToken = getNewAccessTokenDTO.getAccessToken();
         String refreshToken = getNewAccessTokenDTO.getRefreshToken();
-        // AccessToken은 만료됐지만 정보가 일치하는지 확인
+        // AccessToken 만료됐지만 정보가 일치하는지 확인
         if (validateJwtToken(request, accessToken, 3)) {
-            // AccessToken은 만료되었지만 RefreshToken은 만료되지 않은 경우 , db에 refresh 토큰 검증
+            // AccessToken 만료되었지만 RefreshToken 유효성 검증
             if (validateJwtToken(request, refreshToken, 2)) {
                 AuthDTO.LoginDTO loginDTO = new AuthDTO.LoginDTO();
                 loginDTO.setMemNo(getNewAccessTokenDTO.getMemNo());

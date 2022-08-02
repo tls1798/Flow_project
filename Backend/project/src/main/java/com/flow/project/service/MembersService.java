@@ -46,12 +46,11 @@ public class MembersService {
 
     // 회원 가입
     public int addMember(AuthDTO.SignupDTO signupDTO) {
-
+        // 기존에 있는 유저인지 확인
         if (signupDTO.getMemMail().equals(mem.findmailByEmail(signupDTO.getMemMail())))
             throw new UserException(ErrorCode.UserExistsException);
-
+        // 패스워드를 Encode해서 저장
         String encodedPassword = passwordEncoder.encode(signupDTO.getMemPw());
-        System.out.println(encodedPassword);
 
         signupDTO.setMemPw(encodedPassword);
         return mem.insertOne(signupDTO);
