@@ -1569,11 +1569,11 @@ export function newPasswordAjax(memMail){
         success: function (result, status, xhr) {
             $('#loginLayer').removeClass('d-none')
             $('#findPassword').addClass('d-none')
-            location.href = 'login.html'
         },
         error: function (xhr, status, err) {
         }
     });
+    location.href = 'login.html';
 }
 
 // 회원 탈퇴

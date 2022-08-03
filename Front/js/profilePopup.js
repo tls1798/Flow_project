@@ -46,8 +46,10 @@ $('.popup-confirm-warp').click(function(e){
 
     if($(e.target).attr('class')=='flow-pop-sub-button-1 cancel-event'){
         confirmClose('profile-confirm');
+        $('.btn-close-profile-popup').click();
     } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
         confirmClose('profile-confirm');
+        $('.btn-close-profile-popup').click();
         logoutAjax();
         deleteMemberAjax();
     } else {

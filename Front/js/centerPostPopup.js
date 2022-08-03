@@ -34,8 +34,8 @@ export function closeCenterPopup(){
 $('#popBack1').mousedown(function(e){
     if($(this).find("[id^='post-']").length > 0 && !$(e.target).closest('#rightPostCard').length>0 
         && !$(e.target).closest('#detailPostCard').length>0 && $('.create-post-wrap').css('display')=='none'){
-        $('#detailComment').children().remove();
-        $('#popBack1>li').remove();
-        $('#postPopup').removeClass('flow-all-background-1');
+            $('#detailComment').children().remove();
+            $('#popBack1>li').remove();
+            $('#postPopup').removeClass('flow-all-background-1');
     }
 })

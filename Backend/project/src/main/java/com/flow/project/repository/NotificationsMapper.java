@@ -24,7 +24,7 @@ public interface NotificationsMapper {
             "end as noti_content " +
             "from \"Notis\" n " +
             "join (select * from \"Room_Members\" rm where rm.mem_no = #{memNo}) as myRooms on myRooms.rm_no = n.rm_no " +
-            "where n.mem_no != #{memNo} " +
+            "where n.mem_no != #{memNo} and (n.nt_check->concat(#{memNo},'')='null' or n.nt_check->concat(#{memNo},'')!='null') " +
             "order by nt_no desc")
     List<Notifications> selectAllNotifications(int memNo);
 
