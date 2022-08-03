@@ -26,6 +26,7 @@ export function confirmOpen_post(){
     $('#popBack2').addClass('post-confirm-popback')
     $('.popup-cont').text('작성을 중단하고 이동하시겠습니까?');
 }
+
 // CreatePost confirm 창 닫기
 export function confirmClose_post(){
     $('#popupBackground').addClass('d-none')

@@ -26,7 +26,7 @@ public class MembersApiController {
     }
 
     // 회원 탈퇴
-    @DeleteMapping("/members/temp/{memNo}")
+    @DeleteMapping("/members/exit/{memNo}")
     public ResponseEntity<?> removeMember(@PathVariable int memNo) {
         return ResponseEntity.ok(ms.removeMember(memNo));
     }

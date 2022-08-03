@@ -333,7 +333,7 @@ export function getMemberAjax(memNo, memInfo){
 }
 
 // 모든 회원 조회 (초대 팝업)
-export function getAllMembers(){
+export function getAllMembersAjax(){
     $.ajax({
         type: 'GET',
         url: 'http://localhost:8080/api/members',
@@ -377,7 +377,7 @@ export function getAllMembers(){
 }
 
 // 회원 초대
-export function addMembersToProject(jsonData, rmNo, ntCheck){
+export function addMembersToProjectAjax(jsonData, rmNo, ntCheck){
     new Promise((succ,fail)=>{
         $.ajax({
             type: 'POST',
@@ -475,7 +475,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo){
                                 <div class="comment-user">
                                     <span class="user-name js-comment-user-name">`+ $('.user-info strong').text() + `</span>
                                     <span class="user-position"></span>
-                                    <span class="record-date">`+ new Date().YYYYMMDDHHMMSS() + `</span>
+                                    <span class="record-date">`+ new Date().YYYYMMDDHHMM() + `</span>
                                 </div>
                                 <div id="`+memNo+`" class="comment-writer-menu">
                                     <button id="cmEditBtn" type="button" class="js-remark-update js-remark-edit-button comment-writer-button on">
@@ -1579,7 +1579,7 @@ export function newPasswordAjax(memMail){
 export function deleteMemberAjax(){
     $.ajax({
         type: 'DELETE',
-        url: 'http://localhost:8080/api/auth/members/temp/' + memNo,
+        url: 'http://localhost:8080/api/members/exit/' + memNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));

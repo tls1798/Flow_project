@@ -12,11 +12,11 @@ $(function(){
         $('#BtnLoginStart').attr('href', './main.html')
         $('#home_login').text('로그아웃');
     }
-
-    $('#home_login').click(function(e){
-        if ($('#home_login').text() == '로그아웃') {
-            logoutAjax();
-        }
-        location.href='./login.html'
-    })
 });
+
+$('#home_login').click(function(e){
+    if ($('#home_login').text() == '로그아웃') {
+        logoutAjax();
+    }
+    location.href='./login.html'
+})

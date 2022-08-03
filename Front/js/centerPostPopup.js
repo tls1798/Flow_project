@@ -1,5 +1,6 @@
 import {getPostToCenterPopupAjax} from './ajax.js'
 
+// 가운데 글 팝업 띄우기
 const createPopup = function(typeNo, rmNo, postNo){
     if(typeNo==3){
         $('.project-item[data-id='+rmNo+']').click();
@@ -10,7 +11,7 @@ const createPopup = function(typeNo, rmNo, postNo){
 }
 
 // centerPostPopup 초기화 및 업데이트 함수
-const clearAndUpdatePopup = function(typeNo, rmNo, postNo) {
+export function updatePopup(typeNo, rmNo, postNo) {
     // 초기화
     $('#detailComment').children().remove();
     $('#popBack1>li').children().remove();
@@ -27,11 +28,6 @@ export function closeCenterPopup(){
         $('#popBack1>li').remove();
         $('#postPopup').removeClass('flow-all-background-1');
     })
-}
-
-export function updatePopup(typeNo, rmNo, postNo) {
-    // centerPostPopup 초기화 및 업데이트
-    return clearAndUpdatePopup(typeNo, rmNo, postNo);
 }
 
 // 중앙 팝업 영역 외 클릭 시 닫기

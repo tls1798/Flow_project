@@ -1,7 +1,7 @@
 import {addCommentAjax, editCommentAjax, removeCommentAjax} from './ajax.js'
 
 // Date format
-Date.prototype.YYYYMMDDHHMMSS = function () {
+Date.prototype.YYYYMMDDHHMM = function () {
     var yyyy = this.getFullYear().toString();
     var MM = pad(this.getMonth() + 1, 2);
     var dd = pad(this.getDate(), 2);
@@ -51,9 +51,11 @@ $(document).on('click', '.comment-writer-menu',function(e){
     if(e.target.id=='cmEditBtn'){
         let cmContent = $(this).closest('.comment-container').find('.comment-text div').html();
         cmNo = $(this).closest('li').attr('remark-srno');
+
+        // 입력창 띄우기
         $(this).closest('.comment-container').removeClass('on');
         $(this).closest('.comment-container').next().addClass('on');
-        // 줄바꿈을 포함하여 div에 들어가도록 수정해야 함
+        // 줄바꿈을 포함하여 div에 입력
         $(this).closest('.comment-container').next().find('.edit-comment-input').text((cmContent).replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
 
         // shift+enter 줄 바꿈, 엔터 시 입력

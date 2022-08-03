@@ -130,7 +130,7 @@ $(document).on('click', '.project-item', function (e) {
     // 알림 레이어에서 미확인 알림 가져오기
     updateUnreadAlarmFunc($(this).attr('data-id'));
 
-        // 프로젝트 내부 즐겨찾기
+    // 프로젝트 내부 즐겨찾기
     if ($(this).find('.project-star').hasClass('flow-content-star-un')) {
         $('#projectStar').addClass('unstar')
     } else {
@@ -220,12 +220,9 @@ $(document).on('click','#pinPostUl',function(e){
     })
 })
 
-// 상단 고정 누를시
+// 상단고정 아이콘 누를시
 let postNo, postPin, pinid;
 $(document).on('click', '.js-pin-post', function (e) {
-    // 제출 누르면 저 클래스가 사라져서 임의로 추가해져서 팝업창을 계속 띄우게 유지함
-    $('#popupBackground').addClass('flow-all-background-1');
-
     postNo = ($(this).attr('data-post-srno'))
     postPin = ($(this).attr('data-post-pin'))
     pinid = ($(this).attr('id'))

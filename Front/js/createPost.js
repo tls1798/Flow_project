@@ -52,20 +52,34 @@ $('#createPostArea').click(function(){
     postPopupOpen();
     toastEditor();
     postClear();
-    // return false;
 })
 
 // 글 작성 닫기
 $('.btn-close').click(function(){
-
     // 내용 있을 때 confirm 창
     const checkTitle = $(this).closest('.js-popup-before').find('#postTitle').val();
     const checkContent = $('.ProseMirror.toastui-editor-contents').text();
+
     if(checkTitle || checkContent){
         $('.popup-cont').text('작성을 중단하고 이동하시겠습니까?');
         confirmOpen_post();
     } else{
         postPopupClose()
+    }
+})
+
+// back-area 선택 시 사라지게
+$('#popBack1').mousedown(function(e){
+    if(e.target.id=='popBack1' && $('.create-post-wrap').css('display')=='block'){
+        // 내용 있을 때 confirm 창
+        const checkTitle = $('#postTitle').val();
+        const checkContent = $('.ProseMirror.toastui-editor-contents').text();
+        if(checkTitle || checkContent){
+            $('.popup-cont').text('작성을 중단하고 이동하시겠습니까?');
+            confirmOpen_post();
+        }else{
+            postPopupClose();
+        }
     }
 })
 
@@ -123,21 +137,6 @@ $('.create-post-wrap').click(function(e){
     } 
     else{
         return false;
-    }
-})
-
-// back-area 선택 시 사라지게
-$('#popBack1').mousedown(function(e){
-    if(e.target.id=='popBack1' && $('.create-post-wrap').css('display')=='block'){
-        // 내용 있을 때 confirm 창
-        const checkTitle = $('#postTitle').val();
-        const checkContent = $('.ProseMirror.toastui-editor-contents').text();
-        if(checkTitle || checkContent){
-            $('.popup-cont').text('작성을 중단하고 이동하시겠습니까?');
-            confirmOpen_post();
-        }else{
-            postPopupClose();
-        }
     }
 })
 

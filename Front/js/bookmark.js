@@ -18,11 +18,6 @@ export function alert(){
     return;
 }
 
-// 북마크 메뉴 클릭 시 북마크 리스트 화면
-$('.left-menu-bookmark').on('click', function (e) {
-    bookmarkList();
-})
-
 // 북마크 리스트 화면에서 글 클릭 시 오른쪽 글 카드 화면 띄움
 $(document).on('click', '.booklist', function () {
     let rmNo = $(this).attr('data-project-id')
@@ -30,16 +25,16 @@ $(document).on('click', '.booklist', function () {
     updateRight(rmNo, postNo)
 })
 
-// 북마크 누를시
+// 북마크 아이콘 누를시
 $(document).on('click', '.js-post-bookmark', function () {
     let postNo = $(this).attr('data-pst-id')
 
-    //북마크를 삭제 때 
+    // 북마크 해제
     if ($(this).hasClass('on')) {
         $(this).removeClass('on')
         removeBookmarkAjax(postNo);
     }
-    // 북마크를 추가할 때
+    // 북마크 추가
     else {
         $(this).addClass('on')
         addBookmarkAjax(postNo);
