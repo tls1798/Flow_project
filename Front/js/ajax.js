@@ -1737,15 +1737,16 @@ export function postEmailCodeAjax(memMail, memName, memPw){
                         }),
                         contentType: 'application/json; charset=utf-8',
                         success: function (result, status, xhr) {
-                            location.href = 'login.html'
+                            location.href = '../views/login.html'
                         },
                         error: function (xhr, status, err) {
                             cleanFrom()
+                            $('.error-email').text($('.join-email-input').attr('data-exist-mail'));
                         }
                     });
                 } else {
-                    alert('인증코드가 맞지않습니다')
-                    location.href = 'signUp.html'
+                    cleanFrom()
+                    $('.error-email').text($('.join-email-input').attr('data-incorrect-code'));
                 }
             })
         },
