@@ -317,3 +317,7 @@ div, form{
     width: 100%;
     height: 100%;
 } */
+.join-input-wrap input.input-error, .join-input-wrap input.input-error:focus, .join-input-wrap input.login-error, .login-id-input input.input-error:focus, .login-password-input input.input-error:focus, input.input-error {
+    color: #ff6b6b;
+    border: 1px solid #ff6b6b;
+}

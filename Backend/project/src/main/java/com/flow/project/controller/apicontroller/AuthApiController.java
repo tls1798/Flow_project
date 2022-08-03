@@ -48,6 +48,12 @@ public class AuthApiController {
         return ResponseEntity.status(HttpStatus.OK).body(emailService.sendSimpleMessage(emailDTO.getMemMail(), 1));
     }
 
+    // 이메일 확인
+    @GetMapping("/email/{memMail}")
+    public ResponseEntity<?> chkEMail(@PathVariable String memMail) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(membersService.checkId(memMail));
+    }
+
     // 패스워드재발급
     @PostMapping("/email/new")
     public ResponseEntity<?> emailpw(@RequestBody @Valid AuthDTO.EmailDTO emailDTO, Errors errors) throws Exception {

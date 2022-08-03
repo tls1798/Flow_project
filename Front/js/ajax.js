@@ -1529,7 +1529,7 @@ export function loginAjax(id, pw){
         error: function (xhr, status, err) {
             // input, textarea 비우기
             $('#userId').val('');
-            $('#memPw').val('');
+            $('.loginpassword').val('');
             // 해당 아이디의 정보가 없다면 에러 메시지 출력
             $('.err-id').text($('#userId').attr('data-login-err-msg'))
             $('.err-pw').text('')
@@ -1711,7 +1711,7 @@ export function deleteFavoriteProjectAjax(rmNo){
 }
 
 // 이메일 인증코드 전송
-export function postEmailCodeAjax(memMail, memName, memPw){
+export function postEmailCodeAjax(memMail, memName, memPw) {
     $.ajax({
         type: 'POST',
         url: 'http://localhost:8080/api/auth/email',
@@ -1742,13 +1742,34 @@ export function postEmailCodeAjax(memMail, memName, memPw){
                         error: function (xhr, status, err) {
                             cleanFrom()
                             $('.error-email').text($('.join-email-input').attr('data-exist-mail'));
+                            $('#joinUserEmail').addClass('input-error')
                         }
                     });
                 } else {
                     cleanFrom()
                     $('.error-email').text($('.join-email-input').attr('data-incorrect-code'));
+                    $('#joinUserEmail').addClass('input-error') 
                 }
             })
+        },
+        error: function (xhr, status, err) {}
+    });
+}
+
+export function EmailCheck(memMail){
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/api/auth/email/'+memMail,
+        contentType: 'application/json; charset=utf-8',
+        success: function (result, status, xhr) {
+            if (result == 1) {
+                $('.error-email').text('')
+                $('#joinUserEmail').removeClass('input-error')
+            }
+            else{
+            $('.error-email').text($('.join-email-input').attr('data-exist-mail'));
+            $('#joinUserEmail').addClass('input-error') 
+            }
         },
         error: function (xhr, status, err) {}
     });

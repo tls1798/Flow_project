@@ -1,4 +1,4 @@
-import {postEmailCodeAjax} from './ajax.js'
+import {postEmailCodeAjax, EmailCheck} from './ajax.js'
 
 // 이메일 정규식 검사 
 function validEmailCheck(memMail) {
@@ -14,21 +14,63 @@ function chkPW(password) {
     let spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 
     if (pw.length < 8 || pw.length > 20) {
-        $('.error-pw').text($('.js-join-password').attr('data-length-msg'))
+        $('.error-pw').text($('.js-join-password').attr('data-length-msg')), $('.js-join-password').addClass('input-error')
         return false;
     } else if (pw.search(/\s/) != -1) {
-        $('.error-pw').text($('.js-join-password').attr('data-empty-msg'))
+        $('.error-pw').text($('.js-join-password').attr('data-empty-msg')), $('.js-join-password').addClass('input-error')
         return false;
     } else if (num < 0 || eng < 0 || spe < 0) {
-        $('.error-pw').text($('.js-join-password').attr('data-un-valid-msg'))
+        $('.error-pw').text($('.js-join-password').attr('data-un-valid-msg')), $('.js-join-password').addClass('input-error')
         return false;
     } else {
         return true;
     }
 }
+// err 메세지, err class 제거
+function cleanIdinput() {
+    $('.error-email').text(''),$('#joinUserEmail').removeClass('input-error');
+}
+function cleanNameInput() {
+    $('.error-name').text(''), $('#joinUserName').removeClass('input-error')
+}
+function cleanPwInput() {
+    $('.error-pw').text(''), $('.js-join-password').removeClass('input-error')
+}
+function cleanPw2Input() {
+    $('.error-pw2').text(''), $('.js-join-password2').removeClass('input-error');
+}
+function cleanChkbox() {
+    $('.js-error-text').addClass('d-none'), $('.addbr').html('<br><br>');
+}
+// 모든 input 비우기
+export function cleanFrom() {
+    $('#joinUserEmail').val('')
+    $('.join-name-input').val('');
+    $('#password').val('')
+    $('#password2').val('')
+    $('.temp-popup').removeClass('flow-all-background-1')
+    $('.flow-project-popup-6').addClass('d-none')
+    $('input:checkbox[id="joinConfirmCheck"]').prop('checked', false);
+    $('#authInput').val('')
+}
+
+// 포커스 되면 비우기
+$('#joinUserEmail').focusin(function () { cleanIdinput()})
+$('#joinUserName').focusin(function () { cleanNameInput()})
+$('.js-join-password').focusin(function () { cleanPwInput()})
+$('.js-join-password2').focusin(function () { cleanPw2Input()})
+$('.js-confirm-check').on('click', function () { cleanChkbox()})
+
+
+// 가입된 이메일인지 확인
+$('#joinUserEmail').focusout(function () {
+    let memMail = $('#joinUserEmail').val();
+    EmailCheck(memMail)
+})
 
 // 회원가입 버튼 클릭시
 $('#teamStepButton').on('click', function () {
+
     // 폼의 값을 변수에 담아준다
     let memMail = $('#joinUserEmail').val();
     let memName = $('#joinUserName').val();
@@ -44,17 +86,17 @@ $('#teamStepButton').on('click', function () {
     // 이메일 검증
     (validEmailCheck(memMail)) 
         ? email = true 
-        : email = false, $('.error-email').text($('.join-email-input').attr('data-un-valid-msg'));
+        : email = false, $('.error-email').text($('.join-email-input').attr('data-un-valid-msg')), $('#joinUserEmail').addClass('input-error');
 
     // 이름이 null이 아닌지 
     (!memName == '') 
         ? name = true 
-        : name = false, $('.error-name').text($('.join-name-input').attr('data-un-valid-msg'));
+        : name = false, $('.error-name').text($('.join-name-input').attr('data-un-valid-msg')), $('#joinUserName').addClass('input-error');
     
     // 패스워드와 아래 패스워드가 일치하는지
     ($('#password').val() == $('#password2').val())
         ? checkpassword = true 
-        : checkpassword = false, $('.error-pw2').text($('.js-join-password2').attr('data-un-valid-msg'));
+        : checkpassword = false, $('.error-pw2').text($('.js-join-password2').attr('data-un-valid-msg')), $('.js-join-password2').addClass('input-error');
     
     // 패스워드의 형식이 맞는지 체크
     (chkPW(memPw)) ? password = true : password = false;
@@ -66,7 +108,6 @@ $('#teamStepButton').on('click', function () {
 
     // 모든 검증에 통과하면 ajax 실행
     if (name == true && password == true && email == true && checkpassword == true && checkbox == true) {
-
         // 이메일 팝업창을 띄운다
         $('.temp-popup').addClass('flow-all-background-1')
         $('.flow-project-popup-6').removeClass('d-none')
@@ -76,16 +117,11 @@ $('#teamStepButton').on('click', function () {
     }
 
     // 에러 메시지 혹은 input 비우기
-    (email) ? $('.error-email').text('') : $('#joinUserEmail').val('');
-    (name) ? $('.error-name').text(''): $('.join-name-input').val('');
-    (password) ? $('.error-pw').text(''):$('#password').val('');
-    (checkpassword) ? $('.error-pw2').text(''):$('#password2').val('');
-    if(checkbox) { 
-        $('.js-error-text').addClass('d-none');
-        $('.addbr').html('<br><br>')
-    }
-    else
-        $('input:checkbox[id="joinConfirmCheck"]').prop('checked', false);
+    (email) ? cleanIdinput() : $('#joinUserEmail').val('');
+    (name) ? cleanNameInput() : $('.join-name-input').val('');
+    (password) ? cleanPwInput() :$('#password').val('');
+    (checkpassword) ? cleanPw2Input() : $('#password2').val('');
+    (checkbox) ? cleanChkbox() : $('input:checkbox[id="joinConfirmCheck"]').prop('checked', false);
 })
 
 // 인증 번호 치는 칸은 눌러도 팝업창이 닫히지 않게 설정
@@ -98,14 +134,3 @@ $('.flow-project-make-2').on('click', function () {
     $('.temp-popup').removeClass('flow-all-background-1')
     $('.flow-project-popup-6').addClass('d-none')
 })
-// 모든 input 비우기
-export function cleanFrom() {
-    $('#joinUserEmail').val('')
-    $('.join-name-input').val('');
-    $('#password').val('')
-    $('#password2').val('')
-    $('.temp-popup').removeClass('flow-all-background-1')
-    $('.flow-project-popup-6').addClass('d-none')
-    $('input:checkbox[id="joinConfirmCheck"]').prop('checked', false);
-    $('#authInput').val('')
-}

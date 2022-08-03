@@ -4,8 +4,10 @@ import com.flow.project.domain.AuthDTO;
 import com.flow.project.domain.Members;
 import com.flow.project.handler.ErrorCode;
 import com.flow.project.handler.UserException;
+import com.flow.project.repository.AuthMapper;
 import com.flow.project.repository.MembersMapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.binding.BindingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +23,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MembersService {
 
+    final AuthMapper authMapper;
     final MembersMapper mem;
     private final PasswordEncoder passwordEncoder;
 
@@ -65,4 +68,13 @@ public class MembersService {
     public boolean removeMember(int memNo) {
         return mem.deleteMem(memNo);
     }
+
+    // 아이디 존재하는지 확인
+    public int checkId(String memMail) {
+        try{
+           return authMapper.findNo(memMail);
+        }catch (BindingException e){
+            return 1;
+        }
+   }
 }
