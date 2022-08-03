@@ -14,5 +14,6 @@ public class Comments {
     private int cmWriter;
     private String cmContent;
     private String cmDatetime;
+    private String cmEditDatetime;
     private String cmName;
 }

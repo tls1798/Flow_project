@@ -997,7 +997,7 @@ export function getAllPostsByProjectAjax(rmNo){
                                                     </div>
                                                     <div class="js-read-check-button read-confirmation" style="display:block" data="">
                                                         <span>읽음</span>
-                                                        <span class="confirmation-number">1</span>
+                                                        <span class="confirmation-number">`+ (parseInt(result[i].posts.postReadCount)+1) + `</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1205,7 +1205,7 @@ export function getPostToCenterPopupAjax(rmNo, postNo){
                                             </div>
                                             <div class="js-read-check-button read-confirmation" style="display:block" data="">
                                                 <span>읽음</span>
-                                                <span class="confirmation-number">1</span>
+                                                <span class="confirmation-number">`+ (parseInt(result.posts.postReadCount)+1) + `</span>
                                             </div>
                                         </div>
                                     </div>
@@ -1390,7 +1390,7 @@ export function getPostToRightPostCardAjax(rmNo, postNo){
                                             </div>
                                             <div class="js-read-check-button read-confirmation" style="display:block" data="">
                                                 <span>읽음</span>
-                                                <span class="confirmation-number">1</span>
+                                                <span class="confirmation-number">`+ (parseInt(result.posts.postReadCount)+1) + `</span>
                                             </div>
                                         </div>
                                     </div>

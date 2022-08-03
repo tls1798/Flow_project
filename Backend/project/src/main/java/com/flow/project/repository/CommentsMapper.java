@@ -26,7 +26,7 @@ public interface CommentsMapper {
     int insertOne(Comments comments);
 
     // 특정 게시 글 댓글 수정
-    @Update("update \"Comments\" set cm_content = #{cmContent} where post_no = #{postNo} and cm_no = #{cmNo} and cm_writer = #{cmWriter}")
+    @Update("update \"Comments\" set cm_content = #{cmContent}, cm_edit_datetime = now() where post_no = #{postNo} and cm_no = #{cmNo} and cm_writer = #{cmWriter}")
     int updateOne(Comments comments);
 
     // 특정 게시 글 댓글 삭제

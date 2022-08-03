@@ -37,6 +37,9 @@ button {
     font-size: 100%;
     cursor: pointer;
 }
+.btn-close:focus{
+    box-shadow: none;
+}
 button, input {
     border-radius: 0;
     border: 0;

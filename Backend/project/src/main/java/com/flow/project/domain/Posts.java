@@ -15,8 +15,10 @@ public class Posts {
     private String postTitle;
     private String postContent;
     private String postDatetime;
+    private String postEditDatetime;
     private String postName;
     private int postPin;
     private String rmTitle;
     private int postBookmark;
+    private int postReadCount;
 }
