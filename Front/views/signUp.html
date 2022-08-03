@@ -47,7 +47,7 @@
                                     class="join-email-input js-join-email js-join-input" autocomplete="off"
                                     placeholder="example@gmail.com" data-required-yn="Y" maxlength="50"
                                     data-valid="email" data-empty-msg="이메일을 입력해주세요." data-over-msg="50자 이내로 작성해주세요."
-                                    data-un-valid-msg="이메일의 형식을 확인해주세요.">
+                                    data-un-valid-msg="이메일의 형식을 확인해주세요." data-exist-mail="이미 존재하는 아이디입니다.">
                                 <p class="error-text error-email"></p>
                             </label>
                             <label>
@@ -92,8 +92,8 @@
                                     style="display: none;">
                                 <label for="joinConfirmCheck" class="js-confirm-check"></label>
                                 <span class="confirm-check-require">(필수)</span>
-                                <a href="/terms.act" target="_blank">서비스 이용약관</a>, <a href="/privacy.act"
-                                    target="_blank">개인정보처리방침</a><span>을 확인하였고, 이에 동의합니다.</span>
+                                <a href="/terms.act" target="_blank" onclick='preventClick(event)'>서비스 이용약관</a>, <a href="/privacy.act"
+                                    target="_blank" onclick='preventClick(event)'>개인정보처리방침</a><span>을 확인하였고, 이에 동의합니다.</span>
                                 <p class="error-text js-error-text d-none">서비스 이용약관, 개인정보취금방침 확인 및 동의
                                     부탁드립니다.</p>
 
@@ -103,7 +103,7 @@
                                     class="js-confirm-input confirm-input" style="display: none;">
                                 <label for="joinUserMarketingAgreementCheck" class="js-confirm-check"></label>
                                 <span class="confirm-check-require">(선택)</span>
-                                <a href="/terms_marketing.act" target="_blank">플로우 혜택 알림 수신</a>에 동의합니다.
+                                <a href="/terms_marketing.act" target="_blank" onclick='preventClick(event)'>플로우 혜택 알림 수신</a>에 동의합니다.
 
                             </div>
                             <a href="#" id="teamStepButton" class="join-button-2">회원가입</a>
@@ -142,3 +142,8 @@
 </body>
 
 </html>
+<script>
+    function preventClick(e){
+	e.preventDefault()
+}
+</script>

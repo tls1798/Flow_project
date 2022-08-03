@@ -7,6 +7,7 @@ import {updateList} from './projectList.js';
 import {view, getPostAll} from './feed.js';
 import {closeCenterPopup} from './centerPostPopup.js';
 import {closeRightPostCard, settingButtonClose} from './rightPostCard.js'
+import {cleanFrom} from './signUp.js'
 
 let memNo = window.localStorage.getItem('memNo')
 
@@ -1738,7 +1739,9 @@ export function postEmailCodeAjax(memMail, memName, memPw){
                         success: function (result, status, xhr) {
                             location.href = 'login.html'
                         },
-                        error: function (xhr, status, err) {}
+                        error: function (xhr, status, err) {
+                            cleanFrom()
+                        }
                     });
                 } else {
                     alert('인증코드가 맞지않습니다')

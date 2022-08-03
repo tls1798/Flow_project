@@ -98,3 +98,13 @@ $('.flow-project-make-2').on('click', function () {
     $('.temp-popup').removeClass('flow-all-background-1')
     $('.flow-project-popup-6').addClass('d-none')
 })
+export function cleanFrom() {
+    $('.join-name-input').val('');
+    $('#password').val('')
+    $('#password2').val('')
+    $('.temp-popup').removeClass('flow-all-background-1')
+    $('.flow-project-popup-6').addClass('d-none')
+    $('.error-email').text($('.join-email-input').attr('data-exist-mail'));
+    $('input:checkbox[id="joinConfirmCheck"]').prop('checked', false);
+    $('#authInput').val('')
+}
