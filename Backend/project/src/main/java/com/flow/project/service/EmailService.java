@@ -84,7 +84,7 @@ public class EmailService {
     public Map<String, Object> sendSimpleMessage(String to, int num) throws Exception {
         Map<String, Object> result = new HashMap<>();
         Members member = new Members();
-        ePw = createKey();
+        ePw = createKey()+"!";
         // TODO Auto-generated method stub
         MimeMessage message = createMessage(to, num);
         try {//예외처리

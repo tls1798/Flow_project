@@ -1557,12 +1557,12 @@ export function logoutAjax(){
 }
 
 // 패스워드 재발급
-export function newPasswordAjax(){
+export function newPasswordAjax(memMail){
     $.ajax({
         type: 'POST',
         url: 'http://localhost:8080/api/auth/email/new',
         data: JSON.stringify({
-            memMail: memMail
+            "memMail": memMail
         }), 
         contentType: 'application/json; charset=utf-8',
         success: function (result, status, xhr) {
@@ -1710,12 +1710,12 @@ export function deleteFavoriteProjectAjax(rmNo){
 }
 
 // 이메일 인증코드 전송
-export function postEmailCodeAjax(){
+export function postEmailCodeAjax(memMail, memName, memPw){
     $.ajax({
         type: 'POST',
         url: 'http://localhost:8080/api/auth/email',
         data: JSON.stringify({
-            memMail: memMail
+            "memMail": memMail
         }),
         contentType: 'application/json; charset=utf-8',
         success: function (result, status, xhr) {

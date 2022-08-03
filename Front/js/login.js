@@ -1,6 +1,15 @@
 import {loginAjax, newPasswordAjax} from './ajax.js'
 
 $(function () {
+    // 비밀번호 찾기 화면 보이지 않게 설정
+    $('#findPassword').addClass('d-none')
+
+    // 비밀번호 찾기 화면이 보이고 로그인 화면을 가리기
+    $('.js-password-find').on('click', function () {
+        $('#loginLayer').addClass('d-none')
+        $('#findPassword').removeClass('d-none')
+    })
+})      
     // 엔터를 치면 로그인이 되도록
     $('#password').keypress(function (e) {
         if (e.keyCode === 13) {
@@ -30,18 +39,10 @@ $(function () {
         }
     })
   
-     // 비밀번호 찾기 화면 보이지 않게 설정
-     $('#findPassword').addClass('d-none')
 
-     // 비밀번호 찾기 화면이 보이고 로그인 화면을 가리기
-     $('.js-password-find').on('click', function () {
-         $('#loginLayer').addClass('d-none')
-         $('#findPassword').removeClass('d-none')
-     })
-     
      // 이메일의 값을 받아와서 임시 비밀번호를 메일로 전송
-     $('#findEmailInput').val()
-     $('#findSubmit').on('click', function () {
-        newPasswordAjax();
+    $('#findSubmit').on('click', function () {
+        let memMail = $('#findEmailInput').val()
+        newPasswordAjax(memMail);
      })
-})
+
