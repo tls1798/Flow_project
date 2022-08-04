@@ -1,0 +1,163 @@
+/* 검색 영역 */
+.all-search-section {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    z-index: 2;
+}
+/* 검색 헤더 */
+.main-header {
+    position: relative;
+    min-width: 750px;
+    height: 80px;
+    padding: 0 30px;
+    background: #fff;
+    z-index: 2;
+}
+#searchResult .title-1 {
+    float: none;
+    width: auto;
+}
+.title-1 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 80px;
+    float: left;
+    color: #333;
+}
+/* 닫기 */
+.all-search-section .close-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 40px;
+    width: 14px;
+    height: 14px;
+    background: url(https://flow.team/flow-renewal/assets/images/icons/icon_close_size14.png) no-repeat;
+    background-size: cover;
+    float: right;
+}
+/* 아무것도 없을 때 */
+.search-null {
+    width: 200px;
+    height: 120px;
+    background: url(https://flow.team/flow-renewal/assets/images/limit/service.png) no-repeat;
+}
+/* 검색 리스트 */
+.all-search-content {
+    min-width: 674px;
+    overflow: auto;
+    padding: 0 30px;
+    -webkit-box-flex: 1;
+    flex: 1;
+    height: 100%;
+}
+.all-search-content .all-seach-list-type-1 li {
+    position: relative;
+}
+.all-seach-list-type-1 li {
+    display: flex;
+    height: 62px;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    -webkit-box-align: center;
+    align-items: center;
+    color: #333;
+}
+.icon-post-type.write, .icon-post-type.write2 {
+    background-position: -126px 0;
+}
+.icon-post-type {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin-right: 16px;
+    background: url(https://flow.team/flow-renewal/assets/images/sprite-post-type.png) no-repeat;
+}
+.search-sub-text-wrap {
+    overflow: hidden;
+    line-height: 24px;
+    -webkit-box-flex: 3;
+    flex: 3;
+}
+.search-text-type-3.contents-tit {
+    color: #333;
+}
+.search-text-type-3 {
+    overflow: hidden;
+    display: block;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.all-search-content .all-seach-list-type-1 li p {
+    font-weight: 500;
+}
+.search-sub-text-wrap .search-text-type-3 p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.search-text-type-3 p {
+    font-size: 14px;
+    color: #333;
+}
+.search-text-type-3.contents-project {
+    color: #999;
+}
+.search-text-type-3 .search-name {
+    display: inline-block;
+    max-width: 200px;
+    margin-top: 1px;
+    vertical-align: top;
+    font-size: 13px;
+    font-weight: 400;
+    color: #333;
+}
+.search-text-type-3 .date {
+    margin-left: 6px;
+    font-size: 14px;
+    font-family: Roboto;
+    font-weight: 400;
+    color: #333;
+}
+.search-text-type-3 .project-title {
+    display: inline-block;
+    max-width: 240px;
+    margin-top: 1px;
+    font-size: 13px;
+    color: #999;
+    vertical-align: top;
+    font-weight: 400;
+}
+.search-text-type-3 .project-title:before {
+    display: inline-block;
+    margin: 0 9px;
+    content: "";
+    width: 1px;
+    height: 10px;
+    background: #ccc;
+}
+.search-text-type-3 .seach-type-2 {
+    display: inline-block;
+    position: relative;
+    top: 0;
+    margin-right: 6px;
+    background: url(https://flow.team/flow-renewal/assets/images/allseach-sprite-type-2.png) no-repeat -900px -1px;
+    background-size: 990px 40px;
+    width: 14px;
+    height: 11px;
+}
+/* 더보기 버튼 */
+.search-result-more {
+    margin-top: 10px;
+    padding: 6px 13px 6px 13px;
+    border: 1px solid #999;
+    border-radius: 100px;
+    font-weight: 500;
+    font-size: 12px;
+    color: #555;
+}
