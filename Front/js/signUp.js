@@ -132,6 +132,8 @@ $('.auth-popup').on('click', function () {
 
 // 검은색 백그라운드를 눌러서 팝업 나가기
 $('.flow-project-make-2').on('click', function () {
-    $('.temp-popup').removeClass('flow-all-background-1')
-    $('.flow-project-popup-6').addClass('d-none')
+    if($('.js-popup-before').css('display')=='none'){
+        $('.temp-popup').removeClass('flow-all-background-1')
+        $('.flow-project-popup-6').addClass('d-none')
+    }
 })

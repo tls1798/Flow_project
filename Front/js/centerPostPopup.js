@@ -14,7 +14,6 @@ const createPopup = function(typeNo, rmNo, postNo){
 export function updatePopup(typeNo, rmNo, postNo) {
     // 초기화
     $('#detailComment').children().remove();
-    $('#popBack1>li').children().remove();
     $('#popBack1>li').remove();
     $('#postPopup').addClass('flow-all-background-1');
     // centerPostPopup 업데이트
