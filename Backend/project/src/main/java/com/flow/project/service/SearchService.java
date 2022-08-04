@@ -13,10 +13,10 @@ public class SearchService {
 
     final SearchMapper searchMapper;
 
-    public List<Object> getInfo(String search){
+    public List<Object> getInfo(String search, int memNo){
 
-        List<SearchDTO.CmPostSearchDTO> postResult =  searchMapper.getPostInfo(search);
-        List<SearchDTO.CmPostSearchDTO> cmResult =  searchMapper.getCmInfo(search);
+        List<SearchDTO.CmPostSearchDTO> postResult =  searchMapper.getPostInfo(search, memNo);
+        List<SearchDTO.CmPostSearchDTO> cmResult =  searchMapper.getCmInfo(search, memNo);
         List<SearchDTO.CmPostSearchDTO> postAndCm = new ArrayList<>();
         postAndCm.addAll(postResult);
         postAndCm.addAll(cmResult);
@@ -32,7 +32,7 @@ public class SearchService {
         });
 
         List<Object> result = new ArrayList<>(postAndCm);
-        result.add(searchMapper.getRoomInfo(search));
+        result.add(searchMapper.getRoomInfo(search, memNo));
         return result;
     }
 }

@@ -1779,7 +1779,7 @@ export function EmailCheck(memMail){
 export function getSearchResultAjax(searchItem){
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8080/api/search/' + searchItem,
+        url: 'http://localhost:8080/api/search/' + memNo + '/' + searchItem,
         contentType: 'application/json; charset=euc-kr',
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
@@ -1793,6 +1793,7 @@ export function getSearchResultAjax(searchItem){
             $('#postSearchCount').css('display', 'inline-block');
             $('#projectSearchCount').css('display', 'inline-block');
 
+            // 글, 댓글 검색 결과
             for(let i=0; i<result.length-1; i++){
                 // <li>+<i>, content 포함한 <p>
                 let liAndITag, contentTag;
@@ -1833,12 +1834,21 @@ export function getSearchResultAjax(searchItem){
                 `);
             }
 
+            // 프로젝트 검색 결과
             for(let i=0; i<result[result.length-1].length; i++){
+
+                // 즐겨찾는 프로젝트
+                let favorite;
+                if(result[result.length-1][i].favoriteProject==false)
+                    favorite = `unstar`;
+                else
+                    favorite = ``;
+
                 $('#projectSearchResult').append(`
-                    <li class="project-search-item js-search-item" data-project-data=`+result[result.length-1][i].rmNo+`>
+                    <li class="project-search-item js-search-item" data-project-no=`+result[result.length-1][i].rmNo+`>
                         <div class="search-project color-code-3"></div>
                         <a href="#" class="js-star-button">
-                            <div class="js-star-icon seach-star-type-1 unstar"></div>
+                            <div class="js-star-icon seach-star-type-1 `+favorite+`"></div>
                         </a>
                         <a href="#" class="search-tit">
                             <em class="seach-text-type-1">`+result[result.length-1][i].rmTitle+`</em>

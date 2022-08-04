@@ -23,5 +23,11 @@ public class SearchDTO {
     public static class RoomSearchDTO{
         private String rmNo;
         private String rmTitle;
+        private String favoriteProject;
+
+        // favoriteProject getter (boolean 타입으로 반환하기 위함)
+        public Boolean getFavoriteProject() {
+            return favoriteProject != null;
+        }
     }
 }

@@ -17,9 +17,9 @@ $('.js-unread').click(function () {
 
     // 미확인 알림 없을 때 이미지
     if($('#alarmUl').find('li').hasClass('on')===true)
-        $('.js-project-null').css('display', 'none');
+        $('#alarmUl').children('.js-project-null').css('display', 'none');
     else
-        $('.js-project-null').css('display', 'flex');
+        $('#alarmUl').children('.js-project-null').css('display', 'flex');
 });
 
 // 전체 탭 클릭 -> 읽은 알림 display block
@@ -29,7 +29,7 @@ $('.js-read').click(function () {
     $('.js-alarm-item').not('.on').css('display', 'block');
 
     // 미확인 알림 없을 때 이미지
-    $('.js-project-null').css('display', 'none');
+    $('#alarmUl').children('.js-project-null').css('display', 'none');
 });
 
 // 알림 클릭 -> 알림 읽고, 가운데 글 팝업 띄우기

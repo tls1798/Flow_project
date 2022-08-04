@@ -23,6 +23,9 @@ $(".main-search").click(function(){
         $(".name-type-seach-popup").css('display', 'block');
         searchPopupBool=!searchPopupBool;
 
+        // 자동 포커싱
+        $('#searchPopupInput').focus();
+
         // html.click 동작시키지 않기 위해 작성
         return false;
     }

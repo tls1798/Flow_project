@@ -81,13 +81,28 @@ a {
     text-decoration: none;
 }
 
+/* 검색 즐겨찾기 별 */
+.seach-star-type-1.unstar {
+    background: url(https://flow.team/flow-renewal/assets/images/allseach-sprite-type-3.png) no-repeat -24px 0;
+    background-size: 112px 22px;
+    width: 21px;
+    height: 21px;
+    margin: 0 8px 0 14px;
+}
+.seach-star-type-1 {
+    background: url(https://flow.team/flow-renewal/assets/images/allseach-sprite-type-2.png) no-repeat -860px 0;
+    background-size: 990px 40px;
+    width: 21px;
+    height: 21px;
+    margin: 0 8px 0 14px;
+}
 /* 검색 리스트 */
 .icon-post-type.comment {
     background-position: -168px 0;
 }
 .post-name-txt {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 700;
     color: #555;
     margin-right: 10px;
 }
@@ -111,6 +126,16 @@ a {
     align-items: center;
     color: #333;
 }
+.all-seach-list-type-1 li:hover {
+    background: #efebff;
+    cursor: pointer;
+}
+.all-search-content .all-seach-list-type-1 li:hover .seach-text-type-1, .all-search-content .all-seach-list-type-1 li:hover p {
+    color: #6449fc;
+}
+.all-search-content .all-seach-list-type-1 li .seach-text-type-1, .all-search-content .all-seach-list-type-1 li p {
+    font-weight: 700;
+}
 .icon-post-type.write, .icon-post-type.write2 {
     background-position: -126px 0;
 }
@@ -120,9 +145,6 @@ a {
     height: 40px;
     margin-right: 16px;
     background: url(https://flow.team/flow-renewal/assets/images/sprite-post-type.png) no-repeat;
-}
-.all-search-content .all-seach-list-type-1 li p {
-    font-weight: 500;
 }
 .search-sub-text-wrap .search-text-type-3 p {
     overflow: hidden;

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class SearchApiController {
     final SearchService searchService;
 
-    @GetMapping("/search/{search}")
-    public ResponseEntity<?> getInfo(@PathVariable String search) {
-        return ResponseEntity.status(HttpStatus.OK).body(searchService.getInfo(search));
+    @GetMapping("/search/{memNo}/{search}")
+    public ResponseEntity<?> getInfo(@PathVariable String search, @PathVariable int memNo) {
+        return ResponseEntity.status(HttpStatus.OK).body(searchService.getInfo(search, memNo));
     }
 }
