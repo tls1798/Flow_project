@@ -16,7 +16,7 @@ public interface NotificationsMapper {
             "(select count(*) from \"Notis\" n where n.mem_no != #{memNo} and n.nt_check -> concat(#{memNo},'') = 'null') as nt_count, " +
             "case " +
                 "when(nt_type_no=1) then (select case " +
-                                                    "when (ps.post_title='') then substring(ps.post_content,4,char_length(ps.post_content)-7) " +
+                                                    "when (ps.post_title='') then ps.post_content " +
                                                     "else ps.post_title end " +
                                             "from \"Posts\" ps where ps.post_no=n.nt_detail_no) " +
                 "when(nt_type_no=2) then (select cs.cm_content from \"Comments\" cs where cs.cm_no=n.nt_detail_no) " +

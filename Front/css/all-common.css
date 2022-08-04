@@ -103,6 +103,14 @@ strong {
     overflow: hidden;
 }
 
+.search-sub-text-wrap {
+    overflow: hidden;
+    -webkit-box-flex: 3;
+    -webkit-flex: 3;
+    -moz-box-flex: 3;
+    flex: 3;
+}
+
 /* 사진 들어가는 곳 */
 .thumbnail.size40 {
     width: 40px;
@@ -150,6 +158,42 @@ strong {
 .flow-project-make-2 {
     display: table-cell;
     vertical-align: middle;
+}
+
+/* 검색 즐겨찾기 별 */
+.seach-star-type-1.unstar {
+    background: url(https://flow.team/flow-renewal/assets/images/allseach-sprite-type-3.png) no-repeat -24px 0;
+    background-size: 112px 22px;
+    width: 21px;
+    height: 21px;
+    margin: 0 8px 0 14px;
+}
+.seach-star-type-1 {
+    background: url(https://flow.team/flow-renewal/assets/images/allseach-sprite-type-2.png) no-repeat -860px 0;
+    background-size: 990px 40px;
+    width: 21px;
+    height: 21px;
+    margin: 0 8px 0 14px;
+}
+
+/* 알림레이어, 검색 결과에 띄울 결과가 없을 때 */
+.project-null-t-1 {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.project-null-t-2 span {
+    display: block;
+    width: auto;
+    height: 38px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 14px;
+    color: #999;
 }
 
 /* 스크롤 되는 부분 */

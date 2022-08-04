@@ -8,6 +8,7 @@
     background: #fff;
     z-index: 2;
 }
+
 /* 검색 헤더 */
 .main-header {
     position: relative;
@@ -28,6 +29,7 @@
     float: left;
     color: #333;
 }
+
 /* 닫기 */
 .all-search-section .close-button {
     position: absolute;
@@ -40,13 +42,55 @@
     background-size: cover;
     float: right;
 }
+
 /* 아무것도 없을 때 */
 .search-null {
     width: 200px;
     height: 120px;
     background: url(https://flow.team/flow-renewal/assets/images/limit/service.png) no-repeat;
+    margin: 0 auto;
 }
+
+/* 검색 결과 count */
+.search-result-count {
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 17px;
+    color: #999;
+}
+
+/* 프로젝트 리스트 */
+.search-project {
+    display: inline-block;
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    vertical-align: middle;
+}
+.search-tit {
+    display: inline-block;
+    overflow: hidden;
+    max-width: 80%;
+    min-width: 100px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 /* 검색 리스트 */
+.icon-post-type.comment {
+    background-position: -168px 0;
+}
+.post-name-txt {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    margin-right: 10px;
+}
 .all-search-content {
     min-width: 674px;
     overflow: auto;
@@ -76,22 +120,6 @@
     height: 40px;
     margin-right: 16px;
     background: url(https://flow.team/flow-renewal/assets/images/sprite-post-type.png) no-repeat;
-}
-.search-sub-text-wrap {
-    overflow: hidden;
-    line-height: 24px;
-    -webkit-box-flex: 3;
-    flex: 3;
-}
-.search-text-type-3.contents-tit {
-    color: #333;
-}
-.search-text-type-3 {
-    overflow: hidden;
-    display: block;
-    max-width: 100%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 .all-search-content .all-seach-list-type-1 li p {
     font-weight: 500;
@@ -150,14 +178,4 @@
     background-size: 990px 40px;
     width: 14px;
     height: 11px;
-}
-/* 더보기 버튼 */
-.search-result-more {
-    margin-top: 10px;
-    padding: 6px 13px 6px 13px;
-    border: 1px solid #999;
-    border-radius: 100px;
-    font-weight: 500;
-    font-size: 12px;
-    color: #555;
 }

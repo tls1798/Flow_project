@@ -1,5 +1,5 @@
 import {updateAlarms} from './socket.js'
-import {logoutAjax} from './ajax.js'
+import {logoutAjax, getSearchResultAjax} from './ajax.js'
 import {confirmOpen, confirmClose} from './confirm.js'
 
 // 모달, 팝업 display:none -> false, block -> true
@@ -25,6 +25,29 @@ $(".main-search").click(function(){
 
         // html.click 동작시키지 않기 위해 작성
         return false;
+    }
+});
+
+// 검색창 텍스트박스에서 엔터
+$('#searchPopupInput').keypress(function(e){
+    if(e.keyCode === 13){
+        // 검색 Ajax
+        let searchItem = $('#searchPopupInput').val();
+        getSearchResultAjax(searchItem);
+
+        // 검색 팝업 닫기
+        $(".name-type-seach-popup").css('display', 'none');
+        searchPopupBool=!searchPopupBool;
+
+        // 상단바 검색어 변경
+        $('#searchWord').text(searchItem);
+
+        // 검색 페이지 띄우기
+        $('#searchResult').removeClass('d-none');
+        $('.top-setting-bar #topSettingBar').css('display', 'none');
+
+        // 초기화
+        $('#searchPopupInput').val('');
     }
 });
 

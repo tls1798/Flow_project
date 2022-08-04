@@ -62,6 +62,7 @@
     <script defer type="module" src="../js/comments.js"></script>
     <script defer type="module" src="../js/rightPostCard.js"></script>
     <script defer type="module" src="../js/bookmark.js"></script>
+    <script defer type="module" src="../js/search.js"></script>
     <script defer type="module" src="../js/ajax.js"></script>
 
 </head>
@@ -449,7 +450,7 @@
                 <!-- 검색 창 -->
                 <div id="searchResult" class="all-search-section d-none" style="display: block;">
                     <div id="topSettingBar" class="main-header" style="display: block;">
-                        <div class="title-1" style="display: block">"<em id="searchWord">검색</em>" 검색 결과</div>
+                        <div class="title-1" style="display: block">"<em id="searchWord"></em>" 검색 결과</div>
                         <button id="searchResultClose" type="button" class="close-button">
                             <span class="blind">닫기</span>
                         </button>
@@ -469,14 +470,7 @@
                                     <span id="projectSearchCount" class="search-result-count" style="display: none;">0</span>
                                 </div>
                                 <ul id="projectSearchResult" class="scroll-mask all-seach-list-type-1">
-                                    <div class="js-project-null project-null-t-1 undefined">   
-                                        <div class="project-null-t-2 ">       
-                                            <div class=" project-null-t-3 search-null"></div>       
-                                            <span>검색 결과가 없습니다.</span>   
-                                        </div>
-                                    </div>
                                 </ul>
-                                <button id="projectSearchMore" type="button" class="js-search-more search-result-more" data-code="project" style="display: none;">더보기</button>
                             </div>
                             <div id="postSearchArea" class="search-result-group" style="display: block;">
                                 <div class="search-title-area" style="display: block;">
@@ -484,34 +478,7 @@
                                     <span id="postSearchCount" class="search-result-count" style="display: inline-block;">6</span>
                                 </div>
                                 <ul id="postSearchResult" class="scroll-mask all-seach-list-type-1">
-                                    <li class="post-search-item js-search-item" data-code="post" colabo_srno="1407745" colabo_commt_srno="18586789" colabo_remark_srno="-1" rgsn_dttm="20220727103248">
-                                        <i class="icon-post-type write"></i>
-                                        <div class="search-sub-text-wrap">
-                                            <a href="#" class="search-text-type-3 contents-tit">
-                                                <p><span class="post-name-txt">글</span>22.07.27 회의록 8차</p>
-                                            </a>
-                                            <p class="search-text-type-3 contents-project">
-                                                <span class="search-name ellipsis">지솔빈</span> 
-                                                <span class="date">2022-07-27 10:32</span>
-                                                <em class="project-title ellipsis"><i class="seach-type-2"></i>[마드라스체크] 청년IT전문가 1기 실습 프로젝트</em>
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li class="post-search-item js-search-item" data-code="post" colabo_srno="1402344" colabo_commt_srno="17816955" colabo_remark_srno="34865435" rgsn_dttm="20220705195311">
-                                        <i class="icon-post-type comment"></i>
-                                        <div class="search-sub-text-wrap">
-                                            <a href="#" class="search-text-type-3 contents-tit">
-                                                <p><span class="post-name-txt">댓글</span>1. <strong>검색</strong> 모달 -&gt; 끝 2. min-width -&gt; 끝 3.&nbsp;룸&nbsp;리스트&nbsp;만들기</p>
-                                            </a>
-                                            <p class="search-text-type-3 contents-project">
-                                                <span class="search-name ellipsis">지솔빈</span> 
-                                                <span class="date">2022-07-05 19:53</span>
-                                                <em class="project-title ellipsis"><i class="seach-type-2"></i>플로우 프로젝트</em>
-                                            </p>
-                                        </div>
-                                    </li>
                                 </ul>
-                                <button id="postSearchMore" type="button" class="js-search-more search-result-more" data-code="post" style="display: block;">더보기</button>
                             </div>
                         </div>
                     </div>

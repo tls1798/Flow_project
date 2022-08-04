@@ -1,31 +1,25 @@
 package com.flow.project.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 public class SearchDTO {
-    @Getter
-    @Setter
-    public static class CmSearchDTO{
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class CmPostSearchDTO {
         private int cmNo;
-        private String cmContent;
-        private String cmWriter;
-        private String rmTitle;
-        private String cmDatetime;
-        private String rmNo;
-    }
-    @Getter
-    @Setter
-    public static class PostSearchDTO{
         private int postNo;
-        private String postTitle;
-        private String rmTitle;
-        private String postWriter;
-        private String postDatetime;
+        private String searchContent;
+        private String searchWriter;
+        private String searchDatetime;
         private String rmNo;
+        private String rmTitle;
     }
-    @Getter
-    @Setter
+
+    @Data
     public static class RoomSearchDTO{
         private String rmNo;
         private String rmTitle;

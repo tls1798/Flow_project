@@ -1,5 +1,17 @@
 import {postEmailCodeAjax, EmailCheck} from './ajax.js'
 
+// 모든 input 비우기
+export function cleanFrom() {
+    $('#joinUserEmail').val('')
+    $('.join-name-input').val('');
+    $('#password').val('')
+    $('#password2').val('')
+    $('.temp-popup').removeClass('flow-all-background-1')
+    $('.flow-project-popup-6').addClass('d-none')
+    $('input:checkbox[id="joinConfirmCheck"]').prop('checked', false);
+    $('#authInput').val('')
+}
+
 // 이메일 정규식 검사 
 function validEmailCheck(memMail) {
     let pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
@@ -26,6 +38,7 @@ function chkPW(password) {
         return true;
     }
 }
+
 // err 메세지, err class 제거
 function cleanIdinput() {
     $('.error-email').text(''),$('#joinUserEmail').removeClass('input-error');
@@ -42,17 +55,6 @@ function cleanPw2Input() {
 function cleanChkbox() {
     $('.js-error-text').addClass('d-none'), $('.addbr').html('<br><br>');
 }
-// 모든 input 비우기
-export function cleanFrom() {
-    $('#joinUserEmail').val('')
-    $('.join-name-input').val('');
-    $('#password').val('')
-    $('#password2').val('')
-    $('.temp-popup').removeClass('flow-all-background-1')
-    $('.flow-project-popup-6').addClass('d-none')
-    $('input:checkbox[id="joinConfirmCheck"]').prop('checked', false);
-    $('#authInput').val('')
-}
 
 // 포커스 되면 비우기
 $('#joinUserEmail').focusin(function () { cleanIdinput()})
@@ -60,7 +62,6 @@ $('#joinUserName').focusin(function () { cleanNameInput()})
 $('.js-join-password').focusin(function () { cleanPwInput()})
 $('.js-join-password2').focusin(function () { cleanPw2Input()})
 $('.js-confirm-check').on('click', function () { cleanChkbox()})
-
 
 // 가입된 이메일인지 확인
 $('#joinUserEmail').focusout(function () {

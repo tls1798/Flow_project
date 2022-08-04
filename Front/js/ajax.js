@@ -24,9 +24,6 @@ export function getAllAlarmsAjax(){
             success: function (result, status, xhr) {
                 succ(result);
     
-                // 미확인 알림 count
-                var cnt = 0;
-    
                 // 읽음 여부 확인해서 미확인/전체 나누기 (미확인이면 addClass('on'))
                 for(var i=0; i<result.length; i++){
     
@@ -35,15 +32,24 @@ export function getAllAlarmsAjax(){
                     if(result[i].ntCheck[memNo]==null){
                         checked = `<li class="js-alarm-item on" data-project-no=`+result[i].rmNo+` data-notis-no=`+result[i].ntNo
                             +` data-type-no=`+result[i].ntTypeNo+ ` data-detail-no=`+result[i].ntDetailNo+` data-post-no=`+result[i].postNo+`>`;
-                        ++cnt;
                     }
                     else
                         checked = `<li class="js-alarm-item" data-project-no=`+result[i].rmNo+` data-notis-no=`+result[i].ntNo
                             +` data-type-no=`+result[i].ntTypeNo+ ` data-detail-no=`+result[i].ntDetailNo+` data-post-no=`+result[i].postNo+`>`;
+
+                    // 내용의 줄바꿈 전까지 출력 + 태그 제외
+                    let content = result[i].notiContent;
+                    
+                    if(content.search('</p>'))
+                        content = (content.substr(0, content.search('</p>'))).replace(/(<([^>]+)>)/ig,"");
+                    if(content=='')
+                        content = (result[i].notiContent).replace(/(<([^>]+)>)/ig,"");
+                    if(content.length>100)
+                        content = (content.substr(0, 100)).replace(/(<([^>]+)>)/ig,"");
                     
                     // 알림 종류에 따른 문구
                     var des;
-                    var content = `<div class="all-text-wrap-type-3 alarm-cont">`+(result[i].notiContent.length>50?result[i].notiContent.substr(0,50):result[i].notiContent)+`</div>`;
+                    content = `<div class="all-text-wrap-type-3 alarm-cont">`+content+`</div>`;
                     if(result[i].ntTypeNo==1)
                         des = `님의 글 등록`;
                     else if(result[i].ntTypeNo==2)
@@ -224,18 +230,14 @@ export function getBookmarkAjax(){
                 `)
                 // 타이틀이 null 이면
                 if (result[i].postTitle == '') {
-                    // 길이가 30자 이상이면 30자 까지
-                    if (result[i].postContent.length > 30) {
-                        $('#bookmarklist-' + result[i].postNo + '').text((result[i].postContent.substr(0, 30) + '···').replace(/(<([^>]+)>)/ig,""))
-                    }
+                    let postCon = result[i].postContent;
+
                     // 내용의 줄바꿈 전까지 출력
-                    else if (result[i].postContent.search('</p>')) {
-                        $('#bookmarklist-' + result[i].postNo + '').text((result[i].postContent.substr(0, result[i].postContent.search('</p>'))).replace(/(<([^>]+)>)/ig,""))
-                    }
-                    else {
-                        $('#bookmarklist-' + result[i].postNo + '').text((result[i].postContent).replace(/(<([^>]+)>)/ig,""))                        
-                    }
-                } 
+                    if (postCon.search('</p>'))
+                        postCon = (postCon.substr(0, postCon.search('</p>'))).replace(/(<([^>]+)>)/ig,"");
+                    
+                    $('#bookmarklist-' + result[i].postNo + '').text(postCon);
+                }
             }
         },
         error: function (xhr, status, err) {
@@ -918,18 +920,15 @@ export function getAllPostsByProjectAjax(rmNo){
 
                         // 타이틀이 null 이면
                         if (result[i].posts.postTitle == '') {
-                            // 길이가 30자 이상이면 30자 까지
-                            if (result[i].posts.postContent.length > 30) {
-                                $('#fixed-' + result[i].posts.postNo + '').text((result[i].posts.postContent.substr(0, 30) + '···').replace(/(<([^>]+)>)/ig,""))
-                            }
+                            let postCon = result[i].posts.postContent;
+
                             // 내용의 줄바꿈 전까지 출력
-                            else if (result[i].posts.postContent.search('</p>')) {
-                                $('#fixed-' + result[i].posts.postNo + '').text((result[i].posts.postContent.substr(0, result[i].posts.postContent.search('</p>'))).replace(/(<([^>]+)>)/ig,""))
-                            }
-                            else {
-                                $('#fixed-' + result[i].posts.postNo + '').text((result[i].posts.postContent).replace(/(<([^>]+)>)/ig,""))                        
-                            }
-                        } 
+                            if (postCon.search('</p>'))
+                                postCon = (postCon.substr(0, postCon.search('</p>'))).replace(/(<([^>]+)>)/ig,"");
+                            
+                            $('#fixed-' + result[i].posts.postNo + '').text(postCon);
+                        }
+                        
                     }
                     $('#detailUl').append(`
                         <li id="post-`+result[i].posts.postNo+`" class="js-popup-before detail-item back-area feed-card" data-read-yn="Y" data-comment-count="0"  data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + `" data-post-pin= "`+ result[i].posts.postPin +`" data-remark-srno="" data-bookmark="`+result[i].posts.postBookmark+`" data-section-srno=""  mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
@@ -1756,6 +1755,7 @@ export function postEmailCodeAjax(memMail, memName, memPw) {
     });
 }
 
+// 이메일 중복 확인
 export function EmailCheck(memMail){
     $.ajax({
         type: 'GET',
@@ -1772,5 +1772,111 @@ export function EmailCheck(memMail){
             }
         },
         error: function (xhr, status, err) {}
+    });
+}
+
+// 검색 결과 가져오기
+export function getSearchResultAjax(searchItem){
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/api/search/' + searchItem,
+        contentType: 'application/json; charset=euc-kr',
+        beforeSend: function (xhr) {      
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
+        },
+        success: function (result, status, xhr) {
+            // 초기화
+            $('#postSearchResult').find('li').remove();
+            $('#projectSearchResult').find('li').remove();
+            $('#postSearchResult').find('.js-project-null.project-null-t-1.undefined').remove();
+            $('#projectSearchResult').find('.js-project-null.project-null-t-1.undefined').remove();
+            $('#postSearchCount').css('display', 'inline-block');
+            $('#projectSearchCount').css('display', 'inline-block');
+
+            for(let i=0; i<result.length-1; i++){
+                // <li>+<i>, content 포함한 <p>
+                let liAndITag, contentTag;
+                let content = result[i].searchContent;
+
+                // 내용의 줄바꿈 전까지 출력
+                if (content.search('</p>'))
+                    content = (content.substr(0, content.search('</p>'))).replace(/(<([^>]+)>)/ig,"");
+                // 위 두 조건에 해당하지 않으면 (안 적으면 search 시 값 초기화 됨)
+                if (content == '')
+                    content = result[i].searchContent;
+
+                // 댓글
+                if(result[i].cmNo!=0){
+                    liAndITag = `<li class="post-search-item js-search-item" data-comment-no=`+result[i].cmNo+` data-post-no=`+result[i].postNo+` data-project-no=`+result[i].rmNo+`>
+                                    <i class="icon-post-type comment"></i>`;
+                    contentTag = `<p><span class="post-name-txt">댓글</span>`+content+`</p>`;
+                }
+                // 글
+                else{
+                    liAndITag = `<li class="post-search-item js-search-item" data-comment-no=`+result[i].cmNo+` data-post-no=`+result[i].postNo+` data-project-no=`+result[i].rmNo+`>
+                                    <i class="icon-post-type write"></i>`;
+                    contentTag = `<p><span class="post-name-txt">글</span>`+content+`</p>`;
+                }
+
+                $('#postSearchResult').append(liAndITag+`
+                        <div class="search-sub-text-wrap">
+                            <a href="#" class="search-text-type-3 contents-tit">
+                                `+contentTag+`
+                            </a>
+                            <p class="search-text-type-3 contents-project">
+                                <span class="search-name ellipsis">`+result[i].searchWriter+`</span> 
+                                <span class="date">`+result[i].searchDatetime+`</span>
+                                <em class="project-title ellipsis"><i class="seach-type-2"></i>`+result[i].rmTitle+`</em>
+                            </p>
+                        </div>
+                    </li>
+                `);
+            }
+
+            for(let i=0; i<result[result.length-1].length; i++){
+                $('#projectSearchResult').append(`
+                    <li class="project-search-item js-search-item" data-project-data=`+result[result.length-1][i].rmNo+`>
+                        <div class="search-project color-code-3"></div>
+                        <a href="#" class="js-star-button">
+                            <div class="js-star-icon seach-star-type-1 unstar"></div>
+                        </a>
+                        <a href="#" class="search-tit">
+                            <em class="seach-text-type-1">`+result[result.length-1][i].rmTitle+`</em>
+                        </a>
+                    </li>
+                `);
+            }
+
+            // 검색 결과 없을 때 뜨는 이미지 <-> 검색 결과가 있다면 count 업데이트
+            if($('#postSearchResult').find('li').length==0){
+                $('#postSearchCount').css('display', 'none');
+                $('#postSearchResult').append(`
+                    <div class="js-project-null project-null-t-1 undefined">   
+                        <div class="project-null-t-2 ">       
+                            <div class=" project-null-t-3 search-null"></div>       
+                            <span>검색 결과가 없습니다.</span>   
+                        </div>
+                    </div>
+                `);
+            }else{
+                $('#postSearchCount').text(result.length-1);
+            }
+            if($('#projectSearchResult').find('li').length==0){
+                $('#projectSearchCount').css('display', 'none');
+                $('#projectSearchResult').append(`
+                    <div class="js-project-null project-null-t-1 undefined">   
+                        <div class="project-null-t-2 ">       
+                            <div class=" project-null-t-3 search-null"></div>       
+                            <span>검색 결과가 없습니다.</span>   
+                        </div>
+                    </div>
+                `);
+            }else{
+                $('#projectSearchCount').text(result[result.length-1].length);
+            }
+        },
+        error: function (xhr, status, err) {
+            autoaccess();
+        }
     });
 }
