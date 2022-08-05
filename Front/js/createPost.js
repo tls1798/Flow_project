@@ -39,13 +39,14 @@ const toastEditor = function () {
         height: '600px',
         hideModeSwitch: true,
         toolbarItems: [
-            ['heading', 'bold', 'italic', 'strike'],
+            ['bold', 'italic', 'strike'],
             ['ul', 'ol', 'task']
         ],
         plugins: [fontSizePlugin],
         initialEditType:'wysiwyg',
     });
 }
+
 // 글 생성 버튼 클릭 시 글 생성 팝업 보이기 
 $('#createPostArea').click(function(){
     // 오른쪽 글 카드 열려있으면 닫기

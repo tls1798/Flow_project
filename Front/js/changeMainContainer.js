@@ -1,5 +1,6 @@
 import {getAllRoomsAjax} from './ajax.js'
 import {initRightPostCard} from './rightPostCard.js'
+import {updateList} from './projectList.js';
 
 $(document).on('click', '.project-item', function(e){
 
@@ -21,9 +22,13 @@ $(document).on('click', '.project-item', function(e){
 $(document).on('click', '.left-menu-item, .project-item, .logo-box', function(){
     $('.left-menu-item').not(this).removeClass('flow-active');
     
-    // 만약 로고 클릭 시, 내 프로젝트 active
+    // 만약 로고 클릭 시, 내 프로젝트 active + 리스트 업데이트
     if($(this).hasClass('logo-box')){
         $('.left-menu-main').addClass('flow-active');
+    }
+
+    if($(this).hasClass('left-menu-main')){
+        updateList();
     }
 
     // 오른쪽 글 카드 열려있으면 닫기

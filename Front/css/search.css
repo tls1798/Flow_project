@@ -80,6 +80,14 @@ a {
     color: inherit;
     text-decoration: none;
 }
+.post-search-item.highlight {
+    background: #efebff;
+    border: 1px solid #6449fc;
+    z-index: 0;
+}
+.post-card-wrapper.highlight .post-title, .post-search-item.highlight .post-type, .post-search-item.highlight .search-text-type-3 .icons-project-1:before, .post-search-item.highlight .search-text-type-3 em, .post-search-item.highlight .search-text-type-3 p, .post-search-item.highlight .search-text-type-3 span {
+    color: #6449fc;
+}
 
 /* 검색 즐겨찾기 별 */
 .seach-star-type-1.unstar {

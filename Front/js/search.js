@@ -1,4 +1,5 @@
 import {addFavoriteProjectAjax, deleteFavoriteProjectAjax} from './ajax.js'
+import {updateRight} from './rightPostCard.js';
 
 // X 클릭 시, 창 닫고 topSettingBar 활성화
 $('#searchResultClose').click(function(){
@@ -19,4 +20,23 @@ $(document).on('click', '.js-star-icon.seach-star-type-1', function(e){
         $(e.target).addClass('unstar');
         deleteFavoriteProjectAjax(rmNo);
     }
+})
+
+// 검색 결과 li 클릭 -> highlight class 추가
+$(document).on('click', '.post-search-item, .project-search-item', function(){
+    $('.js-search-item').removeClass('highlight');
+    $(this).addClass('highlight');
+})
+
+// 글 댓글 클릭 -> 우측 포스트 카드
+$(document).on('click', '.post-search-item', function(){
+    let rmNo = $(this).attr('data-project-no');
+    let postNo = $(this).attr('data-post-no');
+    updateRight(rmNo, postNo);
+})
+
+// 프로젝트 클릭 -> 프로젝트 피드로 이동
+$(document).on('click', '.project-search-item', function(){
+    let rmNo = $(this).attr('data-project-no');
+    $('.project-item[data-id='+rmNo+']').click();
 })

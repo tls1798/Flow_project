@@ -20,7 +20,7 @@ const closeInviteLayer = function(tar){
 }
 
 // 초대하기 버튼 클릭 -> 첫 번째 팝업 display block
-$('#openInviteLayerBtn, #noDetailDataBnt').click(function(e){
+$(document).on('click', '#openInviteLayerBtn, #noDetailDataBnt', function(){
     $('#inviteLayer').css('display', 'block');
 })
 
