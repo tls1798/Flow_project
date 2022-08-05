@@ -1,23 +1,23 @@
 import {getPostToCenterPopupAjax} from './ajax.js'
 
 // 가운데 글 팝업 띄우기
-const createPopup = function(typeNo, rmNo, postNo){
+const createPopup = function(typeNo, rmNo, postNo, cmNo){
     if(typeNo==3){
         $('.project-item[data-id='+rmNo+']').click();
         $('#postPopup').removeClass('flow-all-background-1');
     } else{
-        getPostToCenterPopupAjax(rmNo, postNo);
+        getPostToCenterPopupAjax(rmNo, postNo, cmNo);
     }
 }
 
 // centerPostPopup 초기화 및 업데이트 함수
-export function updatePopup(typeNo, rmNo, postNo) {
+export function updatePopup(typeNo, rmNo, postNo, cmNo) {
     // 초기화
     $('#detailComment').children().remove();
     $('#popBack1>li').remove();
     $('#postPopup').addClass('flow-all-background-1');
     // centerPostPopup 업데이트
-    createPopup(typeNo, rmNo, postNo);
+    createPopup(typeNo, rmNo, postNo, cmNo);
 }
 
 // 중앙 팝업 닫기

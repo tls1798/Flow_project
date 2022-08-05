@@ -181,8 +181,12 @@ $('#readAllPostBnt').click(function () {
 $(document).on('click', '.not-read-alarm-item', function (e) {
     let rmNo = $(this).attr('data-project-no');
     let postNo = $(this).attr('data-post-no');
+    let cmNo = -1;
 
-    updateRight(rmNo, postNo);
+    if($(this).attr('data-type-no')==2)
+        cmNo = $(this).attr('data-detail-no');
+
+    updateRight(rmNo, postNo, cmNo);
     readAlarm($(this).attr('data-notis-no'), postNo);
 })
 
@@ -216,7 +220,7 @@ $(document).on('click','#pinPostUl',function(e){
         postNo = $(e.target).closest('li').attr('data-post-srno');
         succ(rmNo, postNo);
     }).then((arg)=>{
-        updateRight(rmNo, postNo);
+        updateRight(rmNo, postNo, -1);
     })
 })
 

@@ -32,7 +32,12 @@ $(document).on('click', '.post-search-item, .project-search-item', function(){
 $(document).on('click', '.post-search-item', function(){
     let rmNo = $(this).attr('data-project-no');
     let postNo = $(this).attr('data-post-no');
-    updateRight(rmNo, postNo);
+    let cmNo = -1;
+    
+    if($(this).find('i').hasClass('comment'))
+        cmNo = $(this).attr('data-comment-no');
+
+    updateRight(rmNo, postNo, cmNo);
 })
 
 // 프로젝트 클릭 -> 프로젝트 피드로 이동

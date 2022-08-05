@@ -37,11 +37,15 @@ $('#alarmLayer').on('click', '.js-alarm-item', function (e) {
     var typeNo = $(this).attr('data-type-no');
     var rmNo = $(this).attr('data-project-no');
     let postNo = $(this).attr('data-post-no');
+    let cmNo = -1;
 
     if($(this).hasClass('on'))
         readAlarm($(this).attr('data-notis-no'), postNo);
+
+    if($(this).attr('data-type-no')==2)
+        cmNo = $(this).attr('data-detail-no');
     
-    updatePopup(typeNo, rmNo, postNo);
+    updatePopup(typeNo, rmNo, postNo, cmNo);
 })
 
 // 알림레이어 알림 모두 읽음

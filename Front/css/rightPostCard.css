@@ -265,3 +265,7 @@
     content: attr(placeholder);
     color: #999;
 }
+.post-comment-group .highlight, .post-search-item.highlight {
+    background: #efebff;
+    border: 1px solid #6449fc;
+}

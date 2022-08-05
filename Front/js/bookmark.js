@@ -22,7 +22,7 @@ export function alert(){
 $(document).on('click', '.booklist', function () {
     let rmNo = $(this).attr('data-project-id')
     let postNo = $(this).attr('data-post-id')
-    updateRight(rmNo, postNo)
+    updateRight(rmNo, postNo, -1)
 })
 
 // 북마크 아이콘 누를시

@@ -25,11 +25,11 @@ export function settingButtonClose(){
 }
 
 // 오른쪽 글 카드 초기화 및 업데이트 함수
-export function updateRight(rmNo, postNo) {
+export function updateRight(rmNo, postNo, cmNo) {
     initRightPostCard();
 
     // 오른쪽 글 카드 업데이트
-    getPostToRightPostCardAjax(rmNo, postNo);
+    getPostToRightPostCardAjax(rmNo, postNo, cmNo);
 }
 
 // setting-button 클릭 시 글 수정, 삭제 보이기

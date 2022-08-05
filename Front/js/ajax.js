@@ -652,7 +652,7 @@ export function editPostAjax(rmNo, postNo, editTitle, editContent){
             $('.project-item[data-id='+rmNo+']').click();
 
             // 오른쪽 글 카드
-            updateRight(rmNo, postNo);
+            updateRight(rmNo, postNo, -1);
         },
         error: function (xhr, status, err) {
             autoaccess()
@@ -1115,7 +1115,7 @@ export function getAllPostsByProjectAjax(rmNo) {
 }
 
 // 글 하나 가져오기 (중앙 팝업)
-export function getPostToCenterPopupAjax(rmNo, postNo){
+export function getPostToCenterPopupAjax(rmNo, postNo, cmNo){
     $.ajax({
         type:'GET',
         url: 'http://localhost:8080/api/members/'+memNo+'/rooms/'+rmNo+'/posts/'+postNo,
@@ -1290,13 +1290,17 @@ export function getPostToCenterPopupAjax(rmNo, postNo){
 
             //중앙 팝업 닫기
             closeCenterPopup();
+
+            // 알림레이어에서 댓글 클릭 시 하이라이트
+            if(cmNo!=-1)
+                $('#detailComment').find('.remark-item[remark-srno='+cmNo+']').addClass('highlight');
         },
         error: function (xhr, status, err) {}
     })
 }
 
 // 글 하나 가져오기 (오른쪽 글 카드)
-export function getPostToRightPostCardAjax(rmNo, postNo){
+export function getPostToRightPostCardAjax(rmNo, postNo, cmNo){
     $.ajax({
         type: 'GET',
         url: 'http://localhost:8080/api/members/'+memNo+'/rooms/'+rmNo+'/posts/'+postNo,
@@ -1499,6 +1503,16 @@ export function getPostToRightPostCardAjax(rmNo, postNo){
             // 오른쪽 setting 버튼 닫기
             settingButtonClose();
 
+            // 미확인, 검색 결과에서 댓글 클릭 시 하이라이트
+            if(cmNo!=-1){
+                let myCm = $('#rightComment').find('.remark-item[remark-srno='+cmNo+']');
+                myCm.addClass('highlight');
+
+                // 만약 이전 댓글이라면 이전 댓글 더 보기 클릭
+                while(myCm.hasClass('d-none')){
+                    $('.js-remark-prev-button').click();
+                }
+            }
         },
         error: function (xhr, status, err) {}
     })
