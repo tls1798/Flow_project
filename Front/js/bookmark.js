@@ -3,6 +3,9 @@ import {getBookmarkAjax, addBookmarkAjax,removeBookmarkAjax} from './ajax.js'
 
 // 내 북마크 조회
 export function bookmarkList(){
+    // title 변경
+    $(document).prop('title', '플로우(flow) - 대한민국 No.1 올인원 협업툴');
+
     // 북마크 화면 초기화
     $('#myPostContentUl').text('');
     getBookmarkAjax();

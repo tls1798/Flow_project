@@ -5,6 +5,12 @@ import {updateRight} from './rightPostCard.js';
 $('#searchResultClose').click(function(){
     $('#searchResult').addClass('d-none');
     $('.top-setting-bar #topSettingBar').css('display', 'block');
+
+    // 창 닫고 나서 피드 화면으로 돌아갈 경우
+    if($('#detailTop').css('display')=='block'){
+        // title 변경
+        $(document).prop('title', $('#projectTitle').text());
+    }
 });
 
 // 즐겨찾기 아이콘 클릭

@@ -38,6 +38,9 @@ $(".main-search").click(function(e){
     if($('.main-search-box input').val()!=''){
         $('#searchResult').removeClass('d-none');
         $('.top-setting-bar #topSettingBar').css('display', 'none');
+
+        // title 변경
+        $(document).prop('title', '플로우(flow) - 대한민국 No.1 올인원 협업툴');
     }
 
     if(!searchPopupBool){
@@ -85,6 +88,9 @@ $('#searchPopupInput').keypress(function(e){
         // 검색창에 검색어 넣고 닫기 버튼 추가
         $('.main-search-box input').val('검색 : '+searchItem);
         $('.main-search-box button').addClass('active');
+
+        // title 변경
+        $(document).prop('title', '플로우(flow) - 대한민국 No.1 올인원 협업툴');
     }
 });
 

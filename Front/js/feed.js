@@ -115,6 +115,9 @@ $('.fixed-btn').click(function (e) {
 var getpinPosts;
 $(document).on('click', '.project-item', function (e) {
 
+    // title 프로젝트명으로 변경
+    $(document).prop('title', $(this).attr('data-rm-title'));
+
     // 참여자 리스트 업데이트
     getAllParticipantsAjax($(this).attr('data-id'));
 
