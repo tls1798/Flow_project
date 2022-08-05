@@ -111,6 +111,33 @@ strong {
     flex: 3;
 }
 
+/* toast 알림창 */
+.alert-wrap, .alert-wrap-post, .alert-wrap-search {
+    z-index: 112;
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: fixed;
+}
+.alert-type.error {
+    background: #ff3434;
+    border: 1px solid #ff3434;
+    color: #fff;
+}
+.alert-type {
+    border-radius: 50px;
+    padding: 9px 17px;
+    text-align: center;
+    font-size: 13px;
+    z-index: 13;
+    box-sizing: border-box;
+}
+.alert-type.success {
+    background: rgb(100,73,252);
+    border: 1px solid rgb(100,73,252);
+    color: #fff;
+}
+
 /* 사진 들어가는 곳 */
 .thumbnail.size40 {
     width: 40px;
@@ -143,6 +170,7 @@ strong {
     -webkit-font-smoothing: antialiased;
 }
 
+/* 생략 */
 .ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;

@@ -70,6 +70,11 @@
 </head>
 
 <body>
+    <div class="alert-wrap-search" id="toastPopup" style="display: none;">
+        <div class="alert-type error">
+            <div class="text">검색어를 입력해주세요</div>
+        </div>
+    </div>
     <div id="allMainContent" class="main-wrap wrap-use-footer">
 
         <!-- 새 프로젝트 생성 페이지 -->
@@ -132,6 +137,9 @@
                         <form id="searchPopupTopButton" class="main-search clearfix">
                             <div class="main-search-box">
                                 <input type="text" class="cursor-pointer" placeholder="전체 검색" disabled>
+                                <button type="button" class="js-top-search-delete search-delete-button">
+                                    <span class="blind">삭제</span>
+                                </button>
                             </div>
                         </form>
 
@@ -143,6 +151,9 @@
                                     <i class="icon-search search-popup"></i>
                                     <input id="searchPopupInput" type="text" class="name-type-shift-txt search-popup"
                                         maxlength="20" autocomplete="off" placeholder="검색어를 입력해주세요">
+                                    <button class="js-search-del btn-search-delete" style="display: none;">
+                                        <i></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>

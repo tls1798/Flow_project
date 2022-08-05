@@ -1,4 +1,4 @@
-import {getAllProjectsByMeAjax, addFavoriteProjectAjax, deleteFavoriteProjectAjax, getMemberAjax} from './ajax.js'
+import {getAllProjectsByMeAjax, addFavoriteProjectAjax, deleteFavoriteProjectAjax} from './ajax.js'
 
 // 프로젝트 리스트 초기화 및 업데이트 함수
 export function updateList() {
@@ -9,10 +9,6 @@ export function updateList() {
 }
 
 $(function () {   
-    // 사용자 프로필 업데이트
-    var memInfo = getMemberAjax(window.localStorage.getItem('memNo'), memInfo);
-    $('.user-info').find('strong').text(memInfo.memName);
-
     // 불러올 때 프로젝트 리스트 초기화 및 업데이트
     updateList();
 })

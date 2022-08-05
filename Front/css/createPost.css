@@ -334,12 +334,3 @@
     margin: auto;
     width: 97%;
 }
-
-/* 내용 없을 때 경고창 */
-.alert-wrap-post {
-    z-index: 112;
-    top: 140px;
-    left: 50%;
-    transform: translateX(-50%);
-    position: fixed;
-}

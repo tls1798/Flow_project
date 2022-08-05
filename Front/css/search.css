@@ -1,3 +1,160 @@
+/* 검색창 */
+.cursor-pointer {
+    cursor: pointer;
+}
+.main-search-area {
+    position: relative;
+}
+form {
+    display: block;
+    margin-top: 0em;
+}
+.main-search {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 27px;
+    padding: 0 20px 0 10px;
+    border: 1px solid #555;
+    background: #3f3c49;
+    border-radius: 900px;
+    color: #eee;
+    font-size: 12px;
+    margin: 0 auto;
+}
+.main-search-box::before {
+    display: inline-block;
+    content: "";
+    width: 14px;
+    height: 14px;
+    margin: 0 11px 0 0;
+    background: url(https://flow.team/flow-renewal/assets/images/icon-search-dark.png);
+    vertical-align: middle;
+}
+.main-search input {
+    padding-right: 10px;
+    color: #fff;
+    font-size: 14px;
+    background: 0 0;
+    vertical-align: middle;
+    max-width: 200px;
+    font-weight: 500;
+}
+.main-search input::placeholder {
+    color: rgb(153, 153, 153);
+}
+input[type="text" i] {
+    padding: 1px 2px;
+}
+input {
+    writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    -webkit-rtl-ordering: logical;
+
+    cursor: text;
+    background-color: field;
+}
+.search-delete-button{
+    display: none;
+}
+.search-delete-button.active {
+    display: inline-block;
+    position: absolute;
+    top: 4px;
+    right: 10px;
+}
+.search-delete-button {
+    width: 20px;
+    height: 20px;
+    background: url(https://flow.team/flow-renewal/assets/images/icons/icon-search-delete.png);
+    background-size: cover;
+    vertical-align: middle;
+}
+
+/* 검색창 모달 */
+.search-popup-header {
+    padding: 0 20px;
+}
+.name-type-seach-popup {
+    width: 600px;
+    background: #fff;
+    box-shadow: 20px 20px 40px rgb(0 0 0 / 20%);
+    border-radius: 10px;
+    position: absolute;
+    right: 50%;
+    top: 95px;
+    z-index: 12;
+    border: 1px solid #555;
+    padding-bottom: 15px;
+    text-align: left;
+}
+.search-popup-input .icon-search {
+    margin: 4px 10px 0 0;
+}
+.icon-search {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    background: url(https://flow.team/flow-renewal/assets/images/allseach-sprite-type-1.png) no-repeat -139px -1px;
+    background-size: 607px 30px;
+}
+.search-popup-input .icon-search.on {
+    background-position: -163px -1px;
+}
+.search-popup-input {
+    position: relative;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+    padding: 17px 0 8px 0;
+    border-bottom: 1px solid #555;
+    box-sizing: border-box;
+}
+.name-type-shift-txt {
+    border: 0;
+    -webkit-box-flex: 1;
+    width: calc(100% - 20px);
+    padding: 0;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;
+    margin-left: 10px;
+}
+.name-type-shift-txt:focus {
+    outline:none;
+}
+.name-type-shift-txt::placeholder {
+    color: rgb(153, 153, 153);
+}
+.btn-search-delete {
+    width: 20px;
+    height: 20px;
+    display: none;
+    margin: 0 10px;
+    background: #333;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.btn-search-delete i {
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: url(https://flow.team/flow-renewal/assets/images/icon-x.png) no-repeat center;
+}
+.btn-search-delete:focus, .btn-search-delete:hover {
+    background: #6449fc;
+}
+
 /* 검색 영역 */
 .all-search-section {
     position: absolute;
@@ -104,6 +261,7 @@ a {
     height: 21px;
     margin: 0 8px 0 14px;
 }
+
 /* 검색 리스트 */
 .icon-post-type.comment {
     background-position: -168px 0;

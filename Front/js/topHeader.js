@@ -1,5 +1,5 @@
 import {updateAlarms} from './socket.js'
-import {logoutAjax, getSearchResultAjax} from './ajax.js'
+import {logoutAjax, getSearchResultAjax, getMemberAjax} from './ajax.js'
 import {confirmOpen, confirmClose} from './confirm.js'
 
 // 모달, 팝업 display:none -> false, block -> true
@@ -17,8 +17,29 @@ $(function(){
     })
 });
 
+// 검색 팝업 초기화
+const initSearchPopup = function(){
+    $('.main-search-box input').val('');
+    $('#searchPopupInput').val('');
+    $('.search-popup-input .icon-search').removeClass('on');
+    $('.search-popup-input .btn-search-delete').css('display','none');
+    $('.main-search-box button').removeClass('active');
+}
+
 // 검색창 클릭 시 검색 팝업 띄우기
-$(".main-search").click(function(){
+$(".main-search").click(function(e){
+    // 검색 창 닫기 클릭 시
+    if(e.target.type == 'button'){
+        initSearchPopup();
+        return;
+    }
+
+    // 검색어 있으면 클릭 시 검색 페이지 띄우기
+    if($('.main-search-box input').val()!=''){
+        $('#searchResult').removeClass('d-none');
+        $('.top-setting-bar #topSettingBar').css('display', 'none');
+    }
+
     if(!searchPopupBool){
         $(".name-type-seach-popup").css('display', 'block');
         searchPopupBool=!searchPopupBool;
@@ -31,11 +52,23 @@ $(".main-search").click(function(){
     }
 });
 
-// 검색창 텍스트박스에서 엔터
+// 검색 팝업 텍스트박스에서 엔터
 $('#searchPopupInput').keypress(function(e){
     if(e.keyCode === 13){
         // 검색 Ajax
         let searchItem = $('#searchPopupInput').val();
+        
+        // 내용 없으면 경고창
+        if(searchItem===''){
+            $('.alert-wrap-search .text').text('검색어를 입력해주세요');
+            $('.alert-wrap-search').css('display', 'block');
+
+            setTimeout(function() {
+                $('.alert-wrap-search').fadeOut(500, "swing");
+            }, 2000);
+
+            return;
+        }
         getSearchResultAjax(searchItem);
 
         // 검색 팝업 닫기
@@ -49,10 +82,32 @@ $('#searchPopupInput').keypress(function(e){
         $('#searchResult').removeClass('d-none');
         $('.top-setting-bar #topSettingBar').css('display', 'none');
 
-        // 초기화
-        $('#searchPopupInput').val('');
+        // 검색창에 검색어 넣고 닫기 버튼 추가
+        $('.main-search-box input').val('검색 : '+searchItem);
+        $('.main-search-box button').addClass('active');
     }
 });
+
+// 검색 팝업에서 텍스트 작성 시 
+$('#searchPopupInput').keyup(function(e){
+    // 값 있을 때 닫기 버튼 display block, on class 추가
+    if($('#searchPopupInput').val()!=''){
+        $('.search-popup-input .icon-search').addClass('on');
+        $('.search-popup-input .btn-search-delete').css('display','block');
+    }
+    // 값 없을 때 닫기 버튼 display none, on class 제거
+    else{
+        $('.search-popup-input .icon-search').removeClass('on');
+        $('.search-popup-input .btn-search-delete').css('display','none');
+    }
+});
+
+// 검색 팝업에서 닫기 버튼 클릭 시
+$(document).on('click','.search-popup-input .btn-search-delete', function(e){
+    initSearchPopup();
+    $(".name-type-seach-popup").css('display', 'block');
+    searchPopupBool=!searchPopupBool;
+})
 
 // 알림 아이콘 클릭 시 알림레이어 띄우기
 $('.btn-alarm').click(function(){
@@ -73,6 +128,10 @@ $('.btn-alarm').click(function(){
 // 프로필 사진 클릭 시 프로필 모달 띄우기
 $(".btn-profile").click(function(e){
     if($('#accountLayer').css('display')=='none'){
+        // 사용자 프로필 업데이트
+        var memInfo = getMemberAjax(window.localStorage.getItem('memNo'), memInfo);
+        $('.user-info').find('strong').text(memInfo.memName);
+
         $(this).addClass('active');
         $(".modal-account").css('display', 'block');
     }

@@ -1092,10 +1092,3 @@
 .js-all-post-item:hover{
 background-color: rgb(239, 236, 255);
 }
-
-/* 북마크 알림창 */
-.alert-type.success {
-    background: rgb(100,73,252);
-    border: 1px solid rgb(100,73,252);
-    color: #fff;
-}
