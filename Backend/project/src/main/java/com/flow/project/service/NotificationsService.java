@@ -63,4 +63,17 @@ public class NotificationsService {
     public boolean removePostNoti(int postNo) {
         return notificationsMapper.deletePostNoti(postNo)>0;
     }
+
+    // 프로젝트 방 나갈 시 알림 json 컬럼에서 내 번호 없애기
+    public int deleteRoomNotis(int memNo, String rmNo){
+        if(notificationsMapper.updateRoomNotis(memNo, rmNo)>0){
+            return notificationsMapper.deleteNoti();
+        }
+        return 0;
+    }
+
+    // 특정 프로젝트 방 알림 개수 가져오기
+    public int getRoomNotis(int memNo, int postNo){
+        return notificationsMapper.selectRoomNotis(memNo, postNo);
+    }
 }

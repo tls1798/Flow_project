@@ -61,4 +61,18 @@ public interface NotificationsMapper {
     // 글 삭제 시 해당 알림 삭제 (글, 댓글)
     @Delete("delete from \"Notis\" where post_no=#{postNo}")
     int deletePostNoti(int postNo);
+
+    // 특정 프로젝트 방 알림 개수 세기
+    @Select("select count(*) from \"Notis\" n where n.rm_no = (select p.rm_no from \"Posts\" p where p.post_no = #{postNo}) " +
+            "and (n.nt_check -> concat(#{memNo}, '') != 'null' or n.nt_check -> concat(#{memNo}, '') = 'null')")
+    int selectRoomNotis(int memNo, int postNo);
+
+    // 프로젝트 방 나갈 시 알림 json 컬럼에서 내 번호 없애기
+    @Update("update \"Notis\" set nt_check = nt_check - concat(#{memNo}, '') " +
+            "where rm_no = #{rmNo} and (nt_check -> concat(#{memNo}, '') != 'null' or nt_check -> concat(#{memNo}, '') = 'null')")
+    int updateRoomNotis(int memNo, String rmNo);
+
+    // 알림 읽을 사람, 읽은 사람 없으면 알림 삭제
+    @Delete("delete from \"Notis\" n where n.nt_check = '{}'")
+    int deleteNoti();
 }

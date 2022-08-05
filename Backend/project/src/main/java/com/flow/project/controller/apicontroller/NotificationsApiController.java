@@ -76,4 +76,18 @@ public class NotificationsApiController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    // 프로젝트 방 나갈 시 알림 json 컬럼에서 내 번호 없애기
+    @PutMapping("/notis/members/{memNo}/rooms/{rmNo}")
+    public ResponseEntity<?> deleteRoomNotis(@PathVariable int memNo, @PathVariable String rmNo){
+        try {
+            if(notificationsService.deleteRoomNotis(memNo, rmNo) > 0){
+                return ResponseEntity.ok(memNo);
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+        } catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

@@ -730,24 +730,45 @@ export function editProjectAjax(title, content){
 
 // 프로젝트 나가기
 export function exitProjectAjax(){
-    $.ajax({
-        type: 'DELETE',
-        url: 'http://localhost:8080/api/room-members/'+$('#detailSettingProjectSrno').text(),
-        data: JSON.stringify({"rmNo":$('#detailSettingProjectSrno').text(), "memNo":memNo}),
-        contentType: 'application/json; charset=utf-8',
-        beforeSend: function (xhr) {      
-            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
-        },
-        success: function (result, status, xhr) {
-            // 프로젝트 리스트 업데이트
-            updateList();
-            // 로고 클릭하여 프로젝트 리스트로
-            $('.logo-box').click();
-        },
-        error: function (xhr, status, err) {
-            autoaccess()
-        }
-    });
+    let rmNo = $('#detailSettingProjectSrno').text();
+
+    new Promise((succ,fail) => {
+        $.ajax({
+            type: 'DELETE',
+            url: 'http://localhost:8080/api/room-members/'+rmNo,
+            data: JSON.stringify({"rmNo":$('#detailSettingProjectSrno').text(), "memNo":memNo}),
+            contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {      
+                xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
+            },
+            success: function (result, status, xhr) {
+                succ(result);
+            },
+            error: function (xhr, status, err) {
+                autoaccess()
+            }
+        });
+    }).then((arg)=>{
+        // 프로젝트 나간 후 알림 json 컬럼에서 내 번호 없애기
+        $.ajax({
+            type: 'PUT',
+            url: 'http://localhost:8080/api/notis/members/'+memNo+'/rooms/'+rmNo,
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            beforeSend: function (xhr) {      
+                xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
+            },
+            success: function (result, status, xhr) {
+                // 프로젝트 리스트 업데이트
+                updateList();
+                // 로고 클릭하여 프로젝트 리스트로
+                $('.logo-box').click();
+            },
+            error: function (xhr, status, err) {
+                autoaccess()
+            }
+        })
+    })
 }
 
 // 프로젝트 삭제
