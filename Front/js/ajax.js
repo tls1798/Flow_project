@@ -1,5 +1,5 @@
 import {autoaccess} from './autoAccess.js'
-import {updateAlarms, elapsedTime} from './socket.js'
+import {updateAlarms, elapsedTime,socket } from './socket.js'
 import {bookmarkList, alert} from './bookmark.js'
 import {updateRight} from './rightPostCard.js';
 import {postPopupClose, postInit, postClear} from './createPost.js'
@@ -7,7 +7,6 @@ import {updateList} from './projectList.js';
 import {view, getPostAll} from './feed.js';
 import {closeCenterPopup} from './centerPostPopup.js';
 import {closeRightPostCard, settingButtonClose} from './rightPostCard.js'
-import {cleanFrom} from './signUp.js'
 
 let memNo = window.localStorage.getItem('memNo')
 
@@ -287,7 +286,7 @@ export function addBookmarkAjax(postNo){
 }
 
 // 내가 속한 프로젝트 방 모두 조회
-export function getAllRoomsAjax(rmNo){
+export function getAllRoomsAjax(rmNo) {
     $.ajax({
         type: 'GET',
         url: 'http://localhost:8080/api/rooms/'+rmNo,
@@ -411,8 +410,7 @@ export function addMembersToProjectAjax(jsonData, rmNo, ntCheck){
                 xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
-                var socket = io.connect('http://localhost:3000');
-                socket.emit('updateAlarmsEventToServer');
+                socket.emit('room',window.localStorage.getItem('rmNo'));
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -527,8 +525,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo){
                 xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
-                var socket = io.connect('http://localhost:3000');
-                socket.emit('updateAlarmsEventToServer');
+                socket.emit('room',window.localStorage.getItem('rmNo'));
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -585,8 +582,7 @@ export function removeCommentAjax(e, postNo, cmNo){
             }
             $('.remark-item[remark-srno='+cmNo+']').remove();
 
-            var socket = io.connect('http://localhost:3000');
-            socket.emit('updateAlarmsEventToServer');
+            socket.emit('room',window.localStorage.getItem('rmNo'));
         },
         error: function (xhr, status, err) {
             autoaccess()
@@ -630,8 +626,7 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck){
                 xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
-                var socket = io.connect('http://localhost:3000');
-                socket.emit('updateAlarmsEventToServer');
+                socket.emit('room',window.localStorage.getItem('rmNo'));
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -677,8 +672,7 @@ export function removePostAjax(rmNo, postNo){
         success: function (result, status, xhr) {
             $('.project-item[data-id='+rmNo+']').click();
 
-            var socket = io.connect('http://localhost:3000');
-            socket.emit('updateAlarmsEventToServer');
+            socket.emit('room',window.localStorage.getItem('rmNo'));
         },
         error: function (xhr, status, err) {
             autoaccess()
@@ -770,8 +764,7 @@ export function removeProjectAjax(){
             // 로고 클릭하여 프로젝트 리스트로
             $('.logo-box').click();
             
-            var socket = io.connect('http://localhost:3000');
-            socket.emit('updateAlarmsEventToServer');
+            socket.emit('room',window.localStorage.getItem('rmNo'));
         },
         error: function (xhr, status, err) {        
             autoaccess()    
@@ -865,7 +858,11 @@ export function getAllParticipantsAjax(rmNo){
 }
 
 // 피드 내 글/댓글 가져오기
-export function getAllPostsByProjectAjax(rmNo){
+export function getAllPostsByProjectAjax(rmNo) {
+    // 현재 프로젝트룸에게만 알림 보내기전에 rmNo 세팅
+    window.localStorage.setItem('rmNo',rmNo)
+    socket.emit('setting', rmNo)
+
     $.ajax({
         type: 'GET',
         url: 'http://localhost:8080/api/members/'+ memNo +'/rooms/'+ rmNo +'/posts',
@@ -1507,35 +1504,6 @@ export function getPostToRightPostCardAjax(rmNo, postNo){
     })
 }
 
-// 로그인
-export function loginAjax(id, pw){
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:8080/api/auth/members',
-        data: JSON.stringify({ "memMail": id, "memPw": pw }),
-        contentType: 'application/json; charset=utf-8',
-        success: function (result, status, xhr) {
-            $('.err-id').text('')
-            let accessToken = result.accessToken;
-            let refreshToken = result.refreshToken;
-            let memNo = result.memNo;
-
-            window.localStorage.setItem('accessToken', accessToken);
-            window.localStorage.setItem('refreshToken', refreshToken);
-            window.localStorage.setItem('memNo', memNo);
-            location.href = 'main.html';
-        },
-        error: function (xhr, status, err) {
-            // input, textarea 비우기
-            $('#userId').val('');
-            $('.loginpassword').val('');
-            // 해당 아이디의 정보가 없다면 에러 메시지 출력
-            $('.err-id').text($('#userId').attr('data-login-err-msg'))
-            $('.err-pw').text('')
-        }
-    });
-}
-
 // 로그아웃
 export function logoutAjax(){
     $.ajax({
@@ -1556,25 +1524,6 @@ export function logoutAjax(){
     });
 }
 
-// 패스워드 재발급
-export function newPasswordAjax(memMail){
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:8080/api/auth/email/new',
-        data: JSON.stringify({
-            "memMail": memMail
-        }), 
-        contentType: 'application/json; charset=utf-8',
-        success: function (result, status, xhr) {
-            $('#loginLayer').removeClass('d-none')
-            $('#findPassword').addClass('d-none')
-        },
-        error: function (xhr, status, err) {
-        }
-    });
-    location.href = 'login.html';
-}
-
 // 회원 탈퇴
 export function deleteMemberAjax(){
     $.ajax({
@@ -1592,6 +1541,8 @@ export function deleteMemberAjax(){
         }
     });
 }
+// ProjectList 배열 Socket에 사용
+export let ProjectList = [];
 
 // 프로젝트 리스트 업데이트
 export function getAllProjectsByMeAjax(){
@@ -1605,8 +1556,9 @@ export function getAllProjectsByMeAjax(){
             },
             success: function (result, status, xhr) {
                 succ(result);
-
-                for(var i=0; i<result.length; i++){
+                for (var i = 0; i < result.length; i++){
+                    // 소켓으로 ProjectList값 담아서 넘기기 위한
+                    ProjectList.push(result[i].rmNo);
                     // 즐겨찾는 프로젝트
                     if(result[i].favoriteProject==true){
                         $('#MyStarProject').append(`
@@ -1706,72 +1658,6 @@ export function deleteFavoriteProjectAjax(rmNo){
         error: function (xhr, status, err) {
             autoaccess()
         }
-    });
-}
-
-// 이메일 인증코드 전송
-export function postEmailCodeAjax(memMail, memName, memPw) {
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:8080/api/auth/email',
-        data: JSON.stringify({
-            "memMail": memMail
-        }),
-        contentType: 'application/json; charset=utf-8',
-        success: function (result, status, xhr) {
-            // 이메일 전송이 완료되면 8자리 코드를 return 받는다
-            const ePw = result.ePw
-            $('.confirm-button').on('click', function () {           
-                let num = $('#authInput').val();
-
-                // 사용자가 입력한 인증 코드와 생성한 인증코드 일치하는지 확인
-                if (num == ePw) {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'http://localhost:8080/api/auth/members/new',
-                        data: JSON.stringify({
-                            memMail: memMail,
-                            memName: memName,
-                            memPw: memPw
-                        }),
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (result, status, xhr) {
-                            location.href = '../views/login.html'
-                        },
-                        error: function (xhr, status, err) {
-                            cleanFrom()
-                            $('.error-email').text($('.join-email-input').attr('data-exist-mail'));
-                            $('#joinUserEmail').addClass('input-error')
-                        }
-                    });
-                } else {
-                    cleanFrom()
-                    $('.error-email').text($('.join-email-input').attr('data-incorrect-code'));
-                    $('#joinUserEmail').addClass('input-error') 
-                }
-            })
-        },
-        error: function (xhr, status, err) {}
-    });
-}
-
-// 이메일 중복 확인
-export function EmailCheck(memMail){
-    $.ajax({
-        type: 'GET',
-        url: 'http://localhost:8080/api/auth/email/'+memMail,
-        contentType: 'application/json; charset=utf-8',
-        success: function (result, status, xhr) {
-            if (result == 1) {
-                $('.error-email').text('')
-                $('#joinUserEmail').removeClass('input-error')
-            }
-            else{
-            $('.error-email').text($('.join-email-input').attr('data-exist-mail'));
-            $('#joinUserEmail').addClass('input-error') 
-            }
-        },
-        error: function (xhr, status, err) {}
     });
 }
 

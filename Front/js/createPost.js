@@ -31,22 +31,21 @@ export function postEditor(){
     $('.js-editing-buttons').removeClass('d-none').css('display','inline-block');
 }
 
-const toastEditor = function(){
+const toastEditor = function () {
     // Toast ui editor
     const Editor = toastui.Editor;
     const editor = new Editor({
         el: document.querySelector('#editor'),
         height: '600px',
         hideModeSwitch: true,
-        toolbarItems:[
-            ['bold', 'italic', 'strike'],
+        toolbarItems: [
+            ['heading', 'bold', 'italic', 'strike'],
             ['ul', 'ol', 'task']
         ],
         plugins: [fontSizePlugin],
         initialEditType:'wysiwyg',
     });
 }
-
 // 글 생성 버튼 클릭 시 글 생성 팝업 보이기 
 $('#createPostArea').click(function(){
     // 오른쪽 글 카드 열려있으면 닫기

@@ -1,4 +1,4 @@
-import {getAllAlarmsAjax} from './ajax.js';
+import { getAllAlarmsAjax, ProjectList } from './ajax.js';
 
 // 알림레이어 초기화 및 업데이트 함수
 export function updateAlarms() {
@@ -36,9 +36,17 @@ export function elapsedTime(date) {
     return "방금전";
 }
 
+// 소켓 하나만 사용하기 위한 Export
+export const socket = io.connect('http://localhost:3000/flow');
+
 $(function () {
-    var socket = io.connect('http://localhost:3000');
-    socket.on('updateAlarmsEventToClient', () => {
-        updateAlarms();
-    })
+    setTimeout(() => {
+        // 멤버마다 각각의 프로젝트에 대한 방 설정과 통신을 위한 Foreach
+        ProjectList.forEach(room => {
+            socket.emit('setting', room)
+            socket.on(room, (data) => {          
+                updateAlarms()
+          })
+        });
+    }, 1500);
 })

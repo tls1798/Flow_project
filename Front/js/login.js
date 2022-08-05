@@ -1,5 +1,3 @@
-import {loginAjax, newPasswordAjax} from './ajax.js'
-
 $(function () {
     // 비밀번호 찾기 화면 보이지 않게 설정
     $('#findPassword').addClass('d-none')
@@ -35,12 +33,50 @@ $('#normalLoginButton').on('click', function () {
 
     // id와 pw가 공백이 아니라면 로그인 시도
     if (chkid == true && chkpw == true) {
-        loginAjax(id, pw);
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/api/auth/members',
+            data: JSON.stringify({ "memMail": id, "memPw": pw }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (result, status, xhr) {
+                $('.err-id').text('')
+                let accessToken = result.accessToken;
+                let refreshToken = result.refreshToken;
+                let memNo = result.memNo;
+    
+                window.localStorage.setItem('accessToken', accessToken);
+                window.localStorage.setItem('refreshToken', refreshToken);
+                window.localStorage.setItem('memNo', memNo);
+                location.href = 'main.html';
+            },
+            error: function (xhr, status, err) {
+                // input, textarea 비우기
+                $('#userId').val('');
+                $('.loginpassword').val('');
+                // 해당 아이디의 정보가 없다면 에러 메시지 출력
+                $('.err-id').text($('#userId').attr('data-login-err-msg'))
+                $('.err-pw').text('')
+            }
+        });
     }
 })
 
 // 이메일의 값을 받아와서 임시 비밀번호를 메일로 전송
 $('#findSubmit').on('click', function () {
     let memMail = $('#findEmailInput').val()
-    newPasswordAjax(memMail);
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost:8080/api/auth/email/new',
+        data: JSON.stringify({
+            "memMail": memMail
+        }), 
+        contentType: 'application/json; charset=utf-8',
+        success: function (result, status, xhr) {
+            $('#loginLayer').removeClass('d-none')
+            $('#findPassword').addClass('d-none')
+        },
+        error: function (xhr, status, err) {
+        }
+    });
+    location.href = 'login.html';
 })

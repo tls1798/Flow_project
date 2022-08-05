@@ -1,7 +1,5 @@
-import {postEmailCodeAjax, EmailCheck} from './ajax.js'
-
 // 모든 input 비우기
-export function cleanFrom() {
+function cleanFrom() {
     $('#joinUserEmail').val('')
     $('.join-name-input').val('');
     $('#password').val('')
@@ -66,7 +64,22 @@ $('.js-confirm-check').on('click', function () { cleanChkbox()})
 // 가입된 이메일인지 확인
 $('#joinUserEmail').focusout(function () {
     let memMail = $('#joinUserEmail').val();
-    EmailCheck(memMail)
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/api/auth/email/'+memMail,
+        contentType: 'application/json; charset=utf-8',
+        success: function (result, status, xhr) {
+            if (result == 1) {
+                $('.error-email').text('')
+                $('#joinUserEmail').removeClass('input-error')
+            }
+            else{
+            $('.error-email').text($('.join-email-input').attr('data-exist-mail'));
+            $('#joinUserEmail').addClass('input-error') 
+            }
+        },
+        error: function (xhr, status, err) {}
+    });
 })
 
 // 회원가입 버튼 클릭시
@@ -114,7 +127,48 @@ $('#teamStepButton').on('click', function () {
         $('.flow-project-popup-6').removeClass('d-none')
 
         // 입력된 이메일에 9자리 인증 코드를 전송한다
-        postEmailCodeAjax(memMail, memName, memPw);
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/api/auth/email',
+            data: JSON.stringify({
+                "memMail": memMail
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (result, status, xhr) {
+                // 이메일 전송이 완료되면 8자리 코드를 return 받는다
+                const ePw = result.ePw
+                $('.confirm-button').on('click', function () {           
+                    let num = $('#authInput').val();
+    
+                    // 사용자가 입력한 인증 코드와 생성한 인증코드 일치하는지 확인
+                    if (num == ePw) {
+                        $.ajax({
+                            type: 'POST',
+                            url: 'http://localhost:8080/api/auth/members/new',
+                            data: JSON.stringify({
+                                memMail: memMail,
+                                memName: memName,
+                                memPw: memPw
+                            }),
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (result, status, xhr) {
+                                location.href = '../views/login.html'
+                            },
+                            error: function (xhr, status, err) {
+                                cleanFrom()
+                                $('.error-email').text($('.join-email-input').attr('data-exist-mail'));
+                                $('#joinUserEmail').addClass('input-error')
+                            }
+                        });
+                    } else {
+                        cleanFrom()
+                        $('.error-email').text($('.join-email-input').attr('data-incorrect-code'));
+                        $('#joinUserEmail').addClass('input-error') 
+                    }
+                })
+            },
+            error: function (xhr, status, err) {}
+        });
     }
 
     // 에러 메시지 혹은 input 비우기
