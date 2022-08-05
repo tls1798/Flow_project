@@ -1,5 +1,5 @@
 import {autoaccess} from './autoAccess.js'
-import {updateAlarms, elapsedTime,socket } from './socket.js'
+import {updateAlarms, elapsedTime,socket, setting } from './socket.js'
 import {bookmarkList, alert} from './bookmark.js'
 import {updateRight} from './rightPostCard.js';
 import {postPopupClose, postInit, postClear} from './createPost.js'
@@ -1541,6 +1541,7 @@ export function deleteMemberAjax(){
         }
     });
 }
+
 // ProjectList 배열 Socket에 사용
 export let ProjectList = [];
 
@@ -1556,9 +1557,13 @@ export function getAllProjectsByMeAjax(){
             },
             success: function (result, status, xhr) {
                 succ(result);
+
+                ProjectList = [];
+                
                 for (var i = 0; i < result.length; i++){
                     // 소켓으로 ProjectList값 담아서 넘기기 위한
                     ProjectList.push(result[i].rmNo);
+
                     // 즐겨찾는 프로젝트
                     if(result[i].favoriteProject==true){
                         $('#MyStarProject').append(`
@@ -1620,6 +1625,8 @@ export function getAllProjectsByMeAjax(){
     }).then((arg)=>{
         // 알림 업데이트
         updateAlarms();
+    }).then(()=>{
+        setting();
     })
 }
 
