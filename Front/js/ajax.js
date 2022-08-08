@@ -1238,7 +1238,7 @@ export function getPostToCenterPopupAjax(rmNo, postNo, cmNo){
                                     </div>
                                     <ul id="detailComment" class="post-comment-group" data-id=`+result.posts.postNo+`></ul>
                                 </div>
-                                <div class="js-remark-layer js-edit-layer comment-input-wrap">
+                                <div class="js-remark-layer js-edit-layer comment-input-wrap sticky">
                                     <div class="comment-thumbnail">
                                         <span class="thumbnail size40 radius16" data=""></span>
                                     </div>
@@ -1430,7 +1430,7 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo){
                                     </div>
                                     <ul id="rightComment" class="post-comment-group" data-id=`+result.posts.postNo+`></ul>
                                 </div>
-                                <div class="js-remark-layer js-edit-layer comment-input-wrap">
+                                <div class="js-remark-layer js-edit-layer comment-input-wrap sticky">
                                     <div class="comment-thumbnail">
                                         <span class="thumbnail size40 radius16" data=""></span>
                                     </div>

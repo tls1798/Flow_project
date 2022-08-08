@@ -90,6 +90,8 @@
     overflow-x: hidden;
     min-height: 100px;
     box-sizing: border-box;
+    overflow-y: auto;
+    max-height: calc(100vh - 165px);
 }
 .post-author-info {
     overflow: hidden;
