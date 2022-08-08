@@ -62,10 +62,14 @@ public interface NotificationsMapper {
     @Delete("delete from \"Notis\" where post_no=#{postNo}")
     int deletePostNoti(int postNo);
 
-    // 특정 프로젝트 방 알림 개수 세기
+    // 특정 프로젝트 방 알림 개수 세기 by postNo
     @Select("select count(*) from \"Notis\" n where n.rm_no = (select p.rm_no from \"Posts\" p where p.post_no = #{postNo}) " +
             "and (n.nt_check -> concat(#{memNo}, '') != 'null' or n.nt_check -> concat(#{memNo}, '') = 'null')")
-    int selectRoomNotis(int memNo, int postNo);
+    int selectRoomNotisByPostNo(int memNo, int postNo);
+
+    // 특정 프로젝트 방 알림 개수 세기 by rmNo
+    @Select("select count(*) from \"Notis\" n where n.rm_no=#{rmNo}")
+    int selectRoomNotisByRmNo(String rmNo);
 
     // 프로젝트 방 나갈 시 알림 json 컬럼에서 내 번호 없애기
     @Update("update \"Notis\" set nt_check = nt_check - concat(#{memNo}, '') " +

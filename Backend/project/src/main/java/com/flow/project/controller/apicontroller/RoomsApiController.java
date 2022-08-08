@@ -16,10 +16,16 @@ public class RoomsApiController {
     final RoomsService roomsService;
     final NotificationsService notificationsService;
 
-    // 프로젝트 조회 (프로젝트 리스트에서 프로젝트 선택)
+    // 프로젝트 조회 (프로젝트 삭제 시 확인용)
     @GetMapping("/rooms/{rmNo}")
     public ResponseEntity<?> getRoom(@PathVariable String rmNo) {
         return ResponseEntity.status(HttpStatus.OK).body(roomsService.getRoom(rmNo));
+    }
+
+    // 프로젝트 조회 (프로젝트 리스트에서 프로젝트 선택)
+    @GetMapping("/members/{memNo}/rooms/{rmNo}")
+    public ResponseEntity<?> getSelectedRoom(@PathVariable String rmNo, @PathVariable int memNo){
+        return ResponseEntity.status(HttpStatus.OK).body(roomsService.getSelectedRoom(rmNo, memNo));
     }
 
     // 프로젝트 생성
@@ -40,10 +46,18 @@ public class RoomsApiController {
     @DeleteMapping("/rooms/{rmNo}")
     public ResponseEntity<?> removeRoom(@PathVariable String rmNo) {
 
+        // 프로젝트 삭제
         Rooms room = roomsService.removeRoom(rmNo);
-        // 프로젝트 삭제 시, 관련 알림도 삭제
-        return room!=null && notificationsService.removeRoomNoti(rmNo)
-                ? ResponseEntity.ok(room)
-                : ResponseEntity.badRequest().build();
+
+        // 관련 알림 없을 때
+        if(notificationsService.getRoomNotisByRmNo(rmNo) == 0){
+            return room!=null ? ResponseEntity.ok(room) : ResponseEntity.badRequest().build();
+        }
+        // 관련 알림 있을 때 프로젝트 삭제 시, 관련 알림도 삭제
+        else {
+            return room!=null && notificationsService.removeRoomNoti(rmNo)
+                    ? ResponseEntity.ok(room)
+                    : ResponseEntity.badRequest().build();
+        }
     }
 }

@@ -3,10 +3,8 @@ package com.flow.project.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.flow.project.domain.NotificationResponse;
 import com.flow.project.domain.Notifications;
-import com.flow.project.domain.RoomMembers;
 import com.flow.project.repository.NotificationsMapper;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -72,8 +70,13 @@ public class NotificationsService {
         return 0;
     }
 
-    // 특정 프로젝트 방 알림 개수 가져오기
-    public int getRoomNotis(int memNo, int postNo){
-        return notificationsMapper.selectRoomNotis(memNo, postNo);
+    // 특정 프로젝트 방 알림 개수 가져오기 by PostNo
+    public int getRoomNotisByPostNo(int memNo, int postNo){
+        return notificationsMapper.selectRoomNotisByPostNo(memNo, postNo);
+    }
+
+    // 특정 프로젝트 방 알림 개수 가져오기 by PostNo
+    public int getRoomNotisByRmNo(String rmNo){
+        return notificationsMapper.selectRoomNotisByRmNo(rmNo);
     }
 }

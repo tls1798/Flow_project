@@ -59,7 +59,7 @@ public class CommentsApiController {
     @DeleteMapping("/posts/{postNo}/comments/{cmNo}/{memNo}")
     public ResponseEntity<?> removeComment(@PathVariable int postNo, @PathVariable int cmNo, @PathVariable int memNo) {
         // 관련 알림 없을 때
-        if(notificationsService.getRoomNotis(memNo, postNo) == 0){
+        if(notificationsService.getRoomNotisByPostNo(memNo, postNo) == 0){
             return commentsService.removeComment(postNo, cmNo, memNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
         }
         // 관련 알림 있을 때 댓글 삭제 시, 관련 알림도 삭제
