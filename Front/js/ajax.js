@@ -799,7 +799,7 @@ export function removeProjectAjax(){
 }
 
 // 상단고정 등록
-export function addPinAjax(postNo, postPin, getpinPosts){
+export function addPinAjax(postNo, postPin){
     $.ajax({
         type: 'POST',
         url: 'http://localhost:8080/api/rooms/posts/' + postNo + '/pin/' + postPin,
@@ -808,7 +808,7 @@ export function addPinAjax(postNo, postPin, getpinPosts){
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            getPostAll(getpinPosts)
+            getPostAll(window.localStorage.getItem('rmNo'))
             $('#detailComment').children().remove();
         },
         error: function (xhr, status, err) {
@@ -1133,6 +1133,10 @@ export function getAllPostsByProjectAjax(rmNo) {
             }
             // count 
             $('#projectPinCount').text(count);
+            // 상단고정 0 일시 div 나오지 않게
+            ($('#projectPinCount').text() == 0) ? $('.fix-section').addClass('d-none') : $('.fix-section').removeClass('d-none') 
+                
+            
         },
         error: function (xhr, status, err) {
             autoaccess();
@@ -1647,7 +1651,6 @@ export function getAllProjectsByMeAjax(){
                         `);
                     }
                 }
-
                 // 즐겨찾기, 참여중 프로젝트 div display 수정
                 if($('#MyStarProject').find('li').length!=0)
                     $('#MyStarProject').css('display', 'block');

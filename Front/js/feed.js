@@ -111,8 +111,6 @@ $('.fixed-btn').click(function (e) {
     }
 })
 
-// 프로젝트 선택
-var getpinPosts;
 $(document).on('click', '.project-item', function (e) {
 
     // title 프로젝트명으로 변경
@@ -126,9 +124,6 @@ $(document).on('click', '.project-item', function (e) {
 
     // 글, 댓글 가져오기
     getPostAll($(this).attr('data-id'));
-
-    // 상단고정에서 사용할 변수에 값 담기
-    getpinPosts = $(this).attr('data-id');
 
     // 알림 레이어에서 미확인 알림 가져오기
     updateUnreadAlarmFunc($(this).attr('data-id'));
@@ -256,7 +251,7 @@ $(document).on('click', '.js-pin-post', function (e) {
         } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
             confirmClose('postPin-confirm');
             $('#' + pinid).hasClass('on') ? $('#' + pinid).removeClass('on') : $('#'+pinid).addClass('on');
-            addPinAjax(postNo, postPin, getpinPosts);
+            addPinAjax(postNo, postPin);
         } else {
             return false;
         }
