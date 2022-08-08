@@ -291,3 +291,18 @@ $('html').click(function(){
         $('.js-setting-ul').addClass('d-none');
     }
 })
+
+// 상단 이동 버튼 화면에 띄우기
+$('#detailTimeline').scroll(function(){
+    if($(this).scrollTop()>20){
+        $('.btnMoveTop').fadeIn();
+    }else{
+        $('.btnMoveTop').fadeOut();
+    }
+});
+
+// 상단 이동 버튼 클릭 시 상단 이동
+$(".btnMoveTop").click(function(){
+    $('#detailTimeline').animate({scrollTop:0},400);
+    return false;
+});

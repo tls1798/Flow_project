@@ -208,6 +208,35 @@ strong {
     color: #999;
 }
 
+/* 상단 이동 버튼 */
+.bottom-tool-list .btnMoveTop {
+    position: fixed;
+    bottom: 45px;
+    right: 15px;
+    z-index: 1;
+    display: none;
+}
+.btnMoveTop {
+    margin-left: auto;
+    margin-bottom: 10px;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid #999;
+    background: #fff;
+}
+.btnMoveTop:hover {
+    border: 1px solid #555;
+    background: #555;
+    color: white;
+}
+.bi.bi-chevron-up{
+    font-weight: 400;
+}
 /* 스크롤 되는 부분 */
 .scroll-mask {
     overflow-y: scroll;
