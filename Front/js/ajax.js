@@ -464,6 +464,9 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo){
                 // 댓글 카운트 증가
                 let cnt = parseInt($(key.target).closest('li').find('.comment-count').text()) + 1;
                 $('.js-popup-before.detail-item.back-area[data-post-srno='+postNo+']').find('.comment-count').text(cnt);
+
+                // 로그인 한 회원 이름
+                var memInfo = getMemberAjax(window.localStorage.getItem('memNo'), memInfo);
                 
                 // 새로고침X, 바로 아래에 추가하기
                 $('.post-comment-group[data-id='+postNo+']').append(`
@@ -474,7 +477,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo){
                         <div class="js-remark-view comment-container on ">
                             <div class="comment-user-area">
                                 <div class="comment-user">
-                                    <span class="user-name js-comment-user-name">`+ $('.user-info strong').text() + `</span>
+                                    <span class="user-name js-comment-user-name">`+ memInfo.memName + `</span>
                                     <span class="user-position"></span>
                                     <span class="record-date">`+ new Date().YYYYMMDDHHMM() + `</span>
                                 </div>
@@ -763,6 +766,8 @@ export function exitProjectAjax(){
                 updateList();
                 // 로고 클릭하여 프로젝트 리스트로
                 $('.logo-box').click();
+                // 즐겨찾는 프로젝트에서 삭제
+                deleteFavoriteProjectAjax(rmNo);
             },
             error: function (xhr, status, err) {
                 autoaccess()
