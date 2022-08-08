@@ -94,15 +94,6 @@ $(document).scroll(function () {
     $('#projectParticipants').css('transform', 'translateX(' + (0 - $(document).scrollLeft()) + 'px');
 });
 
-// 글 고정
-$('.fixed-btn').click(function (e) {
-    if ($(this).hasClass('on')) {
-        $(this).removeClass('on');
-    } else {
-        $(this).addClass('on');
-    }
-})
-
 // 알림레이어 변경될 시 프로젝트 알림 배지 업데이트
 $('#alarmTopCount').change(function () {
     updateUnreadAlarmFunc($('#detailSettingProjectSrno').text());
@@ -192,6 +183,14 @@ $(document).on('click','#pinPostUl',function(e){
 // 상단고정 아이콘 누를시
 let postNo, postPin, pinid;
 $(document).on('click', '.js-pin-post', function (e) {
+    if ($(this).attr('data-mem-id') != window.localStorage.getItem('memNo') && window.localStorage.getItem('memNo') !=  $(this).attr('data-room-id')) { 
+        $('.alert-auth-postpin').css('display', 'block')
+
+    setTimeout(function () {
+        $('.alert-auth-postpin').fadeOut(500, "swing");
+     }, 2000);
+    return false;
+    }
     postNo = ($(this).attr('data-post-srno'))
     postPin = ($(this).attr('data-post-pin'))
     pinid = ($(this).attr('id'))
@@ -209,24 +208,24 @@ $(document).on('click', '.js-pin-post', function (e) {
     confirmOpen('postPin-confirm');
 
     // confirm 취소, 확인 버튼 클릭 시
-    $('.popup-confirm-warp').click(function(e){
-        if(!$(this).hasClass('postPin-confirm'))
+    $('.popup-confirm-warp').click(function (e) {
+        if (!$(this).hasClass('postPin-confirm'))
             return false;
-        
-        if($(e.target).attr('class')=='flow-pop-sub-button-1 cancel-event'){
+    
+        if ($(e.target).attr('class') == 'flow-pop-sub-button-1 cancel-event') {
             confirmClose('postPin-confirm');
-        } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
+        } else if ($(e.target).attr('class') == 'flow-pop-sub-button-2 submit-event') {
             confirmClose('postPin-confirm');
-            $('#' + pinid).hasClass('on') ? $('#' + pinid).removeClass('on') : $('#'+pinid).addClass('on');
+            $('#' + pinid).hasClass('on') ? $('#' + pinid).removeClass('on') : $('#' + pinid).addClass('on');
             addPinAjax(postNo, postPin);
         } else {
             return false;
         }
     })
-    
+
     // confirm 외부 영역 클릭 시 닫기
-    $('#popBack2').click(function(e){
-        if($(e.target).hasClass('postPin-confirm'))
+    $('#popBack2').click(function (e) {
+        if ($(e.target).hasClass('postPin-confirm'))
             confirmClose('postPin-confirm');
     })
 

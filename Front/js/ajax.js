@@ -39,7 +39,6 @@ export function getAllAlarmsAjax(){
 
                     // 내용의 줄바꿈 전까지 출력 + 태그 제외
                     let content = result[i].notiContent;
-                    
                     if(content.search('</p>'))
                         content = (content.substr(0, content.search('</p>'))).replace(/(<([^>]+)>)/ig,"");
                     if(content=='')
@@ -544,7 +543,7 @@ export function editCommentAjax(postNo, cmContent, cmNo){
         success: function (result, status, xhr) {
             // text 수정
             $('.remark-item[remark-srno='+cmNo+'] .comment-text').html('<div>'+cmContent+'</div>');
-            
+        
             // text input 닫기
             $('.remark-item[remark-srno='+cmNo+'] .js-remark-view.comment-container').addClass('on');
             $('.remark-item[remark-srno='+cmNo+'] .js-remark-edit.comment-container').removeClass('on');
@@ -885,7 +884,6 @@ export function getAllPostsByProjectAjax(rmNo) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            
             var count = 0;
             $('#pinPostUl').html('')
             // 초기화
@@ -958,16 +956,16 @@ export function getAllPostsByProjectAjax(rmNo) {
                                                     </dt>
                                                 </dl>
                                             </div>
-                                            <div id = "option-`+ result[i].posts.postNo + `">
+                                            <div id = "option-`+ result[i].posts.postNo + `" >
                                                 <div class="post-option">
                                                     <button id="movePost" class="btn-go" style="display: none;">
                                                         게시글 바로가기
                                                     </button>
-                                                    <button id="pin-`+ result[i].posts.postNo + `" class="js-pin-post fixed-btn js-pin-authority" data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + `"  data-post-pin= "` + result[i].posts.postPin + `" style="display:block" data="">
+                                                    <button id="pin-`+ result[i].posts.postNo + `" class="js-pin-post fixed-btn js-pin-authority" data-mem-id="`+ result[i].posts.postWriter + `" data-room-id="`+result[i].posts.rmAdmin+`" data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + `"  data-post-pin= "` + result[i].posts.postPin + `" style="display:block" data="">
                                                         <!-- fixed-btn on class -->
                                                         <span class="blind">상단 고정 등록</span>
                                                     </button>
-                                                    <button id="postSetting" class="js-setting-button set-btn" data-mem-id="`+ result[i].posts.postWriter + `">
+                                                    <button id="postSetting" class="js-setting-button set-btn  setting-`+result[i].posts.postNo +`">
                                                         <i class="bi bi-three-dots-vertical"></i>
                                                     </button>
                                                     <ul class="js-setting-ul js-setting-layer setup-group d-none">
@@ -1036,15 +1034,22 @@ export function getAllPostsByProjectAjax(rmNo) {
                             </div>
                         </li>
                     `)
-
-                    // 자신의 글이 아니면 상단고정 , 메뉴를 안보이게 한다
-                    if (result[i].posts.postWriter != memNo) {
-                        $('#option-' + result[i].posts.postNo + '').remove()
+                    // 자신이 작성한 글 , 관리자가 아니면 상단고정 , 메뉴가 보이지 않게 한다
+                    if (memNo != result[i].posts.rmAdmin && memNo != result[i].posts.postWriter ) {
+                        $('#option-' + result[i].posts.postNo + '').addClass('d-none')
+                        $('#pin-' + result[i].posts.postNo + '').addClass('d-none')
+                        $('.setting-'+ result[i].posts.postNo + '').addClass('d-none')
                     }
-                    
-                    // 상단 고정이면 클래스 on을 추가해준다
+              
+                    // 상단 고정이면 on , 다른 사용자들에게도 보이게 한다
                     if (result[i].posts.postPin == 1) {
+                        $('#option-' + result[i].posts.postNo + '').removeClass('d-none')
+                        $('#pin-' + result[i].posts.postNo + '').removeClass('d-none')
                         $('#pin-' + result[i].posts.postNo + '').addClass('on')
+                        if (memNo == result[i].posts.rmAdmin || memNo == result[i].posts.postWriter)
+                            $('.setting-' + result[i].posts.postNo + '').removeClass('d-none')
+                        else
+                        $('.setting-' + result[i].posts.postNo + '').addClass('d-none')
                     }
 
                     // 북마크 글이면 클래스 on을 추가한다
@@ -1174,11 +1179,11 @@ export function getPostToCenterPopupAjax(rmNo, postNo, cmNo){
                                             <button id="movePost" class="btn-go d-none" style="display: inline-block;">
                                                 게시글 바로가기
                                             </button>
-                                            <button id="centerpin-`+ result.posts.postNo + `" class="js-pin-post fixed-btn js-pin-authority" data-project-srno="` + rmNo + `" data-post-srno="` + result.posts.postNo + `"  data-post-pin= "` + result.posts.postPin + `" style="display:block" data="">
+                                            <button id="centerpin-`+ result.posts.postNo + `" class="js-pin-post fixed-btn js-pin-authority" data-mem-id="`+ result.posts.postWriter + `" data-room-id="`+result.posts.rmAdmin+`" data-project-srno="` + rmNo + `" data-post-srno="` + result.posts.postNo + `"  data-post-pin= "` + result.posts.postPin + `" style="display:block" data="">
                                                 <!-- fixed-btn on class -->
                                                 <span class="blind">상단 고정 등록</span>
                                             </button>
-                                            <button id="detailSetting" class="js-setting-button set-btn">
+                                            <button id="detailSetting" class="js-setting-button set-btn centersetting-`+result.posts.postNo +`"" >
                                                 <i class="bi bi-three-dots-vertical"></i>
                                             </button>
                                             <ul id="detailSettingList" class="js-setting-ul js-setting-layer setup-group d-none">
@@ -1247,16 +1252,23 @@ export function getPostToCenterPopupAjax(rmNo, postNo, cmNo){
                 </li>
             `)
 
-            // 자신의 글이 아니면 상단고정 , 메뉴를 안보이게 한다
-            if (result.posts.postWriter != memNo) {
-                $('#option-' + result.posts.postNo + '').remove()
+           // 자신이 작성한 글 , 관리자가 아니면 상단고정 , 메뉴가 보이지 않게 한다
+           if (memNo != result.posts.rmAdmin && memNo != result.posts.postWriter ) {
+                $('#option-' + result.posts.postNo + '').addClass('d-none')
+                $('#centerpin-' + result.posts.postNo + '').addClass('d-none')
+                $('.centersetting-'+ result.posts.postNo + '').addClass('d-none')
             }
-           
-            // 상단 고정이면 클래스 on을 추가해준다
+            
+            // 상단 고정이면 on , 다른 사용자들에게도 보이게 한다
             if (result.posts.postPin == 1) {
+                $('#option-' + result.posts.postNo + '').removeClass('d-none')
+                $('#centerpin-' + result.posts.postNo + '').removeClass('d-none')
                 $('#centerpin-' + result.posts.postNo + '').addClass('on')
+                if (memNo == result.posts.rmAdmin || memNo == result.posts.postWriter)
+                    $('.setting-' + result.posts.postNo + '').removeClass('d-none')
+                else
+                    $('.setting-' + result.posts.postNo + '').addClass('d-none')
             }
-
             // 북마크 글이면 클래스 on을 추가한다
             if(result.posts.postBookmark == 1) {
                 $('#bookmark-'+result.posts.postNo).addClass('on');
@@ -1358,11 +1370,11 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo){
                                             <button id="movePost" class="btn-go d-none" style="display: inline-block;">
                                                 게시글 바로가기
                                             </button>
-                                            <button id="rightpin-`+ result.posts.postNo + `" class="js-pin-post fixed-btn js-pin-authority" data-project-srno="` + rmNo + `" data-post-srno="` + result.posts.postNo + `"  data-post-pin= "` + result.posts.postPin + `" style="display:block" data="">
+                                            <button id="rightpin-`+ result.posts.postNo + `" class="js-pin-post fixed-btn js-pin-authority" data-mem-id="`+ result.posts.postWriter + `" data-room-id="`+result.posts.rmAdmin+`" data-project-srno="` + rmNo + `" data-post-srno="` + result.posts.postNo + `"  data-post-pin= "` + result.posts.postPin + `" style="display:block" data="">
                                                 <!-- fixed-btn on class -->
                                                 <span class="blind">상단 고정 등록</span>
                                             </button>
-                                            <button id="rightSetting" class="js-setting-button set-btn">
+                                            <button id="rightSetting" class="js-setting-button set-btn rightsetting-`+ result.posts.postNo +`"" "> 
                                                 <i class="bi bi-three-dots-vertical"></i>
                                             </button>
                                             <ul id="rightSettingList" class="js-setting-ul js-setting-layer setup-group d-none">
@@ -1438,15 +1450,22 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo){
                     </div>
                 </li>
             `)
-
-            // 자신의 글이 아니면 상단고정 , 메뉴를 안보이게 한다
-            if (result.posts.postWriter != memNo) {
-                $('#option-' + result.posts.postNo).remove()
+            // 자신이 작성한 글 , 관리자가 아니면 상단고정 , 메뉴가 보이지 않게 한다
+            if (memNo != result.posts.rmAdmin && memNo != result.posts.postWriter ) {
+                $('#option-' + result.posts.postNo + '').addClass('d-none')
+                $('#rightpin-' + result.posts.postNo + '').addClass('d-none')
+                $('.rightsetting-'+ result.posts.postNo + '').addClass('d-none')
             }
-           
-            // 상단 고정이면 클래스 on을 추가해준다
+            
+            // 상단 고정이면 on , 다른 사용자들에게도 보이게 한다
             if (result.posts.postPin == 1) {
-                $('#rightpin-' + result.posts.postNo).addClass('on')
+                $('#option-' + result.posts.postNo + '').removeClass('d-none')
+                $('#rightpin-' + result.posts.postNo + '').removeClass('d-none')
+                $('#rightpin-' + result.posts.postNo + '').addClass('on')
+                if (memNo == result.posts.rmAdmin || memNo == result.posts.postWriter)
+                    $('.setting-' + result.posts.postNo + '').removeClass('d-none')
+                else
+                    $('.setting-' + result.posts.postNo + '').addClass('d-none')
             }
 
             // 북마크 글이면 클래스 on 추가
