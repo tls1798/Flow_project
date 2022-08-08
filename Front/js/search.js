@@ -36,7 +36,7 @@ $(document).on('click', '.post-search-item, .project-search-item', function(){
 })
 
 // 글 댓글 클릭 -> 우측 포스트 카드
-$(document).on('click', '.post-search-item', function(){
+$(document).on('click', '.post-search-item.js-search-item', function(){
     let rmNo = $(this).attr('data-project-no');
     let postNo = $(this).attr('data-post-no');
     let cmNo = -1;
