@@ -7,6 +7,7 @@ import {updateList} from './projectList.js';
 import {view, getPostAll} from './feed.js';
 import {closeCenterPopup} from './centerPostPopup.js';
 import {closeRightPostCard, settingButtonClose} from './rightPostCard.js'
+import {getFeed} from './changeMainContainer.js'
 
 let memNo = window.localStorage.getItem('memNo')
 
@@ -285,33 +286,25 @@ export function addBookmarkAjax(postNo){
     });
 }
 
-// 내가 속한 프로젝트 방 모두 조회
-export function getAllRoomsAjax(rmNo) {
+// 선택한 프로젝트 정보 가져오기
+export function getRoomAjax(rmNo, res) {
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8080/api/rooms/'+rmNo,
+        url: 'http://localhost:8080/api/members/'+memNo+'/rooms/'+rmNo,
         contentType: 'application/json; charset=utf-8',
+        async: false ,
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            // 내가 관리자일 경우
-            if(result.rmAdmin==memNo){
-                $('#detailSettingProjectExitBtn').css('display', 'none');
-                $('#detailSettingProjectUpdateBtn').css('display', 'block');
-                $('#detailSettingProjectDeleteBtn').css('display', 'block');
-            }
-            // 참여자일 경우
-            else{
-                $('#detailSettingProjectExitBtn').css('display', 'block');
-                $('#detailSettingProjectUpdateBtn').css('display', 'none');
-                $('#detailSettingProjectDeleteBtn').css('display', 'none');
-            }
+            res = result;
         },
         error: function (xhr, status, err) {    
             autoaccess()
         }
     });
+
+    return res;
 }
 
 // 멤버 정보 가져오기 (프로필 상세 팝업)
@@ -391,8 +384,9 @@ export function addMembersToProjectAjax(jsonData, rmNo, ntCheck){
             },
             success: function (result, status, xhr) {
                 succ(result)
+
                 // 참여자 업데이트
-                $('.project-item[data-id='+rmNo+']').click();
+                getAllParticipantsAjax(rmNo);
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -607,7 +601,7 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck){
             success: function (result, status, xhr) {
                 succ(result);
                 postNo = result.postNo;
-                $('.project-item[data-id='+rmNo+']').click();
+                getFeed(rmNo);
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -652,7 +646,9 @@ export function editPostAjax(rmNo, postNo, editTitle, editContent){
             postPopupClose();
             postInit();
             postClear();
-            $('.project-item[data-id='+rmNo+']').click();
+
+            // 피드 새로고침
+            getFeed(rmNo);
 
             // 오른쪽 글 카드
             updateRight(rmNo, postNo, -1);
@@ -673,7 +669,7 @@ export function removePostAjax(rmNo, postNo){
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            $('.project-item[data-id='+rmNo+']').click();
+            getFeed(rmNo);
 
             socket.emit('room',window.localStorage.getItem('rmNo'));
         },
@@ -695,10 +691,8 @@ export function addProjectAjax(rmNo){
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            // 프로젝트 리스트 업데이트
-            updateList();
             // 해당 프로젝트 피드로 이동
-            // 리팩토링 후 모듈 사용 (getRoom, updateParticipant, getPostAll, display 수정)
+            getFeed(rmNo);
         },
         error: function (xhr, status, err) {
             autoaccess()
@@ -732,9 +726,7 @@ export function editProjectAjax(title, content){
 }
 
 // 프로젝트 나가기
-export function exitProjectAjax(){
-    let rmNo = $('#detailSettingProjectSrno').text();
-
+export function exitProjectAjax(rmNo){
     new Promise((succ,fail) => {
         $.ajax({
             type: 'DELETE',
@@ -762,8 +754,6 @@ export function exitProjectAjax(){
                 xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
-                // 프로젝트 리스트 업데이트
-                updateList();
                 // 로고 클릭하여 프로젝트 리스트로
                 $('.logo-box').click();
                 // 즐겨찾는 프로젝트에서 삭제
@@ -777,16 +767,14 @@ export function exitProjectAjax(){
 }
 
 // 프로젝트 삭제
-export function removeProjectAjax(){
+export function removeProjectAjax(rmNo){
     $.ajax({
         type: 'DELETE',
-        url: 'http://localhost:8080/api/rooms/'+$('#detailSettingProjectSrno').text(),
+        url: 'http://localhost:8080/api/rooms/'+rmNo,
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            // 프로젝트 리스트 업데이트
-            updateList();
             // 로고 클릭하여 프로젝트 리스트로
             $('.logo-box').click();
             
@@ -1588,7 +1576,6 @@ export function deleteMemberAjax(){
 
 // ProjectList 배열 Socket에 사용
 export let ProjectList = [];
-
 // 프로젝트 리스트 업데이트
 export function getAllProjectsByMeAjax(){
     new Promise((succ,fail) => {

@@ -64,7 +64,7 @@ $('.popup-confirm-warp').click(function(e){
             confirmClose('exit-confirm');
         } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
             confirmClose('exit-confirm');
-            exitProjectAjax();
+            exitProjectAjax($('#detailSettingProjectSrno').text());
         } else {
             return false;
         }
@@ -74,7 +74,7 @@ $('.popup-confirm-warp').click(function(e){
             confirmClose('del-confirm');
         } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
             confirmClose('del-confirm');
-            removeProjectAjax();
+            removeProjectAjax($('#detailSettingProjectSrno').text());
         } else {
             return false;
         }

@@ -1,5 +1,6 @@
 import {addFavoriteProjectAjax, deleteFavoriteProjectAjax} from './ajax.js'
 import {updateRight} from './rightPostCard.js';
+import {getFeed} from './changeMainContainer.js'
 
 // X 클릭 시, 창 닫고 topSettingBar 활성화
 $('#searchResultClose').click(function(){
@@ -49,5 +50,5 @@ $(document).on('click', '.post-search-item', function(){
 // 프로젝트 클릭 -> 프로젝트 피드로 이동
 $(document).on('click', '.project-search-item', function(){
     let rmNo = $(this).attr('data-project-no');
-    $('.project-item[data-id='+rmNo+']').click();
+    getFeed(rmNo);
 })

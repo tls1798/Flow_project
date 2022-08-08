@@ -1,6 +1,6 @@
 import {readAlarm} from './alarmLayer.js'
 import {updateRight} from './rightPostCard.js';
-import {getAllParticipantsAjax, readAllAlarmsByProjectAjax, getAllPostsByProjectAjax, addPinAjax} from './ajax.js'
+import {readAllAlarmsByProjectAjax, addPinAjax, getAllPostsByProjectAjax} from './ajax.js'
 import {confirmOpen, confirmClose} from './confirm.js'
 
 // Toast ui viewer 
@@ -20,22 +20,8 @@ export function getPostAll(rmNo) {
     getAllPostsByProjectAjax(rmNo);
 }
 
-// TopSettingBar, inviteTitle 업데이트 함수
-const updateTopSettingBar = function (rmNo, rmTitle, rmDes) {
-    $('#detailSettingProjectSrno').text(rmNo);
-    $('#projectTitle').text(rmTitle);
-    $('#projectContents').text(rmDes);
-    $('#inviteTitle').text(rmTitle);
-}
-
-// 상단고정 팝업 종료 함수
-const popupclose = function () {
-    $('.flow-project-popup-6').addClass('d-none');
-    $('#popupBackground').addClass('d-none');
-}
-
 // 알림 레이어에서 미확인 알림 가져오는 함수
-const updateUnreadAlarmFunc = function (rmNo) {
+export function updateUnreadAlarmFunc(rmNo) {
 
     // 초기화
     $('#projectAlarmArea').css('display', 'none');
@@ -97,6 +83,12 @@ const updateUnreadAlarmFunc = function (rmNo) {
     }
 }
 
+// 상단고정 팝업 종료 함수
+const popupclose = function () {
+    $('.flow-project-popup-6').addClass('d-none');
+    $('#popupBackground').addClass('d-none');
+}
+
 // 참여자 영역 이동
 $(document).scroll(function () {
     $('#projectParticipants').css('transform', 'translateX(' + (0 - $(document).scrollLeft()) + 'px');
@@ -108,31 +100,6 @@ $('.fixed-btn').click(function (e) {
         $(this).removeClass('on');
     } else {
         $(this).addClass('on');
-    }
-})
-
-$(document).on('click', '.project-item', function (e) {
-
-    // title 프로젝트명으로 변경
-    $(document).prop('title', $(this).attr('data-rm-title'));
-
-    // 참여자 리스트 업데이트
-    getAllParticipantsAjax($(this).attr('data-id'));
-
-    // TopSettingBar, inviteTitle 업데이트
-    updateTopSettingBar($(this).attr('data-id'), $(this).attr('data-rm-title'), $(this).attr('data-rm-des'));
-
-    // 글, 댓글 가져오기
-    getPostAll($(this).attr('data-id'));
-
-    // 알림 레이어에서 미확인 알림 가져오기
-    updateUnreadAlarmFunc($(this).attr('data-id'));
-
-    // 프로젝트 내부 즐겨찾기
-    if ($(this).find('.project-star').hasClass('flow-content-star-un')) {
-        $('#projectStar').addClass('unstar')
-    } else {
-        $('#projectStar').removeClass('unstar')
     }
 })
 

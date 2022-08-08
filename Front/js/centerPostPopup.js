@@ -1,9 +1,11 @@
 import {getPostToCenterPopupAjax} from './ajax.js'
+import {getFeed} from './changeMainContainer.js'
 
 // 가운데 글 팝업 띄우기
 const createPopup = function(typeNo, rmNo, postNo, cmNo){
+    // 초대하기 알림이면 해당 피드로 이동
     if(typeNo==3){
-        $('.project-item[data-id='+rmNo+']').click();
+        getFeed(rmNo);
         $('#postPopup').removeClass('flow-all-background-1');
     } else{
         getPostToCenterPopupAjax(rmNo, postNo, cmNo);

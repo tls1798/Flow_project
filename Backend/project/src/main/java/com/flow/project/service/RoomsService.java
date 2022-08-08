@@ -1,5 +1,6 @@
 package com.flow.project.service;
 
+import com.flow.project.domain.ProjectListData;
 import com.flow.project.domain.RoomMembers;
 import com.flow.project.domain.Rooms;
 import com.flow.project.repository.RoomMembersMapper;
@@ -14,9 +15,14 @@ public class RoomsService {
     final RoomsMapper roomsMapper;
     final RoomMembersMapper roomMembersMapper;
 
-    // 프로젝트 번호로 프로젝트 선택
+    // 프로젝트 조회 (프로젝트 삭제 시 확인용)
     public Rooms getRoom(String rmNo) {
         return roomsMapper.selectOne(rmNo);
+    }
+
+    // 프로젝트 조회 (프로젝트 리스트에서 프로젝트 선택)
+    public ProjectListData getSelectedRoom(String rmNo, int memNo){
+        return roomsMapper.selectRoom(rmNo, memNo);
     }
 
     // 프로젝트 생성
