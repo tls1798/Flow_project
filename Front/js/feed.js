@@ -186,19 +186,16 @@ $(document).on('click', '.js-pin-post', function (e) {
     if ($(this).attr('data-mem-id') != window.localStorage.getItem('memNo') && window.localStorage.getItem('memNo') !=  $(this).attr('data-room-id')) { 
         $('.alert-auth-postpin').css('display', 'block')
 
-    setTimeout(function () {
-        $('.alert-auth-postpin').fadeOut(500, "swing");
-     }, 2000);
-    return false;
+        setTimeout(function () {
+            $('.alert-auth-postpin').fadeOut(500, "swing");
+        }, 2000);
+
+        return false;
     }
+
     postNo = ($(this).attr('data-post-srno'))
     postPin = ($(this).attr('data-post-pin'))
     pinid = ($(this).attr('id'))
-
-    if ($(this).attr('data-post-pin') == 0)
-        $(this).attr('data-post-pin', 1)
-    else
-        $(this).attr('data-post-pin', 0)
 
     // 포스트핀이 0이면 포스트핀 1로 바꾸고 on이 있으면 on을 없애고 없으면 on을 만든다
     postPin == 0 ? postPin = 1 : postPin = 0
