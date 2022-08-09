@@ -870,26 +870,102 @@ export function getAllParticipantsAjax(rmNo){
     });
 }
 
-// 피드 내 글/댓글 가져오기
-export function getAllPostsByProjectAjax(rmNo) {
-    // 현재 프로젝트룸에게만 알림 보내기전에 rmNo 세팅
-    window.localStorage.setItem('rmNo',rmNo)
-    socket.emit('setting', rmNo)
+// 피드 내 총 글 개수 가져오기
+export function getPostsCountByProjectAjax(rmNo){
+    let postCount;
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/api/rooms/'+ rmNo +'/posts',
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
+            },
+            success: function (result, status, xhr) {
+                postCount = result;
+                
+            },
+            error: function (xhr, status, err) {
+                autoaccess();
+            }
+        })
+        return postCount;
+}
 
+// 피드 내 상단고정 글 가져오기
+export function getAllPostsPinByProjectAjax(rmNo){
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8080/api/members/'+ memNo +'/rooms/'+ rmNo +'/posts',
+        url: 'http://localhost:8080/api/rooms/'+ rmNo +'/posts/pin',
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            var count = 0;
             $('#pinPostUl').html('')
-            // 초기화
-            $('#detailUl').find('li').remove();
-            $('#detailUl').find('div').remove();
-            
+            let pincnt = result.length;
+            if(pincnt>0){
+                // 상단고정 0 아니면 div 나옴
+                $('.fix-section').removeClass('d-none');
+
+                // 상단고정 count 
+                $('#projectPinCount').text(pincnt);
+                for(let i=0;i<pincnt;i++){
+                    $('#pinPostUl').append(`
+                        <li id="posts-`+result[i].postNo+`" class="js-pin-item" data-project-srno="`+rmNo+`" data-post-srno="`+result[i].postNo+`" data-post-pin="`+result[i].postPin+`" >
+                            <a href="#">
+                                <div class="fixed-kind">
+                                    <i class="icons-write2"></i>
+                                    <span>글</span>
+                                </div>
+                                <p id="fixed-`+result[i].postNo+`" class="js-post-title fixed-text ">`+result[i].postTitle+ `</p>
+                                <div class="fixed-value">
+                                    <div class="date-time d-none">
+                                        <em class="date"></em>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    `)
+                    // 타이틀이 null 이면
+                    if (result[i].postTitle == '') {
+                        let postCon = result[i].postContent;
+
+                        // 내용의 줄바꿈 전까지 출력
+                        if (postCon.search('</p>'))
+                            postCon = (postCon.substr(0, postCon.search('</p>'))).replace(/(<([^>]+)>)/ig,"");
+                        
+                        $('#fixed-' + result[i].postNo + '').text(postCon);
+                    }
+                }
+            }
+            else{
+                // 상단고정 0 이면 div 안나옴
+                $('.fix-section').addClass('d-none');
+            }
+        },
+        error: function (xhr, status, err) {
+            autoaccess();
+        }
+    })
+}
+
+// 피드 내 글/댓글 가져오기
+export function getAllPostsByProjectAjax(rmNo, offset) {
+    // 현재 프로젝트룸에게만 알림 보내기전에 rmNo 세팅
+    window.localStorage.setItem('rmNo',rmNo)
+    socket.emit('setting', rmNo)
+    
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/api/members/'+ memNo +'/rooms/'+ rmNo +'/posts/page/' + offset,
+        contentType: 'application/json; charset=utf-8',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
+        },
+        success: function (result, status, xhr) {
+            if(offset == 0) $('#detailUl').html('');
             // 게시글 없을 때
             if (result.length == 0) {
                 $('#detailUl').append(`
@@ -901,44 +977,9 @@ export function getAllPostsByProjectAjax(rmNo) {
                     </div>
                 `);
             } else {
-                
                 // 게시글 있을 때
                 for (var i = 0; i < result.length; i++) {
                     let commentcount = 0;
-                    // 상단고정일 경우
-                    if (result[i].posts.postPin) {
-                        count++;
-                        $('#pinPostUl').append(`
-                            <li id="posts-`+result[i].posts.postNo+`" class="js-pin-item" index="4" data-project-srno="`+rmNo+`" data-post-srno="`+result[i].posts.postNo+`" data-post-pin="`+result[i].posts.postPin+`" >
-                                <a href="#">
-                                    <div class="fixed-kind">
-                                        <i class="icons-write2"></i>
-                                        <span>글</span>
-                                    </div>
-                                    <p id="fixed-`+result[i].posts.postNo+`" class="js-post-title fixed-text ">`+result[i].posts.postTitle+ `</p>
-                                    <div class="fixed-value">
-                                        <span class="js-task-state js-todo-state d-none"></span>
-                                        <div class="date-time d-none">
-                                            <em class="date"></em>
-                                            <span></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        `)
-
-                        // 타이틀이 null 이면
-                        if (result[i].posts.postTitle == '') {
-                            let postCon = result[i].posts.postContent;
-
-                            // 내용의 줄바꿈 전까지 출력
-                            if (postCon.search('</p>'))
-                                postCon = (postCon.substr(0, postCon.search('</p>'))).replace(/(<([^>]+)>)/ig,"");
-                            
-                            $('#fixed-' + result[i].posts.postNo + '').text(postCon);
-                        }
-                        
-                    }
                     $('#detailUl').append(`
                         <li id="post-`+result[i].posts.postNo+`" class="js-popup-before detail-item back-area feed-card" data-read-yn="Y" data-comment-count="0"  data-project-srno="` + rmNo + `" data-post-srno="` + result[i].posts.postNo + `" data-post-pin= "`+ result[i].posts.postPin +`" data-remark-srno="" data-bookmark="`+result[i].posts.postBookmark+`" data-section-srno=""  mngr-wryn="" mngr-dsnc="" data-post-code="1" pin-yn="N" time="" data-code="VIEW" data-post-url="https://flow.team/l/04vvh"">
                             <div class="js-post-nav card-item post-card-wrapper write2 ">
@@ -1124,12 +1165,6 @@ export function getAllPostsByProjectAjax(rmNo) {
                     view(result[i].posts.postNo);
                 }
             }
-            // count 
-            $('#projectPinCount').text(count);
-            // 상단고정 0 일시 div 나오지 않게
-            ($('#projectPinCount').text() == 0) ? $('.fix-section').addClass('d-none') : $('.fix-section').removeClass('d-none') 
-                
-            
         },
         error: function (xhr, status, err) {
             autoaccess();

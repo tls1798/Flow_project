@@ -28,7 +28,17 @@ public class PostsService {
     }
 
     // 특정 글 상단고정
-    public int editPin(int postNo, int postPin){
+    public int editPin(int postNo, int postPin) {
         return postsMapper.updatePin(postNo, postPin);
+    }
+
+    // 상단고정 글 가져오기
+    public List<Posts> getPostsPin(String rmNo) {
+        return postsMapper.selectPostsPin(rmNo);
+    }
+
+    // 특정 프로젝트 방 전체 글 개수
+    public int getPostsCount(String rmNo) {
+        return postsMapper.selectPostsCount(rmNo);
     }
 }

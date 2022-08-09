@@ -2,7 +2,6 @@ package com.flow.project.repository;
 
 import com.flow.project.domain.Posts;
 import org.apache.ibatis.annotations.*;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -36,5 +35,13 @@ public interface PostsMapper {
 
     // 상단고정 업데이트하기
     @Update("update \"Posts\" set post_pin = #{postPin} where post_no = #{postNo}")
-    int updatePin(int postNo,int postPin);
+    int updatePin(int postNo, int postPin);
+
+    // 상단고정 글 가져오기
+    @Select("select * from \"Posts\" p where p.rm_no = #{rmNo} and p.post_pin != 0")
+    List<Posts> selectPostsPin(String rmNo);
+
+    // 특정 프로젝트 방 전체 글 개수
+    @Select("select count(*) as post_count from \"Posts\" p where p.rm_no = #{rmNo}")
+    int selectPostsCount(String rmNo);
 }

@@ -47,8 +47,8 @@ public class PostsApiController {
     @DeleteMapping("/rooms/{rmNo}/posts/{postNo}/{memNo}")
     public ResponseEntity<?> removePost(@PathVariable String rmNo, @PathVariable int postNo, @PathVariable int memNo) {
         // 관련 알림 없을 때
-        if(notificationsService.getRoomNotisByPostNo(memNo,postNo) == 0){
-            return postsService.removePost(rmNo,postNo,memNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
+        if (notificationsService.getRoomNotisByPostNo(memNo, postNo) == 0) {
+            return postsService.removePost(rmNo, postNo, memNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
         }
         // 관련 알림 있을 때 글 삭제 시, 관련 알림도 삭제
         else {
@@ -61,7 +61,19 @@ public class PostsApiController {
 
     // 특정 글 상단고정
     @PostMapping("/rooms/posts/{postNo}/pin/{postPin}")
-    public ResponseEntity<?> editPin(@PathVariable int postNo,@PathVariable int postPin) {
-        return ResponseEntity.ok(postsService.editPin(postNo,postPin));
+    public ResponseEntity<?> editPin(@PathVariable int postNo, @PathVariable int postPin) {
+        return ResponseEntity.ok(postsService.editPin(postNo, postPin));
+    }
+
+    // 상단고정 글 가져오기
+    @GetMapping("/rooms/{rmNo}/posts/pin")
+    public ResponseEntity<?> getPostsPin(@PathVariable String rmNo) {
+        return ResponseEntity.ok(postsService.getPostsPin(rmNo));
+    }
+
+    // 특정 프로젝트 방 전체 글 개수
+    @GetMapping("/rooms/{rmNo}/posts")
+    public ResponseEntity<?> getPostsCount(@PathVariable String rmNo) {
+        return ResponseEntity.ok(postsService.getPostsCount(rmNo));
     }
 }

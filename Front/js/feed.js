@@ -1,6 +1,6 @@
 import {readAlarm} from './alarmLayer.js'
 import {updateRight} from './rightPostCard.js';
-import {readAllAlarmsByProjectAjax, addPinAjax, getAllPostsByProjectAjax} from './ajax.js'
+import {readAllAlarmsByProjectAjax, addPinAjax, getAllPostsByProjectAjax, getAllPostsPinByProjectAjax, getPostsCountByProjectAjax} from './ajax.js'
 import {confirmOpen, confirmClose} from './confirm.js'
 
 // Toast ui viewer 
@@ -14,10 +14,18 @@ export function view(idx) {
     });
 }
 
+let postCount, isStart;
+var offset = 0;
+
 // 프로젝트 선택 시 해당 프로젝트에 있는 글 조회
 export function getPostAll(rmNo) {
+    offset = 0;
     $('#rightComment').children().remove()
-    getAllPostsByProjectAjax(rmNo);
+    postCount = getPostsCountByProjectAjax(rmNo);
+    getAllPostsPinByProjectAjax(rmNo);
+    getAllPostsByProjectAjax(rmNo, offset);
+    offset = 11;
+    isStart = true;
 }
 
 // 알림 레이어에서 미확인 알림 가져오는 함수
@@ -250,13 +258,37 @@ $('html').click(function(){
     }
 })
 
+let maxHeight, currentScroll;
+var timerForThrottle;
+
 // 상단 이동 버튼 화면에 띄우기
 $('#detailTimeline').scroll(function(){
-    if($(this).scrollTop()>20){
-        $('.btnMoveTop').fadeIn();
-    }else{
-        $('.btnMoveTop').fadeOut();
+    let rmNo = $('#detailSettingProjectSrno').text();
+    let detailTimeLine = this;
+
+    // 상단 이동 버튼
+    if($(detailTimeLine).scrollTop()>20) $('.btnMoveTop').fadeIn();
+    else $('.btnMoveTop').fadeOut();
+
+    // 처음 피드에 들어 왔을 때 초기 설정
+    if(isStart){
+        maxHeight = detailTimeLine.scrollHeight;
+        currentScroll = $(detailTimeLine).scrollTop();
+        isStart = !isStart;
     }
+
+    // 중복 호출 방지, 스크롤이 마지막에 도달 했을 때
+    if(!timerForThrottle && maxHeight <= currentScroll + 1400){
+        timerForThrottle = setTimeout(function(){
+            maxHeight = detailTimeLine.scrollHeight;
+            if(offset<postCount){
+                getAllPostsByProjectAjax(rmNo, offset)
+                offset+=10;
+            }
+            timerForThrottle=null;
+        },1000);
+    }
+    currentScroll = $(detailTimeLine).scrollTop();
 });
 
 // 상단 이동 버튼 클릭 시 상단 이동

@@ -17,14 +17,14 @@ public class PostsCommentsApiController {
     final PostsCommentsService postsCommentsService;
 
     // 특정 프로젝트 방 글 전체, 댓글 전체 가져오기
-    @GetMapping("/members/{memNo}/rooms/{rmNo}/posts")
-    public ResponseEntity<?> getPosts(@PathVariable int memNo, @PathVariable String rmNo) {
-        return ResponseEntity.status(HttpStatus.OK).body(postsCommentsService.getPosts(memNo, rmNo));
+    @GetMapping("/members/{memNo}/rooms/{rmNo}/posts/page/{pageNo}")
+    public ResponseEntity<?> getPosts(@PathVariable int memNo, @PathVariable String rmNo, @PathVariable int pageNo) {
+        return ResponseEntity.status(HttpStatus.OK).body(postsCommentsService.getPosts(memNo, rmNo, pageNo));
     }
 
     // 특정 프로젝트 특정 글, 댓글 전체 가져오기
     @GetMapping("/members/{memNo}/rooms/{rmNo}/posts/{postNo}")
-    public ResponseEntity<?> getPost(@PathVariable int memNo, @PathVariable String rmNo, @PathVariable int postNo){
+    public ResponseEntity<?> getPost(@PathVariable int memNo, @PathVariable String rmNo, @PathVariable int postNo) {
         return ResponseEntity.status(HttpStatus.OK).body(postsCommentsService.getPost(memNo, rmNo, postNo));
     }
 }
