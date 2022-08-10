@@ -186,6 +186,10 @@ $(document).on('click','#pinPostUl',function(e){
     }).then((arg)=>{
         updateRight(rmNo, postNo, -1);
     })
+
+    // 클릭한 글 하이라이트 적용
+    $('.js-pin-item a').removeClass('highlight');
+    $(e.target).addClass('highlight');
 })
 
 // 상단고정 아이콘 누를시

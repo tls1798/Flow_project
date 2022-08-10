@@ -13,6 +13,9 @@ $('#profileBtn').click(function(){
     $('.info-box').find('span').text(memInfo.memName);
     $('#profileEml').find('span').text(memInfo.memMail);
 
+    // 회원 탈퇴 버튼 활성화
+    $('.btn-del-mem').css('display', 'block');
+
     $('.back-area.temp-popup').addClass('flow-all-background-1');
     $('.profile-popup').css('display','block');
 
@@ -26,6 +29,12 @@ $(document).on('click', '.js-participant-item', function(){
     // 이름, 이메일 넣기
     $('.info-box').find('span').text(memInfo.memName);
     $('#profileEml').find('span').text(memInfo.memMail);
+
+    // 다른 회원 클릭 시, 회원 탈퇴 버튼 숨기기
+    if(window.localStorage.getItem('memNo') != $(this).attr('data-id'))
+        $('.btn-del-mem').css('display', 'none');
+    else
+        $('.btn-del-mem').css('display', 'block');
 
     $('.back-area.temp-popup').addClass('flow-all-background-1');
     $('.profile-popup').css('display','block');

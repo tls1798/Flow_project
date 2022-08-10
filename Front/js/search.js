@@ -51,4 +51,9 @@ $(document).on('click', '.post-search-item.js-search-item', function(){
 $(document).on('click', '.project-search-item', function(){
     let rmNo = $(this).attr('data-project-no');
     getFeed(rmNo);
+
+    // 검색 창 닫기
+    $('#searchResultClose').click();
+    // 우측 포스트 카드 닫기
+    $('.btn-close.card-popup-close.close-side').click();
 })

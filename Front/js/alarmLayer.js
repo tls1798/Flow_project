@@ -50,7 +50,8 @@ $('#alarmLayer').on('click', '.js-alarm-item', function (e) {
 
 // 알림레이어 알림 모두 읽음
 $('#readAllAlarm').click(function(){
-    readAllAlarmAjax();
+    if($('#alarmUl').find('li').hasClass('on')==true)
+        readAllAlarmAjax();
 })
 
 // 닫기 버튼

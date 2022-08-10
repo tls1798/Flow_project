@@ -10,6 +10,8 @@ export function initRightPostCard(){
 // 오른쪽 글 카드 닫기
 export function closeRightPostCard(){
     $('.close-side').click(function(){
+        // 북마크 
+        $('.booklist').removeClass('highlight');
         initRightPostCard();
     })
 }

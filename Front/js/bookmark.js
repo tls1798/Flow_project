@@ -26,6 +26,10 @@ $(document).on('click', '.booklist', function () {
     let rmNo = $(this).attr('data-project-id')
     let postNo = $(this).attr('data-post-id')
     updateRight(rmNo, postNo, -1)
+
+    // highlight class 추가 (search.js 33행에서 처리 됨)
+    // 다른 글 하이라이트 제거
+    $('.booklist').removeClass('highlight');
 })
 
 // 북마크 아이콘 누를시

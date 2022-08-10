@@ -717,6 +717,11 @@ export function editProjectAjax(title, content){
             // input, textarea 비우기
             $('#projectTitleInput').val('');
             $('#projectContentsInput').val('');
+
+            // 새 프로젝트 생성 관련 모달 안보이도록
+            $('#projectSection').parent().css('display', 'none');
+            $('.project-template-intro').css('display','flex');
+            $('.project-template-main').css('display','none');
         },
         error: function (xhr, status, err) {
             autoaccess()

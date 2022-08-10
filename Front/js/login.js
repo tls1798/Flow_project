@@ -53,9 +53,8 @@ $('#normalLoginButton').on('click', function () {
                 // input, textarea 비우기
                 $('#userId').val('');
                 $('.loginpassword').val('');
-                // 해당 아이디의 정보가 없다면 에러 메시지 출력
-                $('.err-id').text($('#userId').attr('data-login-err-msg'))
-                $('.err-pw').text('')
+                // 해당 회원 정보가 없다면 에러 메시지 출력
+                $('.err-pw').text($('#userId').attr('data-login-err-msg'))
             }
         });
     }
