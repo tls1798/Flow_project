@@ -205,6 +205,11 @@ $(document).on('click', '.js-pin-post', function (e) {
     postPin = ($(this).attr('data-post-pin'))
     pinid = ($(this).attr('id'))
 
+    if ($(this).attr('data-post-pin') == 0)
+        $(this).attr('data-post-pin', 1)
+    else
+        $(this).attr('data-post-pin', 0)
+    
     // 포스트핀이 0이면 포스트핀 1로 바꾸고 on이 있으면 on을 없애고 없으면 on을 만든다
     postPin == 0 ? postPin = 1 : postPin = 0
 

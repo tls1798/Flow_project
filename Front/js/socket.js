@@ -1,4 +1,21 @@
-import { getAllAlarmsAjax, ProjectList } from './ajax.js';
+import { getAllAlarmsAjax, ProjectList,getAllParticipantsAjax } from './ajax.js';
+
+export let onlinelist = [];
+
+$(function () {
+    socket.emit('online', window.localStorage.getItem('memNo'))
+    
+    // 접속중인 멤버 리스트에 담기
+    socket.on('online', (onlinememNo) => {
+        onlinelist.push(onlinememNo)
+        getAllParticipantsAjax(window.localStorage.getItem('rmNo'))
+    })
+    
+    // 리스트 초기화
+    socket.on('resetList', () => {
+        onlinelist = [];
+    })
+})
 
 // 알림레이어 초기화 및 업데이트 함수
 export function updateAlarms() {
@@ -39,11 +56,11 @@ export function elapsedTime(date) {
 // 소켓 하나만 사용하기 위한 Export
 export const socket = io.connect('http://localhost:3000/flow');
 
-export function setting(){
+export function setting() {
     // 멤버마다 각각의 프로젝트에 대한 방 설정과 통신을 위한 Foreach
     ProjectList.forEach(room => {
         socket.emit('setting', room);
-        socket.on(room, (data) => {          
+        socket.on('alarm', () => {          
             updateAlarms();
         })
     });

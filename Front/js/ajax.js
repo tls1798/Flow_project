@@ -1,5 +1,5 @@
 import {autoaccess} from './autoAccess.js'
-import {updateAlarms, elapsedTime,socket, setting } from './socket.js'
+import {updateAlarms, elapsedTime,socket, setting,onlinelist } from './socket.js'
 import {bookmarkList, alert} from './bookmark.js'
 import {updateRight} from './rightPostCard.js';
 import {postPopupClose, postInit, postClear} from './createPost.js'
@@ -805,30 +805,30 @@ export function addPinAjax(postNo, postPin){
 }
 
 // 피드 우측 참여자 가져오기
-export function getAllParticipantsAjax(rmNo){
-    $.ajax({
-        type: 'GET',
-        url: 'http://localhost:8080/api/rooms/' + rmNo + '/members',
-        contentType: 'application/json; charset=utf-8',
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
-        },
-        success: function (result, status, xhr) {
+export function getAllParticipantsAjax(rmNo) {
+    new Promise((succ, fail) => {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/api/rooms/' + rmNo + '/members',
+            contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
+            },
+            success: function (result, status, xhr) {
+                succ(result);
+                // 초기화
+                $('#participantsUl').find('li').remove();
 
-            // 초기화
-            $('#participantsUl').find('li').remove();
+                // 총 참여자 수 수정
+                $('#participantCount').text(result.length);
+                // 관리자 제외 참여자 수 수정
+                $('#outerParticipantsCount').text(result.length - 1);
 
-            // 총 참여자 수 수정
-            $('#participantCount').text(result.length);
-            // 관리자 제외 참여자 수 수정
-            $('#outerParticipantsCount').text(result.length - 1);
-
-            // 프로젝트 관리자
-            $('.participants-admin-span').append(`
+                // 프로젝트 관리자
+                $('.participants-admin-span').append(`
                 <li class="js-participant-item" data-id="`+ result[0].rmAdmin + `">
                     <div class="post-author">
-                        <span class="js-participant-profile thumbnail size40 radius16" data=""></span>
-                        <dl class="post-author-info">
+                    <span class="js-participant-profile thumbnail size40 radius16" data=""><div class="online `+ result[0].memNo + `"></div></span><dl class="post-author-info">
                             <dt>
                                 <strong class="js-participant-name author ellipsis">`+ result[0].adminName + `</strong>
                                 <em class="position ellipsis" style="display:none" data=""></em>
@@ -838,16 +838,15 @@ export function getAllParticipantsAjax(rmNo){
                 </li>
             `);
 
-            // 참여자
-            for (var i = 0; i < result.length; i++) {
-                // 관리자면 참여자에 추가하지 않음
-                if (result[i].memNo == result[i].rmAdmin) continue;
+                // 참여자
+                for (var i = 0; i < result.length; i++) {
+                    // 관리자면 참여자에 추가하지 않음
+                    if (result[i].memNo == result[i].rmAdmin) continue;
 
-                $('.participants-member-span').append(`
+                    $('.participants-member-span').append(`
                     <li class="js-participant-item" data-id="`+ result[i].memNo + `" >
                         <div class="post-author">
-                            <span class="js-participant-profile thumbnail size40 radius16" data=""></span>
-                            <dl class="post-author-info">
+                        <span class="js-participant-profile thumbnail size40 radius16" data=""><div class="online `+ result[i].memNo + `"></div></span><dl class="post-author-info">
                                 <dt>
                                     <strong class="js-participant-name author ellipsis">`+ result[i].memName + `</strong>
                                     <em class="position ellipsis" style="display:none" data=""></em>
@@ -856,18 +855,22 @@ export function getAllParticipantsAjax(rmNo){
                         </div>
                     </li>
                 `);
+                }
+                // 관리자만 존재하고 참여자는 0명일 경우 span display:none
+                if (result.length == 1)
+                    $('.participants-member-span').css('display', 'none');
+                else
+                    $('.participants-member-span').css('display', 'block');
+            },
+            error: function (xhr, status, err) {
+                autoaccess()
             }
-
-            // 관리자만 존재하고 참여자는 0명일 경우 span display:none
-            if (result.length == 1)
-                $('.participants-member-span').css('display', 'none');
-            else
-                $('.participants-member-span').css('display', 'block');
-        },
-        error: function (xhr, status, err) {
-            autoaccess()
-        }
-    });
+        });
+    }).then(() => {
+        onlinelist.forEach(memNum => {
+            $('.'+memNum+'').css("background-color","limegreen");
+        })          
+    })
 }
 
 // 피드 내 총 글 개수 가져오기

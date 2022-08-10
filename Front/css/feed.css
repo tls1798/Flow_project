@@ -904,6 +904,19 @@
     width: 90%;
     float: left;
 }
+.online{
+    background-color: gray;
+
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid white;
+
+    display: inline-block;
+    position: relative;
+    left: 27px;
+    top: 26px;
+}
 
 /* 북마크 */
 .post-bottom-button.on {
