@@ -881,23 +881,22 @@ export function getAllParticipantsAjax(rmNo) {
 // 피드 내 총 글 개수 가져오기
 export function getPostsCountByProjectAjax(rmNo){
     let postCount;
-        $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8080/api/rooms/'+ rmNo +'/posts',
-            contentType: 'application/json; charset=utf-8',
-            async: false,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
-            },
-            success: function (result, status, xhr) {
-                postCount = result;
-                
-            },
-            error: function (xhr, status, err) {
-                autoaccess();
-            }
-        })
-        return postCount;
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/api/rooms/'+ rmNo +'/posts',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
+        },
+        success: function (result, status, xhr) {
+            postCount = result;
+        },
+        error: function (xhr, status, err) {
+            autoaccess();
+        }
+    })
+    return postCount;
 }
 
 // 피드 내 상단고정 글 가져오기
@@ -965,10 +964,16 @@ export function getAllPostsByProjectAjax(rmNo, offset) {
     window.localStorage.setItem('rmNo',rmNo)
     socket.emit('setting', rmNo)
     
+    // offset이 0이면 스크롤 위치 이동
+    if(offset == 0){
+        $('#detailTimeline').scrollTop(0);
+    }
+
     $.ajax({
         type: 'GET',
         url: 'http://localhost:8080/api/members/'+ memNo +'/rooms/'+ rmNo +'/posts/page/' + offset,
         contentType: 'application/json; charset=utf-8',
+        async: false,
         beforeSend: function (xhr) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },

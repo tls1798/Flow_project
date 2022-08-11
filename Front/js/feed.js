@@ -285,19 +285,19 @@ $('#detailTimeline').scroll(function(){
         currentScroll = $(detailTimeLine).scrollTop();
         isStart = !isStart;
     }
+    currentScroll = $(detailTimeLine).scrollTop();
 
     // 중복 호출 방지, 스크롤이 마지막에 도달 했을 때
-    if(!timerForThrottle && maxHeight <= currentScroll + 1400){
+    if(!timerForThrottle && maxHeight <= (currentScroll + $('#detailTimeline')[0].offsetHeight) ){
         timerForThrottle = setTimeout(function(){
-            maxHeight = detailTimeLine.scrollHeight;
             if(offset<postCount){
                 getAllPostsByProjectAjax(rmNo, offset)
                 offset+=10;
+                maxHeight = detailTimeLine.scrollHeight;
             }
             timerForThrottle=null;
-        },1000);
+        },200);
     }
-    currentScroll = $(detailTimeLine).scrollTop();
 });
 
 // 상단 이동 버튼 클릭 시 상단 이동
