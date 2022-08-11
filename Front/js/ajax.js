@@ -738,6 +738,11 @@ export function addProjectAjax(rmNo){
         success: function (result, status, xhr) {
             // 해당 프로젝트 피드로 이동
             getFeed(rmNo);
+
+            // 새 프로젝트 생성 관련 모달 안보이도록
+            $('#projectSection').parent().css('display', 'none');
+            $('.project-template-intro').css('display','flex');
+            $('.project-template-main').css('display','none');
         },
         error: function (xhr, status, err) {
             autoaccess()
@@ -764,7 +769,7 @@ export function editProjectAjax(title, content){
             $('#projectTitleInput').val('');
             $('#projectContentsInput').val('');
 
-            // 새 프로젝트 생성 관련 모달 안보이도록
+            // 프로젝트 수정 관련 모달 안보이도록
             $('#projectSection').parent().css('display', 'none');
             $('.project-template-intro').css('display','flex');
             $('.project-template-main').css('display','none');
