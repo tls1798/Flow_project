@@ -8,7 +8,10 @@ $(function () {
     // 접속중인 멤버 리스트에 담기
     socket.on('online', (onlinememNo) => {
         onlinelist.push(onlinememNo)
-        getAllParticipantsAjax(window.localStorage.getItem('rmNo'))
+        // 프로젝트가 있을경우에만 참여자 목록 갱신
+        if (window.localStorage.getItem('rmNo') != null) {
+            getAllParticipantsAjax(window.localStorage.getItem('rmNo'))
+        }
     })
     
     // 리스트 초기화

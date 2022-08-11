@@ -239,7 +239,9 @@ $(document).on('click', '.js-pin-post', function (e) {
             confirmClose('postPin-confirm');
             $('#' + pinid).hasClass('on') ? $('#' + pinid).removeClass('on') : $('#' + pinid).addClass('on');
             $('#' + pinid).attr('data-post-pin')==0 ? $('#' + pinid).attr('data-post-pin', 1) : $('#' + pinid).attr('data-post-pin', 0);
+            $('#detailComment').children().remove();
             addPinAjax(postNo, postPin);
+          
         } else {
             return false;
         }
