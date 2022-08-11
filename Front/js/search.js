@@ -30,13 +30,24 @@ $(document).on('click', '.js-star-icon.seach-star-type-1', function(e){
 })
 
 // 검색 결과 li 클릭 -> highlight class 추가
-$(document).on('click', '.post-search-item, .project-search-item', function(){
+$(document).on('click', '.post-search-item.js-search-item, .project-search-item.js-search-item', function(){
+    // 선택 되어있던 글일 경우 하이라이트 제거 및 우측 글 팝업 닫기
+    if($(this).hasClass('highlight')){
+        $(this).removeClass('highlight');
+        $('.btn-close.card-popup-close.close-side').click();
+        return false;
+    }
+
     $('.js-search-item').removeClass('highlight');
     $(this).addClass('highlight');
 })
 
 // 글 댓글 클릭 -> 우측 포스트 카드
 $(document).on('click', '.post-search-item.js-search-item', function(){
+    // highlight 상태일 때만 우측 포스트 카드 활성화
+    if(!$(this).hasClass('highlight'))
+        return false;
+
     let rmNo = $(this).attr('data-project-no');
     let postNo = $(this).attr('data-post-no');
     let cmNo = -1;

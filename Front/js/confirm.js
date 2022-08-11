@@ -10,7 +10,9 @@ export function confirmOpen(clsName){
 
 // confirm 창 닫기
 export function confirmClose(clsName){
-    $('.back-area.temp-popup').removeClass('flow-all-background-1');
+    if($('#popBack1').children('li').length<=0)
+        $('.back-area.temp-popup').removeClass('flow-all-background-1');
+
     $('#popupBackground').addClass('d-none');
     $('.confirm-popup').addClass('d-none');
 

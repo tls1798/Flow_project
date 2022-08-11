@@ -23,13 +23,20 @@ export function alert(){
 
 // 북마크 리스트 화면에서 글 클릭 시 오른쪽 글 카드 화면 띄움
 $(document).on('click', '.booklist', function () {
+    // 선택 되어있던 글일 경우 하이라이트 제거 및 우측 글 팝업 닫기
+    if($(this).hasClass('highlight')){
+        $(this).removeClass('highlight');
+        $('.btn-close.card-popup-close.close-side').click();
+        return false;
+    }
+
     let rmNo = $(this).attr('data-project-id')
     let postNo = $(this).attr('data-post-id')
     updateRight(rmNo, postNo, -1)
 
-    // highlight class 추가 (search.js 33행에서 처리 됨)
-    // 다른 글 하이라이트 제거
+    // 다른 글 하이라이트 제거 및 선택한 글 하이라이트 추가
     $('.booklist').removeClass('highlight');
+    $(this).addClass('highlight');
 })
 
 // 북마크 아이콘 누를시

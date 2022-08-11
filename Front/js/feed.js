@@ -178,6 +178,13 @@ $(document).on('click', '.comment-more-button', function () {
 
 // 상단고정 리스트 클릭 시
 $(document).on('click','#pinPostUl',function(e){
+    // 선택 되어있던 글일 경우 하이라이트 제거 및 우측 글 팝업 닫기
+    if($(e.target).hasClass('highlight')){
+        $(e.target).removeClass('highlight');
+        $('.btn-close.card-popup-close.close-side').click();
+        return false;
+    }
+
     let rmNo, postNo; 
     new Promise((succ, fail)=>{
         rmNo = $(e.target).closest('li').attr('data-project-srno');
