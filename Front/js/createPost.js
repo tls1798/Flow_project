@@ -141,10 +141,13 @@ $('.create-post-wrap').click(function(e){
 
 $(document).on('click', '.post-option>ul',function(e){
     // 북마크 화면에서 오른쪽 글카드 수정시 북마크 업데이트
-    let isBookmarkList = false;
+    let isBookmarkList = $('#mainTop').text();
 
+    // document프로젝트 타이틀
+    let documentTitle = '';
+    let centerPopup = '';
     // 글 수정
-    if(e.target.id=='postEditBtn' || e.target.id=='rightEditBtn'){
+    if(e.target.id=='postEditBtn' || e.target.id=='rightEditBtn' || e.target.id=='centerEditBtn'){
         // 글 생성 팝업 띄우고 수정으로 변경
         postEditor();
         postPopupOpen();
@@ -163,9 +166,17 @@ $(document).on('click', '.post-option>ul',function(e){
             $('#rightComment').children().remove();
             $('#popBack1>li').children().remove()
             $('#popBack1>li').remove();
-            isBookmarkList = true;
         }
-        
+
+        // 중앙 팝업 있을 때
+        if(e.target.id=='centerEditBtn'){
+            centerPopup = $('.js-project-title-button').text();
+            $('#detailComment').children().remove();
+            $('#popBack1>li').children().remove()
+            $('#popBack1>li').remove();
+            documentTitle = $(document).prop('title');
+        }
+
         // 취소 버튼
         $('.cancel-button.create-post-button').click(function(e){
             postPopupClose();
@@ -178,23 +189,33 @@ $(document).on('click', '.post-option>ul',function(e){
             const editTitle = $(this).closest('.js-editor').find('input').val();
             const editContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
 
-            editPostAjax(rmNo, postNo, editTitle, editContent, isBookmarkList);
+            editPostAjax(rmNo, postNo, editTitle, editContent, isBookmarkList, documentTitle, centerPopup);
         })
 
     }
-    else if(e.target.id=='postDelBtn' || e.target.id=='rightDelBtn'){
+    else if(e.target.id=='postDelBtn' || e.target.id=='rightDelBtn' || e.target.id=='centerDelBtn'){
         // 글 삭제
         let rmNo = $(e.target).closest("[id^='post-']").attr('data-project-srno');
         const postNo = $(e.target).closest("[id^='post-']").attr('data-post-srno');
-        
+        documentTitle = $(document).prop('title');
+        let projectTitle = '';
         // 오른쪽 글 카드 있을 때
         if(e.target.id=='rightDelBtn'){
+            projectTitle = $('.js-project-title-button').text();
             $('#rightComment').children().remove();
             $('#popBack1>li').children().remove()
             $('#popBack1>li').remove();
         }
 
-        removePostAjax(rmNo, postNo);
+        // 중앙 팝업 있을 때
+        if(e.target.id=='centerDelBtn'){
+            projectTitle = $('.js-project-title-button').text();
+            $('#detailComment').children().remove();
+            $('#popBack1>li').children().remove()
+            $('#popBack1>li').remove();
+        }
+        
+        removePostAjax(rmNo, postNo, isBookmarkList, documentTitle, projectTitle);
     }
         
     return false

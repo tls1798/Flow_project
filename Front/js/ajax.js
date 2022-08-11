@@ -5,7 +5,7 @@ import {updateRight} from './rightPostCard.js';
 import {postPopupClose, postInit, postClear} from './createPost.js'
 import {updateList} from './projectList.js';
 import {view, getPostAll} from './feed.js';
-import {closeCenterPopup} from './centerPostPopup.js';
+import {closeCenterPopup, centerSettingButtonClose} from './centerPostPopup.js';
 import {closeRightPostCard, settingButtonClose} from './rightPostCard.js'
 import {getFeed} from './changeMainContainer.js'
 
@@ -187,6 +187,7 @@ export function getBookmarkAjax(){
     $.ajax({
         type: 'GET',
         url: 'http://localhost:8080/api/bookmark/' + memNo,
+        async: false,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
@@ -643,7 +644,7 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck){
 }
 
 // 글 수정
-export function editPostAjax(rmNo, postNo, editTitle, editContent, isBookmarkList){
+export function editPostAjax(rmNo, postNo, editTitle, editContent, isBookmarkList, documentTitle, centerPopup){
     $.ajax({
         type: 'PUT',
         url: 'http://localhost:8080/api/rooms/'+rmNo+'/posts/'+postNo,
@@ -658,18 +659,32 @@ export function editPostAjax(rmNo, postNo, editTitle, editContent, isBookmarkLis
             postInit();
             postClear();
 
-            if(isBookmarkList){
-                // 북마크 새로고침
-                getBookmarkAjax();
+            if(documentTitle!==''){
+                if(documentTitle==centerPopup){
+                    // 피드 새로고침
+                    getFeed(rmNo);
+                }
+                $('#postPopup').addClass('flow-all-background-1');
+                getPostToCenterPopupAjax(rmNo, postNo, -1);
+
+                // 알림 레이어 업데이트
+                getAllAlarmsAjax();
             }
             else{
-                // 피드 새로고침
-                getFeed(rmNo);
+                if(isBookmarkList==='북마크'){
+                    // 북마크 새로고침
+                    getBookmarkAjax();
+                }
+                else{
+                    // 피드 새로고침
+                    getFeed(rmNo);
+                }
+
+                // 오른쪽 글 카드
+                updateRight(rmNo, postNo, -1);
             }
             $('.alert-pop').children().children().text('수정되었습니다.')
             alert()
-            // 오른쪽 글 카드
-            updateRight(rmNo, postNo, -1);
         },
         error: function (xhr, status, err) {
             autoaccess()
@@ -678,16 +693,27 @@ export function editPostAjax(rmNo, postNo, editTitle, editContent, isBookmarkLis
 }
 
 // 글 삭제
-export function removePostAjax(rmNo, postNo){
+export function removePostAjax(rmNo, postNo, isBookmarkList, documentTitle, projectTitle){
     $.ajax({
         type: 'DELETE',
         url: 'http://localhost:8080/api/rooms/'+rmNo+'/posts/'+postNo+'/'+memNo,
+        async: false,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            getFeed(rmNo);
+            if(documentTitle===projectTitle){
+                getFeed(rmNo);
+            }
+            else if(isBookmarkList==='북마크'){
+                // 북마크 새로고침
+                getBookmarkAjax();
+            }
+
+            // 알림 레이어 업데이트
+            getAllAlarmsAjax();
+            $('#postPopup').removeClass('flow-all-background-1')
             $('.alert-pop').children().children().text('삭제되었습니다.')
             alert()
             socket.emit('room',window.localStorage.getItem('rmNo'));
@@ -1250,17 +1276,17 @@ export function getPostToCenterPopupAjax(rmNo, postNo, cmNo){
                                                 <!-- fixed-btn on class -->
                                                 <span class="blind">상단 고정 등록</span>
                                             </button>
-                                            <button id="detailSetting" class="js-setting-button set-btn centersetting-`+result.posts.postNo +`"" >
+                                            <button id="centerSetting" class="js-setting-button set-btn centersetting-`+result.posts.postNo +`"" >
                                                 <i class="bi bi-three-dots-vertical"></i>
                                             </button>
-                                            <ul id="detailSettingList" class="js-setting-ul js-setting-layer setup-group d-none">
+                                            <ul id="centerSettingList" class="js-setting-ul js-setting-layer setup-group d-none">
                                                 <li class="js-setting-item" data-code="modify" style="display:block" data="">
-                                                    <a id="detailEditBtn" href="#"> <i class="bi bi-card-text"></i>수정
+                                                    <a id="centerEditBtn" href="#"> <i class="bi bi-card-text"></i>수정
                                                         <i class="edit-auth-icon icons-question js-mouseover d-none" mouseover-text="공동 수정 권한이 활성화 되어있습니다." style="display:none" data=""></i>
                                                     </a>
                                                 </li>
                                                 <li class="js-setting-item" data-code="delete" style="display:block" data="">
-                                                    <a id="detailDelBtn" href="#"> <i class="bi bi-trash"></i>삭제</a>
+                                                    <a id="centerDelBtn" href="#"> <i class="bi bi-trash"></i>삭제</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -1273,7 +1299,7 @@ export function getPostToCenterPopupAjax(rmNo, postNo, cmNo){
                                 </div>
                                 <div class="post-card-container">
                                     
-                                    <div id="originalPost" class="post-card-content " style="display:none" data=""><div id="viewer" class="viewer`+ result.posts.postNo + `">`+result.posts.postContent+`</div></div>
+                                    <div id="originalPost" class="post-card-content " style="display:block" data=""><div id="viewer" class="viewer`+ result.posts.postNo + `">`+result.posts.postContent+`</div></div>
                                 
                                     <div class="post-bottom-area">
                                         <div class="post-bottom-menu js-reaction-bookmark">
@@ -1387,6 +1413,8 @@ export function getPostToCenterPopupAjax(rmNo, postNo, cmNo){
 
             //중앙 팝업 닫기
             closeCenterPopup();
+            // 중앙 setting 닫기
+            centerSettingButtonClose();
 
             // 알림레이어에서 댓글 클릭 시 하이라이트
             if(cmNo!=-1)
