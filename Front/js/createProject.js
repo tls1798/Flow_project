@@ -28,7 +28,7 @@ $('.button-create-template').click(function(){
 // 닫기, 뒤로가기
 var tar;
 $('.button-close, .button-go-back').click(function(e){
-
+    $('#popupBackground').addClass('z-20');
     tar = $(this);
 
     if($('#projectTitleInput').val()!=="" || $('#projectContentsInput').val()!==""){
@@ -41,8 +41,10 @@ $('.button-close, .button-go-back').click(function(e){
                 return false;
 
             if($(e.target).attr('class')=='flow-pop-sub-button-1 cancel-event'){
+                $('#popupBackground').removeClass('z-20');
                 confirmClose('create-project-confirm');
             } else if($(e.target).attr('class')=='flow-pop-sub-button-2 submit-event'){
+                $('#popupBackground').removeClass('z-20');
                 confirmClose('create-project-confirm');
                 clearCreateProject();
                 closeCreateProject(tar);
@@ -52,6 +54,7 @@ $('.button-close, .button-go-back').click(function(e){
         })
     }
     else{
+        $('#popupBackground').removeClass('z-20');
         clearCreateProject();
         closeCreateProject(tar);
     }
