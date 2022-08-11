@@ -2,6 +2,7 @@ import {addPostAjax, editPostAjax, removePostAjax} from './ajax.js'
 import {confirmOpen_post, confirmClose_post} from './confirm.js'
 import {initRightPostCard} from './rightPostCard.js'
 import fontSizePlugin from './fontSize.js';
+import { erralert } from './bookmark.js';
 
 // 글 생성 팝업 열기
 export function postPopupOpen(){
@@ -116,13 +117,9 @@ $('.create-post-wrap').click(function(e){
         // 내용 없으면 경고창
         const checkContent = $('.ProseMirror.toastui-editor-contents').text();
         if(checkContent===""){
-            $('.alert-wrap-post').css('display', 'block');
-
-            setTimeout(function() {
-                $('.alert-wrap-post').fadeOut(500, "swing");
-            }, 2000);
-
-            return false;
+        $('.alert-pop').children().children().text('내용을 입력하세요.')
+        erralert()
+        return false;
         }
 
         const postTitle = $('#postTitle').val();
