@@ -188,6 +188,8 @@ export function getBookmarkAjax(){
         },
         success: function (result, status, xhr) {
 
+            // 초기화
+            $('#myPostContentUl').html('');
             // 북마크 개수
             $('#postCount').text(result.length);
 
@@ -632,11 +634,12 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck){
 }
 
 // 글 수정
-export function editPostAjax(rmNo, postNo, editTitle, editContent){
+export function editPostAjax(rmNo, postNo, editTitle, editContent, isBookmarkList){
     $.ajax({
         type: 'PUT',
         url: 'http://localhost:8080/api/rooms/'+rmNo+'/posts/'+postNo,
         data: JSON.stringify({"postTitle":editTitle, "postContent":editContent, "rmNo":rmNo, "postNo":postNo}),
+        async: false,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
@@ -646,8 +649,14 @@ export function editPostAjax(rmNo, postNo, editTitle, editContent){
             postInit();
             postClear();
 
-            // 피드 새로고침
-            getFeed(rmNo);
+            if(isBookmarkList){
+                // 북마크 새로고침
+                getBookmarkAjax();
+            }
+            else{
+                // 피드 새로고침
+                getFeed(rmNo);
+            }
 
             // 오른쪽 글 카드
             updateRight(rmNo, postNo, -1);
@@ -801,7 +810,6 @@ export function addPinAjax(postNo, postPin){
         },
         success: function (result, status, xhr) {
             getPostAll(window.localStorage.getItem('rmNo'))
-            $('#detailComment').children().remove();
         },
         error: function (xhr, status, err) {
             autoaccess();

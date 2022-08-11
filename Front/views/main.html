@@ -70,11 +70,35 @@
 </head>
 
 <body>
+    <!-- toast 팝업 영역 -->
+    <!-- 검색 팝업 -->
     <div class="alert-wrap-search" id="toastPopup" style="display: none;">
         <div class="alert-type error">
             <div class="text">검색어를 입력해주세요</div>
         </div>
     </div>
+
+    <!-- 글 팝업 -->
+    <div class="alert-wrap alert-post" id="toastPopup" style="display:none" >
+        <div class="alert-type success">
+            <div class="text"></div>
+        </div>
+    </div>
+
+    <!-- 북마크 팝업 -->
+    <div class="alert-wrap alert-bookmark" id="toastPopup" style="display:none" >
+        <div class="alert-type success">
+            <div class="text">적용되었습니다.</div>
+        </div>
+    </div>
+
+    <!-- 상단고정 팝업 -->
+    <div class="alert-wrap alert-auth-postpin" id="toastPopup" style="display:none" >
+        <div class="alert-type error">
+            <div class="text">프로젝트 관리자 + 글 작성 본인만 상단고정 설정/해제 가능합니다.</div>
+        </div>
+    </div>
+
     <div id="allMainContent" class="main-wrap wrap-use-footer">
 
         <!-- 새 프로젝트 생성 페이지 -->
@@ -656,12 +680,6 @@
                                     <div id="projectFeedArea" class="detail-section feed-section">
                                         <div class="section-title-area">
                                             <h4 id="allPostsFilterTitle" class="section-title ellipsis">전체</h4>
-                                        </div>
-                                             <!-- 팝업 -->
-                                        <div class="alert-wrap alert-pop" id="toastPopup" style="display:none" >
-                                            <div class="alert-type success">
-                                                <div class="text">적용되었습니다.</div>
-                                            </div>
                                         </div>
                                         <div class="feed-content">
                                             <ul id="detailUl" class="post-group post-card" style="display: block;">

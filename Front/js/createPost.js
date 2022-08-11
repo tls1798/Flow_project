@@ -143,6 +143,9 @@ $('.create-post-wrap').click(function(e){
 })
 
 $(document).on('click', '.post-option>ul',function(e){
+    // 북마크 화면에서 오른쪽 글카드 수정시 북마크 업데이트
+    let isBookmarkList = false;
+
     // 글 수정
     if(e.target.id=='postEditBtn' || e.target.id=='rightEditBtn'){
         // 글 생성 팝업 띄우고 수정으로 변경
@@ -163,6 +166,7 @@ $(document).on('click', '.post-option>ul',function(e){
             $('#rightComment').children().remove();
             $('#popBack1>li').children().remove()
             $('#popBack1>li').remove();
+            isBookmarkList = true;
         }
         
         // 취소 버튼
@@ -177,7 +181,7 @@ $(document).on('click', '.post-option>ul',function(e){
             const editTitle = $(this).closest('.js-editor').find('input').val();
             const editContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
 
-            editPostAjax(rmNo, postNo, editTitle, editContent);
+            editPostAjax(rmNo, postNo, editTitle, editContent, isBookmarkList);
         })
 
     }

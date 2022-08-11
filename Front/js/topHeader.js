@@ -191,7 +191,8 @@ $('html').click(function(e) {
     }
 
     // 알림 레이어 display none (알림 버튼 클릭할 시엔 X)
-    if(!$(e.target).closest('#alarmTopButton').length>0 && !$(e.target).hasClass('alarmLayer') && !isPopBack && !($(e.target).hasClass('close-detail'))) {
+    if(!$(e.target).closest('#alarmTopButton').length>0 && !$(e.target).hasClass('alarmLayer') && 
+        !isPopBack && !($(e.target).hasClass('close-detail')) && !$(e.target).closest('#detailPostCard').length>0) {
         $("#alarmLayer").css('display', 'none');
     }
 });
