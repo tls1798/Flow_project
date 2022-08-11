@@ -1,5 +1,4 @@
-import {updateAlarms} from './socket.js'
-import {logoutAjax, getSearchResultAjax, getMemberAjax} from './ajax.js'
+import {logoutAjax, getSearchResultAjax, getMemberAjax, getAllAlarmsAjax} from './ajax.js'
 import {confirmOpen, confirmClose} from './confirm.js'
 import { erralert } from './bookmark.js'
 
@@ -114,8 +113,8 @@ $(document).on('click','.search-popup-input .btn-search-delete', function(e){
 // 알림 아이콘 클릭 시 알림레이어 띄우기
 $('.btn-alarm').click(function(){
     if($('#alarmLayer').css('display')=='none'){
-        // 알림 업데이트
-        updateAlarms();
+        // 알림레이어 업데이트
+        getAllAlarmsAjax();
         
         if($('#rightPostCard').length>0){
             $('#popBack1>li').remove();

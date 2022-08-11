@@ -1,5 +1,5 @@
 import {autoaccess} from './autoAccess.js'
-import {updateAlarms, elapsedTime,socket, setting,onlinelist } from './socket.js'
+import {elapsedTime,socket, setting,onlinelist } from './socket.js'
 import {bookmarkList, alert} from './bookmark.js'
 import {updateRight} from './rightPostCard.js';
 import {postPopupClose, postInit, postClear} from './createPost.js'
@@ -23,6 +23,9 @@ export function getAllAlarmsAjax(){
             },
             success: function (result, status, xhr) {
                 succ(result);
+    
+                // 초기화
+                $('#alarmUl').find('li').remove();
     
                 // 읽음 여부 확인해서 미확인/전체 나누기 (미확인이면 addClass('on'))
                 for(var i=0; i<result.length; i++){
@@ -110,7 +113,8 @@ export function readAllAlarmAjax() {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            updateAlarms();
+            // 알림레이어 업데이트
+            getAllAlarmsAjax();
         },
         error: function (xhr, status, err) {
             autoaccess()
@@ -128,7 +132,8 @@ export function readAllAlarmsByProjectAjax() {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            updateAlarms();
+            // 알림레이어 업데이트
+            getAllAlarmsAjax();
         },
         error: function (xhr, status, err) {
             autoaccess()
@@ -1745,8 +1750,8 @@ export function getAllProjectsByMeAjax(){
             }
         });
     }).then((arg)=>{
-        // 알림 업데이트
-        updateAlarms();
+        // 알림레이어 업데이트
+        getAllAlarmsAjax();
     }).then(()=>{
         setting();
     })

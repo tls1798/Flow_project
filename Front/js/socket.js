@@ -1,4 +1,4 @@
-import { getAllAlarmsAjax, ProjectList,getAllParticipantsAjax } from './ajax.js';
+import { getAllAlarmsAjax, ProjectList, getAllParticipantsAjax } from './ajax.js';
 
 export let onlinelist = [];
 
@@ -16,14 +16,6 @@ $(function () {
         onlinelist = [];
     })
 })
-
-// 알림레이어 초기화 및 업데이트 함수
-export function updateAlarms() {
-    // 초기화
-    $('#alarmUl').find('li').remove();
-    // 알림레이어 업데이트
-    getAllAlarmsAjax();
-}
 
 // 경과시간 계산 함수
 export function elapsedTime(date) {
@@ -61,7 +53,8 @@ export function setting() {
     ProjectList.forEach(room => {
         socket.emit('setting', room);
         socket.on('alarm', () => {          
-            updateAlarms();
+            // 알림레이어 업데이트
+            getAllAlarmsAjax();
         })
     });
 }
