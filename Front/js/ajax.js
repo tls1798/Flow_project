@@ -267,6 +267,7 @@ export function removeBookmarkAjax(postNo){
 
 // 북마크 추가
 export function addBookmarkAjax(postNo){
+    alert();
     $.ajax({
         type: 'POST',
         url: 'http://localhost:8080/api/bookmark',
@@ -276,7 +277,6 @@ export function addBookmarkAjax(postNo){
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            alert();
             bookmarkList();
         },
         error: function (xhr, status, err) {
@@ -1378,7 +1378,8 @@ export function getPostToCenterPopupAjax(rmNo, postNo, cmNo){
 }
 
 // 글 하나 가져오기 (오른쪽 글 카드)
-export function getPostToRightPostCardAjax(rmNo, postNo, cmNo){
+export function getPostToRightPostCardAjax(rmNo, postNo, cmNo) {
+  
     $.ajax({
         type: 'GET',
         url: 'http://localhost:8080/api/members/'+memNo+'/rooms/'+rmNo+'/posts/'+postNo,
@@ -1387,13 +1388,14 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo){
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function(result, status, xhr) {
-            $('#popBack1').append(`
-                <li id="post-`+result.posts.postNo+`" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="`+result.posts.rmNo+`" data-post-srno="`+result.posts.postNo+`" data-remark-srno="" data-bookmark="`+result.posts.postBookmark+`" data-section-srno="" data-rgsr-id="`+result.posts.postWriter+`" mngr-wryn="" mngr-dsnc="" data-post-code="1" data-post-pin="`+result.posts.postPin+`" time="" data-code="VIEW" data-post-url="https://flow.team/l/0fj3s">
+            try {
+                $('#popBack1').append(`
+                <li id="post-`+ result.posts.postNo + `" class="js-popup-before detail-item back-area" data-read-yn="Y" data-project-srno="` + result.posts.rmNo + `" data-post-srno="` + result.posts.postNo + `" data-remark-srno="" data-bookmark="` + result.posts.postBookmark + `" data-section-srno="" data-rgsr-id="` + result.posts.postWriter + `" mngr-wryn="" mngr-dsnc="" data-post-code="1" data-post-pin="` + result.posts.postPin + `" time="" data-code="VIEW" data-post-url="https://flow.team/l/0fj3s">
                     <div id="rightPostCard" class="js-post-nav card-item post-card-wrapper write2 side">
                         <div class="post-popup-header card-popup-header" style="display: block;">
                             <h3 class="card-popup-title">
                                 <i id="projectTitleColor" class="project-color color-code-3"></i>
-                                <span class="js-project-title-button">`+result.posts.rmTitle+`</span>
+                                <span class="js-project-title-button">`+ result.posts.rmTitle + `</span>
                             </h3>
                             <button class="btn-close card-popup-close close-side">
                                 <i class="icons-close-1"></i>
@@ -1402,27 +1404,27 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo){
                         <div class="post-card-header">
                             <div class="post-card-scroll">
                                 <div class="card-header-top">
-                                    <div class="post-author js-post-author" data-author-id="`+result.posts.postWriter+`">
+                                    <div class="post-author js-post-author" data-author-id="`+ result.posts.postWriter + `">
                                         <span class="thumbnail size40 radius16" data=""></span>
                                         <dl class="post-author-info">
                                             <dt>
-                                                <strong class="author ellipsis">`+result.posts.postName+`</strong>
+                                                <strong class="author ellipsis">`+ result.posts.postName + `</strong>
                                                 <em class="position ellipsis" style="display:inline" data=""></em>
-                                                <span class="date">`+result.posts.postDatetime+`</span>
+                                                <span class="date">`+ result.posts.postDatetime + `</span>
                                                 <span class="post-security"> <i class="bi bi-people" mouseover-text="전체 공개"></i></span>
                                             </dt>
                                         </dl>
                                     </div>
                                     <div>
-                                        <div id = "option-`+result.posts.postNo +`" class="post-option">
+                                        <div id = "option-`+ result.posts.postNo + `" class="post-option">
                                             <button id="movePost" class="btn-go d-none" style="display: inline-block;">
                                                 게시글 바로가기
                                             </button>
-                                            <button id="rightpin-`+ result.posts.postNo + `" class="js-pin-post fixed-btn js-pin-authority" data-mem-id="`+ result.posts.postWriter + `" data-room-id="`+result.posts.rmAdmin+`" data-project-srno="` + rmNo + `" data-post-srno="` + result.posts.postNo + `"  data-post-pin= "` + result.posts.postPin + `" style="display:block" data="">
+                                            <button id="rightpin-`+ result.posts.postNo + `" class="js-pin-post fixed-btn js-pin-authority" data-mem-id="` + result.posts.postWriter + `" data-room-id="` + result.posts.rmAdmin + `" data-project-srno="` + rmNo + `" data-post-srno="` + result.posts.postNo + `"  data-post-pin= "` + result.posts.postPin + `" style="display:block" data="">
                                                 <!-- fixed-btn on class -->
                                                 <span class="blind">상단 고정 등록</span>
                                             </button>
-                                            <button id="rightSetting" class="js-setting-button set-btn rightsetting-`+ result.posts.postNo +`"" "> 
+                                            <button id="rightSetting" class="js-setting-button set-btn rightsetting-`+ result.posts.postNo + `"" "> 
                                                 <i class="bi bi-three-dots-vertical"></i>
                                             </button>
                                             <ul id="rightSettingList" class="js-setting-ul js-setting-layer setup-group d-none">
@@ -1440,14 +1442,14 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo){
                                 </div>
                                 <div class="js-card-header-bottom card-header-bottom ">
                                     <div class="post-title-area">
-                                        <h4 class="js-post-title post-title ">`+result.posts.postTitle+`</h4>
+                                        <h4 class="js-post-title post-title ">`+ result.posts.postTitle + `</h4>
                                     </div>
                                 </div>
                                 <div class="post-card-container">
                                 
-                                    <div id="originalPost" class="post-card-content " style="display:block" data=""><div id="viewer" class="viewer`+ result.posts.postNo + `">`+result.posts.postContent+`</div></div>
+                                    <div id="originalPost" class="post-card-content " style="display:block" data=""><div id="viewer" class="viewer`+ result.posts.postNo + `">` + result.posts.postContent + `</div></div>
                                 
-                                    <div id="summaryPost" class="post-card-content hidden" style="display:none" data=""><div>`+result.posts.postContent+`</div></div>
+                                    <div id="summaryPost" class="post-card-content hidden" style="display:none" data=""><div>`+ result.posts.postContent + `</div></div>
                                 
                                     <button id="postMoreButton" type="button" class="js-contents-more-btn post-more-btn" style="display:none" data="">더보기</button>
                                     <div id="summaryFoldArea" class="content-fold" style="display:none" data=""></div>
@@ -1464,11 +1466,11 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo){
                                         <div class="cmt-read-wr">
                                             <div class="comment-count-area">
                                                 <span>댓글</span>
-                                                <span class="comment-count">`+result.commentsList.length+`</span>
+                                                <span class="comment-count">`+ result.commentsList.length + `</span>
                                             </div>
                                             <div class="js-read-check-button read-confirmation" style="display:block" data="">
                                                 <span>읽음</span>
-                                                <span class="confirmation-number">`+ (parseInt(result.posts.postReadCount)+1) + `</span>
+                                                <span class="confirmation-number">`+ (parseInt(result.posts.postReadCount) + 1) + `</span>
                                             </div>
                                         </div>
                                     </div>
@@ -1480,7 +1482,7 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo){
                                         이전 댓글 더보기 (<span id="cm-count-id">0</span>)
                                         </button>
                                     </div>
-                                    <ul id="rightComment" class="post-comment-group" data-id=`+result.posts.postNo+`></ul>
+                                    <ul id="rightComment" class="post-comment-group" data-id=`+ result.posts.postNo + `></ul>
                                 </div>
                                 <div class="js-remark-layer js-edit-layer comment-input-wrap sticky">
                                     <div class="comment-thumbnail">
@@ -1498,6 +1500,15 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo){
                     </div>
                 </li>
             `)
+            }
+            catch (Exception) {
+                $('.alert-pop').children().children().text('삭제된 게시물 입니다.')
+                $('.alert-type').removeClass('success')
+                $('.alert-type').addClass('error')
+                $('.alert-pop').css('display', 'block')
+                $('.alert-pop').fadeOut(2000, "swing");
+                return;
+            }
             // 자신이 작성한 글 , 관리자가 아니면 상단고정 , 메뉴가 보이지 않게 한다
             if (memNo != result.posts.rmAdmin && memNo != result.posts.postWriter ) {
                 $('#option-' + result.posts.postNo + '').addClass('d-none')

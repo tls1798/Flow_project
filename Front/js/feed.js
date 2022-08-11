@@ -203,10 +203,12 @@ $(document).on('click','#pinPostUl',function(e){
 let postNo, postPin, pinid;
 $(document).on('click', '.js-pin-post', function (e) {
     if ($(this).attr('data-mem-id') != window.localStorage.getItem('memNo') && window.localStorage.getItem('memNo') !=  $(this).attr('data-room-id')) { 
-        $('.alert-auth-postpin').css('display', 'block')
-
+        $('.alert-pop').children().children().text('프로젝트 관리자 + 글 작성 본인만 상단고정 설정/해제 가능합니다')
+        $('.alert-pop').css('display', 'block')
+        $('.alert-type').removeClass('success')
+        $('.alert-type').addClass('error')
         setTimeout(function () {
-            $('.alert-auth-postpin').fadeOut(500, "swing");
+            $('.alert-pop').fadeOut(500, "swing");
         }, 2000);
 
         return false;

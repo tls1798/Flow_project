@@ -12,11 +12,14 @@ export function bookmarkList(){
 }
 
 // 북마크 적용 알림창
-export function alert(){
-    $('.alert-bookmark').css('display', 'block')
+export function alert() {
+    $('.alert-pop').children().children().text('적용되었습니다.')
+    $('.alert-type').addClass('success')
+    $('.alert-type').removeClass('error')
+    $('.alert-pop').css('display', 'block')
 
     setTimeout(function () {
-        $('.alert-bookmark').fadeOut(500, "swing");
+        $('.alert-pop').fadeOut(500, "swing");
     }, 2000);
     return;
 }
