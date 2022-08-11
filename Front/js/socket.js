@@ -50,9 +50,10 @@ export const socket = io.connect('http://localhost:3000/flow');
 
 export function setting() {
     // 멤버마다 각각의 프로젝트에 대한 방 설정과 통신을 위한 Foreach
-    ProjectList.forEach(room => {
-        socket.emit('setting', room);
-        socket.on('alarm', () => {          
+
+    ProjectList.forEach(Projectroom => {
+        socket.emit('setting', Projectroom);
+        socket.on(Projectroom, () => {            
             // 알림레이어 업데이트
             getAllAlarmsAjax();
         })

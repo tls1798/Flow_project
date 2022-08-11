@@ -14,7 +14,8 @@ let onlineMemberList = new Set();
 let memberSocketId = new Map();
 
 flow.on('connection', (socket) => {
-   
+    
+    // 온라인
     socket.on('online', (memNo) => {
         socket.join('online')
         // List, Map 에 접속중인 멤버 세팅
@@ -24,6 +25,7 @@ flow.on('connection', (socket) => {
             flow.to('online').emit('online',memNo)
         })
     })
+    
     socket.on('disconnect', () => {
         flow.to('online').emit('resetList')
         // 접속 종료한 멤버값 없애기
@@ -43,6 +45,6 @@ flow.on('connection', (socket) => {
     })
 
     socket.on('room', (roomNo) => {
-        socket.to(roomNo).emit('alarm')
+        socket.to(roomNo).emit(roomNo)
     })
 })
