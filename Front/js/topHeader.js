@@ -1,6 +1,7 @@
 import {updateAlarms} from './socket.js'
 import {logoutAjax, getSearchResultAjax, getMemberAjax} from './ajax.js'
 import {confirmOpen, confirmClose} from './confirm.js'
+import { erralert } from './bookmark.js'
 
 // 모달, 팝업 display:none -> false, block -> true
 var searchPopupBool = false;
@@ -63,14 +64,9 @@ $('#searchPopupInput').keypress(function(e){
         
         // 내용 없으면 경고창
         if(searchItem===''){
-            $('.alert-wrap-search .text').text('검색어를 입력해주세요');
-            $('.alert-wrap-search').css('display', 'block');
-
-            setTimeout(function() {
-                $('.alert-wrap-search').fadeOut(500, "swing");
-            }, 2000);
-
-            return;
+            $('.alert-pop').children().children().text('검색어를 입력해주세요');
+            erralert()
+            return false;
         }
         getSearchResultAjax(searchItem);
 

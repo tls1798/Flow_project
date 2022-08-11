@@ -10,10 +10,17 @@ export function bookmarkList(){
     $('#myPostContentUl').text('');
     getBookmarkAjax();
 }
-
-// 북마크 적용 알림창
+// 에러 알림창
+export function erralert() {
+    $('.alert-pop').css('display', 'block')
+    $('.alert-type').removeClass('success')
+    $('.alert-type').addClass('error')
+    setTimeout(function () {
+        $('.alert-pop').fadeOut(500, "swing");
+    }, 2000);
+}
+// 성공 알림창
 export function alert() {
-    $('.alert-pop').children().children().text('적용되었습니다.')
     $('.alert-type').addClass('success')
     $('.alert-type').removeClass('error')
     $('.alert-pop').css('display', 'block')

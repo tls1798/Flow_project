@@ -258,6 +258,7 @@ export function removeBookmarkAjax(postNo){
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
+            $('.alert-pop').children().children().text('적용되었습니다.')
             alert();
             bookmarkList();
         },
@@ -268,7 +269,8 @@ export function removeBookmarkAjax(postNo){
 }
 
 // 북마크 추가
-export function addBookmarkAjax(postNo){
+export function addBookmarkAjax(postNo) {
+    $('.alert-pop').children().children().text('적용되었습니다.')
     alert();
     $.ajax({
         type: 'POST',
@@ -603,6 +605,8 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck){
                 succ(result);
                 postNo = result.postNo;
                 getFeed(rmNo);
+                $('.alert-pop').children().children().text('등록되었습니다.')
+                alert()
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -657,7 +661,8 @@ export function editPostAjax(rmNo, postNo, editTitle, editContent, isBookmarkLis
                 // 피드 새로고침
                 getFeed(rmNo);
             }
-
+            $('.alert-pop').children().children().text('수정되었습니다.')
+            alert()
             // 오른쪽 글 카드
             updateRight(rmNo, postNo, -1);
         },
@@ -678,7 +683,8 @@ export function removePostAjax(rmNo, postNo){
         },
         success: function (result, status, xhr) {
             getFeed(rmNo);
-
+            $('.alert-pop').children().children().text('삭제되었습니다.')
+            alert()
             socket.emit('room',window.localStorage.getItem('rmNo'));
         },
         error: function (xhr, status, err) {

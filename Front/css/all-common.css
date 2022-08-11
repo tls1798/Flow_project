@@ -112,7 +112,7 @@ strong {
 }
 
 /* toast 알림창 */
-.alert-wrap, .alert-wrap-post, .alert-wrap-search {
+.alert-wrap {
     z-index: 112;
     top: 140px;
     left: 50%;
