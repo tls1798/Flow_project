@@ -145,7 +145,7 @@ export default function fontSizePlugin(context, options) {
     eventEmitter.emit("command", "fontSize", { fontSize });
     eventEmitter.emit("closePopup");
 
-    currentEditorEl.focus();
+    // currentEditorEl.focus();
   }
 
   const dropDown = creaetFontSizeDropDown();

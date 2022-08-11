@@ -334,3 +334,7 @@
     margin: auto;
     width: 97%;
 }
+.toastui-editor-toolbar-group button{
+    width: 30px;
+    height: 30px;
+}

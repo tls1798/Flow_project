@@ -174,6 +174,10 @@ $('html').mousedown(function(e) {
 });
 
 $('html').click(function(e) {
+    // confirm 창 바깥 영역 클릭 시, return false
+    if($(e.target).attr('id')=='popBack2')
+        return false;
+
     // 어디든 클릭하면 프로필 모달 display none
     if(!$(e.target).closest('#accountTopButton').length>0 && $('#accountLayer').css('display')=='block') {
         $(this).removeClass('active');

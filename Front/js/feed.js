@@ -212,11 +212,6 @@ $(document).on('click', '.js-pin-post', function (e) {
     postNo = ($(this).attr('data-post-srno'))
     postPin = ($(this).attr('data-post-pin'))
     pinid = ($(this).attr('id'))
-
-    if ($(this).attr('data-post-pin') == 0)
-        $(this).attr('data-post-pin', 1)
-    else
-        $(this).attr('data-post-pin', 0)
     
     // 포스트핀이 0이면 포스트핀 1로 바꾸고 on이 있으면 on을 없애고 없으면 on을 만든다
     postPin == 0 ? postPin = 1 : postPin = 0
@@ -235,6 +230,7 @@ $(document).on('click', '.js-pin-post', function (e) {
         } else if ($(e.target).attr('class') == 'flow-pop-sub-button-2 submit-event') {
             confirmClose('postPin-confirm');
             $('#' + pinid).hasClass('on') ? $('#' + pinid).removeClass('on') : $('#' + pinid).addClass('on');
+            $('#' + pinid).attr('data-post-pin')==0 ? $('#' + pinid).attr('data-post-pin', 1) : $('#' + pinid).attr('data-post-pin', 0);
             addPinAjax(postNo, postPin);
         } else {
             return false;
@@ -292,7 +288,7 @@ $('#detailTimeline').scroll(function(){
     currentScroll = $(detailTimeLine).scrollTop();
 
     // 중복 호출 방지, 스크롤이 마지막에 도달 했을 때
-    if(!timerForThrottle && maxHeight <= (currentScroll + $('#detailTimeline')[0].offsetHeight) ){
+    if(!timerForThrottle && maxHeight <= (currentScroll + $('#detailTimeline')[0].offsetHeight + 500) ){
         timerForThrottle = setTimeout(function(){
             if(offset<postCount){
                 getAllPostsByProjectAjax(rmNo, offset)
