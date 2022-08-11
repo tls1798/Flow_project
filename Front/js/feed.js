@@ -203,6 +203,7 @@ $(document).on('click','#pinPostUl',function(e){
 // 상단고정 아이콘 누를시
 let postNo, postPin, pinid;
 $(document).on('click', '.js-pin-post', function (e) {
+   
     if ($(this).attr('data-mem-id') != window.localStorage.getItem('memNo') && window.localStorage.getItem('memNo') !=  $(this).attr('data-room-id')) { 
         $('.alert-pop').children().children().text('프로젝트 관리자 + 글 작성 본인만 상단고정 설정/해제 가능합니다')
         erralert()
@@ -219,9 +220,16 @@ $(document).on('click', '.js-pin-post', function (e) {
     if (postPin == 1) $('.popup-cont').text('상단고정 하시겠습니까');
     else if (postPin == 0) $('.popup-cont').text('이 글을 상단고정 해제 하시겠습니까');
     confirmOpen('postPin-confirm');
-
+   
+    // 오른쪽 카드 팝업 오류 수정
+    $('.right').removeClass('flow-all-background-1')
+    // 중앙 카드 팝업 오류 수정
+    if (($(this).attr('id') == ('centerpin-' + postNo)))
+        $('.right').addClass('flow-all-background-1')
+    
     // confirm 취소, 확인 버튼 클릭 시
     $('.popup-confirm-warp').click(function (e) {
+        
         if (!$(this).hasClass('postPin-confirm'))
             return false;
     
