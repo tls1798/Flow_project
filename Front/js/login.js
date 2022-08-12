@@ -47,7 +47,7 @@ $('#normalLoginButton').on('click', function () {
                 window.localStorage.setItem('accessToken', accessToken);
                 window.localStorage.setItem('refreshToken', refreshToken);
                 window.localStorage.setItem('memNo', memNo);
-                location.href = 'main.html';
+                location.href = './main.html';
             },
             error: function (xhr, status, err) {
                 // input, textarea 비우기
@@ -77,5 +77,5 @@ $('#findSubmit').on('click', function () {
         error: function (xhr, status, err) {
         }
     });
-    location.href = 'login.html';
+    location.href = './login.html';
 })

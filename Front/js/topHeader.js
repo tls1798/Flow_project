@@ -57,7 +57,8 @@ $(".main-search").click(function(e){
 
 // 검색 팝업 텍스트박스에서 엔터
 $('#searchPopupInput').keypress(function(e){
-    if(e.keyCode === 13){
+    if (e.keyCode === 13) {
+        $('.left-menu-item').removeClass('flow-active')
         // 검색 Ajax
         let searchItem = $('#searchPopupInput').val();
         

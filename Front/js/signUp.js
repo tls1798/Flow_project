@@ -134,12 +134,11 @@ $('#teamStepButton').on('click', function () {
                 "memMail": memMail
             }),
             contentType: 'application/json; charset=utf-8',
-            success: function (result, status, xhr) {
-                // 이메일 전송이 완료되면 8자리 코드를 return 받는다
-                const ePw = result.ePw
+            success:async function (result, status, xhr) {
+                // 이메일 전송이 완료되면 9자리 코드를 return 받는다
+                let ePw = await result.ePw
                 $('.confirm-button').on('click', function () {           
                     let num = $('#authInput').val();
-    
                     // 사용자가 입력한 인증 코드와 생성한 인증코드 일치하는지 확인
                     if (num == ePw) {
                         $.ajax({
@@ -152,7 +151,7 @@ $('#teamStepButton').on('click', function () {
                             }),
                             contentType: 'application/json; charset=utf-8',
                             success: function (result, status, xhr) {
-                                location.href = '../views/login.html'
+                                location.href = './login.html'
                             },
                             error: function (xhr, status, err) {
                                 cleanFrom()
@@ -161,8 +160,8 @@ $('#teamStepButton').on('click', function () {
                             }
                         });
                     } else {
-                        cleanFrom()
-                        $('.error-email').text($('.join-email-input').attr('data-incorrect-code'));
+                        location.href='./signUp.html'
+                        $('#authInput').val('')
                         $('#joinUserEmail').addClass('input-error') 
                     }
                 })

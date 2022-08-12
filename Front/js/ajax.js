@@ -199,7 +199,7 @@ export function getBookmarkAjax(){
             // 북마크 개수
             $('#postCount').text(result.length);
 
-            for(let i=0;i<result.length;i++){
+            for (let i = 0; i < result.length; i++){
                 $('#myPostContentUl').append(`
                     <li class="js-all-post-item post-search-item post-list-wrapper booklist" data-project-id="`+ result[i].rmNo + `"data-post-id="` + result[i].postNo + `" data-mem-id="` + result[i].memNo + `">
                         <div class="fixed-kind">
@@ -551,6 +551,9 @@ export function editCommentAjax(postNo, cmContent, cmNo){
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
+            $('.alert-pop').children().children().text('수정되었습니다.')
+            alert();
+            
             // text 수정
             $('.remark-item[remark-srno='+cmNo+'] .comment-text').html('<div>'+cmContent+'</div>');
         
@@ -574,7 +577,9 @@ export function removeCommentAjax(e, postNo, cmNo){
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            
+            $('.alert-pop').children().children().text('삭제되었습니다.')
+            alert();
+
             // 현재 팝업, 피드 댓글 카운트 감소
             let cnt = parseInt($(e.target).closest("[id^='post-']").find('.comment-count').text()) - 1;
             $('.js-popup-before.detail-item.back-area[data-post-srno='+postNo+']').find('.comment-count').text(cnt);
@@ -1860,10 +1865,10 @@ export function getSearchResultAjax(searchItem){
                     content = result[i].searchContent;
 
                 // 댓글
-                if(result[i].cmNo!=0){
+                if (result[i].cmNo != 0) {
                     liAndITag = `<li class="post-search-item js-search-item" data-comment-no=`+result[i].cmNo+` data-post-no=`+result[i].postNo+` data-project-no=`+result[i].rmNo+`>
                                     <i class="icon-post-type comment"></i>`;
-                    contentTag = `<p><span class="post-name-txt">댓글</span>`+content+`</p>`;
+                    contentTag = `<p><span class="post-name-txt">댓글</span>`+content.replace(/<br>/gi, " ")+`</p>`;
                 }
                 // 글
                 else{
