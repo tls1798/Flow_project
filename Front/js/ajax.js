@@ -710,7 +710,7 @@ export function removePostAjax(rmNo, postNo, isBookmarkList, documentTitle, proj
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            if(documentTitle===projectTitle){
+            if(projectTitle==='' || documentTitle===projectTitle){
                 getFeed(rmNo);
             }
             else if(isBookmarkList==='북마크'){
