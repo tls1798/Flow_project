@@ -1,10 +1,14 @@
-import { getAllAlarmsAjax, ProjectList, getAllParticipantsAjax } from './ajax.js';
-
+import { getAllAlarmsAjax, ProjectList, getAllParticipantsAjax ,getAllProjectsByMeAjax} from './ajax.js';
 export let onlinelist = [];
 
 $(function () {
     socket.emit('online', window.localStorage.getItem('memNo'))
-    
+
+    // 초대받을시 프로젝트 리스트 알림 갱신
+    socket.on(window.localStorage.getItem('memNo'), (a) => {
+        $('#projectBoardUl').find('li').remove();
+        getAllProjectsByMeAjax()
+    })
     // 접속중인 멤버 리스트에 담기
     socket.on('online', (onlinememNo) => {
         onlinelist.push(onlinememNo)

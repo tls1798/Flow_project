@@ -381,7 +381,7 @@ export function getAllMembersAjax(){
 }
 
 // 회원 초대
-export function addMembersToProjectAjax(jsonData, rmNo, ntCheck){
+export function addMembersToProjectAjax(jsonData, rmNo, ntCheck,curMem){
     new Promise((succ,fail)=>{
         $.ajax({
             type: 'POST',
@@ -396,6 +396,8 @@ export function addMembersToProjectAjax(jsonData, rmNo, ntCheck){
 
                 // 참여자 업데이트
                 getAllParticipantsAjax(rmNo);
+
+                socket.emit('invite',curMem)
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -1669,26 +1671,6 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo) {
         },
         error: function (xhr, status, err) {}
     })
-}
-
-// 로그아웃
-export function logoutAjax(){
-    $.ajax({
-        type: 'DELETE',
-        url: 'http://localhost:8080/api/auth/members/' + memNo,
-        contentType: 'application/json; charset=utf-8',
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
-        },
-        success: function (result, status, xhr) {
-            window.localStorage.setItem('accessToken', '');
-            window.localStorage.setItem('memNo', '-1');
-            location.href = 'home.html'
-        },
-        error: function (xhr, status, err) { 
-            autoaccess()
-        }
-    });
 }
 
 // 회원 탈퇴

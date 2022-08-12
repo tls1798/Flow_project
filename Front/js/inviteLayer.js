@@ -163,11 +163,10 @@ $('#inviteMembers').click(function(){
     }
     jsonData += "]";
     ntCheck += "}";
-
     let rmNo = $('#detailSettingProjectSrno').text();
 
     if (jsonData.length > 2) {
-        addMembersToProjectAjax(jsonData, rmNo, ntCheck)
+        addMembersToProjectAjax(jsonData, rmNo, ntCheck,curMem)
     }
 
     // 닫기

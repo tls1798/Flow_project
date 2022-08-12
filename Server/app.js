@@ -25,7 +25,12 @@ flow.on('connection', (socket) => {
             flow.to('online').emit('online',memNo)
         })
     })
-    
+    // 초대 갱신
+    socket.on('invite', (memNo) => {
+        socket.join('online')
+        flow.to('online').emit(memNo)    
+    })
+
     socket.on('disconnect', () => {
         flow.to('online').emit('resetList')
         // 접속 종료한 멤버값 없애기

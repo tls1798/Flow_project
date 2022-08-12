@@ -1,7 +1,7 @@
-import {logoutAjax, getSearchResultAjax, getMemberAjax, getAllAlarmsAjax} from './ajax.js'
+import {getSearchResultAjax, getMemberAjax, getAllAlarmsAjax} from './ajax.js'
 import {confirmOpen, confirmClose} from './confirm.js'
 import { erralert } from './bookmark.js'
-
+import {logoutAjax} from './home.js'
 // 모달, 팝업 display:none -> false, block -> true
 var searchPopupBool = false;
 let isPopBack = false;

@@ -1,6 +1,6 @@
-import {deleteMemberAjax, logoutAjax, getMemberAjax} from './ajax.js'
+import {deleteMemberAjax, getMemberAjax} from './ajax.js'
 import {confirmOpen, confirmClose} from './confirm.js'
-
+import {logoutAjax} from './home.js'
 // '내 프로필' 메뉴 클릭 시 팝업 띄우기
 $('#profileBtn').click(function(){
     // 프로필 모달 닫기
