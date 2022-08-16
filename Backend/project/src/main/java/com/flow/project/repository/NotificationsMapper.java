@@ -37,17 +37,17 @@ public interface NotificationsMapper {
 
     // 글, 댓글, 초대 알림 수정
     @Update("update \"Notis\" set nt_check = jsonb_set(nt_check, concat('{',#{memNo},'}')::text[], " +
-            "to_char(now(),'\\\"YYYY-MM-DD HH24:mm\\\"')::jsonb, true)  where nt_no = #{ntNo} or (#{postNo}!=0 and post_no=#{postNo})")
+            "to_char(now(),'\\\"YYYY-MM-DD HH24:mm\\\"')::jsonb, true)  where mem_no != #{memNo} and nt_no = #{ntNo} or (#{postNo}!=0 and post_no=#{postNo} and mem_no != #{memNo})")
     int updateOne(Notifications notifications);
 
     // 알림 모두 읽음 (알림레이어)
     @Update("update \"Notis\" set nt_check = jsonb_set(nt_check, concat('{',#{memNo},'}')::text[], " +
-            "to_char(now(),'\\\"YYYY-MM-DD HH24:mm\\\"')::jsonb, true)  where nt_check -> concat(#{memNo}, '') = 'null'")
+            "to_char(now(),'\\\"YYYY-MM-DD HH24:mm\\\"')::jsonb, true)  where mem_no != #{memNo} and nt_check -> concat(#{memNo}, '') = 'null'")
     int updateAll(int memNo);
 
     // 프로젝트 별 알림 모두 읽음 (피드 미확인)
     @Update("update \"Notis\" set nt_check = jsonb_set(nt_check, concat('{',#{memNo},'}')::text[], " +
-            "to_char(now(),'\\\"YYYY-MM-DD HH24:mm\\\"')::jsonb, true)  where nt_check -> concat(#{memNo}, '') = 'null' and rm_no = concat(#{rmNo}, '')")
+            "to_char(now(),'\\\"YYYY-MM-DD HH24:mm\\\"')::jsonb, true)  where mem_no != #{memNo} and nt_check -> concat(#{memNo}, '') = 'null' and rm_no = concat(#{rmNo}, '')")
     int updateNotis(int memNo, String rmNo);
 
     // 댓글 삭제 시 해당 알림 삭제 (댓글)
