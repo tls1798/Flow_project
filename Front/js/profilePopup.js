@@ -7,6 +7,10 @@ $('#profileBtn').click(function(){
     $('#accountTopButton').removeClass('active');
     $(".modal-account").css('display', 'none');
 
+    // 우측 글 카드, 중앙 글 카드 닫기
+    $('.btn-close.card-popup-close.close-side').click();
+    $('.close-detail').click();
+
     var memInfo = getMemberAjax(window.localStorage.getItem('memNo'), memInfo);
     
     // 이름, 이메일 넣기

@@ -100,7 +100,7 @@ body, pre, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, le
 .side-wr .name-setup-type-2 {
     margin: 0;
     overflow: auto;
-    height: calc(100vh - 65px);
+    height: calc(100% - 25px);
 }
 .name-setup-type-2 {
     margin: 20px 5px 0 30px;

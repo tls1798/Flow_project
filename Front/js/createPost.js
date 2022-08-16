@@ -179,9 +179,8 @@ $(document).on('click', '.post-option>ul',function(e){
 
         // 취소 버튼
         $('.cancel-button.create-post-button').click(function(e){
-            postPopupClose();
-            postInit();
-            postClear();
+            $('.popup-cont').text('작성을 중단하고 이동하시겠습니까?');
+            confirmOpen_post();
         })
         
         // 확인 버튼
