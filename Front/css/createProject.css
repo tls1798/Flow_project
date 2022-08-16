@@ -1,0 +1,240 @@
+/* project-template */
+section.project-template-layer {
+    z-index: 12;
+    position: absolute;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    align-items: center;
+    min-width: 1280px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+section.project-template-layer .button-close {
+    z-index: 1;
+    position: absolute;
+    top: 30px;
+    right: 40px;
+}
+
+.bi .bi-x-lg{
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    width: auto;
+    height: auto;
+}
+section.project-template-layer>article {
+    display: flex;
+    min-width: 1280px;
+    position: absolute;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/* project-template-intro */
+article.project-template-intro {
+    background: #ece9fc url(https://flow.team/flow-renewal/assets/images/project_template/project-template-intro.svg) no-repeat top 180px right -470px;
+}
+.project-template-intro>div {
+    display: flex;
+    width: 100%;
+    min-width: 1054px;
+    max-width: 1054px;
+}
+.project-template-intro>div section {
+    -webkit-box-flex: 1;
+    flex: 1;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+.project-template-intro>div section h1 {
+    margin: 0 0 20px 0;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 44px;
+    color: #333;
+}
+.project-template-intro>div section p {
+    font-size: 18px;
+    line-height: 27px;
+    color: #777;
+}
+.project-template-intro>div section:last-child {
+    max-width: 480px;
+    padding: 30px;
+    margin-left: 70px;
+    background: #fff;
+    box-shadow: 40px 40px 80px rgb(114 108 154 / 30%);
+    border-radius: 10px;
+}
+.project-template-intro>div section button.button-create-template {
+    background: #eee url(https://flow.team/flow-renewal/assets/images/project_template/intro-create.svg) no-repeat center left 30px;
+}
+.project-template-intro>div section button:hover {
+    background-color: #e4dfff;
+    color: #6449fc;
+}
+.project-template-intro>div section button {
+    padding: 36px 0 36px 100px;
+    text-align: left;
+    color: #333;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 27px;
+    border-radius: 8px;
+}
+
+/* project-template-main */
+.project-template-layer.create-mode .project-template-main{
+    display: flex;
+}
+
+article.project-template-main {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+article.project-template-main header {
+    width: 100%;
+    min-height: 80px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    box-sizing: border-box;
+}
+.main-wrap header {
+    transition: background-color .5s linear;
+}
+article.project-template-main header .button-go-back {
+    position: absolute;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    left: 40px;
+    top: 30px;
+}
+.bi.bi-arrow-return-left {
+    font-family: icon-template!important;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+article.project-template-main header .button-go-back span {
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 16px;
+    line-height: 24px;
+    color: #999;
+}
+article.project-template-main header h1 {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 80px;
+    margin: 0;
+    color: #333;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+}
+article.project-template-main>section {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    max-height: calc(100% - 80px);
+}
+article.project-template-main .project-template-cont {
+    -webkit-box-pack: center;
+    justify-content: center;
+    min-width: 1044px;
+    width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+}
+.project-template-cont>ul.template-create-cont {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+ul.template-create-cont>li {
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+}
+ul.template-create-cont>li>input {
+    width: 100%;
+    height: 60px;
+    padding: 0 20px;
+    color: #6449fc;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 25px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+ul.template-create-cont>li>textarea {
+    height: 100px;
+    margin-top: 10px;
+    padding: 20px;
+    font-size: 14px;
+    line-height: 21px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    border-radius: 4px;
+    resize: none;
+    backface-visibility: hidden;
+    background-color: transparent;
+    word-break: keep-all;
+    word-wrap: break-word;
+    color: #333;
+    font-family: inherit;
+}
+ul.template-create-cont>li>input:focus, ul.template-create-cont>li>textarea:focus {
+    box-shadow: 2px 2px 6px rgb(0 0 0 / 15%);
+    outline: none;
+}
+.project-template-layer .li-button-wrap {
+    padding-top: 30px;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+.project-template-layer .li-button-wrap button {
+    min-width: 250px;
+    padding: 16px 0;
+    background: #6449fc;
+    color: #fff;
+    font-size: 15px;
+    line-height: 22px;
+    border-radius: 4px;
+}

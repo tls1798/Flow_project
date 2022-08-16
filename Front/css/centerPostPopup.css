@@ -1,0 +1,15 @@
+#detailPostCard{
+    position: relative;
+    width: 674px;
+    margin: 30px auto 0 auto;
+    background: #f9f9f9;
+    overflow: hidden;
+}
+
+.comment-input-wrap.sticky {
+    position: sticky;
+    bottom: 0;
+    margin: 0;
+    background: #faf9f9;
+    -webkit-box-shadow: 0 -2px 6px rgb(0 0 0 / 6%);
+}

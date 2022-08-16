@@ -1,0 +1,187 @@
+.header {
+    display: flex;
+    height: 40px;
+    position: relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 11;
+    background: #2c2a34;
+    border-bottom: 1px solid #484654;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+
+    transition: background-color .5s linear;
+}
+
+/* 헤더 우측 아이콘 */
+.top-btns {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+    font-size: 0;
+}
+button {
+    writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    text-align: center;
+}
+.top-btns button+button {
+    margin-left: 30px;
+}
+.top-btns button {
+    overflow: visible;
+    min-width: 20px;
+    position: relative;
+    vertical-align: middle;
+}
+.icon-chatting {
+    width: 22px;
+    height: 21px;
+    display: inline-block;
+    background: url(https://flow.team/flow-renewal/assets/images/icon-chat-dark.png) no-repeat;
+}
+.icon-alarm {
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    position: relative;
+    background: url(https://flow.team/flow-renewal/assets/images/icon-alarm-dark.png) no-repeat;
+}
+.label-alarm, .label-chat {
+    width: auto;
+    height: 18px;
+    line-height: 18px;
+    padding: 0 6px;
+    position: absolute;
+    top: 2px;
+    left: 11px;
+    background: #ff3532;
+    -webkit-border-radius: 200px;
+    border-radius: 200px;
+    color: #fff;
+    font-size: 12px;
+    font-family: Roboto;
+    font-weight: 700;
+    font-style: normal;
+    text-align: center;
+    white-space: nowrap;
+}
+.profile-area {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    background-size: cover;
+    background-color: #fff;
+}
+
+/* 프로필 클릭 시 뜨는 모달 */
+.modal-account {
+    min-width: 218px;
+    padding: 14px;
+    position: absolute;
+    top: 46px;
+    right: 30px;
+    z-index: 13;
+    background: #fff;
+    border: 1px solid #777;
+    border-radius: 8px;
+    font-size: 13px;
+    text-align: left;
+    color: #555;
+}
+ul {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+.modal-account .user-area {
+    margin: 0;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    cursor: unset;
+}
+.modal-account .user-profile {
+    background: 0 0;
+}
+.modal-account li {
+    position: relative;
+    min-height: 19px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+.modal-account .user-info strong {
+    display: block;
+    line-height: 21px;
+    color: #555;
+    max-width: 140px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.modal-account .user-img {
+    width: 40px;
+    height: 40px;
+    margin: 0 10px 0 0;
+    display: inline-block;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    background-size: cover;
+}
+p {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.modal-account li i {
+    font-size: 13pt;
+}
+.icons-profile {
+    margin: 0 4px 0 0;
+}
+.icons-logout {
+    margin: 0 4px 0 1px;
+}
+.modal-account li:focus, .modal-account li:hover {
+    color: #6449fc;
+}
+.modal-account li:focus .icons-logout, .modal-account li:hover .icons-logout
+.modal-account li:focus .icons-profile, .modal-account li:hover .icons-profile {
+    filter: opacity(0.6) drop-shadow(0 0 0 #6449fc);
+}
+
+/* tooltip */
+.tooltip-inner{
+    width: 55px;
+    height: 40px;
+    background-color: white;
+    color: #333;
+    border: 1px solid #333;
+    font-size: 10pt;
+    margin-top: 5px;
+    padding-top: 8px;
+}
+.tooltip-arrow {
+    opacity: 0;
+}

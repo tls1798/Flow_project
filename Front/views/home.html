@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://flow.team/design2/favicon.ico">
+    <title>플로우(flow) - 대한민국 NO.1 올인원 협업툴</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <!-- 소켓 -->
+    <script src="../../Server/node_modules/socket.io/client-dist/socket.io.js"></script>
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/all-common.css">
+</head>
+<body>
+    
+    <!-- 상단바 -->
+    <div class='fixed-top home_header'>
+        <a href="./home.html">
+            <img src='https://flow.team/flow-renewal/view/homepage/assets/images/common/logo.svg' id='home_logo'/>
+        </a>
+        <div id="home_header_btn">
+            <a href="#" id="home_login"></a>
+            <a href="./signup.html">
+                <button id="btn_join">회원가입</button>
+            </a>
+        </div>
+    </div>
+
+    <div id="home_intro">
+        <p id="sub_title">국내 최초 · 업무 자동화 · 심플한 성과 관리</p>
+        <p class="Title">프로젝트 목표 관리는</p>
+        <p class="Title">협업툴 1위 플로우</p>
+        <a id="BtnLoginStart" href="./main.html">
+            <button id="btn_start">시작하기 &nbsp;&nbsp; &#10095;</button>
+        </a>
+    </div>
+
+    <!-- 우측 사진 -->
+    <span class="sub-obj"><i></i></span>
+    <span class="pj-web"></span>
+
+    <script type="module" src="../js/home.js"></script>
+</body>
+</html>

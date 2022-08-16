@@ -1,0 +1,274 @@
+/* font import */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+html {
+    line-height: normal;
+    -webkit-text-size-adjust: 100%;
+}
+header {
+    display: block;
+}
+body, pre, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, select, table, td, textarea, th, ul {
+    margin: 0;
+    padding: 0;
+}
+body {
+    min-width: 1280px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    font-size: 14px;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+input {
+    border: 0;
+    color: #333;
+}
+button {
+    background-color: transparent;
+    font-size: 100%;
+    cursor: pointer;
+}
+.btn-close:focus{
+    box-shadow: none;
+}
+button, input {
+    border-radius: 0;
+    border: 0;
+}
+ul, li{
+    list-style: none;
+}
+img {
+    -ms-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    vertical-align: top;
+    border: 0;
+}
+h1 {
+    margin: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: normal;
+}
+div {
+    display: block;
+}
+fieldset, img {
+    border: 0;
+}
+button, input, select, table, textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: normal;
+    margin: 0;
+    color: #333;
+}
+ol, ul {
+    list-style: none;
+}
+address, em {
+    font-style: normal;
+}
+div, form {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+strong {
+    font-weight: bold;
+}
+
+.blind {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+}
+
+.search-sub-text-wrap {
+    overflow: hidden;
+    -webkit-box-flex: 3;
+    -webkit-flex: 3;
+    -moz-box-flex: 3;
+    flex: 3;
+}
+
+/* toast 알림창 */
+.alert-wrap {
+    z-index: 112;
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: fixed;
+}
+.alert-type.error {
+    background: #ff3434;
+    border: 1px solid #ff3434;
+    color: #fff;
+}
+.alert-type {
+    border-radius: 50px;
+    padding: 9px 17px;
+    text-align: center;
+    font-size: 13px;
+    z-index: 13;
+    box-sizing: border-box;
+}
+.alert-type.success {
+    background: rgb(100,73,252);
+    border: 1px solid rgb(100,73,252);
+    color: #fff;
+}
+
+/* 사진 들어가는 곳 */
+.thumbnail.size40 {
+    width: 40px;
+    height: 40px;
+}
+.radius16 {
+    border-radius: 16px;
+}
+.thumbnail {
+    display: inline-block;
+    background-image: url(https://flow.team/flow-renewal/assets/images/profile-default.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: #fff;
+    border: 1px solid #eee;
+    cursor: pointer;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+/* 아이콘 */
+[class*=" icons-"], [class^=icons-] {
+    font-family: icon-contents!important;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 생략 */
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 모달 백그라운드 영역 */
+.flow-project-make-1.flow-project-make-1 {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+.flow-project-make-2 {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+/* 알림레이어, 검색 결과에 띄울 결과가 없을 때 */
+.project-null-t-1 {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.project-null-t-2 span {
+    display: block;
+    width: auto;
+    height: 38px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+}
+
+/* 상단 이동 버튼 */
+.bottom-tool-list .btnMoveTop {
+    position: fixed;
+    bottom: 45px;
+    right: 15px;
+    z-index: 1;
+    display: none;
+}
+.btnMoveTop {
+    margin-left: auto;
+    margin-bottom: 10px;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid #999;
+    background: #fff;
+}
+.btnMoveTop:hover {
+    border: 1px solid #555;
+    background: #555;
+    color: white;
+}
+.bi.bi-chevron-up{
+    font-weight: 400;
+}
+/* 스크롤 되는 부분 */
+.scroll-mask {
+    overflow-y: scroll;
+    mask-image: linear-gradient(to top, transparent, #000), linear-gradient(to left, transparent 7px, #000 7px);
+    mask-size: 100% 20000px;
+    mask-position: left bottom;
+    -webkit-mask-image: linear-gradient(to top, transparent, #000), linear-gradient(to left, transparent 7px, #000 7px);
+    -webkit-mask-size: 100% 20000px;
+    -webkit-mask-position: left bottom;
+    transition: mask-position .3s, -webkit-mask-position .3s;
+}
+
+/* 스크롤바 */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    padding-right: 10px;
+}
+::-webkit-scrollbar-button {
+    width: 7px;
+    height: 7px;
+}
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #999;
+    border: 1px solid #999;
+    border-radius: 50px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+    border: 0 none transparent;
+    border-radius: 53px;
+}

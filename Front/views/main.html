@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://flow.team/design2/favicon.ico">
+    <title>플로우(flow) - 대한민국 No.1 올인원 협업툴</title>
+
+    <!-- jquery, bootstrap, icon -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <!-- 소켓 -->
+    <!-- <script src="../../Server/node_modules/socket.io/client-dist/socket.io.js"></script> -->
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
+    
+    <!-- Toast ui -->
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <!-- Editor, Viewer Style -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
+
+    <!-- css -->
+    <link rel="stylesheet" href="../css/all-common.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/topHeader.css">
+    <link rel="stylesheet" href="../css/mainBodyWrap.css">
+    <link rel="stylesheet" href="../css/projectList.css">
+    <link rel="stylesheet" href="../css/topSettingBar.css">
+    <link rel="stylesheet" href="../css/leftTask.css">
+    <link rel="stylesheet" href="../css/createProject.css">
+    <link rel="stylesheet" href="../css/alarmLayer.css">
+    <link rel="stylesheet" href="../css/feed.css">
+    <link rel="stylesheet" href="../css/rightPostCard.css">
+    <link rel="stylesheet" href="../css/createPost.css">
+    <link rel="stylesheet" href="../css/inviteLayer.css">
+    <link rel="stylesheet" href="../css/profilePopup.css">
+    <link rel="stylesheet" href="../css/centerPostPopup.css">
+    <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../css/fontSize.css">
+
+    <script defer type="module" src="../js/projectList.js"></script>
+    <script defer type="module" src="../js/feed.js"></script>
+    <script defer type="module" src="../js/topSettingBar.js"></script>
+    <script defer type="module" src="../js/createProject.js"></script>
+    <script defer type="module" src="../js/topHeader.js"></script>
+    <script defer type="module" src="../js/alarmLayer.js"></script>
+    <script defer type="module" src="../js/profilePopup.js"></script>
+    <script defer type="module" src="../js/socket.js"> </script>
+    <script defer type="module" src="../js/autoAccess.js"></script>
+    <script defer type="module" src="../js/centerPostPopup.js"></script>
+    <script defer type="module" src="../js/leftTask.js"></script>
+    <script defer type="module" src="../js/changeMainContainer.js"></script>
+    <script defer type="module" src="../js/createPost.js"></script>
+    <script defer type="module" src="../js/inviteLayer.js"></script>
+    <script defer type="module" src="../js/comments.js"></script>
+    <script defer type="module" src="../js/rightPostCard.js"></script>
+    <script defer type="module" src="../js/bookmark.js"></script>
+    <script defer type="module" src="../js/search.js"></script>
+    <script defer type="module" src="../js/ajax.js"></script>
+    <script defer type="module" src="../js/fontSize.js"></script>
+
+</head>
+
+<body>
+    <!-- toast 팝업 영역 -->
+    <!-- 팝업 -->
+    <div class="alert-wrap alert-pop" id="toastPopup" style="display:none" >
+        <div class="alert-type success">
+            <div class="text">적용되었습니다.</div>
+        </div>
+    </div>
+
+    <div id="allMainContent" class="main-wrap wrap-use-footer">
+
+        <!-- 새 프로젝트 생성 페이지 -->
+        <div class="create-project" style="display: none;">
+            <div class="alert-wrap" id="toastPopup" style="display: none;">
+                <div class="alert-type error">
+                    <div class="text">제목을 입력하세요.</div>
+                </div>
+            </div>
+            <section id="projectSection" class="project-template-layer intro-mode" tabindex="0">
+                <button id="projectSectionClose" class="button-close">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+                <article class="project-template-intro" style="display: flex;">
+                    <div>
+                        <section>
+                            <h1>새 프로젝트를 만들어 보세요!</h1>
+                            <p>
+                                프로젝트를 어떻게 만들지 선택해보세요.
+                            </p>
+                        </section>
+                        <section>
+                            <button id="createProjectButton" class="button-create-template">직접 만들기</button>
+                        </section>
+                    </div>
+                </article>
+                <article class="project-template-main" style="display: none;">
+                    <header>
+                        <button id="templateReturnButton" class="button-go-back">
+                            <i class="bi bi-arrow-return-left"></i>
+                            <span>뒤로</span>
+                        </button>
+                        <h1 class="js-template-header-title">프로젝트 만들기</h1>
+                    </header>
+                    <section>
+                        <div class="project-template-cont">
+                            <ul class="js-project-make-layer template-create-cont">
+                                <li>
+                                    <input id="projectTitleInput" type="text" placeholder="제목을 입력하세요." maxlength="50"
+                                        autocomplete="off" data-empty-msg="제목을 입력하세요." data-over-msg="50자 이내로 입력하세요."
+                                        data-required-yn="Y">
+                                    <textarea id="projectContentsInput" placeholder="프로젝트에 관한 설명 입력 (옵션)" data-required-yn="N"
+                                        maxlength="10000"></textarea>
+                                </li>
+                                <li class="li-button-wrap">
+                                    <button class="js-submit-project"></button>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </article>
+            </section>
+        </div>
+
+        <!-- 상단바 -->
+        <div class="top-header">
+            <div class="main-top">
+                <header class="header">
+                    <div class="main-search-area cursor-pointer">
+                        <form id="searchPopupTopButton" class="main-search clearfix">
+                            <div class="main-search-box">
+                                <input type="text" class="cursor-pointer" placeholder="전체 검색" disabled>
+                                <button type="button" class="js-top-search-delete search-delete-button">
+                                    <span class="blind">삭제</span>
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- 검색창 클릭 시 띄울 팝업-->
+                        <div id="searchPopupLayer" class="name-type-seach-popup search-popup"
+                            data-search-area-code="IN_TONG" style="top: 0px; right: -72%; display: none;">
+                            <div class="search-popup-header search-popup">
+                                <div class="search-popup-input search-popup">
+                                    <i class="icon-search search-popup"></i>
+                                    <input id="searchPopupInput" type="text" class="name-type-shift-txt search-popup"
+                                        maxlength="20" autocomplete="off" placeholder="검색어를 입력해주세요">
+                                    <button class="js-search-del btn-search-delete" style="display: none;">
+                                        <i></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 우측 아이콘 -->
+                    <div id="rightTopMenu" class="top-btns">
+
+                        <!-- 알림 아이콘 -->
+                        <button type="button" id="alarmTopButton" class="btn-alarm" data-toggle="tooltip"
+                            data-bs-placement="bottom" title="알림">
+                            <i class="icon-alarm"></i>
+                            <i id="alarmTopCount" class="label-alarm" style="display: none;"></i>
+                        </button>
+
+                        <!-- 프로필 아이콘 -->
+                        <button type="button" id="accountTopButton" class="btn-profile">
+                            <span id="ProfileImg" class="profile-area"
+                                style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);"></span>
+                        </button>
+                    </div>
+
+                    <!-- 프로필 클릭 시 띄울 모달 -->
+                    <ul id="accountLayer" class="modal-account" style="display: none;">
+                        <li class="user-area">
+                            <p class="user-img"
+                                style="background-image: url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;), url(&quot;https://flow.team/flow-renewal/assets/images/profile-default.png&quot;);">
+                            </p>
+                            <div class="user-info">
+                                <strong></strong>
+                            </div>
+                        </li>
+                        <li id="profileBtn">
+                            <i class="icons-profile bi bi-person"></i>
+                            내 프로필
+                        </li>
+                        <li id="logoutBtn">
+                            <i class="icons-logout bi bi-box-arrow-right"></i>
+                            로그아웃
+                        </li>
+                    </ul>
+                </header>
+            </div>
+        </div>
+
+        <!-- 메인 바디 -->
+        <div id="mainBodyWrap" class="main-body-wrap">
+
+            <!-- 초대 모달 -->
+            <div id="inviteLayer" class="flow-all-background-1" style="display: none;">
+                <div class="flow-project-make-1">
+                    <div class="flow-project-make-2">
+                        <div id="inviteMainLayer" class="detail-popup-type-1" style="display: block;">
+                            <div class="detail-popup-header-1">
+                                <span id="inviteTitle" class="invite-title ellipsis"><i class="project-color mini color-code-3"></i></span>
+                                <a class="closeInviteLayerBtn" href="#"><em class="invite-em"></em></a>
+                            </div>
+                            <ul id="inviteUl">
+                                <li id="openTeamInvite" class="js-new-invitation-popup">
+                                    <a href="#">
+                                        <div class="detail-popup-icon-2">
+                                            <span></span>
+                                        </div>
+                                        <div class="detail-popuplist-type-1">
+                                            <span>참여자 초대</span>
+                                            <em>프로젝트를 함께했던 사람들을 초대할 수 있습니다</em>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+
+            <!-- 초대 모달2 -->
+            <section id="invitePopup" class="js-dimmed-area imaginary-place js-new-invitation-popup flow-all-background-1" style="display: none;">
+                <div class="alert-wrap alert-invite" id="toastPopup" style="display: none;">
+                    <div class="alert-type error">
+                        <div class="text">참여자를 선택해주세요.</div>
+                    </div>
+                </div>
+                <div id="teamInviteLayer" class="project-invite-popup js-pop-contents">
+                    <div class="project-invite-popup-header">
+                        <a href="#"><em class="returnInviteModal1 returnMainBtn js-back-menu" style="display: inline-block;"></em></a>
+                        <span id="teamInviteHeader">참여자 초대</span>
+                        <button class="js-invite-helper js-mouseover"> <i class="icons-help"></i></button>
+                        <button class="btn-close-invite closeInviteLayerBtn"><i class="icons-close-1 bi bi-x-lg close-invite-icon"></i></button>
+                    </div>
+                    <div class="project-invite-popup-body clearfix">
+                        <ul class="project-invite-popup-navi" style="display: inherit;">
+                            <li class="js-partners on">연락처</li>
+                        </ul>
+
+                        <!-- 좌측 멤버 리스트 -->
+                        <div id="teamInviteArea" class="group-tree-wrap-1 js-group-tree-wrap side-contents">
+                            <div id="orgInviteSearch" class="project-invite-search" style="margin-bottom: 10px;"></div>
+                            <div class="project-invite-ouside-case scroll-mask">
+                                <div class="project-invite-only-list-wrap sub-drag-picture-section-1">
+                                    <div id="membersListForInvitation">
+                                        <ul class="project-invite-choiceList layer-scroll padding-zero scroll-mask scroll-for-ie"
+                                            scroll-direction="0">
+                                        </ul>
+                                    </div>
+                                    <p class="invite-blank-txt d-none" style="margin-top: auto;margin-bottom: auto;">사용자가 존재하지 않습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 우측 리스트 -->
+                        <div class="project-invite-memberList coperate-icon-list-type-1">
+                            <div class="project-invite-selected-num" style="display: none;">
+                                <span id="countFinalElement"></span>
+                                <button id="removeAllElements">전체 삭제</button>
+                            </div>
+                            <p id="blankInviteTarget" class="right-blank-txt">대상을 선택해주세요.</p>
+            
+                            <!-- 선택된 참여자 리스트 -->
+                            <ul id="inviteTargetList"></ul>
+                        </div>
+            
+                    </div>
+                    <div class="project-invite-popup-footer">
+                        <div class="flow-pop-button-type-1">
+                            <a href="#">
+                                <div class="returnInviteModal1 flow-pop-sub-button-1 returnMainBtn">취소</div>
+                            </a>
+                            <a href="#">
+                                <div id="inviteMembers" class="flow-pop-sub-button-2">초대하기</div>
+                            </a>
+                        </div>
+                    </div>
+            
+                </div>
+            </section>
+            
+            <div class="back-area temp-popup right" tabindex="0" id="postPopup" data-code="VIEW" style="display: block;">
+                <div class="flow-project-make-1 back-area">
+                    <div id="popBack1" class="flow-project-make-2 back-area contents">
+
+                        <!-- 글 쓰기 -->
+                        <div class="js-popup-before edit-item create-post-wrap js-pop-contents js-editor" data-code="ADD" style="display: none;">
+                            <div class="alert-wrap-post" id="toastPopup" style="display: none;">
+                                <div class="alert-type error">
+                                    <div class="text">내용을 입력하세요.</div>
+                                </div>
+                            </div>
+                            <div class="create-post-header">
+                                <div class="temp-wrap">
+                                    <h4 class="js-create-post-title create-post-title">게시물 작성</h4>
+                                </div>
+                                <button type="button" class="btn-close">
+                                    <i class="icons-close-1"><span class="blind">닫기</span></i>
+                                </button>
+                            </div>
+                            <ul class="js-post-nav create-post-nav write2 ">
+                            </ul>
+                            <div class="create-post-container scroll-mask">
+                                <div>
+                                    <fieldset>
+                                        <legend class="blind">게시물 작성 영역</legend>
+                                        <div class="">
+                                            <input id="postTitle" type="text" title="제목을 입력하세요" placeholder="제목을 입력하세요." autocomplete="off" data-required-yn="Y" class="js-post-title create-title-input" maxlength="100" data-empty-msg="제목을 입력하세요">
+                                        </div>
+                                        <div id="postCntn" class="js-content-area create-content-area ">
+                                            <div id="styleTagItem" class="font-style-toolbar d-none">
+                                                <button id="styleTagBold" type="button" class="font-style-button">
+                                                    <i class="icons-font-style bold"></i>
+                                                </button>
+                                                <button id="styleTagItalic" type="button" class="font-style-button">
+                                                    <i class="icons-font-style italic"></i>
+                                                </button>
+                                                <button id="styleTagUnderLine" type="button" class="font-style-button">
+                                                    <i class="icons-font-style underline"></i>
+                                                </button>
+                                                <button id="styleTagLineThrough" type="button" class="font-style-button">
+                                                    <i class="icons-font-style line-through"></i>
+                                                </button>
+                                            </div>
+                                            <div id="editor" class="js-upload-area js-paste-layer create-post-content" 
+                                                placeholder=" 내용을 입력하세요" spellcheck="false"></div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <!-- 글 작성 footer -->
+                            <div class="create-post-footer clearfix">
+                                <ul class="js-bottom-ul create-button-group clearfix">
+                                    <li class="js-bottom-item text-item" data-code="style-tag" style="display: inline-block;">
+                                    </li>
+                                </ul>
+                                <div class="create-footer-menu">
+                                    <button class="js-complete-btn create-button create-post-submit" >올리기</button>
+                                    <div class="js-editing-buttons d-none">
+                                        <button type="button" class="cancel-button create-post-button">취소</button>
+                                        <button type="button" id="createPostSubmit" class="js-complete-btn edit-button create-post-button confirm">확인</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 내 프로필 클릭 시 띄울 팝업 -->
+                        <div class="profile-popup" style="display: none;">
+                            <div class="profile-header">
+                                <div class="profile-header-dimmed-layer"></div>
+                                <button class="btn-close-profile-popup">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </div>
+                            <div class="name-card name-badge">
+                                <i class="profile-image"></i>
+                                <div class="info profile-badge">
+                                    <p class="info-box">
+                                        <span class="name ellipsis"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="contact-section">
+                                <ul class="contact-contents">
+                                    <li id="profileEml" style="display:flex" data="">
+                                        <em><i class="profile-mail js-user-email"></i></em>
+                                        <span></span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="btn-wr">
+                                <button class="btn-del-mem">
+                                    회원탈퇴
+                                    <i></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 알림 -->
+            <article id="alarmLayer" class="side-wr alarmLayer" style="display: none;">
+                <div class="menu-top">
+                    <strong>알림</strong>
+                    <button class="btn-close-layer">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="side-contents">
+                    <ul id="notReadFilter" class="tab-menu">
+                        <li class="js-alarm js-unread on">미확인</li>
+                        <li class="js-alarm js-read">전체</li>
+                        <li id="readAllAlarm">모두읽음</li>
+                    </ul>
+
+                    <!-- 알림 리스트 -->
+                    <div class="name-setup-type-2 scroll-mask">
+                        <ul id="alarmUl" scroll-direction="0">
+                            <div class="js-project-null project-null-t-1 mgt--5" style="display: none;">
+                                <div class="project-null-t-2 ">
+                                    <div class=" project-null-t-3 "></div>
+                                    <span>모든 알림을 확인했습니다.</span>
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 사이드바 -->
+            <div class="left-task">
+                
+                <!-- 사이드바 -->
+                <div id="leftArea" class="main-header-1">
+                    <div id="leftTask" class="left-task active">
+                        <div class="logo-area" style="display: block">
+                            <a class="logo-box">
+                                <h1 class="logo-1">
+                                    <img src="https://flow.team/flow-renewal/assets/images/flow_logo.png?height=20" alt="flow11">
+                                </h1>
+                            </a>
+                        </div>
+                        <a href="#">
+                            <div id="projectMakeButton" class="new-project-1">
+                                <div class="button-suport-1"></div>
+                                새 프로젝트
+                            </div>
+                        </a>
+                        <ul id="leftMenuUl" class="menu-group mgt-20">
+                            <li class="left-menu-item left-menu-main flow-active">
+                                <a>
+                                    <i class="ico-home bi bi-house"></i>내 프로젝트
+                                    <em id="leftProjectHomeCount" class="project-total-count"
+                                        style="display: none;"></em>
+                                </a>
+                            </li>
+                            <li class="left-menu-item left-menu-bookmark">
+                                <a>
+                                    <i class="ico-bookmark bi bi-bookmark"></i>북마크
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+       
+            <!-- 메인 컨테이너 -->
+            <div class="main-act main-container">
+                
+                <!-- 검색 창 -->
+                <div id="searchResult" class="all-search-section d-none" style="display: block;">
+                    <div id="topSettingBar" class="main-header" style="display: block;">
+                        <div class="title-1" style="display: block">"<em id="searchWord"></em>" 검색 결과</div>
+                        <button id="searchResultClose" type="button" class="close-button">
+                            <span class="blind">닫기</span>
+                        </button>
+                    </div>
+                    <div class="project-detail-top clearfix">
+                        <ul id="searchTab" class="project-detail-menu">
+                            <li class="js-tab-item active" data-code="total">
+                                <a>결과</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="all-search-container">
+                        <div id="searchEventArea" class="all-search-content scroll-mask total">
+                            <div id="projectSearchArea" class="search-result-group " style="display: block;">
+                                <div class="search-title-area" style="display: block;">
+                                    <span class="search-result-title">프로젝트</span>
+                                    <span id="projectSearchCount" class="search-result-count" style="display: none;">0</span>
+                                </div>
+                                <ul id="projectSearchResult" class="scroll-mask all-seach-list-type-1">
+                                </ul>
+                            </div>
+                            <div id="postSearchArea" class="search-result-group" style="display: block;">
+                                <div class="search-title-area" style="display: block;">
+                                    <span class="search-result-title">글 · 댓글</span>
+                                    <span id="postSearchCount" class="search-result-count" style="display: inline-block;">6</span>
+                                </div>
+                                <ul id="postSearchResult" class="scroll-mask all-seach-list-type-1">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 프로젝트 상단바 -->
+                <div class="top-setting-bar">
+                    <div id="topSettingBar" class="main-header" style="display: block;">
+                        
+                        
+                        <div id="mainTop" class="title-1" data-code="main" style="display: block;">
+                            <div>내 프로젝트</div>
+                        </div>
+
+                        <!-- topSettingBar -->
+                        <span id="allCollectionCount" class="js-collection-total-count js-collection-count top-task-num"
+                            style="display: none;"></span>
+        
+                        <div id="detailTop" class="project-detail title-1" style="display: none;">
+                            <div class="project-detail-header">
+                                <div class="project-color-area">
+                                    <i id="projectColor" class="project-color color-code-3"></i>
+                                </div>
+                                <div class="project-header-group">
+                                    <div class="project-title-area">
+                                        <div class="project-option-area">
+                                            <button id="projectStar" class="bookmark-button unstar">
+                                                <span class="blind">즐겨찾기</span>
+                                            </button>
+                                            <button id="detailSettingTopButton" class="set-btn">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </button>
+
+                                            <!-- detail 버튼 클릭 시 뜨는 창 -->
+                                            <div id="detailSettingLayer" class="project-setup-wrap" style="display: none;">
+                                                <div class="project-setup-header">
+                                                    <em id="detailSettingProjectSrno"></em>
+                                                </div>
+
+                                                <!-- 관리자면 수정/삭제, 참여자면 나가기만 뜨도록 해야 함 -->
+                                                <ul id="detailSettingGroup" class="setup-group">
+                                                    <li id="detailSettingProjectExitBtn">
+                                                        <a href="#"> <i class="bi bi-box-arrow-in-left"></i>프로젝트 나가기</a>
+                                                    </li>
+                                                    <li id="detailSettingProjectUpdateBtn" style="display: block;">
+                                                        <a href="#"> <i class="bi bi-pencil"></i>프로젝트 수정</a>
+                                                    </li>
+                                                    <li id="detailSettingProjectDeleteBtn" style="display: block;">
+                                                        <a href="#"> <i class="bi bi-trash"></i>프로젝트 삭제</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <h3 id="projectTitle" class="project-title ellipsis js-mouseover"></h3>
+                                    </div>
+                                    <div class="project-description" style="display: block;">
+                                        <p id="projectContents" class="description-text js-mouseover"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button id="openInviteLayerBtn" type="button" class="project-invite-button color-code-3"
+                                style="display: block;">
+                                <i class="bi bi-person-plus"></i>초대하기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 프로젝트 리스트 -->
+                <div id="mainContent" class="main-content scroll-mask project-list" scroll-direction="0">
+                    <div id="projectHomeLayer" class="project-home-wrap" style="display: block;">
+                        <div class="small-style-wrap">
+                            <div class="section-wrap">
+                                <div id="BoardArea" class="project-board-wr" style="display: block;">
+                                    <div class="section-1">
+                                        <ul id="projectBoardUl" class="project-group clearfix">
+        
+                                            <!-- 즐겨찾기 -->
+                                            <div id="MyStarProject" class="section-1" style="display: none;">
+                                                <p class="project-class">즐겨찾기</p>
+                                            </div>
+        
+                                            <!-- 참여중 -->
+                                            <div id="MyProject" class="section-2 middle-line">
+                                                <p class="project-class join">참여중</p>
+                                            </div>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 특정 프로젝트 -->
+                    <div id="feed" class="main-sub-header project-detail-wrap" style="display: none;">
+                        <div class="project-detail-top clearfix">
+                            <ul id="detailTab" class="project-detail-menu">
+                                <li class="js-tab-item active" data-code="home">
+                                    <a class="">홈</a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div id="detailTimeline" class="project-detail-inner layer-scroll type2" scroll-direction="0" style="display: block;">
+                            <div class="js-detail-wrap-area small-style-wrap">
+
+                                <!-- 피드 -->
+                                <section id="postTimeline" class="project-detail-container" >
+                                    <div class="project-detail-content">
+
+                                        <!-- 글 작성 버튼 -->
+                                        <div id="createPostArea" class="work-design-wrapper">
+                                            <ul id="createPostUl" class="work-design-group">
+                                                <li class="post-filter" data-post-code="1">
+                                                    <i class="icons-write2"></i>
+                                                    <span>글</span>
+                                                </li>
+                                            </ul>
+                                            <div class="work-desing-element">
+                                                <p class="work-desing-text">내용을 입력하세요</p>
+                                                <div class="work-icon-group">
+                                                    <i class="icons-font"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- 미확인 -->
+                                    <div id="projectAlarmArea" class="detail-section unidentified-alert-section" style="display: block;">
+                                        <div class="section-title-area">
+                                            <h4 class="section-title">
+                                                <span>미확인</span>
+                                                <span id="projectNotReadCount" class="section-number alarm" style="display: inline-block;">0</span>
+                                            </h4>
+                                            <button id="readAllPostBnt" type="button" class="read-all-btn">모두읽음</button>
+                                        </div>
+                                        <div class="unidentified-content">
+                                            <!--unidentified-content active 클래스 제어 -->
+                                            <ul id="notReadAlarmUl" class="unidentified-list">
+                                            </ul>
+                                            <button id="notReadAlarmMore" type="button" class="unidentified-more-btn" style="display: none;">
+                                                더보기
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- 상단고정 -->
+                                    <div id="projectPinArea" class="detail-section fix-section">
+                                        <div class="section-title-area">
+                                            <h4 class="section-title">
+                                                <span>상단고정</span>
+                                                <span id="projectPinCount" class="section-number"></span>
+                                            </h4>
+                                        </div>
+                                        <ul id="pinPostUl" class="ui-sortable pin-list fixed-list" data-project-srno="1402344" data-sortable-ul="true">
+                                            
+                                        </ul>
+                                    </div>
+
+                                    <!-- 전체피드 -->
+                                    <div id="projectFeedArea" class="detail-section feed-section">
+                                        <div class="section-title-area">
+                                            <h4 id="allPostsFilterTitle" class="section-title ellipsis">전체</h4>
+                                        </div>
+                                        <div class="feed-content">
+                                            <ul id="detailUl" class="post-group post-card" style="display: block;">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                                
+                                <div class="participants-section">
+                                    <div id="projectParticipants" class="project-participants-wrap feed-section" style="transform: translateX(0px);">
+                                        <div class="section-title-area">
+                                            <h4 class="section-title">
+                                                <span>참여자</span>
+                                                <span id="participantCount"></span>
+                                            </h4>
+                                        </div>
+        
+                                        <div id="participantArea" class="participants-container">
+                                            <div id="participantScrollArea" class="participants-content-group scroll-mask" scroll-direction="0">
+                                                <ul id="participantsUl" class="participants-list">
+
+                                                    <!-- 프로젝트 관리자 -->
+                                                    <span class="participants-title participants-admin-span">
+                                                        <em>프로젝트 관리자</em>
+                                                        <span id="managerParticipantsCount" class="number-of-participants">1</span>
+                                                    </span>
+
+                                                    <!-- 참여자 -->
+                                                    <span class="participants-title participants-member-span">
+                                                        <em>참여자</em>
+                                                        <span id="outerParticipantsCount" class="number-of-participants"></span>
+                                                    </span>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div id="projectAddtionalArea" class="project-additional-features-container">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="allPostsLayer" class="me-post-wrap layer-scroll">
+                        <div class="small-style-wrap-2">
+                            <div class="feed-content me-content">
+                                <div class="search-title-area">
+                                    <span id="allPostsFilterTitle" class="search-result-title">전체</span>
+                                    <span id="postCount" class="count-number"></span>
+                                </div>
+                                <ul id="myPostContentUl" class="all-seach-list-type-1 post-group scroll-mask" scroll-direction="0">
+                                </ul>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <!-- 팝업 백그라운드 영역 -->
+    <div id="popupBackground" class="flow-all-background-1 back-area temp-popup d-none" tabindex="0" id="tempPopup">
+        <div class="flow-project-make-1 back-area">
+            <div id="popBack2" class="flow-project-make-2 back-area contents">
+                
+                <!-- 작성 중단 확인 팝업 -->
+                <div class="confirm-popup flow-project-popup-6 d-none" style="display: block;">
+                    <div class="flow-content popup-confirm-warp">
+                        <div class="flow-content-text">
+                            <dt class="popup-title"></dt>
+                            <p class="popup-cont"></p>
+                        </div>
+                        <div class="flow-pop-button-type-1">
+                            <a class="cursor-pointer">
+                                <div class="flow-pop-sub-button-1 cancel-event">취소</div>
+                            </a>
+                            <a class="cursor-pointer">
+                                <div class="flow-pop-sub-button-2 submit-event">확인</div>
+                            </a>
+                        </div>
+                        <a class="cursor-pointer">
+                            <div class="flow-secondary-submit secondary-submit-event"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- 상단 이동 버튼 -->
+    <div id="bottomToolList" class="bottom-tool-list" style="display: block;">
+        <button type="button" class="btnMoveTop">
+            <i class="bi bi-chevron-up"></i>
+        </button>
+    </div>
+
+    <!-- script -->
+    <script>
+        $(function () {
+            $('#mainTop').css('display', 'block');
+            $('#detailTop').css('display', 'none');
+            $('#projectHomeLayer').css('display', 'block');
+            $('#feed').css('display', 'none');
+            $('#allPostsLayer').css('display','none');
+        })        
+    </script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+/* 오른쪽 글 카드 */
+.flow-project-make-2 .post-card-wrapper.side {
+    margin-top: 0;
+}
+.post-card-wrapper.side {
+    width: 674px;
+    height: 100%;
+    min-height: auto;
+    max-height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    overflow: hidden;
+    background: #f9f9f9;
+    border-radius: 0;
+    border-left: 1px solid #ccc;
+    box-shadow: -10px 10px 15px rgb(0 0 0 / 4%);
+}
+.flow-project-make-2 .post-card-wrapper {
+    margin: 30px auto 0 auto;
+}
+.post-card-wrapper {
+    border: 1px solid #ccc;
+}
+
+/* 오른쪽 글 카드 헤더 */
+.card-popup-header {
+    overflow: hidden;
+    padding: 14px 20px;
+    height: 45px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+.post-card-wrapper.side .post-card-header {
+    border-radius: 0;
+}
+.post-card-header {
+    background: #faf9f9;
+}
+.card-popup-title {
+    float: left;
+    width: 100%;
+    font-size: 12px;
+    color: #999;
+    font-weight: 400;
+}
+.card-popup-header .project-color {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    margin: 0 4px 0 0;
+    vertical-align: middle;
+}
+.color-code-3 {
+    background: #8b00ea;
+    border: solid 1px #8b00ea;
+}
+.card-popup-title .js-project-title-button {
+    overflow: hidden;
+    display: inline-block;
+    max-width: 300px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.card-popup-title span {
+    vertical-align: middle;
+    cursor: pointer;
+}
+.card-popup-header .btn-close {
+    top: 11px;
+    right: 20px;
+}
+.btn-close {
+    position: absolute;
+}
+.card-popup-close {
+    float: right;
+    margin-top: 1px;
+}
+
+/* 오른쪽 글 카드 내용 */
+.post-card-wrapper.side .post-card-scroll {
+    max-height: calc(100vh - 78px);
+    overflow-y: auto;
+}
+.flow-project-make-2 .post-card-scroll {
+    overflow-x: hidden;
+    min-height: 100px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    max-height: calc(100vh - 165px);
+}
+.post-author-info {
+    overflow: hidden;
+    width: 70%;
+    line-height: 18px;
+    margin-left: 10px;
+    vertical-align: middle;
+    text-align: left;
+}
+.post-author .company, .post-author .team, .post-author em {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+    line-height: 18px;
+    max-width: 70%;
+}
+.post-option {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: flex-end;
+    height: 40px;
+}
+#movePost.btn-go {
+    margin-right: 0;
+    min-width: 88px;
+    padding: 0;
+    color: #777;
+    font-weight: 700;
+    font-size: 13px;
+    border: none;
+    text-decoration: underline;
+}
+.set-btn {
+    padding: 4px 8px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.post-option .setup-group {
+    overflow: hidden;
+    position: absolute;
+    z-index: 1;
+    top: 50px;
+    right: 35px;
+    background: #fff;
+    border: 1px solid #555;
+    box-sizing: border-box;
+    border-radius: 6px;
+}
+.card-header-bottom:after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: calc(100% - 60px);
+    left: 30px;
+    bottom: 0;
+    background: #eee;
+}
+
+/* 카드 내용 */
+.post-more-btn {
+    margin-left: 30px;
+    padding: 0 14px 0 13px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    box-shadow: 0 0 15px rgb(0 0 0 / 4%);
+    border-radius: 900px;
+    font-weight: 500;
+    font-size: 12px;
+    color: #555;
+    cursor: pointer;
+}
+/* 내용 버튼 좋아요 북마크 등 */
+.icon-reaction {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-position: -300px -75px;
+    vertical-align: middle;
+}
+
+/* 댓글 */
+.post-card-wrapper.side .post-card-footer {
+    border-radius: 0;
+}
+.post-card-footer {
+    background: #f9f9f9;
+}
+.comment-header::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+.post-comment-group>li:first-child {
+    padding-top: 20px;
+}
+.post-comment-group>li {
+    display: flex;
+    margin-top: -1px;
+    padding: 10px 30px;
+    border-bottom: 1px solid #eee;
+}
+.comment-container {
+    display: none;
+    position: relative;
+    width: calc(100% - 52px);
+    margin-left: 10px;
+    box-sizing: border-box;
+}
+.comment-user-area {
+    width: 100%;
+    line-height: 21px;
+}
+.comment-user span {
+    display: inline-block;
+}
+.user-company, .user-name {
+    font-weight: 700;
+}
+.user-name, .user-position {
+    font-size: 14px;
+    color: #555;
+}
+.record-date {
+    margin-top: -2px;
+    font-size: 14px;
+    font-family: Roboto;
+    color: #999;
+}
+.comment-writer-menu {
+    float: right;
+}
+.comment-writer-button {
+    font-size: 14px;
+    color: #999;
+    cursor: pointer;
+    display: none;
+}
+.comment-writer-button.on {
+    display: inline-block;
+}
+.comment-user-area::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+.post-comment-group li::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+/* 댓글 쓰는 곳 */
+.comment-input[contenteditable] {
+    width: 100%;
+    padding: 11px 60px 11px 20px;
+    min-height: 44px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #555;
+    word-break: break-all;
+    white-space: pre-wrap;
+    cursor: text;
+}
+.comment-input[contenteditable]:empty:before {
+    display: block;
+    content: attr(placeholder);
+    color: #999;
+}
+.post-comment-group .highlight, .post-search-item.highlight {
+    background: #efebff;
+    border: 1px solid #6449fc;
+}

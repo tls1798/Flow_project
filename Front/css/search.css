@@ -1,0 +1,369 @@
+/* 검색창 */
+.cursor-pointer {
+    cursor: pointer;
+}
+.main-search-area {
+    position: relative;
+}
+form {
+    display: block;
+    margin-top: 0em;
+}
+.main-search {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 27px;
+    padding: 0 20px 0 10px;
+    border: 1px solid #555;
+    background: #3f3c49;
+    border-radius: 900px;
+    color: #eee;
+    font-size: 12px;
+    margin: 0 auto;
+}
+.main-search-box::before {
+    display: inline-block;
+    content: "";
+    width: 14px;
+    height: 14px;
+    margin: 0 11px 0 0;
+    background: url(https://flow.team/flow-renewal/assets/images/icon-search-dark.png);
+    vertical-align: middle;
+}
+.main-search input {
+    padding-right: 10px;
+    color: #fff;
+    font-size: 14px;
+    background: 0 0;
+    vertical-align: middle;
+    max-width: 200px;
+    font-weight: 500;
+}
+.main-search input::placeholder {
+    color: rgb(153, 153, 153);
+}
+input[type="text" i] {
+    padding: 1px 2px;
+}
+input {
+    writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    -webkit-rtl-ordering: logical;
+
+    cursor: text;
+    background-color: field;
+}
+.search-delete-button{
+    display: none;
+}
+.search-delete-button.active {
+    display: inline-block;
+    position: absolute;
+    top: 4px;
+    right: 10px;
+}
+.search-delete-button {
+    width: 20px;
+    height: 20px;
+    background: url(https://flow.team/flow-renewal/assets/images/icons/icon-search-delete.png);
+    background-size: cover;
+    vertical-align: middle;
+}
+
+/* 검색창 모달 */
+.search-popup-header {
+    padding: 0 20px;
+}
+.name-type-seach-popup {
+    width: 600px;
+    background: #fff;
+    box-shadow: 20px 20px 40px rgb(0 0 0 / 20%);
+    border-radius: 10px;
+    position: absolute;
+    right: 50%;
+    top: 95px;
+    z-index: 12;
+    border: 1px solid #555;
+    padding-bottom: 15px;
+    text-align: left;
+}
+.search-popup-input .icon-search {
+    margin: 4px 10px 0 0;
+}
+.icon-search {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    background: url(https://flow.team/flow-renewal/assets/images/allseach-sprite-type-1.png) no-repeat -139px -1px;
+    background-size: 607px 30px;
+}
+.search-popup-input .icon-search.on {
+    background-position: -163px -1px;
+}
+.search-popup-input {
+    position: relative;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+    padding: 17px 0 8px 0;
+    border-bottom: 1px solid #555;
+    box-sizing: border-box;
+}
+.name-type-shift-txt {
+    border: 0;
+    -webkit-box-flex: 1;
+    width: calc(100% - 20px);
+    padding: 0;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;
+    margin-left: 10px;
+}
+.name-type-shift-txt:focus {
+    outline:none;
+}
+.name-type-shift-txt::placeholder {
+    color: rgb(153, 153, 153);
+}
+.btn-search-delete {
+    width: 20px;
+    height: 20px;
+    display: none;
+    margin: 0 10px;
+    background: #333;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.btn-search-delete i {
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: url(https://flow.team/flow-renewal/assets/images/icon-x.png) no-repeat center;
+}
+.btn-search-delete:focus, .btn-search-delete:hover {
+    background: #6449fc;
+}
+
+/* 검색 영역 */
+.all-search-section {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    z-index: 2;
+}
+
+/* 검색 헤더 */
+.main-header {
+    position: relative;
+    min-width: 750px;
+    height: 80px;
+    padding: 0 30px;
+    background: #fff;
+    z-index: 2;
+}
+#searchResult .title-1 {
+    float: none;
+    width: auto;
+}
+.title-1 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 80px;
+    float: left;
+    color: #333;
+}
+
+/* 닫기 */
+.all-search-section .close-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 40px;
+    width: 14px;
+    height: 14px;
+    background: url(https://flow.team/flow-renewal/assets/images/icons/icon_close_size14.png) no-repeat;
+    background-size: cover;
+    float: right;
+}
+
+/* 아무것도 없을 때 */
+.search-null {
+    width: 200px;
+    height: 120px;
+    background: url(https://flow.team/flow-renewal/assets/images/limit/service.png) no-repeat;
+    margin: 0 auto;
+}
+
+/* 검색 결과 count */
+.search-result-count {
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 17px;
+    color: #999;
+}
+
+/* 프로젝트 리스트 */
+.search-project {
+    display: inline-block;
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    vertical-align: middle;
+}
+.search-tit {
+    display: inline-block;
+    overflow: hidden;
+    max-width: 80%;
+    min-width: 100px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+.post-search-item.highlight {
+    background: #efebff;
+    border: 1px solid #6449fc;
+    z-index: 0;
+}
+.post-card-wrapper.highlight .post-title, .post-search-item.highlight .post-type, .post-search-item.highlight .search-text-type-3 .icons-project-1:before, .post-search-item.highlight .search-text-type-3 em, .post-search-item.highlight .search-text-type-3 p, .post-search-item.highlight .search-text-type-3 span {
+    color: #6449fc;
+}
+
+/* 검색 즐겨찾기 별 */
+.seach-star-type-1.unstar {
+    background: url(https://flow.team/flow-renewal/assets/images/allseach-sprite-type-3.png) no-repeat -24px 0;
+    background-size: 112px 22px;
+    width: 21px;
+    height: 21px;
+    margin: 0 8px 0 14px;
+}
+.seach-star-type-1 {
+    background: url(https://flow.team/flow-renewal/assets/images/allseach-sprite-type-2.png) no-repeat -860px 0;
+    background-size: 990px 40px;
+    width: 21px;
+    height: 21px;
+    margin: 0 8px 0 14px;
+}
+
+/* 검색 리스트 */
+.icon-post-type.comment {
+    background-position: -168px 0;
+}
+.post-name-txt {
+    font-size: 14px;
+    font-weight: 700;
+    color: #555;
+    margin-right: 10px;
+}
+.all-search-content {
+    min-width: 674px;
+    overflow: auto;
+    padding: 0 30px;
+    -webkit-box-flex: 1;
+    flex: 1;
+    height: 100%;
+}
+.all-search-content .all-seach-list-type-1 li {
+    position: relative;
+}
+.all-seach-list-type-1 li {
+    display: flex;
+    height: 62px;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    -webkit-box-align: center;
+    align-items: center;
+    color: #333;
+}
+.all-seach-list-type-1 li:hover {
+    background: #efebff;
+    cursor: pointer;
+}
+.all-search-content .all-seach-list-type-1 li:hover .seach-text-type-1, .all-search-content .all-seach-list-type-1 li:hover p {
+    color: #6449fc;
+}
+.all-search-content .all-seach-list-type-1 li .seach-text-type-1, .all-search-content .all-seach-list-type-1 li p {
+    font-weight: 700;
+}
+.icon-post-type.write, .icon-post-type.write2 {
+    background-position: -126px 0;
+}
+.icon-post-type {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin-right: 16px;
+    background: url(https://flow.team/flow-renewal/assets/images/sprite-post-type.png) no-repeat;
+}
+.search-sub-text-wrap .search-text-type-3 p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.search-text-type-3 p {
+    font-size: 14px;
+    color: #333;
+}
+.search-text-type-3.contents-project {
+    color: #999;
+}
+.search-text-type-3 .search-name {
+    display: inline-block;
+    max-width: 200px;
+    margin-top: 1px;
+    vertical-align: top;
+    font-size: 13px;
+    font-weight: 400;
+    color: #333;
+}
+.search-text-type-3 .date {
+    margin-left: 6px;
+    font-size: 14px;
+    font-family: Roboto;
+    font-weight: 400;
+    color: #333;
+}
+.search-text-type-3 .project-title {
+    display: inline-block;
+    max-width: 240px;
+    margin-top: 1px;
+    font-size: 13px;
+    color: #999;
+    vertical-align: top;
+    font-weight: 400;
+}
+.search-text-type-3 .project-title:before {
+    display: inline-block;
+    margin: 0 9px;
+    content: "";
+    width: 1px;
+    height: 10px;
+    background: #ccc;
+}
+.search-text-type-3 .seach-type-2 {
+    display: inline-block;
+    position: relative;
+    top: 0;
+    margin-right: 6px;
+    background: url(https://flow.team/flow-renewal/assets/images/allseach-sprite-type-2.png) no-repeat -900px -1px;
+    background-size: 990px 40px;
+    width: 14px;
+    height: 11px;
+}
