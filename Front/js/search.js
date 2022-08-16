@@ -30,7 +30,11 @@ $(document).on('click', '.js-star-icon.seach-star-type-1', function(e){
 })
 
 // 검색 결과 li 클릭 -> highlight class 추가
-$(document).on('click', '.post-search-item.js-search-item, .project-search-item.js-search-item', function(){
+$(document).on('click', '.post-search-item.js-search-item, .project-search-item.js-search-item', function(e){
+    // 프로젝트 즐겨찾기 별 클릭 시 return false
+    if($(e.target).hasClass('seach-star-type-1'))
+        return false;
+
     // 선택 되어있던 글일 경우 하이라이트 제거 및 우측 글 팝업 닫기
     if($(this).hasClass('highlight')){
         $(this).removeClass('highlight');
@@ -59,7 +63,11 @@ $(document).on('click', '.post-search-item.js-search-item', function(){
 })
 
 // 프로젝트 클릭 -> 프로젝트 피드로 이동
-$(document).on('click', '.project-search-item', function(){
+$(document).on('click', '.project-search-item', function(e){
+    // 프로젝트 즐겨찾기 별 클릭 시 return false
+    if($(e.target).hasClass('seach-star-type-1'))
+        return false;
+
     let rmNo = $(this).attr('data-project-no');
     getFeed(rmNo);
 
