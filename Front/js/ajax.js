@@ -42,11 +42,10 @@ export function getAllAlarmsAjax(){
 
                     // 내용의 줄바꿈 전까지 출력 + 태그 제외
                     let content = result[i].notiContent;
-                    if(content.search('</p>'))
-                        content = (content.substr(0, content.search('</p>'))).replace(/(<([^>]+)>)/ig,"");
-                    if(content=='')
-                        content = (result[i].notiContent).replace(/(<([^>]+)>)/ig,"");
-                    if(content.length>100)
+                    if(content.indexOf('</p>') != -1)
+                        content = (content.substr(0, content.indexOf('</p>'))).replace(/(<([^>]+)>)/ig,"");
+                    // 댓글 내용에 줄 바꿈 있으면 태그 제거 X
+                    if(content.indexOf('<br>') == -1 && content.length>100)
                         content = (content.substr(0, 100)).replace(/(<([^>]+)>)/ig,"");
                     
                     // 알림 종류에 따른 문구
@@ -165,7 +164,7 @@ export function readAlarmAjax(ntNo, postNo, leftAlarmCnt){
         
             // 해당 알림 + 연관된 알림 피드 미확인, 알림레이어에서 지워지도록
             $('.js-alarm-item[data-notis-no='+ntNo+']').removeClass('on');
-            $('.js-alarm-item[data-post-no='+postNo+']').removeClass('on');
+            if(postNo!=0) $('.js-alarm-item[data-post-no='+postNo+']').removeClass('on');
             $('.not-read-alarm-item[data-notis-no='+ntNo+']').remove();
             $('.not-read-alarm-item[data-post-no='+postNo+']').remove();
         
@@ -240,8 +239,8 @@ export function getBookmarkAjax(){
                     let postCon = result[i].postContent;
 
                     // 내용의 줄바꿈 전까지 출력
-                    if (postCon.search('</p>'))
-                        postCon = (postCon.substr(0, postCon.search('</p>'))).replace(/(<([^>]+)>)/ig,"");
+                    if (postCon.indexOf('</p>'))
+                        postCon = (postCon.substr(0, postCon.indexOf('</p>'))).replace(/(<([^>]+)>)/ig,"");
                     
                     $('#bookmarklist-' + result[i].postNo + '').text(postCon);
                 }
@@ -997,8 +996,8 @@ export function getAllPostsPinByProjectAjax(rmNo){
                         let postCon = result[i].postContent;
 
                         // 내용의 줄바꿈 전까지 출력
-                        if (postCon.search('</p>'))
-                            postCon = (postCon.substr(0, postCon.search('</p>'))).replace(/(<([^>]+)>)/ig,"");
+                        if (postCon.indexOf('</p>'))
+                            postCon = (postCon.substr(0, postCon.indexOf('</p>'))).replace(/(<([^>]+)>)/ig,"");
                         
                         $('#fixed-' + result[i].postNo + '').text(postCon);
                     }
