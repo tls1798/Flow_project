@@ -1062,7 +1062,6 @@ export function getAllPostsByProjectAjax(rmNo, offset) {
                                                         <strong class="author ellipsis">`+ result[i].posts.postName + `</strong>
                                                         <em class="position ellipsis" style="display:inline" data=""></em>
                                                         <span class="date">`+ result[i].posts.postDatetime + `</span>
-                                                        <span class="post-security"> <i class="bi bi-people" mouseover-text="전체 공개"></i></span>
                                                     </dt>
                                                 </dl>
                                             </div>
@@ -1208,7 +1207,7 @@ export function getAllPostsByProjectAjax(rmNo, offset) {
                             commentcount++;
 
                             // 댓글이 3개 이상일시 보이지 않게 숨긴다
-                            if ($('#cm-' + result[i].commentsList[j].cmNo + '').attr('data-cm-id') > 2) {
+                            if ($('#cm-' + result[i].commentsList[j].cmNo + '').attr('data-cm-id') > 2 && $('#popBack1>li').length == 0) {
                                 $('#cm-' + result[i].commentsList[j].cmNo + '').addClass('d-none');
                             }
 
@@ -1274,7 +1273,6 @@ export function getPostToCenterPopupAjax(rmNo, postNo, cmNo){
                                                 <strong class="author ellipsis">`+result.posts.postName+`</strong>
                                                 <em class="position ellipsis" style="display:inline" data=""></em>
                                                 <span class="date">`+result.posts.postDatetime+`</span>
-                                                <span class="post-security"> <i class="icons-person-7 js-mouseover" mouseover-text="전체 공개"></i></span>
                                             </dt>
                                         </dl>
                                     </div>
@@ -1469,7 +1467,6 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo) {
                                                 <strong class="author ellipsis">`+ result.posts.postName + `</strong>
                                                 <em class="position ellipsis" style="display:inline" data=""></em>
                                                 <span class="date">`+ result.posts.postDatetime + `</span>
-                                                <span class="post-security"> <i class="bi bi-people" mouseover-text="전체 공개"></i></span>
                                             </dt>
                                         </dl>
                                     </div>
