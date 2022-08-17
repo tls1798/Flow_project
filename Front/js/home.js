@@ -22,7 +22,7 @@ $('#home_login').click(function(e){
 export function logoutAjax() {
     $.ajax({
         type: 'DELETE',
-        url: 'http://localhost:8080/api/auth/members/' + window.localStorage.getItem('memNo'),
+        url: 'http://13.209.103.20/api/auth/members/' + window.localStorage.getItem('memNo'),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
