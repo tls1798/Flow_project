@@ -28,7 +28,9 @@ flow.on('connection', (socket) => {
     // 초대 갱신
     socket.on('invite', (memNo) => {
         socket.join('online')
-        flow.to('online').emit(memNo)    
+        memNo.forEach(memno => {
+            flow.to('online').emit(memno)    
+        })
     })
 
     socket.on('disconnect', () => {

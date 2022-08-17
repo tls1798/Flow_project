@@ -149,6 +149,7 @@ $('#inviteMembers').click(function(){
 
     let ntCheck = '{';
     var jsonData = "[";
+    let memlist = new Array();
     for(var i=0; i<cnt; i++){
         var curMem = $('#inviteTargetList').children('li:eq('+i+')').attr('data-id');
         if($('#participantsUl').find('li[data-id='+curMem+']').length!=0)
@@ -160,13 +161,15 @@ $('#inviteMembers').click(function(){
         }
         jsonData += "{\"rmNo\":"+$('#detailSettingProjectSrno').text()+", \"memNo\":"+curMem+"}";
         ntCheck += '"'+curMem+'" : null';
+        memlist.push(curMem)
     }
+
     jsonData += "]";
     ntCheck += "}";
     let rmNo = $('#detailSettingProjectSrno').text();
-
+   
     if (jsonData.length > 2) {
-        addMembersToProjectAjax(jsonData, rmNo, ntCheck,curMem)
+        addMembersToProjectAjax(jsonData, rmNo, ntCheck,curMem,memlist)
     }
 
     // 닫기
