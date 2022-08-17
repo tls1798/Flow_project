@@ -1699,6 +1699,7 @@ export function getAllProjectsByMeAjax(){
             type: 'GET',
             url: 'http://localhost:8080/api/members/'+memNo+'/rooms',
             contentType: 'application/json; charset=utf-8',
+            async: false,
             beforeSend: function (xhr) {      
                 xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
@@ -1802,6 +1803,7 @@ export function deleteFavoriteProjectAjax(rmNo){
         url: 'http://localhost:8080/api/favorites',
         data: JSON.stringify({"rmNo": rmNo, "memNo": memNo}),
         contentType: 'application/json; charset=utf-8',
+        async: false,
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
