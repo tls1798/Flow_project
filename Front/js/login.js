@@ -35,7 +35,7 @@ $('#normalLoginButton').on('click', function () {
     if (chkid == true && chkpw == true) {
         $.ajax({
             type: 'POST',
-            url: 'http://13.209.103.20/api/auth/members',
+            url: 'https://flow.beslee.pw/api/auth/members',
             data: JSON.stringify({ "memMail": id, "memPw": pw }),
             contentType: 'application/json; charset=utf-8',
             success: function (result, status, xhr) {
@@ -65,7 +65,7 @@ $('#findSubmit').on('click', function () {
     let memMail = $('#findEmailInput').val()
     $.ajax({
         type: 'POST',
-        url: 'http://13.209.103.20/api/auth/email/new',
+        url: 'https://flow.beslee.pw/api/auth/email/new',
         data: JSON.stringify({
             "memMail": memMail
         }), 

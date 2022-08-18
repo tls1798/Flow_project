@@ -66,7 +66,7 @@ $('#joinUserEmail').focusout(function () {
     let memMail = $('#joinUserEmail').val();
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/auth/email/'+memMail,
+        url: 'https://flow.beslee.pw/api/auth/email/'+memMail,
         contentType: 'application/json; charset=utf-8',
         success: function (result, status, xhr) {
             if (result == 1) {
@@ -129,7 +129,7 @@ $('#teamStepButton').on('click', function () {
         // 입력된 이메일에 9자리 인증 코드를 전송한다
         $.ajax({
             type: 'POST',
-            url: 'http://13.209.103.20/api/auth/email',
+            url: 'https://flow.beslee.pw/api/auth/email',
             data: JSON.stringify({
                 "memMail": memMail
             }),
@@ -143,7 +143,7 @@ $('#teamStepButton').on('click', function () {
                     if (num == ePw) {
                         $.ajax({
                             type: 'POST',
-                            url: 'http://13.209.103.20/api/auth/members/new',
+                            url: 'https://flow.beslee.pw/api/auth/members/new',
                             data: JSON.stringify({
                                 memMail: memMail,
                                 memName: memName,

@@ -5,7 +5,7 @@ $(function () {
     socket.emit('online', window.localStorage.getItem('memNo'))
 
     // 초대받을시 프로젝트 리스트 알림 갱신
-    socket.on(window.localStorage.getItem('memNo'), (a) => {
+    socket.on(window.localStorage.getItem('memNo'), () => {
         $('#projectBoardUl').find('li').remove();
         getAllProjectsByMeAjax()
     })
@@ -53,7 +53,7 @@ export function elapsedTime(date) {
 }
 
 // 소켓 하나만 사용하기 위한 Export
-export const socket = io.connect('http://localhost:3000/flow');
+export const socket= io.connect('https://flow.beslee.pw/flow');
 
 export function setting() {
     // 멤버마다 각각의 프로젝트에 대한 방 설정과 통신을 위한 Foreach

@@ -16,7 +16,7 @@ export function getAllAlarmsAjax(){
     new Promise((succ,fail)=>{
         $.ajax({
             type: 'GET',
-            url: 'http://13.209.103.20/api/notis/member/' + memNo,
+            url: 'https://flow.beslee.pw/api/notis/member/' + memNo,
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
@@ -106,7 +106,7 @@ export function getAllAlarmsAjax(){
 export function readAllAlarmAjax() {
     $.ajax({
         type: 'PUT',
-        url: 'http://13.209.103.20/api/notis/member/' + memNo,
+        url: 'https://flow.beslee.pw/api/notis/member/' + memNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
@@ -125,7 +125,7 @@ export function readAllAlarmAjax() {
 export function readAllAlarmsByProjectAjax() {
     $.ajax({
         type: 'PUT',
-        url: 'http://13.209.103.20/api/notis/member/' + memNo + '/rooms/' + $('#detailSettingProjectSrno').text(),
+        url: 'https://flow.beslee.pw/api/notis/member/' + memNo + '/rooms/' + $('#detailSettingProjectSrno').text(),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
@@ -144,7 +144,7 @@ export function readAllAlarmsByProjectAjax() {
 export function readAlarmAjax(ntNo, postNo, leftAlarmCnt){
     $.ajax({
         type: 'PUT',
-        url: 'http://13.209.103.20/api/notis/' + ntNo + '/member/' + memNo,
+        url: 'https://flow.beslee.pw/api/notis/' + ntNo + '/member/' + memNo,
         data: JSON.stringify({"ntNo":ntNo, "memNo":memNo, "postNo":postNo}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
@@ -185,7 +185,7 @@ export function readAlarmAjax(ntNo, postNo, leftAlarmCnt){
 export function getBookmarkAjax(){
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/bookmark/' + memNo,
+        url: 'https://flow.beslee.pw/api/bookmark/' + memNo,
         async: false,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
@@ -256,7 +256,7 @@ export function getBookmarkAjax(){
 export function removeBookmarkAjax(postNo){
     $.ajax({
         type: 'DELETE',
-        url: 'http://13.209.103.20/api/bookmark',
+        url: 'https://flow.beslee.pw/api/bookmark',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({"memNo": memNo,"postNo": postNo}),
         beforeSend: function (xhr) {
@@ -279,7 +279,7 @@ export function addBookmarkAjax(postNo) {
     alert();
     $.ajax({
         type: 'POST',
-        url: 'http://13.209.103.20/api/bookmark',
+        url: 'https://flow.beslee.pw/api/bookmark',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({"memNo": memNo,"postNo": postNo}),
         beforeSend: function (xhr) {
@@ -298,7 +298,7 @@ export function addBookmarkAjax(postNo) {
 export function getRoomAjax(rmNo, res) {
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/members/'+memNo+'/rooms/'+rmNo,
+        url: 'https://flow.beslee.pw/api/members/'+memNo+'/rooms/'+rmNo,
         contentType: 'application/json; charset=utf-8',
         async: false ,
         beforeSend: function (xhr) {      
@@ -319,7 +319,7 @@ export function getRoomAjax(rmNo, res) {
 export function getMemberAjax(memNo, memInfo){
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/member/'+memNo,
+        url: 'https://flow.beslee.pw/api/member/'+memNo,
         contentType: 'application/json; charset=utf-8',
         async: false,
         beforeSend: function (xhr) {      
@@ -339,7 +339,7 @@ export function getMemberAjax(memNo, memInfo){
 export function getAllMembersAjax(){
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/members',
+        url: 'https://flow.beslee.pw/api/members',
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
@@ -384,7 +384,7 @@ export function addMembersToProjectAjax(jsonData, rmNo, ntCheck,curMem,memlist){
     new Promise((succ,fail)=>{
         $.ajax({
             type: 'POST',
-            url: 'http://13.209.103.20/api/room-members',
+            url: 'https://flow.beslee.pw/api/room-members',
             data: jsonData,
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {      
@@ -405,7 +405,7 @@ export function addMembersToProjectAjax(jsonData, rmNo, ntCheck,curMem,memlist){
         // 초대 알림 보내기
         $.ajax({
             type: 'POST',
-            url: 'http://13.209.103.20/api/notis/rooms/'+rmNo,
+            url: 'https://flow.beslee.pw/api/notis/rooms/'+rmNo,
             data: JSON.stringify({"ntTypeNo":3, "ntDetailNo":null, "memNo":memNo, "rmNo":rmNo, "ntCheck":ntCheck, "postNo":null}),
             contentType: 'application/json; charset=utf-8',
             async: false,
@@ -426,7 +426,7 @@ export function addMembersToProjectAjax(jsonData, rmNo, ntCheck,curMem,memlist){
 export function getParticipantsWithoutMeAjax(rmNo, ntCheck){
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/rooms/'+rmNo+'/members/'+memNo,
+        url: 'https://flow.beslee.pw/api/rooms/'+rmNo+'/members/'+memNo,
         contentType: 'application/json; charset=utf-8',
         async : false,
         beforeSend: function (xhr) {      
@@ -454,7 +454,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo){
     new Promise((succ,fail) => {
         $.ajax({
             type: 'POST',
-            url: 'http://13.209.103.20/api/posts/'+postNo+'/comments',
+            url: 'https://flow.beslee.pw/api/posts/'+postNo+'/comments',
             data: JSON.stringify({"postNo" : postNo, "cmContent" : cmContent, "cmWriter" : memNo}),
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {      
@@ -523,7 +523,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo){
         // 댓글 알람 보내기
         $.ajax({
             type: 'POST',
-            url: 'http://13.209.103.20/api/notis/rooms/'+rmNo,
+            url: 'https://flow.beslee.pw/api/notis/rooms/'+rmNo,
             data: JSON.stringify({"ntTypeNo":2, "ntDetailNo":cmNo, "memNo":memNo, "rmNo":rmNo, "ntCheck":ntCheck, "postNo":postNo}),
             contentType: 'application/json; charset=utf-8',
             async: false,
@@ -544,7 +544,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo){
 export function editCommentAjax(postNo, cmContent, cmNo){
     $.ajax({
         type: 'PUT',
-        url: 'http://13.209.103.20/api/posts/'+postNo+'/comments/'+cmNo,
+        url: 'https://flow.beslee.pw/api/posts/'+postNo+'/comments/'+cmNo,
         data: JSON.stringify({"postNo" : postNo, "cmNo":cmNo, "cmContent" : cmContent, "cmWriter" : memNo}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
@@ -571,7 +571,7 @@ export function editCommentAjax(postNo, cmContent, cmNo){
 export function removeCommentAjax(e, postNo, cmNo){
     $.ajax({
         type: 'DELETE',
-        url: 'http://13.209.103.20/api/posts/'+postNo+'/comments/'+cmNo+'/'+memNo,
+        url: 'https://flow.beslee.pw/api/posts/'+postNo+'/comments/'+cmNo+'/'+memNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
@@ -606,7 +606,7 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck){
     new Promise((succ, fail) => {
         $.ajax({
             type: 'POST',
-            url: 'http://13.209.103.20/api/rooms/'+rmNo+'/posts',
+            url: 'https://flow.beslee.pw/api/rooms/'+rmNo+'/posts',
             data: JSON.stringify({"rmNo":rmNo, "postWriter":memNo, "postTitle":postTitle, "postContent":postContent}),
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {      
@@ -631,7 +631,7 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck){
         // 글 알림 보내기
         $.ajax({
             type: 'POST',
-            url: 'http://13.209.103.20/api/notis/rooms/'+rmNo,
+            url: 'https://flow.beslee.pw/api/notis/rooms/'+rmNo,
             data: JSON.stringify({"ntTypeNo":1, "ntDetailNo":postNo, "memNo":memNo, "rmNo":rmNo, "ntCheck":ntCheck, "postNo":postNo}),
             contentType: 'application/json; charset=utf-8',
             async: false,
@@ -652,7 +652,7 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck){
 export function editPostAjax(rmNo, postNo, editTitle, editContent, isBookmarkList, documentTitle, centerPopup){
     $.ajax({
         type: 'PUT',
-        url: 'http://13.209.103.20/api/rooms/'+rmNo+'/posts/'+postNo,
+        url: 'https://flow.beslee.pw/api/rooms/'+rmNo+'/posts/'+postNo,
         data: JSON.stringify({"postTitle":editTitle, "postContent":editContent, "rmNo":rmNo, "postNo":postNo}),
         async: false,
         contentType: 'application/json; charset=utf-8',
@@ -701,7 +701,7 @@ export function editPostAjax(rmNo, postNo, editTitle, editContent, isBookmarkLis
 export function removePostAjax(rmNo, postNo, isBookmarkList, documentTitle, projectTitle){
     $.ajax({
         type: 'DELETE',
-        url: 'http://13.209.103.20/api/rooms/'+rmNo+'/posts/'+postNo+'/'+memNo,
+        url: 'https://flow.beslee.pw/api/rooms/'+rmNo+'/posts/'+postNo+'/'+memNo,
         async: false,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
@@ -733,7 +733,7 @@ export function removePostAjax(rmNo, postNo, isBookmarkList, documentTitle, proj
 export function addProjectAjax(rmNo){
     $.ajax({
         type: 'POST',
-        url: 'http://13.209.103.20/api/rooms',
+        url: 'https://flow.beslee.pw/api/rooms',
         data: JSON.stringify({"rmNo":rmNo, "rmTitle":$('#projectTitleInput').val(), 
             "rmDes":$('#projectContentsInput').val(), "rmAdmin" : memNo}),
         contentType: 'application/json; charset=utf-8',
@@ -759,7 +759,7 @@ export function addProjectAjax(rmNo){
 export function editProjectAjax(title, content){
     $.ajax({
         type: 'PUT',
-        url: 'http://13.209.103.20/api/rooms/'+$('#detailSettingProjectSrno').text(),
+        url: 'https://flow.beslee.pw/api/rooms/'+$('#detailSettingProjectSrno').text(),
         data: JSON.stringify({"rmNo":$('#detailSettingProjectSrno').text(), "rmTitle":title, "rmDes":content}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
@@ -790,7 +790,7 @@ export function exitProjectAjax(rmNo){
     new Promise((succ,fail) => {
         $.ajax({
             type: 'DELETE',
-            url: 'http://13.209.103.20/api/room-members/'+rmNo,
+            url: 'https://flow.beslee.pw/api/room-members/'+rmNo,
             data: JSON.stringify({"rmNo":$('#detailSettingProjectSrno').text(), "memNo":memNo}),
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {      
@@ -807,7 +807,7 @@ export function exitProjectAjax(rmNo){
         // 프로젝트 나간 후 알림 json 컬럼에서 내 번호 없애기
         $.ajax({
             type: 'PUT',
-            url: 'http://13.209.103.20/api/notis/members/'+memNo+'/rooms/'+rmNo,
+            url: 'https://flow.beslee.pw/api/notis/members/'+memNo+'/rooms/'+rmNo,
             contentType: 'application/json; charset=utf-8',
             async: false,
             beforeSend: function (xhr) {      
@@ -830,7 +830,7 @@ export function exitProjectAjax(rmNo){
 export function removeProjectAjax(rmNo){
     $.ajax({
         type: 'DELETE',
-        url: 'http://13.209.103.20/api/rooms/'+rmNo,
+        url: 'https://flow.beslee.pw/api/rooms/'+rmNo,
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
@@ -850,7 +850,7 @@ export function removeProjectAjax(rmNo){
 export function addPinAjax(postNo, postPin){
     $.ajax({
         type: 'POST',
-        url: 'http://13.209.103.20/api/rooms/posts/' + postNo + '/pin/' + postPin,
+        url: 'https://flow.beslee.pw/api/rooms/posts/' + postNo + '/pin/' + postPin,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
@@ -869,7 +869,7 @@ export function getAllParticipantsAjax(rmNo) {
     new Promise((succ, fail) => {
         $.ajax({
             type: 'GET',
-            url: 'http://13.209.103.20/api/rooms/' + rmNo + '/members',
+            url: 'https://flow.beslee.pw/api/rooms/' + rmNo + '/members',
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
@@ -938,7 +938,7 @@ export function getPostsCountByProjectAjax(rmNo){
     let postCount;
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/rooms/'+ rmNo +'/posts',
+        url: 'https://flow.beslee.pw/api/rooms/'+ rmNo +'/posts',
         contentType: 'application/json; charset=utf-8',
         async: false,
         beforeSend: function (xhr) {
@@ -958,7 +958,7 @@ export function getPostsCountByProjectAjax(rmNo){
 export function getAllPostsPinByProjectAjax(rmNo){
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/rooms/'+ rmNo +'/posts/pin',
+        url: 'https://flow.beslee.pw/api/rooms/'+ rmNo +'/posts/pin',
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
@@ -1026,7 +1026,7 @@ export function getAllPostsByProjectAjax(rmNo, offset) {
 
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/members/'+ memNo +'/rooms/'+ rmNo +'/posts/page/' + offset,
+        url: 'https://flow.beslee.pw/api/members/'+ memNo +'/rooms/'+ rmNo +'/posts/page/' + offset,
         contentType: 'application/json; charset=utf-8',
         async: false,
         beforeSend: function (xhr) {
@@ -1243,7 +1243,7 @@ export function getAllPostsByProjectAjax(rmNo, offset) {
 export function getPostToCenterPopupAjax(rmNo, postNo, cmNo){
     $.ajax({
         type:'GET',
-        url: 'http://13.209.103.20/api/members/'+memNo+'/rooms/'+rmNo+'/posts/'+postNo,
+        url: 'https://flow.beslee.pw/api/members/'+memNo+'/rooms/'+rmNo+'/posts/'+postNo,
         contentType: 'application/json; charset=utf-8',
         async : false,
         beforeSend: function (xhr) {      
@@ -1437,7 +1437,7 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo) {
   
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/members/'+memNo+'/rooms/'+rmNo+'/posts/'+postNo,
+        url: 'https://flow.beslee.pw/api/members/'+memNo+'/rooms/'+rmNo+'/posts/'+postNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
@@ -1672,7 +1672,7 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo) {
 export function deleteMemberAjax(){
     $.ajax({
         type: 'DELETE',
-        url: 'http://13.209.103.20/api/members/exit/' + memNo,
+        url: 'https://flow.beslee.pw/api/members/exit/' + memNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
@@ -1693,7 +1693,7 @@ export function getAllProjectsByMeAjax(){
     new Promise((succ,fail) => {
         $.ajax({
             type: 'GET',
-            url: 'http://13.209.103.20/api/members/'+memNo+'/rooms',
+            url: 'https://flow.beslee.pw/api/members/'+memNo+'/rooms',
             contentType: 'application/json; charset=utf-8',
             async: false,
             beforeSend: function (xhr) {      
@@ -1777,7 +1777,7 @@ export function getAllProjectsByMeAjax(){
 export function addFavoriteProjectAjax(rmNo){
     $.ajax({
         type: 'POST',
-        url: 'http://13.209.103.20/api/favorites',
+        url: 'https://flow.beslee.pw/api/favorites',
         data: JSON.stringify({"rmNo": rmNo, "memNo": memNo}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
@@ -1796,7 +1796,7 @@ export function addFavoriteProjectAjax(rmNo){
 export function deleteFavoriteProjectAjax(rmNo){
     $.ajax({
         type: 'DELETE',
-        url: 'http://13.209.103.20/api/favorites',
+        url: 'https://flow.beslee.pw/api/favorites',
         data: JSON.stringify({"rmNo": rmNo, "memNo": memNo}),
         contentType: 'application/json; charset=utf-8',
         async: false,
@@ -1816,7 +1816,7 @@ export function deleteFavoriteProjectAjax(rmNo){
 export function getSearchResultAjax(searchItem){
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/search/' + memNo + '/' + searchItem,
+        url: 'https://flow.beslee.pw/api/search/' + memNo + '/' + searchItem,
         contentType: 'application/json; charset=euc-kr',
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));

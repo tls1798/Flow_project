@@ -4,7 +4,7 @@ export function autoaccess() {
     let memNo = window.localStorage.getItem('memNo')
     $.ajax({
         type: 'POST',
-        url: 'http://13.209.103.20/api/auth/reissue',
+        url: 'https://flow.beslee.pw/api/auth/reissue',
         data: JSON.stringify({
             memNo:memNo,
             accessToken: accessToken,
