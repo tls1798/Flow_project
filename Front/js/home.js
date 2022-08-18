@@ -1,5 +1,6 @@
-$(function(){
-    let memNo= window.localStorage.getItem('memNo');
+import { memNo } from './ajax.js'
+$(function () {
+    
     // 로그아웃 된 상태
     if(memNo===null){
         $('#BtnLoginStart').attr('href', './login.html')
@@ -22,7 +23,7 @@ $('#home_login').click(function(e){
 export function logoutAjax() {
     $.ajax({
         type: 'DELETE',
-        url: 'https://flow.beslee.pw/api/auth/members/' + window.localStorage.getItem('memNo'),
+        url: 'http://localhost:8818/api/auth/members/' + memNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));

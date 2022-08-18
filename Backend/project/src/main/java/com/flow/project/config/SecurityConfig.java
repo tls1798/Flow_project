@@ -47,8 +47,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
+    // Web swagger 관련 접속 허용
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**");
+    }
+
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors().configurationSource(corsConfigurationSource())//지울예정
+                .and()//지울예정
                 .httpBasic().disable()
                 // rest Api는 csrf 보안이 필요없으므로 disable 처리
                 .csrf().disable()
@@ -56,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .mvcMatchers(HttpMethod.OPTIONS, ("/**")).permitAll()//지울예정
                 .antMatchers("/api/auth/*", "/api/auth/members/new", "/api/auth/email/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -65,5 +80,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // JWT 필터를 UsernamePasswordAuthenticationFilter 전에 넣는다
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    // filter 에서 cors 처리 지울예정
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+//        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

@@ -2,6 +2,7 @@ import {getRoomAjax, getAllParticipantsAjax} from './ajax.js'
 import {initRightPostCard} from './rightPostCard.js'
 import {updateList} from './projectList.js';
 import { updateUnreadAlarmFunc, getPostAll } from './feed.js';
+import { memNo } from './ajax.js'
 
 // 선택한 프로젝트 정보 가져오기
 export function getFeed(rmNo){
@@ -17,7 +18,7 @@ export function getFeed(rmNo){
     $(document).prop('title', rmInfo.rmTitle);
 
     // TopSettingBar, inviteTitle 업데이트
-    updateTopSettingBar(rmNo, rmInfo.rmTitle, rmInfo.rmDes, rmInfo.rmAdmin==window.localStorage.getItem('memNo'), rmInfo.favoriteProject);
+    updateTopSettingBar(rmNo, rmInfo.rmTitle, rmInfo.rmDes, rmInfo.rmAdmin==memNo, rmInfo.favoriteProject);
 
     // 참여자 리스트 업데이트
     getAllParticipantsAjax(rmNo);

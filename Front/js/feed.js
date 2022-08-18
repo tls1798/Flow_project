@@ -3,6 +3,7 @@ import {updateRight} from './rightPostCard.js';
 import {readAllAlarmsByProjectAjax, addPinAjax, getAllPostsByProjectAjax, getAllPostsPinByProjectAjax, getPostsCountByProjectAjax} from './ajax.js'
 import {confirmOpen, confirmClose} from './confirm.js'
 import { erralert } from './bookmark.js';
+import { memNo } from './ajax.js'
 
 // Toast ui viewer 
 export function view(idx) {
@@ -204,7 +205,7 @@ $(document).on('click','#pinPostUl',function(e){
 let postNo, postPin, pinid;
 $(document).on('click', '.js-pin-post', function (e) {
    
-    if ($(this).attr('data-mem-id') != window.localStorage.getItem('memNo') && window.localStorage.getItem('memNo') !=  $(this).attr('data-room-id')) { 
+    if ($(this).attr('data-mem-id') != memNo && memNo !=  $(this).attr('data-room-id')) { 
         $('.alert-pop').children().children().text('프로젝트 관리자 + 글 작성 본인만 상단고정 설정/해제 가능합니다')
         erralert()
         return false;

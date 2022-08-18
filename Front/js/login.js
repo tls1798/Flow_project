@@ -30,33 +30,36 @@ $('#normalLoginButton').on('click', function () {
     else chkid = true;
     if (pw == '') $('.err-pw').text($('.loginpassword').attr('data-empty-msg'));
     else chkpw = true;
-
+    
     // id와 pw가 공백이 아니라면 로그인 시도
     if (chkid == true && chkpw == true) {
-        $.ajax({
-            type: 'POST',
-            url: 'https://flow.beslee.pw/api/auth/members',
-            data: JSON.stringify({ "memMail": id, "memPw": pw }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (result, status, xhr) {
-                $('.err-id').text('')
-                let accessToken = result.accessToken;
-                let refreshToken = result.refreshToken;
-                let memNo = result.memNo;
-    
-                window.localStorage.setItem('accessToken', accessToken);
-                window.localStorage.setItem('refreshToken', refreshToken);
-                window.localStorage.setItem('memNo', memNo);
-                location.href = './main.html';
-            },
-            error: function (xhr, status, err) {
-                // input, textarea 비우기
-                $('#userId').val('');
-                $('.loginpassword').val('');
-                // 해당 회원 정보가 없다면 에러 메시지 출력
-                $('.err-pw').text($('#userId').attr('data-login-err-msg'))
-            }
-        });
+        new Promise((succ, fail) => {
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8818/api/auth/members',
+                data: JSON.stringify({ "memMail": id, "memPw": pw }),
+                contentType: 'application/json; charset=utf-8',
+                success: function (result, status, xhr) {
+                    succ(result);
+                    $('.err-id').text('')
+                    let accessToken = result.accessToken;
+                    let refreshToken = result.refreshToken;
+                    let memNo = result.memNo;
+                    window.localStorage.setItem('accessToken', accessToken);
+                    window.localStorage.setItem('refreshToken', refreshToken);
+                    window.localStorage.setItem('memNo', memNo);
+                },
+                error: function (xhr, status, err) {
+                    // input, textarea 비우기
+                    $('#userId').val('');
+                    $('.loginpassword').val('');
+                    // 해당 회원 정보가 없다면 에러 메시지 출력
+                    $('.err-pw').text($('#userId').attr('data-login-err-msg'))
+                }
+            });
+        }).then((result) => {
+            location.href = './main.html';
+        })
     }
 })
 
@@ -65,7 +68,7 @@ $('#findSubmit').on('click', function () {
     let memMail = $('#findEmailInput').val()
     $.ajax({
         type: 'POST',
-        url: 'https://flow.beslee.pw/api/auth/email/new',
+        url: 'http://localhost:8818/api/auth/email/new',
         data: JSON.stringify({
             "memMail": memMail
         }), 
