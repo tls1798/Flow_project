@@ -69,13 +69,13 @@ $('#joinUserEmail').focusout(function () {
         url: 'http://localhost:8818/api/auth/email/'+memMail,
         contentType: 'application/json; charset=utf-8',
         success: function (result, status, xhr) {
-            if (result == 1) {
-                $('.error-email').text('')
-                $('#joinUserEmail').removeClass('input-error')
-            }
-            else{
+            if (result != ''){
             $('.error-email').text($('.join-email-input').attr('data-exist-mail'));
             $('#joinUserEmail').addClass('input-error') 
+            }
+            else {
+                $('.error-email').text('')
+                $('#joinUserEmail').removeClass('input-error')
             }
         },
         error: function (xhr, status, err) {}

@@ -80,15 +80,14 @@ public class JwtProvider {
         result.put("memNo", loginDTO.getMemNo());
         result.put("accessToken", accessToken);
         result.put("refreshToken", refreshToken);
-        
         // Refresh 토큰과 사용자 번호를 DB에 저장하기 위함
         RefreshToken insertOrUpdateRefreshToken = RefreshToken.builder()
                 .memNo(loginDTO.getMemNo())
                 .refreshToken(refreshToken)
                 .build();
         try {
-            if (loginDTO.getMemNo() == (authMapper.checkOne(loginDTO.getMemNo())))
-                authMapper.UpdateRefreshToken(insertOrUpdateRefreshToken);
+            if (loginDTO.getMemNo().equals(authMapper.checkOne(loginDTO.getMemNo())))
+                 authMapper.UpdateRefreshToken(insertOrUpdateRefreshToken);
         }
         // 토큰에 유저 넘버가 없는 신규 토큰 발급이면 exception 처리를 해서 토큰 insert
         catch (BindingException e) {

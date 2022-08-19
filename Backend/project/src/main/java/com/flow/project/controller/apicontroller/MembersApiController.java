@@ -15,7 +15,7 @@ public class MembersApiController {
 
     // 한 명 정보 (프로필 상세 팝업)
     @GetMapping("/member/{idx}")
-    public ResponseEntity<?> getMember(@PathVariable int idx) {
+    public ResponseEntity<?> getMember(@PathVariable String idx) {
         return ResponseEntity.status(HttpStatus.OK).body(ms.getMember(idx));
     }
 
@@ -27,7 +27,7 @@ public class MembersApiController {
 
     // 회원 탈퇴
     @DeleteMapping("/members/exit/{memNo}")
-    public ResponseEntity<?> removeMember(@PathVariable int memNo) {
+    public ResponseEntity<?> removeMember(@PathVariable String memNo) {
         return ResponseEntity.ok(ms.removeMember(memNo));
     }
 }

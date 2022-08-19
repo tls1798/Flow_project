@@ -10,7 +10,7 @@ import {closeRightPostCard, settingButtonClose} from './rightPostCard.js'
 import { getFeed } from './changeMainContainer.js'
 
 export let memNo=window.localStorage.getItem('memNo');
-localStorage.removeItem('memNo')
+
 
 // 알림 모두 가져오기
 export function getAllAlarmsAjax(){
@@ -381,7 +381,8 @@ export function getAllMembersAjax(){
 }
 
 // 회원 초대
-export function addMembersToProjectAjax(jsonData, rmNo, ntCheck,curMem,memlist){
+export function addMembersToProjectAjax(jsonData, rmNo, ntCheck, memlist) {
+
     new Promise((succ,fail)=>{
         $.ajax({
             type: 'POST',
@@ -731,7 +732,7 @@ export function removePostAjax(rmNo, postNo, isBookmarkList, documentTitle, proj
 }
 
 // 프로젝트 생성
-export function addProjectAjax(rmNo){
+export function addProjectAjax(rmNo) {
     $.ajax({
         type: 'POST',
         url: 'http://localhost:8818/api/rooms',
@@ -1694,7 +1695,7 @@ export function getAllProjectsByMeAjax() {
     new Promise((succ,fail) => {
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8818/api/members/'+parseInt(memNo)+'/rooms',
+            url: 'http://localhost:8818/api/members/'+memNo+'/rooms',
             contentType: 'application/json; charset=utf-8',
             async: false,
             beforeSend: function (xhr) {      

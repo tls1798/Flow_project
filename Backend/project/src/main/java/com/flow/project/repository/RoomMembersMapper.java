@@ -20,7 +20,7 @@ public interface RoomMembersMapper {
             "from \"Room_Members\" as rmmems " +
             "inner join \"Rooms\" as rms on rmmems.rm_no=rms.rm_no " +
             "and rmmems.mem_no=#{memNo} order by rm_no ASC")
-    List<ProjectListData> selectRooms(int memNo);
+    List<ProjectListData> selectRooms(String memNo);
 
     // 프로젝트 별 참여자 리스트 (피드 참여자)
     @Select("select rmmems.rm_no, rmmems.mem_no, rms.rm_admin, " +
@@ -32,7 +32,7 @@ public interface RoomMembersMapper {
 
     // 방 참여자 가져오기
     @Select("select mem_no from \"Room_Members\" rm where rm.rm_no = #{rmNo} and rm.mem_no != #{memNo} ")
-    List<Integer> selectAllParticipants(String rmNo, int memNo);
+    List<String> selectAllParticipants(String rmNo, String memNo);
 
     // 프로젝트에 멤버 초대
     @Insert("insert into \"Room_Members\" values (#{memNo}, #{rmNo})")

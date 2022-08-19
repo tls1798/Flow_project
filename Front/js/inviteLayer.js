@@ -159,17 +159,18 @@ $('#inviteMembers').click(function(){
             jsonData += ",";
             ntCheck += ",";
         }
-        jsonData += "{\"rmNo\":"+$('#detailSettingProjectSrno').text()+", \"memNo\":"+curMem+"}";
+        jsonData += "{\"rmNo\":\""+$('#detailSettingProjectSrno').text()+"\", \"memNo\":\""+curMem+"\"}";
         ntCheck += '"'+curMem+'" : null';
         memlist.push(curMem)
     }
 
     jsonData += "]";
     ntCheck += "}";
+
     let rmNo = $('#detailSettingProjectSrno').text();
    
     if (jsonData.length > 2) {
-        addMembersToProjectAjax(jsonData, rmNo, ntCheck,curMem,memlist)
+        addMembersToProjectAjax(jsonData, rmNo, ntCheck,memlist)
     }
 
     // 닫기

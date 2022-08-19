@@ -16,7 +16,7 @@ public class BookmarkApiController {
 
     // 북마크 전체 출력
     @GetMapping("/bookmark/{memNo}")
-    public ResponseEntity<?> getBookmarks(@PathVariable int memNo) {
+    public ResponseEntity<?> getBookmarks(@PathVariable String memNo) {
         return ResponseEntity.status(HttpStatus.OK).body(bs.selectAll(memNo));
     }
     // 북마크 추가

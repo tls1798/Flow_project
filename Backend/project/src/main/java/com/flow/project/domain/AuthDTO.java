@@ -15,7 +15,7 @@ public class AuthDTO {
     @Setter
     public static class LoginDTO {
 
-        int memNo;
+        String memNo;
 
         @Pattern(regexp = "^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$", message = "이메일 형식에 맞지 않습니다.")
         @NotBlank
@@ -33,7 +33,7 @@ public class AuthDTO {
     @Setter
     public static class SignupDTO {
 
-
+        private String memNo;
         @Pattern(regexp = "^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$", message = "이메일 형식에 맞지 않습니다.")
         @NotBlank
         private String memMail;
@@ -52,7 +52,7 @@ public class AuthDTO {
     @Getter
     @Setter
     public static class GetNewAccessTokenDTO {
-        private int memNo;
+        private String memNo;
         private String accessToken;
         private String refreshToken;
     }

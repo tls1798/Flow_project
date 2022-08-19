@@ -16,7 +16,7 @@ public interface BookmarkMapper {
             "from \"Members\" m, \"Posts\" p, \"Rooms\" r, bookmark b , \"Room_Members\" rm " +
             "where p.post_no = b.post_no and r.rm_no = (select p2.rm_no from \"Posts\" p2 where p2.post_no =b.post_no) and " +
             "rm.mem_no  =b.mem_no and rm.rm_no = r.rm_no and p.post_writer = m.mem_no and b.mem_no = #{memNo}")
-    List<Bookmark.BookmarkDTO> selectAll(int memNo);
+    List<Bookmark.BookmarkDTO> selectAll(String memNo);
 
     // 북마크 추가
     @Insert("insert into bookmark (mem_no,post_no) values(#{memNo},#{postNo})")

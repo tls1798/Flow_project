@@ -26,14 +26,12 @@ export function logoutAjax() {
         url: 'http://localhost:8818/api/auth/members/' + memNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             localStorage.clear();
             location.href = 'home.html'
         },
         error: function (xhr, status, err) { 
-            autoaccess()
         }
     });
 }

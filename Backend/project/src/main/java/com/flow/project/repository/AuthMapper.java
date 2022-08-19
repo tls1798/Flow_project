@@ -15,18 +15,18 @@ public interface AuthMapper {
     Members findByEmail(String memMail);
 
     @Select("SELECT mem_no FROM \"Members\" WHERE mem_mail = #{memMail}")
-    int findNo(String memMail);
+    String findNo(String memMail);
     @Select("SELECT mem_mail FROM \"Members\" WHERE mem_No = #{memNo}")
-    String findMail(int memNo);
+    String findMail(String memNo);
 
 
     // JwtProvider 회원 번호의 리프레쉬 토큰과 일치하는지 확인하기 위함
     @Select("SELECT refresh_token FROM \"RefreshToken\" WHERE mem_No = #{memNo}")
-    String findByRefreshToken(int memNo);
+    String findByRefreshToken(String memNo);
 
     // 토큰 회원 정보가 있으면 update / 없으면 insert /하기 위해서 회원정보 조회
     @Select("SELECT mem_no from \"RefreshToken\" WHERE mem_no = #{memNo}")
-    int checkOne(int memNo);
+    String checkOne(String memNo);
 
     //패스워드 재발급
     @Options(keyColumn = "mem_no", useGeneratedKeys = true)

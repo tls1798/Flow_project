@@ -14,7 +14,7 @@ import java.util.Collection;
 @Setter
 public class Members implements UserDetails {
 
-    private long memNo;
+    private String memNo;
     private String memName;
     private String memMail;
     private String memPw;

@@ -13,7 +13,7 @@ public class SearchService {
 
     final SearchMapper searchMapper;
 
-    public List<Object> getInfo(String search, int memNo){
+    public List<Object> getInfo(String search, String memNo){
 
         List<SearchDTO.CmPostSearchDTO> postResult =  searchMapper.getPostInfo(search, memNo);
         List<SearchDTO.CmPostSearchDTO> cmResult =  searchMapper.getCmInfo(search, memNo);

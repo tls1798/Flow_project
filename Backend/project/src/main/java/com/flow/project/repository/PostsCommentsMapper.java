@@ -19,7 +19,7 @@ public interface PostsCommentsMapper {
             "from \"Posts\" p " +
             "inner join \"Members\" m on p.post_writer = m.mem_no where rm_no = #{rmNo} order by post_no desc " +
             "offset #{pageNo} limit 10")
-    List<Posts> selectAllPost(int memNo, String rmNo, int pageNo);
+    List<Posts> selectAllPost(String memNo, String rmNo, int pageNo);
 
     // 특정 프로젝트 방 댓글 전체 가져오기
     @Select("select c.cm_no, c.post_no, c.cm_content, c.cm_writer, to_char(c.cm_datetime, 'YYYY-MM-DD HH24:MI') cm_datetime, m.mem_name as cm_name " +

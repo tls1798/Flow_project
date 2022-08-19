@@ -11,7 +11,7 @@ public class Posts {
 
     private int postNo;
     private String rmNo;
-    private int postWriter;
+    private String postWriter;
     private String postTitle;
     private String postContent;
     private String postDatetime;
@@ -19,7 +19,7 @@ public class Posts {
     private String postName;
     private int postPin;
     private String rmTitle;
-    private int rmAdmin;
+    private String rmAdmin;
     private int postBookmark;
     private int postReadCount;
 }

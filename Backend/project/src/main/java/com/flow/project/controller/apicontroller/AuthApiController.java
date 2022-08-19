@@ -71,7 +71,7 @@ public class AuthApiController {
 
     // 로그아웃하면서 토큰 삭제
     @DeleteMapping("/members/{memNo}")
-    public ResponseEntity<?> removePost(@PathVariable int memNo) {
+    public ResponseEntity<?> removePost(@PathVariable String memNo) {
         return membersService.deleteMem(memNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 }

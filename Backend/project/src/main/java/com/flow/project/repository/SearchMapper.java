@@ -22,7 +22,7 @@ public interface SearchMapper {
             "from \"Posts\" p, \"Room_Members\" rmmems " +
             "where (p.post_title like '%'||#{search}||'%' or p.post_content like '%'||#{search}||'%') " +
                 "and (p.rm_no=rmmems.rm_no and rmmems.mem_no=#{memNo})")
-    List<SearchDTO.CmPostSearchDTO> getPostInfo(String search, int memNo);
+    List<SearchDTO.CmPostSearchDTO> getPostInfo(String search, String memNo);
 
     // 댓글 검색결과
     @Select("select c.cm_no, c.post_no, c.cm_content as search_content, " +
@@ -33,7 +33,7 @@ public interface SearchMapper {
             "from \"Comments\" c, \"Room_Members\" rmmems " +
             "where c.cm_content like '%'||#{search}||'%' " +
                 "and ((select r.rm_no from \"Rooms\" r where r.rm_no = (select p.rm_no from \"Posts\" p where p.post_no = c.post_no)) = rmmems.rm_no and rmmems.mem_no = #{memNo})")
-    List<SearchDTO.CmPostSearchDTO> getCmInfo(String search, int memNo);
+    List<SearchDTO.CmPostSearchDTO> getCmInfo(String search, String memNo);
 
     // 프로젝트 검색결과
     @Select("select " +
@@ -42,5 +42,5 @@ public interface SearchMapper {
             "from \"Rooms\" r, \"Room_Members\" rmmems " +
             "where r.rm_title like '%'||#{search}||'%'" +
                 "and r.rm_no=rmmems.rm_no and rmmems.mem_no=#{memNo}")
-    List<SearchDTO.RoomSearchDTO> getRoomInfo(String search, int memNo);
+    List<SearchDTO.RoomSearchDTO> getRoomInfo(String search, String memNo);
 }

@@ -8,6 +8,6 @@ import lombok.Getter;
 public class RefreshToken {
 
     private long idx;
-    private long memNo;
+    private String memNo;
     private String refreshToken;
 }

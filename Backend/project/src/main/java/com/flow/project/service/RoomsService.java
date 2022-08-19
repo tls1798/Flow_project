@@ -21,7 +21,7 @@ public class RoomsService {
     }
 
     // 프로젝트 조회 (프로젝트 리스트에서 프로젝트 선택)
-    public ProjectListData getSelectedRoom(String rmNo, int memNo){
+    public ProjectListData getSelectedRoom(String rmNo, String memNo){
         return roomsMapper.selectRoom(rmNo, memNo);
     }
 

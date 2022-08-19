@@ -16,7 +16,7 @@ public class SearchApiController {
     final SearchService searchService;
 
     @GetMapping("/search/{memNo}/{search}")
-    public ResponseEntity<?> getInfo(@PathVariable String search, @PathVariable int memNo) {
+    public ResponseEntity<?> getInfo(@PathVariable String search, @PathVariable String memNo) {
         return ResponseEntity.status(HttpStatus.OK).body(searchService.getInfo(search, memNo));
     }
 }

@@ -21,7 +21,7 @@ public class PostsCommentsService {
     private final CommentsMapper commentsMapper;
 
     // 특정 프로젝트룸 글 전체, 댓글 전체 가져오기
-    public List<PostsComments> getPosts(int memNo, String rmNo, int pageNo) {
+    public List<PostsComments> getPosts(String memNo, String rmNo, int pageNo) {
         // 글 전체 댓글 전체 담는 리스트
         List<PostsComments> postsComments = new ArrayList<>();
 
@@ -45,7 +45,7 @@ public class PostsCommentsService {
     }
 
     // 특정 프로젝트 특정 글, 댓글 전체 가져오기
-    public PostsComments getPost(int memNo, String rmNo, int postNo){
+    public PostsComments getPost(String memNo, String rmNo, int postNo){
         // 글 하나 댓글 여러개 담는 객체
         PostsComments postComments = new PostsComments();
 
