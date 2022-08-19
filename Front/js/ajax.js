@@ -820,6 +820,7 @@ export function exitProjectAjax(rmNo){
                 $('.logo-box').click();
                 // 즐겨찾는 프로젝트에서 삭제
                 deleteFavoriteProjectAjax(rmNo);
+                socket.emit('leave',rmNo)
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -839,8 +840,6 @@ export function removeProjectAjax(rmNo){
         success: function (result, status, xhr) {
             // 로고 클릭하여 프로젝트 리스트로
             $('.logo-box').click();
-            
-            socket.emit('room',window.localStorage.getItem('rmNo'));
         },
         error: function (xhr, status, err) {        
             autoaccess()    

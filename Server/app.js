@@ -26,6 +26,7 @@ flow.on('connection', (socket) => {
             flow.to('online').emit('online',memNo)
         })
     })
+
     // 초대 갱신
     socket.on('invite', (memNo) => {
         socket.join('online')
@@ -51,8 +52,12 @@ flow.on('connection', (socket) => {
     socket.on('setting', (roomNo) => {
         socket.join(roomNo)
     })
-
+    // 프로젝트 인원들에게만 알림
     socket.on('room', (roomNo) => {
         socket.to(roomNo).emit(roomNo)
+    })
+    // 프로젝트 나가기
+    socket.on('leave', (roomNo) => {
+        socket.leave(roomNo)
     })
 })

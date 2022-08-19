@@ -85,14 +85,9 @@ public class JwtProvider {
                 .memNo(loginDTO.getMemNo())
                 .refreshToken(refreshToken)
                 .build();
-        try {
-            if (loginDTO.getMemNo().equals(authMapper.checkOne(loginDTO.getMemNo())))
-                 authMapper.UpdateRefreshToken(insertOrUpdateRefreshToken);
-        }
-        // 토큰에 유저 넘버가 없는 신규 토큰 발급이면 exception 처리를 해서 토큰 insert
-        catch (BindingException e) {
-            authMapper.insertRefreshToken(insertOrUpdateRefreshToken);
-        }
+        if (loginDTO.getMemNo().equals(authMapper.checkOne(loginDTO.getMemNo())))
+            authMapper.UpdateRefreshToken(insertOrUpdateRefreshToken);
+        else authMapper.insertRefreshToken(insertOrUpdateRefreshToken);
         return result;
     }
 

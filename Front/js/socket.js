@@ -61,7 +61,7 @@ export function setting() {
 
     ProjectList.forEach(Projectroom => {
         socket.emit('setting', Projectroom);
-        socket.on(Projectroom, () => {            
+        socket.on(Projectroom, () => {    
             // 알림레이어 업데이트
             getAllAlarmsAjax();
         })
