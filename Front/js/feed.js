@@ -1,6 +1,6 @@
 import {readAlarm} from './alarmLayer.js'
 import {updateRight} from './rightPostCard.js';
-import {readAllAlarmsByProjectAjax, addPinAjax, getAllPostsByProjectAjax, getAllPostsPinByProjectAjax, getPostsCountByProjectAjax, getPostToRightPostCardAjax} from './ajax.js'
+import {readAllAlarmsByProjectAjax, addPinAjax, getAllPostsByProjectAjax, getAllPostsPinByProjectAjax, getPostsCountByProjectAjax, getPostToRightPostCardAjax, getPostToCenterPopupAjax} from './ajax.js'
 import {confirmOpen, confirmClose} from './confirm.js'
 import { erralert } from './bookmark.js';
 import { memNo } from './ajax.js'
@@ -241,13 +241,19 @@ $(document).on('click', '.js-pin-post', function (e) {
             confirmClose('postPin-confirm');
             $('#' + pinid).hasClass('on') ? $('#' + pinid).removeClass('on') : $('#' + pinid).addClass('on');
             $('#' + pinid).attr('data-post-pin')==0 ? $('#' + pinid).attr('data-post-pin', 1) : $('#' + pinid).attr('data-post-pin', 0);
-            $('#detailComment').children().remove();
             addPinAjax(postNo, postPin);
 
             // 오른쪽 글 카드 있을 때 오른쪽 글 카드 껐다가 킴
             if($('#rightPostCard').length>0){
                 $('.btn-close.card-popup-close.close-side').click();
                 getPostToRightPostCardAjax(projectNo, postNo, -1);
+            }
+
+            // 중앙 팝업 있을 때 중앙 팝업 껐다가 킴
+            if($('#detailPostCard').length>0){
+                $('.btn-close.card-popup-close.close-detail').click();
+                getPostToCenterPopupAjax(projectNo, postNo, -1);
+                $('#postPopup').addClass('flow-all-background-1');
             }
           
         } else {
