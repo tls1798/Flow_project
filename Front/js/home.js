@@ -1,8 +1,7 @@
-import { memNo } from './ajax.js'
 $(function () {
     
     // 로그아웃 된 상태
-    if(memNo===null){
+    if(window.localStorage.getItem('memNo')===null){
         $('#BtnLoginStart').attr('href', './login.html')
         $('#home_login').text('로그인');
     }
@@ -23,7 +22,7 @@ $('#home_login').click(function(e){
 export function logoutAjax() {
     $.ajax({
         type: 'DELETE',
-        url: 'http://localhost:8818/api/auth/members/' + memNo,
+        url: 'http://localhost:8818/api/auth/members/' + window.localStorage.getItem('memNo'),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
         },

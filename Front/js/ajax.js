@@ -800,6 +800,7 @@ export function exitProjectAjax(rmNo){
             },
             success: function (result, status, xhr) {
                 succ(result);
+                localStorage.removeItem('rmNo');
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -884,7 +885,7 @@ export function getAllParticipantsAjax(rmNo) {
                 $('#participantCount').text(result.length);
                 // 관리자 제외 참여자 수 수정
                 $('#outerParticipantsCount').text(result.length - 1);
-                
+
                 // 프로젝트 관리자
                 $('.participants-admin-span').append(`
                 <li class="js-participant-item" data-id="`+ result[0].rmAdmin + `">

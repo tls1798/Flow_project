@@ -61,6 +61,7 @@ $('.js-join-password').focusin(function () { cleanPwInput()})
 $('.js-join-password2').focusin(function () { cleanPw2Input()})
 $('.js-confirm-check').on('click', function () { cleanChkbox()})
 
+let existmail = false;
 // 가입된 이메일인지 확인
 $('#joinUserEmail').focusout(function () {
     let memMail = $('#joinUserEmail').val();
@@ -76,6 +77,7 @@ $('#joinUserEmail').focusout(function () {
             else {
                 $('.error-email').text('')
                 $('#joinUserEmail').removeClass('input-error')
+                existmail = true;
             }
         },
         error: function (xhr, status, err) {}
@@ -84,7 +86,7 @@ $('#joinUserEmail').focusout(function () {
 
 // 회원가입 버튼 클릭시
 $('#teamStepButton').on('click', function () {
-
+    
     // 폼의 값을 변수에 담아준다
     let memMail = $('#joinUserEmail').val();
     let memName = $('#joinUserName').val();
@@ -121,7 +123,7 @@ $('#teamStepButton').on('click', function () {
         : checkbox = false, $("br").remove('#brremove'), $('.js-error-text').removeClass('d-none');
 
     // 모든 검증에 통과하면 ajax 실행
-    if (name == true && password == true && email == true && checkpassword == true && checkbox == true) {
+    if (name == true && password == true && email == true && checkpassword == true && checkbox == true && existmail == true) {
         // 이메일 팝업창을 띄운다
         $('.temp-popup').addClass('flow-all-background-1')
         $('.flow-project-popup-6').removeClass('d-none')
@@ -152,6 +154,7 @@ $('#teamStepButton').on('click', function () {
                             contentType: 'application/json; charset=utf-8',
                             success: function (result, status, xhr) {
                                 location.href = './login.html'
+                                existmail = false;
                             },
                             error: function (xhr, status, err) {
                                 cleanFrom()
@@ -160,8 +163,8 @@ $('#teamStepButton').on('click', function () {
                             }
                         });
                     } else {
-                        location.href='./signUp.html'
                         $('#authInput').val('')
+                        $('.error-email').text($('.join-email-input').attr('data-incorrect-code'));
                         $('#joinUserEmail').addClass('input-error') 
                     }
                 })
@@ -185,8 +188,6 @@ $('.auth-popup').on('click', function () {
 
 // 검은색 백그라운드를 눌러서 팝업 나가기
 $('.flow-project-make-2').on('click', function () {
-    if($('.js-popup-before').css('display')=='none'){
-        $('.temp-popup').removeClass('flow-all-background-1')
+        $('#tempPopup').removeClass('flow-all-background-1')
         $('.flow-project-popup-6').addClass('d-none')
-    }
 })
