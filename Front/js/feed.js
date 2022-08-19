@@ -1,6 +1,6 @@
 import {readAlarm} from './alarmLayer.js'
 import {updateRight} from './rightPostCard.js';
-import {readAllAlarmsByProjectAjax, addPinAjax, getAllPostsByProjectAjax, getAllPostsPinByProjectAjax, getPostsCountByProjectAjax} from './ajax.js'
+import {readAllAlarmsByProjectAjax, addPinAjax, getAllPostsByProjectAjax, getAllPostsPinByProjectAjax, getPostsCountByProjectAjax, getPostToRightPostCardAjax} from './ajax.js'
 import {confirmOpen, confirmClose} from './confirm.js'
 import { erralert } from './bookmark.js';
 import { memNo } from './ajax.js'
@@ -22,7 +22,7 @@ var offset = 0;
 // 프로젝트 선택 시 해당 프로젝트에 있는 글 조회
 export function getPostAll(rmNo) {
     offset = 0;
-    $('#rightComment').children().remove()
+    // $('#rightComment').children().remove()
     postCount = getPostsCountByProjectAjax(rmNo);
     getAllPostsPinByProjectAjax(rmNo);
     getAllPostsByProjectAjax(rmNo, offset);
@@ -202,7 +202,7 @@ $(document).on('click','#pinPostUl',function(e){
 })
 
 // 상단고정 아이콘 누를시
-let postNo, postPin, pinid;
+let postNo, postPin, pinid, projectNo;
 $(document).on('click', '.js-pin-post', function (e) {
    
     if ($(this).attr('data-mem-id') != memNo && memNo !=  $(this).attr('data-room-id')) { 
@@ -214,6 +214,7 @@ $(document).on('click', '.js-pin-post', function (e) {
     postNo = ($(this).attr('data-post-srno'))
     postPin = ($(this).attr('data-post-pin'))
     pinid = ($(this).attr('id'))
+    projectNo = ($(this).closest('li').attr('data-project-srno'))
     
     // 포스트핀이 0이면 포스트핀 1로 바꾸고 on이 있으면 on을 없애고 없으면 on을 만든다
     postPin == 0 ? postPin = 1 : postPin = 0
@@ -242,6 +243,12 @@ $(document).on('click', '.js-pin-post', function (e) {
             $('#' + pinid).attr('data-post-pin')==0 ? $('#' + pinid).attr('data-post-pin', 1) : $('#' + pinid).attr('data-post-pin', 0);
             $('#detailComment').children().remove();
             addPinAjax(postNo, postPin);
+
+            // 오른쪽 글 카드 있을 때 오른쪽 글 카드 껐다가 킴
+            if($('#rightPostCard').length>0){
+                $('.btn-close.card-popup-close.close-side').click();
+                getPostToRightPostCardAjax(projectNo, postNo, -1);
+            }
           
         } else {
             return false;

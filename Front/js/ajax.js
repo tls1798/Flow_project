@@ -854,6 +854,7 @@ export function addPinAjax(postNo, postPin){
         type: 'POST',
         url: 'http://localhost:8818/api/rooms/posts/' + postNo + '/pin/' + postPin,
         contentType: 'application/json; charset=utf-8',
+        async: false,
         beforeSend: function (xhr) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
@@ -888,17 +889,17 @@ export function getAllParticipantsAjax(rmNo) {
 
                 // 프로젝트 관리자
                 $('.participants-admin-span').append(`
-                <li class="js-participant-item" data-id="`+ result[0].rmAdmin + `">
-                    <div class="post-author">
-                    <span class="js-participant-profile thumbnail size40 radius16" data=""><div class="online `+ result[0].rmAdmin + `"></div></span><dl class="post-author-info">
-                            <dt>
-                                <strong class="js-participant-name author ellipsis">`+ result[0].adminName + `</strong>
-                                <em class="position ellipsis" style="display:none" data=""></em>
-                            </dt>
-                        </dl>
-                    </div>
-                </li>
-            `);
+                    <li class="js-participant-item" data-id="`+ result[0].rmAdmin + `">
+                        <div class="post-author">
+                        <span class="js-participant-profile thumbnail size40 radius16" data=""><div class="online `+ result[0].rmAdmin + `"></div></span><dl class="post-author-info">
+                                <dt>
+                                    <strong class="js-participant-name author ellipsis">`+ result[0].adminName + `</strong>
+                                    <em class="position ellipsis" style="display:none" data=""></em>
+                                </dt>
+                            </dl>
+                        </div>
+                    </li>
+                `);
 
                 // 참여자
                 for (var i = 0; i < result.length; i++) {
@@ -906,17 +907,17 @@ export function getAllParticipantsAjax(rmNo) {
                     if (result[i].memNo == result[i].rmAdmin) continue;
 
                     $('.participants-member-span').append(`
-                    <li class="js-participant-item" data-id="`+ result[i].memNo + `" >
-                        <div class="post-author">
-                        <span class="js-participant-profile thumbnail size40 radius16" data=""><div class="online `+ result[i].memNo + `"></div></span><dl class="post-author-info">
-                                <dt>
-                                    <strong class="js-participant-name author ellipsis">`+ result[i].memName + `</strong>
-                                    <em class="position ellipsis" style="display:none" data=""></em>
-                                </dt>
-                            </dl>
-                        </div>
-                    </li>
-                `);
+                        <li class="js-participant-item" data-id="`+ result[i].memNo + `" >
+                            <div class="post-author">
+                            <span class="js-participant-profile thumbnail size40 radius16" data=""><div class="online `+ result[i].memNo + `"></div></span><dl class="post-author-info">
+                                    <dt>
+                                        <strong class="js-participant-name author ellipsis">`+ result[i].memName + `</strong>
+                                        <em class="position ellipsis" style="display:none" data=""></em>
+                                    </dt>
+                                </dl>
+                            </div>
+                        </li>
+                    `);
                 }
                 // 관리자만 존재하고 참여자는 0명일 경우 span display:none
                 if (result.length == 1)
@@ -1126,7 +1127,7 @@ export function getAllPostsByProjectAjax(rmNo, offset) {
                                                     이전 댓글 더보기 (<span id="cm-count-id">0</span>)
                                                 </button>
                                             </div>
-                                            <ul class="post-comment-group" data-id="`+ result[i].posts.postNo + `"></ul>
+                                            <ul id="feed" class="post-comment-group" data-id="`+ result[i].posts.postNo + `"></ul>
                                         </div>
                                         <div class="js-remark-layer js-edit-layer comment-input-wrap" >
                                             <div class="comment-thumbnail">
@@ -1169,7 +1170,7 @@ export function getAllPostsByProjectAjax(rmNo, offset) {
                     if (result[i].commentsList.length > 0) {
                         // 댓글 가져오기
                         for (var j=result[i].commentsList.length-1; j>=0; j--) {
-                            $('.post-comment-group[data-id=' + result[i].commentsList[j].postNo + ']').append(`
+                            $('#feed .post-comment-group[data-id=' + result[i].commentsList[j].postNo + ']').append(`
                                 <li class="remark-item" id="cm-`+ result[i].commentsList[j].cmNo + `" remark-srno="` + result[i].commentsList[j].cmNo + `" data-cm-id=` + (j + 1) + ` data-user-id="` + result[i].commentsList[j].cmWriter + `">
                                     <div class="comment-thumbnail js-comment-thumbnail">
                                         <span class="thumbnail size40 radius16" data=""></span>
@@ -1208,8 +1209,8 @@ export function getAllPostsByProjectAjax(rmNo, offset) {
                             commentcount++;
 
                             // 댓글이 3개 이상일시 보이지 않게 숨긴다
-                            if ($('#cm-' + result[i].commentsList[j].cmNo + '').attr('data-cm-id') > 2 && $('#popBack1>li').length == 0) {
-                                $('#cm-' + result[i].commentsList[j].cmNo + '').addClass('d-none');
+                            if ($('#feed>#cm-' + result[i].commentsList[j].cmNo + '').attr('data-cm-id') > 2 && $('#popBack1>li').length == 0) {
+                                $('#feed>#cm-' + result[i].commentsList[j].cmNo + '').addClass('d-none');
                             }
 
                             // 자신이 작성한 댓글이 아니면 수정 삭제를 할 수 없게 수정 삭제 버튼을 없앤다
@@ -1441,6 +1442,7 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo) {
         type: 'GET',
         url: 'http://localhost:8818/api/members/'+memNo+'/rooms/'+rmNo+'/posts/'+postNo,
         contentType: 'application/json; charset=utf-8',
+        async: false,
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
