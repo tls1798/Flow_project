@@ -99,7 +99,7 @@ $('.js-submit-project').click(function(){
         return str;
     }
     var nowDate = new Date();
-    var rmNo = nowDate.YYYYMMDDHHMMSS()+memNo;
+    var rmNo = nowDate.YYYYMMDDHHMMSS();
 
     if ($(this).html() == '프로젝트 만들기') {
         addProjectAjax(rmNo);
