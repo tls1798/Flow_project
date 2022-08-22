@@ -71,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .mvcMatchers(HttpMethod.OPTIONS, ("/**")).permitAll()//지울예정
-                .antMatchers("/api/auth/*", "/api/auth/members/*", "/api/auth/email/*").permitAll()
+                .antMatchers("/api/auth/*", "/api/auth/members/*", "/api/auth/email/*","/api/auth/check/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // 인증 처리 과정에서 예외가 발생한 경우 예외를 핸들링하는 인터페이스
