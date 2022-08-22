@@ -199,51 +199,65 @@ export function getBookmarkAjax(){
             // 북마크 개수
             $('#postCount').text(result.length);
 
-            for (let i = 0; i < result.length; i++){
+            // 북마크 없을 때
+            if(result.length == 0){
                 $('#myPostContentUl').append(`
-                    <li class="js-all-post-item post-search-item post-list-wrapper booklist" data-project-id="`+ result[i].rmNo + `"data-post-id="` + result[i].postNo + `" data-mem-id="` + result[i].memNo + `">
-                        <div class="fixed-kind">
-                            <i class="bi bi-card-text"></i>
-                            <span class="post-type">글</span>
+                    <div class="js-project-null project-null-t-1 mgt-200">
+                        <div class="project-null-t-2 base">
+                            <div class="project-null-t-4"></div>
+                            <span>'북마크'한 게시물이 없습니다. <br>
+                            프로젝트에서 다시 보고 싶은 게시물을 '북마크'해 보세요!</span>
                         </div>
-                        <div class="search-sub-text-wrap">
-                            <div class="contents-cmt">
-                                <p id="bookmarklist-`+result[i].postNo+`" class="search-text-type-3 contents-tit">`+ result[i].postTitle + `</p>
-                                <div class="post-list comment" style="display:inline-block" data="">
-                                    <i class="bi bi-chat-square-text"></i>
-                                    <span class="js-post-comment-count">`+ result[i].cmCount + `</span>
-                                </div>
-                            </div>
-                            <p class="search-text-type-3 contents-project">
-                                <em class="ellipsis"><i class="seach-type-2"></i>`+ result[i].rmTitle + `</em>
-                            </p>
-                        </div>
-                        <div class="post-list-right">
-                            <div class="post-list name">`+ result[i].memName + `</div>
-                            <div class="post-list date">`+ result[i].postDatetime + `</div>
-                            <!--
-                            <div class="fixed-value">
-                                <span class="state request" style="display:none" data>-1%</span>
-                                <span class="js-task-state state " ></span>
-                                <div class="date-time" style="display:none" data>
-                                    <em class="date"></em>
-                                    <span></span>
-                                </div>
-                            </div>
-                            -->
-                        </div>
-                        <i class="js-temporary-delete icons-close-2 d-none" style="display:none" data=""></i>
-                    </li>
+                    </div>
                 `)
-                // 타이틀이 null 이면
-                if (result[i].postTitle == '') {
-                    let postCon = result[i].postContent;
-
-                    // 내용의 줄바꿈 전까지 출력
-                    if (postCon.indexOf('</p>'))
-                        postCon = (postCon.substr(0, postCon.indexOf('</p>'))).replace(/(<([^>]+)>)/ig,"");
-                    
-                    $('#bookmarklist-' + result[i].postNo + '').text(postCon);
+            }
+            else{
+                for (let i = 0; i < result.length; i++){
+                    $('#myPostContentUl').append(`
+                        <li class="js-all-post-item post-search-item post-list-wrapper booklist" data-project-id="`+ result[i].rmNo + `"data-post-id="` + result[i].postNo + `" data-mem-id="` + result[i].memNo + `">
+                            <div class="fixed-kind">
+                                <i class="bi bi-card-text"></i>
+                                <span class="post-type">글</span>
+                            </div>
+                            <div class="search-sub-text-wrap">
+                                <div class="contents-cmt">
+                                    <p id="bookmarklist-`+result[i].postNo+`" class="search-text-type-3 contents-tit">`+ result[i].postTitle + `</p>
+                                    <div class="post-list comment" style="display:inline-block" data="">
+                                        <i class="bi bi-chat-square-text"></i>
+                                        <span class="js-post-comment-count">`+ result[i].cmCount + `</span>
+                                    </div>
+                                </div>
+                                <p class="search-text-type-3 contents-project">
+                                    <em class="ellipsis"><i class="seach-type-2"></i>`+ result[i].rmTitle + `</em>
+                                </p>
+                            </div>
+                            <div class="post-list-right">
+                                <div class="post-list name">`+ result[i].memName + `</div>
+                                <div class="post-list date">`+ result[i].postDatetime + `</div>
+                                <!--
+                                <div class="fixed-value">
+                                    <span class="state request" style="display:none" data>-1%</span>
+                                    <span class="js-task-state state " ></span>
+                                    <div class="date-time" style="display:none" data>
+                                        <em class="date"></em>
+                                        <span></span>
+                                    </div>
+                                </div>
+                                -->
+                            </div>
+                            <i class="js-temporary-delete icons-close-2 d-none" style="display:none" data=""></i>
+                        </li>
+                    `)
+                    // 타이틀이 null 이면
+                    if (result[i].postTitle == '') {
+                        let postCon = result[i].postContent;
+    
+                        // 내용의 줄바꿈 전까지 출력
+                        if (postCon.indexOf('</p>'))
+                            postCon = (postCon.substr(0, postCon.indexOf('</p>'))).replace(/(<([^>]+)>)/ig,"");
+                        
+                        $('#bookmarklist-' + result[i].postNo + '').text(postCon);
+                    }
                 }
             }
         },
@@ -1708,6 +1722,14 @@ export function getAllProjectsByMeAjax() {
 
                 ProjectList = [];
                 
+                // 참여중인 프로젝트 없을 때
+                if(result.length == 0) {
+                    $('#projectNull').css('display', 'flex')
+                } 
+                else{
+                    $('#projectNull').css('display', 'none')
+                }
+
                 for (var i = 0; i < result.length; i++){
                     // 소켓으로 ProjectList값 담아서 넘기기 위한
                     ProjectList.push(result[i].rmNo);
