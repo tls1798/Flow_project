@@ -77,6 +77,16 @@
             <div class="text">적용되었습니다.</div>
         </div>
     </div>
+    <div class="alert-wrap alert-pop alert-del-project" id="toastPopup" style="display:none" >
+        <div class="alert-type error">
+            <div class="text">해당 프로젝트는 이미 삭제된 프로젝트입니다.</div>
+        </div>
+    </div>
+    <div class="alert-wrap alert-pop alert-null-cmContent" id="toastPopup" style="display:none" >
+        <div class="alert-type error">
+            <div class="text">댓글 내용을 입력하세요</div>
+        </div>
+    </div>
 
     <div id="allMainContent" class="main-wrap wrap-use-footer">
 
@@ -571,7 +581,17 @@
                                 <div id="BoardArea" class="project-board-wr" style="display: block;">
                                     <div class="section-1">
                                         <ul id="projectBoardUl" class="project-group clearfix">
-        
+                                            
+                                            <!-- 참여중인 프로젝트가 없을 때 -->
+                                            <div id="projectNull" class="js-project-null project-null-t-1 mgt--5" style="display: none;">
+                                                <div class="project-null-t-2 ">
+                                                    <div class=" project-null-t-3 "></div>
+                                                    <span>참여중인 프로젝트가 없습니다.
+                                                        <br> 새 프로젝트를 생성해 보세요.
+                                                    </span>
+                                                </div>
+                                            </div>
+
                                             <!-- 즐겨찾기 -->
                                             <div id="MyStarProject" class="section-1" style="display: none;">
                                                 <p class="project-class">즐겨찾기</p>

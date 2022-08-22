@@ -241,3 +241,14 @@
     background: #f8f7ff;
     color: #6449fc;
 }
+
+/* 프로젝트 설명 */
+.description-text {
+    overflow: hidden;
+    max-width: 310px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+}
