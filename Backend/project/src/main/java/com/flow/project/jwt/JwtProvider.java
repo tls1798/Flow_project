@@ -8,6 +8,7 @@ import com.flow.project.repository.AuthMapper;
 import com.flow.project.service.CustomUserDetailService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.binding.BindingException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +24,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtProvider {
     private final AuthMapper authMapper;
-    private final long accessExpireTime = ( 60 * 60 * 1000L);   // 60분
+    private final long accessExpireTime = (60 * 60 * 1000L);   // 60분
     private final long refreshExpireTime = (60 * 60 * 1000L) *24;   // 24시간
     private final CustomUserDetailService customUserDetailService;
 
