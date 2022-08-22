@@ -1,4 +1,4 @@
-import { getAllAlarmsAjax, ProjectList, getAllParticipantsAjax ,getAllProjectsByMeAjax} from './ajax.js';
+import { getAllAlarmsAjax, ProjectList, getAllParticipantsAjax ,getAllProjectsByMeAjax, getProjectAjax} from './ajax.js';
 import { memNo } from './ajax.js'
 export let onlinelist = [];
 
@@ -10,12 +10,19 @@ $(function () {
         $('#projectBoardUl').find('li').remove();
         getAllProjectsByMeAjax()
     })
+
     // 접속중인 멤버 리스트에 담기
     socket.on('online', (onlinememNo) => {
         onlinelist.push(onlinememNo)
+
         // 프로젝트가 있을경우에만 참여자 목록 갱신
         if (window.localStorage.getItem('rmNo') != null) {
-            getAllParticipantsAjax(window.localStorage.getItem('rmNo'))
+            if(getProjectAjax(window.localStorage.getItem('rmNo'))>0){
+                getAllParticipantsAjax(window.localStorage.getItem('rmNo'))
+            }
+            else{
+                localStorage.removeItem('rmNo');
+            }
         }
     })
     

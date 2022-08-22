@@ -855,6 +855,7 @@ export function removeProjectAjax(rmNo){
         success: function (result, status, xhr) {
             // 로고 클릭하여 프로젝트 리스트로
             $('.logo-box').click();
+            localStorage.removeItem('rmNo');
         },
         error: function (xhr, status, err) {        
             autoaccess()    
@@ -1950,6 +1951,25 @@ export function getSearchResultAjax(searchItem){
         },
         error: function (xhr, status, err) {
             autoaccess();
+        }
+    });
+}
+
+// 프로젝트 있는 지 확인
+export function getProjectAjax(rmNo){
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8818/api/rooms/'+rmNo,
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        beforeSend: function (xhr) {      
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
+        },
+        success: function (result, status, xhr) {
+            return result;
+        },
+        error: function (xhr, status, err) {
+            autoaccess()
         }
     });
 }
