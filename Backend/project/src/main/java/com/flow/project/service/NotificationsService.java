@@ -75,7 +75,7 @@ public class NotificationsService {
         return notificationsMapper.selectRoomNotisByPostNo(memNo, postNo);
     }
 
-    // 특정 프로젝트 방 알림 개수 가져오기 by PostNo
+    // 특정 프로젝트 방 알림 개수 가져오기 by rmNo
     public int getRoomNotisByRmNo(String rmNo){
         return notificationsMapper.selectRoomNotisByRmNo(rmNo);
     }
