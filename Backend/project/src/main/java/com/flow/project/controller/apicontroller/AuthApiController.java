@@ -74,4 +74,10 @@ public class AuthApiController {
     public ResponseEntity<?> removePost(@PathVariable String memNo) {
         return membersService.deleteMem(memNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
+    // 액세스 토큰이 유효하지 않다면 main.html 접근 막기 위함
+    @GetMapping("/check/{accessToken}")
+    public ResponseEntity<?> validtokencheck(@PathVariable String accessToken) {
+        return ResponseEntity.status(HttpStatus.OK).body(authService.validtokencheck(accessToken));
+    }
+
 }
