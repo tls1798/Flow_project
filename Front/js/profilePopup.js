@@ -1,6 +1,8 @@
 import {deleteMemberAjax, getMemberAjax} from './ajax.js'
 import {confirmOpen, confirmClose} from './confirm.js'
-import {logoutAjax} from './home.js'
+import { logoutAjax } from './home.js'
+import { memNo } from './ajax.js'
+
 // '내 프로필' 메뉴 클릭 시 팝업 띄우기
 $('#profileBtn').click(function(){
     // 프로필 모달 닫기
@@ -11,7 +13,7 @@ $('#profileBtn').click(function(){
     $('.btn-close.card-popup-close.close-side').click();
     $('.close-detail').click();
 
-    var memInfo = getMemberAjax(window.localStorage.getItem('memNo'), memInfo);
+    var memInfo = getMemberAjax(memNo, memInfo);
     
     // 이름, 이메일 넣기
     $('.info-box').find('span').text(memInfo.memName);
@@ -35,7 +37,7 @@ $(document).on('click', '.js-participant-item', function(){
     $('#profileEml').find('span').text(memInfo.memMail);
 
     // 다른 회원 클릭 시, 회원 탈퇴 버튼 숨기기
-    if(window.localStorage.getItem('memNo') != $(this).attr('data-id'))
+    if(memNo != $(this).attr('data-id'))
         $('.btn-del-mem').css('display', 'none');
     else
         $('.btn-del-mem').css('display', 'block');

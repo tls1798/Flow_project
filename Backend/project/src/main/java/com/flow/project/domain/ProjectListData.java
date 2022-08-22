@@ -12,7 +12,7 @@ public class ProjectListData {
     private String rmNo;
     private String rmTitle;
     private String rmDes;
-    private int rmAdmin;
+    private String rmAdmin;
     private int rmMemCount;
     private String favoriteProject;
 

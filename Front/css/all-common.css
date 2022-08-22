@@ -208,6 +208,23 @@ strong {
     color: #999;
 }
 
+/* 참여중인 프로젝트가 없을 때 */
+.main-content .project-null-t-1 {
+    height: 87vh;
+}
+
+/* 북마크 없을 때 */
+.project-null-t-1.mgt-200 .project-null-t-2.base {
+    vertical-align: middle;
+}
+.project-null-t-4 {
+    width: 140px;
+    height: 140px;
+    background: url(https://flow.team/flow-renewal/assets/images/none_member.png) no-repeat;
+    background-size: cover;
+    margin: 0 auto;
+}
+
 /* 상단 이동 버튼 */
 .bottom-tool-list .btnMoveTop {
     position: fixed;
@@ -237,6 +254,7 @@ strong {
 .bi.bi-chevron-up{
     font-weight: 400;
 }
+
 /* 스크롤 되는 부분 */
 .scroll-mask {
     overflow-y: scroll;

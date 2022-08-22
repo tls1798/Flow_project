@@ -17,7 +17,7 @@ public class NotificationsApiController {
 
     // 내가 속한 프로젝트 룸 알림 모두 가져오기 (알림레이어)
     @GetMapping("/notis/member/{memNo}")
-    public ResponseEntity<?> getNotifications(@PathVariable int memNo) throws JsonProcessingException {
+    public ResponseEntity<?> getNotifications(@PathVariable String memNo) throws JsonProcessingException {
         return ResponseEntity.status(HttpStatus.OK).body(notificationsService.getNotifications(memNo));
     }
 
@@ -51,7 +51,7 @@ public class NotificationsApiController {
 
     // 알림 모두 읽음 (알림레이어)
     @PutMapping("/notis/member/{memNo}")
-    public ResponseEntity<?> editNotifications(@PathVariable int memNo) {
+    public ResponseEntity<?> editNotifications(@PathVariable String memNo) {
         try {
             if (notificationsService.editAllNotifications(memNo) > 0) {
                 return ResponseEntity.ok(memNo);
@@ -65,7 +65,7 @@ public class NotificationsApiController {
 
     // 프로젝트 별 알림 모두 읽음 (피드 미확인)
     @PutMapping("/notis/member/{memNo}/rooms/{rmNo}")
-    public ResponseEntity<?> editNotifications(@PathVariable int memNo, @PathVariable String rmNo) {
+    public ResponseEntity<?> editNotifications(@PathVariable String memNo, @PathVariable String rmNo) {
         try {
             if (notificationsService.editNotifications(memNo, rmNo) > 0) {
                 return ResponseEntity.ok(memNo);
@@ -79,7 +79,7 @@ public class NotificationsApiController {
 
     // 프로젝트 방 나갈 시 알림 json 컬럼에서 내 번호 없애기
     @PutMapping("/notis/members/{memNo}/rooms/{rmNo}")
-    public ResponseEntity<?> deleteRoomNotis(@PathVariable int memNo, @PathVariable String rmNo){
+    public ResponseEntity<?> deleteRoomNotis(@PathVariable String memNo, @PathVariable String rmNo){
         try {
             if(notificationsService.deleteRoomNotis(memNo, rmNo) > 0){
                 return ResponseEntity.ok(memNo);

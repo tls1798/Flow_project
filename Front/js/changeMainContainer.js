@@ -2,6 +2,7 @@ import {getRoomAjax, getAllParticipantsAjax} from './ajax.js'
 import {initRightPostCard} from './rightPostCard.js'
 import {updateList} from './projectList.js';
 import { updateUnreadAlarmFunc, getPostAll } from './feed.js';
+import { memNo } from './ajax.js'
 
 // 선택한 프로젝트 정보 가져오기
 export function getFeed(rmNo){
@@ -17,7 +18,7 @@ export function getFeed(rmNo){
     $(document).prop('title', rmInfo.rmTitle);
 
     // TopSettingBar, inviteTitle 업데이트
-    updateTopSettingBar(rmNo, rmInfo.rmTitle, rmInfo.rmDes, rmInfo.rmAdmin==window.localStorage.getItem('memNo'), rmInfo.favoriteProject);
+    updateTopSettingBar(rmNo, rmInfo.rmTitle, rmInfo.rmDes, rmInfo.rmAdmin==memNo, rmInfo.favoriteProject);
 
     // 참여자 리스트 업데이트
     getAllParticipantsAjax(rmNo);
@@ -60,12 +61,30 @@ const updateTopSettingBar = function (rmNo, rmTitle, rmDes, rmAdmin, favoritePro
 
 $(document).on('click', '.project-item', function(e){
 
+    let rmNo = $(this).attr('data-id');
+
+    // 선택한 방 정보 가져오기
+    var rmInfo = getRoomAjax(rmNo, rmInfo);
+    // 삭제된 프로젝트일 경우
+    if(rmInfo==''){
+        // 경고창
+        $('.alert-del-project').css('display', 'block');
+        setTimeout(function() {
+            $('.alert-del-project').fadeOut(500, "swing");
+        }, 2000);
+
+        // 새로고침
+        $('.logo-box').click();
+
+        return false;
+    }
+
     // 즐겨찾기 버튼 클릭 시 프로젝트 선택X
     if($(e.target).hasClass('flow-content-star')){
         return false;
     }
     
-    getFeed($(this).attr('data-id'));
+    getFeed(rmNo);
 })
 
 // 사이드바의 메뉴, 프로젝트 카드, 로고 클릭 시 사이드바 메뉴 active 해제 (this 제외)

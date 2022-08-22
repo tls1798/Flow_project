@@ -23,7 +23,7 @@ public class PostsService {
     }
 
     // 특정 프로젝트 방 글 삭제
-    public int removePost(String rmNo, int postNo, int memNo) {
+    public int removePost(String rmNo, int postNo, String memNo) {
         return postsMapper.deleteOne(rmNo, postNo, memNo);
     }
 

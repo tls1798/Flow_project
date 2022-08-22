@@ -14,7 +14,7 @@ public class BookmarkService {
     final BookmarkMapper bookMapper;
 
     // 북마크 리스트 불러오기
-    public List<Bookmark.BookmarkDTO> selectAll(int memNo){
+    public List<Bookmark.BookmarkDTO> selectAll(String memNo){
         return bookMapper.selectAll(memNo);
     }
     // 북마크 추가하기

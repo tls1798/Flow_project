@@ -8,7 +8,6 @@ import com.flow.project.repository.AuthMapper;
 import com.flow.project.service.CustomUserDetailService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.binding.BindingException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +23,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtProvider {
     private final AuthMapper authMapper;
-    private final long accessExpireTime = (60 * 60 * 1000L);   // 60분
+    private final long accessExpireTime = ( 60 * 60 * 1000L);   // 60분
     private final long refreshExpireTime = (60 * 60 * 1000L) *24;   // 24시간
     private final CustomUserDetailService customUserDetailService;
 
@@ -80,20 +79,14 @@ public class JwtProvider {
         result.put("memNo", loginDTO.getMemNo());
         result.put("accessToken", accessToken);
         result.put("refreshToken", refreshToken);
-        
         // Refresh 토큰과 사용자 번호를 DB에 저장하기 위함
         RefreshToken insertOrUpdateRefreshToken = RefreshToken.builder()
                 .memNo(loginDTO.getMemNo())
                 .refreshToken(refreshToken)
                 .build();
-        try {
-            if (loginDTO.getMemNo() == (authMapper.checkOne(loginDTO.getMemNo())))
-                authMapper.UpdateRefreshToken(insertOrUpdateRefreshToken);
-        }
-        // 토큰에 유저 넘버가 없는 신규 토큰 발급이면 exception 처리를 해서 토큰 insert
-        catch (BindingException e) {
-            authMapper.insertRefreshToken(insertOrUpdateRefreshToken);
-        }
+        if (loginDTO.getMemNo().equals(authMapper.checkOne(loginDTO.getMemNo())))
+            authMapper.UpdateRefreshToken(insertOrUpdateRefreshToken);
+        else authMapper.insertRefreshToken(insertOrUpdateRefreshToken);
         return result;
     }
 

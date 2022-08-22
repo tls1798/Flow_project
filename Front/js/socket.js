@@ -1,20 +1,28 @@
-import { getAllAlarmsAjax, ProjectList, getAllParticipantsAjax ,getAllProjectsByMeAjax} from './ajax.js';
+import { getAllAlarmsAjax, ProjectList, getAllParticipantsAjax ,getAllProjectsByMeAjax, getProjectAjax} from './ajax.js';
+import { memNo } from './ajax.js'
 export let onlinelist = [];
 
 $(function () {
-    socket.emit('online', window.localStorage.getItem('memNo'))
+    socket.emit('online', memNo)
 
     // 초대받을시 프로젝트 리스트 알림 갱신
-    socket.on(window.localStorage.getItem('memNo'), (a) => {
+    socket.on(memNo, () => {
         $('#projectBoardUl').find('li').remove();
         getAllProjectsByMeAjax()
     })
+
     // 접속중인 멤버 리스트에 담기
     socket.on('online', (onlinememNo) => {
         onlinelist.push(onlinememNo)
+
         // 프로젝트가 있을경우에만 참여자 목록 갱신
         if (window.localStorage.getItem('rmNo') != null) {
-            getAllParticipantsAjax(window.localStorage.getItem('rmNo'))
+            if(getProjectAjax(window.localStorage.getItem('rmNo'))>0){
+                getAllParticipantsAjax(window.localStorage.getItem('rmNo'))
+            }
+            else{
+                localStorage.removeItem('rmNo');
+            }
         }
     })
     
@@ -53,14 +61,14 @@ export function elapsedTime(date) {
 }
 
 // 소켓 하나만 사용하기 위한 Export
-export const socket = io.connect('http://localhost:3000/flow');
+export const socket= io.connect('http://localhost:3333/flow');
 
 export function setting() {
     // 멤버마다 각각의 프로젝트에 대한 방 설정과 통신을 위한 Foreach
 
     ProjectList.forEach(Projectroom => {
         socket.emit('setting', Projectroom);
-        socket.on(Projectroom, () => {            
+        socket.on(Projectroom, () => {    
             // 알림레이어 업데이트
             getAllAlarmsAjax();
         })

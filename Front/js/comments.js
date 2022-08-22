@@ -34,7 +34,17 @@ $(document).on('keyup','.comment-input',function(key){
 
         let rmNo= $(this).closest('li').attr('data-project-srno');
         let postNo= $(this).closest('li').attr('data-post-srno');
-        let cmContent = this.innerText.trim();
+        let cmContent = this.innerText;
+
+        // 댓글 내용 없을 경우 경고창
+        if(cmContent=='') {
+            $('.alert-null-cmContent').css('display', 'block');
+            setTimeout(function() {
+                $('.alert-null-cmContent').fadeOut(500, "swing");
+            }, 2000);
+
+            return false;
+        }
 
         // shift+enter -> 줄바꿈을 <br>로 바꾸어 db에 저장
         cmContent = cmContent.replace(/(\n|\r\n)/g, '<br>');
@@ -64,7 +74,7 @@ $(document).on('click', '.comment-writer-menu',function(e){
                 key.preventDefault();
 
                 let postNo= $(this).closest('[id^="post"]').attr('data-post-srno');
-                let cmContent = this.innerText.trim();
+                let cmContent = this.innerText;
 
                 // shift+enter -> 줄바꿈을 <br>로 바꾸어 db에 저장
                 cmContent = cmContent.replace(/(\n|\r\n)/g, '<br>');

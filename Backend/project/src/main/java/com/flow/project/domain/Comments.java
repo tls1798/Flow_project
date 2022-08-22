@@ -11,7 +11,7 @@ public class Comments {
 
     private int cmNo;
     private int postNo;
-    private int cmWriter;
+    private String cmWriter;
     private String cmContent;
     private String cmDatetime;
     private String cmEditDatetime;

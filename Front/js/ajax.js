@@ -7,16 +7,32 @@ import {updateList} from './projectList.js';
 import {view, getPostAll} from './feed.js';
 import {closeCenterPopup, centerSettingButtonClose} from './centerPostPopup.js';
 import {closeRightPostCard, settingButtonClose} from './rightPostCard.js'
-import {getFeed} from './changeMainContainer.js'
+import { getFeed } from './changeMainContainer.js'
 
-let memNo = window.localStorage.getItem('memNo')
+export let memNo = window.localStorage.getItem('memNo');
+// main.html 막기 위함
+$(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8818/api/auth/check/' + window.localStorage.getItem('accessToken'),
+            contentType: 'application/json; charset=utf-8',
+            beforeSend: function (xhr) {},
+            success: function (result, status, xhr) {
+                if (result.error != null)
+                    location.href='./login.html'
+             },
+            error: function (xhr, status, err) {
+                location.href='./login.html'
+            }
+       })
+})
 
 // 알림 모두 가져오기
 export function getAllAlarmsAjax(){
     new Promise((succ,fail)=>{
         $.ajax({
             type: 'GET',
-            url: 'http://13.209.103.20/api/notis/member/' + memNo,
+            url: 'http://localhost:8818/api/notis/member/' + memNo,
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
@@ -106,7 +122,7 @@ export function getAllAlarmsAjax(){
 export function readAllAlarmAjax() {
     $.ajax({
         type: 'PUT',
-        url: 'http://13.209.103.20/api/notis/member/' + memNo,
+        url: 'http://localhost:8818/api/notis/member/' + memNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
@@ -125,7 +141,7 @@ export function readAllAlarmAjax() {
 export function readAllAlarmsByProjectAjax() {
     $.ajax({
         type: 'PUT',
-        url: 'http://13.209.103.20/api/notis/member/' + memNo + '/rooms/' + $('#detailSettingProjectSrno').text(),
+        url: 'http://localhost:8818/api/notis/member/' + memNo + '/rooms/' + $('#detailSettingProjectSrno').text(),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
@@ -144,7 +160,7 @@ export function readAllAlarmsByProjectAjax() {
 export function readAlarmAjax(ntNo, postNo, leftAlarmCnt){
     $.ajax({
         type: 'PUT',
-        url: 'http://13.209.103.20/api/notis/' + ntNo + '/member/' + memNo,
+        url: 'http://localhost:8818/api/notis/' + ntNo + '/member/' + memNo,
         data: JSON.stringify({"ntNo":ntNo, "memNo":memNo, "postNo":postNo}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
@@ -185,7 +201,7 @@ export function readAlarmAjax(ntNo, postNo, leftAlarmCnt){
 export function getBookmarkAjax(){
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/bookmark/' + memNo,
+        url: 'http://localhost:8818/api/bookmark/' + memNo,
         async: false,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
@@ -198,51 +214,65 @@ export function getBookmarkAjax(){
             // 북마크 개수
             $('#postCount').text(result.length);
 
-            for (let i = 0; i < result.length; i++){
+            // 북마크 없을 때
+            if(result.length == 0){
                 $('#myPostContentUl').append(`
-                    <li class="js-all-post-item post-search-item post-list-wrapper booklist" data-project-id="`+ result[i].rmNo + `"data-post-id="` + result[i].postNo + `" data-mem-id="` + result[i].memNo + `">
-                        <div class="fixed-kind">
-                            <i class="bi bi-card-text"></i>
-                            <span class="post-type">글</span>
+                    <div class="js-project-null project-null-t-1 mgt-200">
+                        <div class="project-null-t-2 base">
+                            <div class="project-null-t-4"></div>
+                            <span>'북마크'한 게시물이 없습니다. <br>
+                            프로젝트에서 다시 보고 싶은 게시물을 '북마크'해 보세요!</span>
                         </div>
-                        <div class="search-sub-text-wrap">
-                            <div class="contents-cmt">
-                                <p id="bookmarklist-`+result[i].postNo+`" class="search-text-type-3 contents-tit">`+ result[i].postTitle + `</p>
-                                <div class="post-list comment" style="display:inline-block" data="">
-                                    <i class="bi bi-chat-square-text"></i>
-                                    <span class="js-post-comment-count">`+ result[i].cmCount + `</span>
-                                </div>
-                            </div>
-                            <p class="search-text-type-3 contents-project">
-                                <em class="ellipsis"><i class="seach-type-2"></i>`+ result[i].rmTitle + `</em>
-                            </p>
-                        </div>
-                        <div class="post-list-right">
-                            <div class="post-list name">`+ result[i].memName + `</div>
-                            <div class="post-list date">`+ result[i].postDatetime + `</div>
-                            <!--
-                            <div class="fixed-value">
-                                <span class="state request" style="display:none" data>-1%</span>
-                                <span class="js-task-state state " ></span>
-                                <div class="date-time" style="display:none" data>
-                                    <em class="date"></em>
-                                    <span></span>
-                                </div>
-                            </div>
-                            -->
-                        </div>
-                        <i class="js-temporary-delete icons-close-2 d-none" style="display:none" data=""></i>
-                    </li>
+                    </div>
                 `)
-                // 타이틀이 null 이면
-                if (result[i].postTitle == '') {
-                    let postCon = result[i].postContent;
-
-                    // 내용의 줄바꿈 전까지 출력
-                    if (postCon.indexOf('</p>'))
-                        postCon = (postCon.substr(0, postCon.indexOf('</p>'))).replace(/(<([^>]+)>)/ig,"");
-                    
-                    $('#bookmarklist-' + result[i].postNo + '').text(postCon);
+            }
+            else{
+                for (let i = 0; i < result.length; i++){
+                    $('#myPostContentUl').append(`
+                        <li class="js-all-post-item post-search-item post-list-wrapper booklist" data-project-id="`+ result[i].rmNo + `"data-post-id="` + result[i].postNo + `" data-mem-id="` + result[i].memNo + `">
+                            <div class="fixed-kind">
+                                <i class="bi bi-card-text"></i>
+                                <span class="post-type">글</span>
+                            </div>
+                            <div class="search-sub-text-wrap">
+                                <div class="contents-cmt">
+                                    <p id="bookmarklist-`+result[i].postNo+`" class="search-text-type-3 contents-tit">`+ result[i].postTitle + `</p>
+                                    <div class="post-list comment" style="display:inline-block" data="">
+                                        <i class="bi bi-chat-square-text"></i>
+                                        <span class="js-post-comment-count">`+ result[i].cmCount + `</span>
+                                    </div>
+                                </div>
+                                <p class="search-text-type-3 contents-project">
+                                    <em class="ellipsis"><i class="seach-type-2"></i>`+ result[i].rmTitle + `</em>
+                                </p>
+                            </div>
+                            <div class="post-list-right">
+                                <div class="post-list name">`+ result[i].memName + `</div>
+                                <div class="post-list date">`+ result[i].postDatetime + `</div>
+                                <!--
+                                <div class="fixed-value">
+                                    <span class="state request" style="display:none" data>-1%</span>
+                                    <span class="js-task-state state " ></span>
+                                    <div class="date-time" style="display:none" data>
+                                        <em class="date"></em>
+                                        <span></span>
+                                    </div>
+                                </div>
+                                -->
+                            </div>
+                            <i class="js-temporary-delete icons-close-2 d-none" style="display:none" data=""></i>
+                        </li>
+                    `)
+                    // 타이틀이 null 이면
+                    if (result[i].postTitle == '') {
+                        let postCon = result[i].postContent;
+    
+                        // 내용의 줄바꿈 전까지 출력
+                        if (postCon.indexOf('</p>'))
+                            postCon = (postCon.substr(0, postCon.indexOf('</p>'))).replace(/(<([^>]+)>)/ig,"");
+                        
+                        $('#bookmarklist-' + result[i].postNo + '').text(postCon);
+                    }
                 }
             }
         },
@@ -256,7 +286,7 @@ export function getBookmarkAjax(){
 export function removeBookmarkAjax(postNo){
     $.ajax({
         type: 'DELETE',
-        url: 'http://13.209.103.20/api/bookmark',
+        url: 'http://localhost:8818/api/bookmark',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({"memNo": memNo,"postNo": postNo}),
         beforeSend: function (xhr) {
@@ -279,7 +309,7 @@ export function addBookmarkAjax(postNo) {
     alert();
     $.ajax({
         type: 'POST',
-        url: 'http://13.209.103.20/api/bookmark',
+        url: 'http://localhost:8818/api/bookmark',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({"memNo": memNo,"postNo": postNo}),
         beforeSend: function (xhr) {
@@ -298,7 +328,7 @@ export function addBookmarkAjax(postNo) {
 export function getRoomAjax(rmNo, res) {
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/members/'+memNo+'/rooms/'+rmNo,
+        url: 'http://localhost:8818/api/members/'+memNo+'/rooms/'+rmNo,
         contentType: 'application/json; charset=utf-8',
         async: false ,
         beforeSend: function (xhr) {      
@@ -319,7 +349,7 @@ export function getRoomAjax(rmNo, res) {
 export function getMemberAjax(memNo, memInfo){
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/member/'+memNo,
+        url: 'http://localhost:8818/api/member/'+memNo,
         contentType: 'application/json; charset=utf-8',
         async: false,
         beforeSend: function (xhr) {      
@@ -339,7 +369,7 @@ export function getMemberAjax(memNo, memInfo){
 export function getAllMembersAjax(){
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/members',
+        url: 'http://localhost:8818/api/members',
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
@@ -380,11 +410,12 @@ export function getAllMembersAjax(){
 }
 
 // 회원 초대
-export function addMembersToProjectAjax(jsonData, rmNo, ntCheck,curMem,memlist){
+export function addMembersToProjectAjax(jsonData, rmNo, ntCheck, memlist) {
+
     new Promise((succ,fail)=>{
         $.ajax({
             type: 'POST',
-            url: 'http://13.209.103.20/api/room-members',
+            url: 'http://localhost:8818/api/room-members',
             data: jsonData,
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {      
@@ -405,7 +436,7 @@ export function addMembersToProjectAjax(jsonData, rmNo, ntCheck,curMem,memlist){
         // 초대 알림 보내기
         $.ajax({
             type: 'POST',
-            url: 'http://13.209.103.20/api/notis/rooms/'+rmNo,
+            url: 'http://localhost:8818/api/notis/rooms/'+rmNo,
             data: JSON.stringify({"ntTypeNo":3, "ntDetailNo":null, "memNo":memNo, "rmNo":rmNo, "ntCheck":ntCheck, "postNo":null}),
             contentType: 'application/json; charset=utf-8',
             async: false,
@@ -426,7 +457,7 @@ export function addMembersToProjectAjax(jsonData, rmNo, ntCheck,curMem,memlist){
 export function getParticipantsWithoutMeAjax(rmNo, ntCheck){
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/rooms/'+rmNo+'/members/'+memNo,
+        url: 'http://localhost:8818/api/rooms/'+rmNo+'/members/'+memNo,
         contentType: 'application/json; charset=utf-8',
         async : false,
         beforeSend: function (xhr) {      
@@ -454,7 +485,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo){
     new Promise((succ,fail) => {
         $.ajax({
             type: 'POST',
-            url: 'http://13.209.103.20/api/posts/'+postNo+'/comments',
+            url: 'http://localhost:8818/api/posts/'+postNo+'/comments',
             data: JSON.stringify({"postNo" : postNo, "cmContent" : cmContent, "cmWriter" : memNo}),
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {      
@@ -469,7 +500,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo){
                 $('.js-popup-before.detail-item.back-area[data-post-srno='+postNo+']').find('.comment-count').text(cnt);
 
                 // 로그인 한 회원 이름
-                var memInfo = getMemberAjax(window.localStorage.getItem('memNo'), memInfo);
+                var memInfo = getMemberAjax(memNo, memInfo);
                 
                 // 새로고침X, 바로 아래에 추가하기
                 $('.post-comment-group[data-id='+postNo+']').append(`
@@ -523,7 +554,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo){
         // 댓글 알람 보내기
         $.ajax({
             type: 'POST',
-            url: 'http://13.209.103.20/api/notis/rooms/'+rmNo,
+            url: 'http://localhost:8818/api/notis/rooms/'+rmNo,
             data: JSON.stringify({"ntTypeNo":2, "ntDetailNo":cmNo, "memNo":memNo, "rmNo":rmNo, "ntCheck":ntCheck, "postNo":postNo}),
             contentType: 'application/json; charset=utf-8',
             async: false,
@@ -544,7 +575,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo){
 export function editCommentAjax(postNo, cmContent, cmNo){
     $.ajax({
         type: 'PUT',
-        url: 'http://13.209.103.20/api/posts/'+postNo+'/comments/'+cmNo,
+        url: 'http://localhost:8818/api/posts/'+postNo+'/comments/'+cmNo,
         data: JSON.stringify({"postNo" : postNo, "cmNo":cmNo, "cmContent" : cmContent, "cmWriter" : memNo}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
@@ -571,7 +602,7 @@ export function editCommentAjax(postNo, cmContent, cmNo){
 export function removeCommentAjax(e, postNo, cmNo){
     $.ajax({
         type: 'DELETE',
-        url: 'http://13.209.103.20/api/posts/'+postNo+'/comments/'+cmNo+'/'+memNo,
+        url: 'http://localhost:8818/api/posts/'+postNo+'/comments/'+cmNo+'/'+memNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
@@ -606,7 +637,7 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck){
     new Promise((succ, fail) => {
         $.ajax({
             type: 'POST',
-            url: 'http://13.209.103.20/api/rooms/'+rmNo+'/posts',
+            url: 'http://localhost:8818/api/rooms/'+rmNo+'/posts',
             data: JSON.stringify({"rmNo":rmNo, "postWriter":memNo, "postTitle":postTitle, "postContent":postContent}),
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {      
@@ -631,7 +662,7 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck){
         // 글 알림 보내기
         $.ajax({
             type: 'POST',
-            url: 'http://13.209.103.20/api/notis/rooms/'+rmNo,
+            url: 'http://localhost:8818/api/notis/rooms/'+rmNo,
             data: JSON.stringify({"ntTypeNo":1, "ntDetailNo":postNo, "memNo":memNo, "rmNo":rmNo, "ntCheck":ntCheck, "postNo":postNo}),
             contentType: 'application/json; charset=utf-8',
             async: false,
@@ -652,7 +683,7 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck){
 export function editPostAjax(rmNo, postNo, editTitle, editContent, isBookmarkList, documentTitle, centerPopup){
     $.ajax({
         type: 'PUT',
-        url: 'http://13.209.103.20/api/rooms/'+rmNo+'/posts/'+postNo,
+        url: 'http://localhost:8818/api/rooms/'+rmNo+'/posts/'+postNo,
         data: JSON.stringify({"postTitle":editTitle, "postContent":editContent, "rmNo":rmNo, "postNo":postNo}),
         async: false,
         contentType: 'application/json; charset=utf-8',
@@ -701,7 +732,7 @@ export function editPostAjax(rmNo, postNo, editTitle, editContent, isBookmarkLis
 export function removePostAjax(rmNo, postNo, isBookmarkList, documentTitle, projectTitle){
     $.ajax({
         type: 'DELETE',
-        url: 'http://13.209.103.20/api/rooms/'+rmNo+'/posts/'+postNo+'/'+memNo,
+        url: 'http://localhost:8818/api/rooms/'+rmNo+'/posts/'+postNo+'/'+memNo,
         async: false,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
@@ -730,10 +761,10 @@ export function removePostAjax(rmNo, postNo, isBookmarkList, documentTitle, proj
 }
 
 // 프로젝트 생성
-export function addProjectAjax(rmNo){
+export function addProjectAjax(rmNo) {
     $.ajax({
         type: 'POST',
-        url: 'http://13.209.103.20/api/rooms',
+        url: 'http://localhost:8818/api/rooms',
         data: JSON.stringify({"rmNo":rmNo, "rmTitle":$('#projectTitleInput').val(), 
             "rmDes":$('#projectContentsInput').val(), "rmAdmin" : memNo}),
         contentType: 'application/json; charset=utf-8',
@@ -759,7 +790,7 @@ export function addProjectAjax(rmNo){
 export function editProjectAjax(title, content){
     $.ajax({
         type: 'PUT',
-        url: 'http://13.209.103.20/api/rooms/'+$('#detailSettingProjectSrno').text(),
+        url: 'http://localhost:8818/api/rooms/'+$('#detailSettingProjectSrno').text(),
         data: JSON.stringify({"rmNo":$('#detailSettingProjectSrno').text(), "rmTitle":title, "rmDes":content}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
@@ -790,7 +821,7 @@ export function exitProjectAjax(rmNo){
     new Promise((succ,fail) => {
         $.ajax({
             type: 'DELETE',
-            url: 'http://13.209.103.20/api/room-members/'+rmNo,
+            url: 'http://localhost:8818/api/room-members/'+rmNo,
             data: JSON.stringify({"rmNo":$('#detailSettingProjectSrno').text(), "memNo":memNo}),
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {      
@@ -798,6 +829,7 @@ export function exitProjectAjax(rmNo){
             },
             success: function (result, status, xhr) {
                 succ(result);
+                localStorage.removeItem('rmNo');
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -807,7 +839,7 @@ export function exitProjectAjax(rmNo){
         // 프로젝트 나간 후 알림 json 컬럼에서 내 번호 없애기
         $.ajax({
             type: 'PUT',
-            url: 'http://13.209.103.20/api/notis/members/'+memNo+'/rooms/'+rmNo,
+            url: 'http://localhost:8818/api/notis/members/'+memNo+'/rooms/'+rmNo,
             contentType: 'application/json; charset=utf-8',
             async: false,
             beforeSend: function (xhr) {      
@@ -818,6 +850,7 @@ export function exitProjectAjax(rmNo){
                 $('.logo-box').click();
                 // 즐겨찾는 프로젝트에서 삭제
                 deleteFavoriteProjectAjax(rmNo);
+                socket.emit('leave',rmNo)
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -830,15 +863,14 @@ export function exitProjectAjax(rmNo){
 export function removeProjectAjax(rmNo){
     $.ajax({
         type: 'DELETE',
-        url: 'http://13.209.103.20/api/rooms/'+rmNo,
+        url: 'http://localhost:8818/api/rooms/'+rmNo,
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
             // 로고 클릭하여 프로젝트 리스트로
             $('.logo-box').click();
-            
-            socket.emit('room',window.localStorage.getItem('rmNo'));
+            localStorage.removeItem('rmNo');
         },
         error: function (xhr, status, err) {        
             autoaccess()    
@@ -847,11 +879,14 @@ export function removeProjectAjax(rmNo){
 }
 
 // 상단고정 등록
-export function addPinAjax(postNo, postPin){
+export function addPinAjax(postNo, postPin) {
+    $('.alert-pop').children().children().text('변경되었습니다.')
+    alert();
     $.ajax({
         type: 'POST',
-        url: 'http://13.209.103.20/api/rooms/posts/' + postNo + '/pin/' + postPin,
+        url: 'http://localhost:8818/api/rooms/posts/' + postNo + '/pin/' + postPin,
         contentType: 'application/json; charset=utf-8',
+        async: false,
         beforeSend: function (xhr) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
@@ -869,7 +904,7 @@ export function getAllParticipantsAjax(rmNo) {
     new Promise((succ, fail) => {
         $.ajax({
             type: 'GET',
-            url: 'http://13.209.103.20/api/rooms/' + rmNo + '/members',
+            url: 'http://localhost:8818/api/rooms/' + rmNo + '/members',
             contentType: 'application/json; charset=utf-8',
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
@@ -883,20 +918,20 @@ export function getAllParticipantsAjax(rmNo) {
                 $('#participantCount').text(result.length);
                 // 관리자 제외 참여자 수 수정
                 $('#outerParticipantsCount').text(result.length - 1);
-                
+
                 // 프로젝트 관리자
                 $('.participants-admin-span').append(`
-                <li class="js-participant-item" data-id="`+ result[0].rmAdmin + `">
-                    <div class="post-author">
-                    <span class="js-participant-profile thumbnail size40 radius16" data=""><div class="online `+ result[0].rmAdmin + `"></div></span><dl class="post-author-info">
-                            <dt>
-                                <strong class="js-participant-name author ellipsis">`+ result[0].adminName + `</strong>
-                                <em class="position ellipsis" style="display:none" data=""></em>
-                            </dt>
-                        </dl>
-                    </div>
-                </li>
-            `);
+                    <li class="js-participant-item" data-id="`+ result[0].rmAdmin + `">
+                        <div class="post-author">
+                        <span class="js-participant-profile thumbnail size40 radius16" data=""><div class="online `+ result[0].rmAdmin + `"></div></span><dl class="post-author-info">
+                                <dt>
+                                    <strong class="js-participant-name author ellipsis">`+ result[0].adminName + `</strong>
+                                    <em class="position ellipsis" style="display:none" data=""></em>
+                                </dt>
+                            </dl>
+                        </div>
+                    </li>
+                `);
 
                 // 참여자
                 for (var i = 0; i < result.length; i++) {
@@ -904,17 +939,17 @@ export function getAllParticipantsAjax(rmNo) {
                     if (result[i].memNo == result[i].rmAdmin) continue;
 
                     $('.participants-member-span').append(`
-                    <li class="js-participant-item" data-id="`+ result[i].memNo + `" >
-                        <div class="post-author">
-                        <span class="js-participant-profile thumbnail size40 radius16" data=""><div class="online `+ result[i].memNo + `"></div></span><dl class="post-author-info">
-                                <dt>
-                                    <strong class="js-participant-name author ellipsis">`+ result[i].memName + `</strong>
-                                    <em class="position ellipsis" style="display:none" data=""></em>
-                                </dt>
-                            </dl>
-                        </div>
-                    </li>
-                `);
+                        <li class="js-participant-item" data-id="`+ result[i].memNo + `" >
+                            <div class="post-author">
+                            <span class="js-participant-profile thumbnail size40 radius16" data=""><div class="online `+ result[i].memNo + `"></div></span><dl class="post-author-info">
+                                    <dt>
+                                        <strong class="js-participant-name author ellipsis">`+ result[i].memName + `</strong>
+                                        <em class="position ellipsis" style="display:none" data=""></em>
+                                    </dt>
+                                </dl>
+                            </div>
+                        </li>
+                    `);
                 }
                 // 관리자만 존재하고 참여자는 0명일 경우 span display:none
                 if (result.length == 1)
@@ -938,7 +973,7 @@ export function getPostsCountByProjectAjax(rmNo){
     let postCount;
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/rooms/'+ rmNo +'/posts',
+        url: 'http://localhost:8818/api/rooms/'+ rmNo +'/posts',
         contentType: 'application/json; charset=utf-8',
         async: false,
         beforeSend: function (xhr) {
@@ -958,7 +993,7 @@ export function getPostsCountByProjectAjax(rmNo){
 export function getAllPostsPinByProjectAjax(rmNo){
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/rooms/'+ rmNo +'/posts/pin',
+        url: 'http://localhost:8818/api/rooms/'+ rmNo +'/posts/pin',
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
@@ -1026,7 +1061,7 @@ export function getAllPostsByProjectAjax(rmNo, offset) {
 
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/members/'+ memNo +'/rooms/'+ rmNo +'/posts/page/' + offset,
+        url: 'http://localhost:8818/api/members/'+ memNo +'/rooms/'+ rmNo +'/posts/page/' + offset,
         contentType: 'application/json; charset=utf-8',
         async: false,
         beforeSend: function (xhr) {
@@ -1124,7 +1159,7 @@ export function getAllPostsByProjectAjax(rmNo, offset) {
                                                     이전 댓글 더보기 (<span id="cm-count-id">0</span>)
                                                 </button>
                                             </div>
-                                            <ul class="post-comment-group" data-id="`+ result[i].posts.postNo + `"></ul>
+                                            <ul id="feed" class="post-comment-group" data-id="`+ result[i].posts.postNo + `"></ul>
                                         </div>
                                         <div class="js-remark-layer js-edit-layer comment-input-wrap" >
                                             <div class="comment-thumbnail">
@@ -1167,7 +1202,7 @@ export function getAllPostsByProjectAjax(rmNo, offset) {
                     if (result[i].commentsList.length > 0) {
                         // 댓글 가져오기
                         for (var j=result[i].commentsList.length-1; j>=0; j--) {
-                            $('.post-comment-group[data-id=' + result[i].commentsList[j].postNo + ']').append(`
+                            $('#feed .post-comment-group[data-id=' + result[i].commentsList[j].postNo + ']').append(`
                                 <li class="remark-item" id="cm-`+ result[i].commentsList[j].cmNo + `" remark-srno="` + result[i].commentsList[j].cmNo + `" data-cm-id=` + (j + 1) + ` data-user-id="` + result[i].commentsList[j].cmWriter + `">
                                     <div class="comment-thumbnail js-comment-thumbnail">
                                         <span class="thumbnail size40 radius16" data=""></span>
@@ -1206,8 +1241,8 @@ export function getAllPostsByProjectAjax(rmNo, offset) {
                             commentcount++;
 
                             // 댓글이 3개 이상일시 보이지 않게 숨긴다
-                            if ($('#cm-' + result[i].commentsList[j].cmNo + '').attr('data-cm-id') > 2 && $('#popBack1>li').length == 0) {
-                                $('#cm-' + result[i].commentsList[j].cmNo + '').addClass('d-none');
+                            if ($('#feed>#cm-' + result[i].commentsList[j].cmNo + '').attr('data-cm-id') > 2 && $('#popBack1>li').length == 0) {
+                                $('#feed>#cm-' + result[i].commentsList[j].cmNo + '').addClass('d-none');
                             }
 
                             // 자신이 작성한 댓글이 아니면 수정 삭제를 할 수 없게 수정 삭제 버튼을 없앤다
@@ -1243,7 +1278,7 @@ export function getAllPostsByProjectAjax(rmNo, offset) {
 export function getPostToCenterPopupAjax(rmNo, postNo, cmNo){
     $.ajax({
         type:'GET',
-        url: 'http://13.209.103.20/api/members/'+memNo+'/rooms/'+rmNo+'/posts/'+postNo,
+        url: 'http://localhost:8818/api/members/'+memNo+'/rooms/'+rmNo+'/posts/'+postNo,
         contentType: 'application/json; charset=utf-8',
         async : false,
         beforeSend: function (xhr) {      
@@ -1437,8 +1472,9 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo) {
   
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/members/'+memNo+'/rooms/'+rmNo+'/posts/'+postNo,
+        url: 'http://localhost:8818/api/members/'+memNo+'/rooms/'+rmNo+'/posts/'+postNo,
         contentType: 'application/json; charset=utf-8',
+        async: false,
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
@@ -1672,7 +1708,7 @@ export function getPostToRightPostCardAjax(rmNo, postNo, cmNo) {
 export function deleteMemberAjax(){
     $.ajax({
         type: 'DELETE',
-        url: 'http://13.209.103.20/api/members/exit/' + memNo,
+        url: 'http://localhost:8818/api/members/exit/' + memNo,
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
@@ -1689,11 +1725,11 @@ export function deleteMemberAjax(){
 // ProjectList 배열 Socket에 사용
 export let ProjectList = [];
 // 프로젝트 리스트 업데이트
-export function getAllProjectsByMeAjax(){
+export function getAllProjectsByMeAjax() {
     new Promise((succ,fail) => {
         $.ajax({
             type: 'GET',
-            url: 'http://13.209.103.20/api/members/'+memNo+'/rooms',
+            url: 'http://localhost:8818/api/members/'+memNo+'/rooms',
             contentType: 'application/json; charset=utf-8',
             async: false,
             beforeSend: function (xhr) {      
@@ -1704,6 +1740,14 @@ export function getAllProjectsByMeAjax(){
 
                 ProjectList = [];
                 
+                // 참여중인 프로젝트 없을 때
+                if(result.length == 0) {
+                    $('#projectNull').css('display', 'flex')
+                } 
+                else{
+                    $('#projectNull').css('display', 'none')
+                }
+
                 for (var i = 0; i < result.length; i++){
                     // 소켓으로 ProjectList값 담아서 넘기기 위한
                     ProjectList.push(result[i].rmNo);
@@ -1777,7 +1821,7 @@ export function getAllProjectsByMeAjax(){
 export function addFavoriteProjectAjax(rmNo){
     $.ajax({
         type: 'POST',
-        url: 'http://13.209.103.20/api/favorites',
+        url: 'http://localhost:8818/api/favorites',
         data: JSON.stringify({"rmNo": rmNo, "memNo": memNo}),
         contentType: 'application/json; charset=utf-8',
         beforeSend: function (xhr) {      
@@ -1796,7 +1840,7 @@ export function addFavoriteProjectAjax(rmNo){
 export function deleteFavoriteProjectAjax(rmNo){
     $.ajax({
         type: 'DELETE',
-        url: 'http://13.209.103.20/api/favorites',
+        url: 'http://localhost:8818/api/favorites',
         data: JSON.stringify({"rmNo": rmNo, "memNo": memNo}),
         contentType: 'application/json; charset=utf-8',
         async: false,
@@ -1816,7 +1860,7 @@ export function deleteFavoriteProjectAjax(rmNo){
 export function getSearchResultAjax(searchItem){
     $.ajax({
         type: 'GET',
-        url: 'http://13.209.103.20/api/search/' + memNo + '/' + searchItem,
+        url: 'http://localhost:8818/api/search/' + memNo + '/' + searchItem,
         contentType: 'application/json; charset=euc-kr',
         beforeSend: function (xhr) {      
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
@@ -1924,6 +1968,25 @@ export function getSearchResultAjax(searchItem){
         },
         error: function (xhr, status, err) {
             autoaccess();
+        }
+    });
+}
+
+// 프로젝트 있는 지 확인
+export function getProjectAjax(rmNo){
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8818/api/rooms/'+rmNo,
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        beforeSend: function (xhr) {      
+            xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
+        },
+        success: function (result, status, xhr) {
+            return result;
+        },
+        error: function (xhr, status, err) {
+            autoaccess()
         }
     });
 }

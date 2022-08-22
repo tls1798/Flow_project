@@ -18,7 +18,7 @@ public interface PostsMapper {
             "(select count(*) from \"Notis\" n, jsonb_each_text(n.nt_check) where n.nt_type_no = 1 and n.post_no = p.post_no and n.nt_check -> key != 'null') as post_read_count " +
             "from \"Posts\" p " +
             "where rm_no = #{rmNo} and p.post_no = #{postNo}")
-    Posts selectOne(int memNo, String rmNo, int postNo);
+    Posts selectOne(String memNo, String rmNo, int postNo);
 
     // 특정 프로젝트 방 글 작성
     @Options(keyColumn = "post_no", useGeneratedKeys = true, keyProperty = "postNo")
@@ -31,7 +31,7 @@ public interface PostsMapper {
 
     // 특정 프로젝트 방 글 삭제
     @Delete("delete from \"Posts\" where rm_no = #{rmNo} and post_no = #{postNo}")
-    int deleteOne(String rmNo, int postNo, int memNo);
+    int deleteOne(String rmNo, int postNo, String memNo);
 
     // 상단고정 업데이트하기
     @Update("update \"Posts\" set post_pin = #{postPin} where post_no = #{postNo}")

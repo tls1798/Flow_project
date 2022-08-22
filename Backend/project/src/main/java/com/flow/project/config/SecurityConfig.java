@@ -61,8 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors().configurationSource(corsConfigurationSource())
-                .and()
+                .cors().configurationSource(corsConfigurationSource())//지울예정
+                .and()//지울예정
                 .httpBasic().disable()
                 // rest Api는 csrf 보안이 필요없으므로 disable 처리
                 .csrf().disable()
@@ -70,8 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .mvcMatchers(HttpMethod.OPTIONS, ("/**")).permitAll()
-                .antMatchers("/api/auth/*", "/api/auth/members/new", "/api/auth/email/*").permitAll()
+                .mvcMatchers(HttpMethod.OPTIONS, ("/**")).permitAll()//지울예정
+                .antMatchers("/api/auth/*", "/api/auth/members/*", "/api/auth/email/*","/api/auth/check/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // 인증 처리 과정에서 예외가 발생한 경우 예외를 핸들링하는 인터페이스
@@ -82,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
     }
 
-    // filter 에서 cors 처리
+    // filter 에서 cors 처리 지울예정
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

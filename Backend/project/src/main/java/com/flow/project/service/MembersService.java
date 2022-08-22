@@ -18,6 +18,7 @@ import org.springframework.validation.FieldError;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -38,7 +39,7 @@ public class MembersService {
     }
 
     // 한명 찾기 테스트
-    public Members getMember(int idx) {
+    public Members getMember(String idx) {
         return mem.selectOne(idx);
     }
 
@@ -49,6 +50,8 @@ public class MembersService {
 
     // 회원 가입
     public int addMember(AuthDTO.SignupDTO signupDTO) {
+        // UUID 생성
+        signupDTO.setMemNo(UUID.randomUUID().toString());
         // 기존에 있는 유저인지 확인
         if (signupDTO.getMemMail().equals(mem.findmailByEmail(signupDTO.getMemMail())))
             throw new UserException(ErrorCode.UserExistsException);
@@ -60,21 +63,21 @@ public class MembersService {
     }
 
     // 로그아웃시 토큰 삭제
-    public int deleteMem(int memNo) {
+    public int deleteMem(String memNo) {
         return mem.deleteOne(memNo);
     }
 
     // 회원 탈퇴
-    public boolean removeMember(int memNo) {
+    public boolean removeMember(String memNo) {
         return mem.deleteMem(memNo);
     }
 
     // 아이디 존재하는지 확인
-    public int checkId(String memMail) {
+    public String checkId(String memMail) {
         try{
            return authMapper.findNo(memMail);
         }catch (BindingException e){
-            return 1;
+           return "";
         }
    }
 }

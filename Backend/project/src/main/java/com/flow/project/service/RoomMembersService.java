@@ -16,7 +16,7 @@ public class RoomMembersService {
     final RoomMembersMapper roomMembersMapper;
 
     // 멤버 별 프로젝트 리스트
-    public List<ProjectListData> getRooms(int memNo) {
+    public List<ProjectListData> getRooms(String memNo) {
         return roomMembersMapper.selectRooms(memNo);
     }
 
@@ -26,13 +26,12 @@ public class RoomMembersService {
     }
 
     // 참여자 가져오기
-    public List<Integer> getParticipants(String rmNo, int memNo) {
+    public List<String> getParticipants(String rmNo, String memNo) {
         return roomMembersMapper.selectAllParticipants(rmNo, memNo);
     }
 
     // 프로젝트에 멤버 초대
     public boolean addMember(List<RoomMembers> roomMembers) {
-
         try {
             // 여러명 한 번에 초대할 수 있으므로 List를 돌며 insert
             for (RoomMembers roomMember : roomMembers)

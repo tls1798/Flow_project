@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class RoomMembers {
 
     private String rmNo;
-    private int memNo;
+    private String memNo;
 }

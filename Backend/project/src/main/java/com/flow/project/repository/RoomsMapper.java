@@ -15,7 +15,7 @@ public interface RoomsMapper {
     @Select("select r.rm_no, r.rm_title, r.rm_des, r.rm_admin, " +
             "(select rm_no from \"Favorites\" f where f.rm_no=#{rmNo} and f.mem_no=#{memNo}) as favorite_project " +
             "from \"Rooms\" r where rm_no=#{rmNo}")
-    ProjectListData selectRoom(String rmNo, int memNo);
+    ProjectListData selectRoom(String rmNo, String memNo);
 
     // 프로젝트 생성
     @Insert("insert into \"Rooms\" (rm_no, rm_title, rm_des, rm_admin) values (#{rmNo}, #{rmTitle}, #{rmDes}, #{rmAdmin})")

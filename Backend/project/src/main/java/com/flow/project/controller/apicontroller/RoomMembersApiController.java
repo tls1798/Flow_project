@@ -18,7 +18,7 @@ public class RoomMembersApiController {
 
     // 멤버 별 프로젝트 리스트 (프로젝트 리스트)
     @GetMapping("/members/{memNo}/rooms")
-    public ResponseEntity<?> getRooms(@PathVariable int memNo) {
+    public ResponseEntity<?> getRooms(@PathVariable String memNo) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(roomMembersService.getRooms(memNo));
     }
@@ -32,7 +32,7 @@ public class RoomMembersApiController {
 
     // 참여자 가져오기
     @GetMapping("/rooms/{rmNo}/members/{memNo}")
-    public ResponseEntity<?> getParticipants(@PathVariable String rmNo, @PathVariable int memNo) {
+    public ResponseEntity<?> getParticipants(@PathVariable String rmNo, @PathVariable String memNo) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(roomMembersService.getParticipants(rmNo, memNo));
     }

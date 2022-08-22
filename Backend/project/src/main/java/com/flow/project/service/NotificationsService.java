@@ -17,7 +17,7 @@ public class NotificationsService {
     private final NotificationsMapper notificationsMapper;
 
     // 내가 속한 프로젝트 룸 전체 알림 가져오기 (알림레이어)
-    public List<NotificationResponse> getNotifications(int memNo) throws JsonProcessingException {
+    public List<NotificationResponse> getNotifications(String memNo) throws JsonProcessingException {
         List<Notifications> notifications = notificationsMapper.selectAllNotifications(memNo);
 
         List<NotificationResponse> notificationResponses = new ArrayList<>();
@@ -38,12 +38,12 @@ public class NotificationsService {
     }
 
     // 알림 모두 읽음 (알림레이어)
-    public int editAllNotifications(int memNo) {
+    public int editAllNotifications(String memNo) {
         return notificationsMapper.updateAll(memNo);
     }
 
     // 프로젝트 별 알림 모두 읽음 (피드 미확인)
-    public int editNotifications(int memNo, String rmNo) {
+    public int editNotifications(String memNo, String rmNo) {
         return notificationsMapper.updateNotis(memNo, rmNo);
     }
 
@@ -63,7 +63,7 @@ public class NotificationsService {
     }
 
     // 프로젝트 방 나갈 시 알림 json 컬럼에서 내 번호 없애기
-    public int deleteRoomNotis(int memNo, String rmNo){
+    public int deleteRoomNotis(String memNo, String rmNo){
         int result = notificationsMapper.updateRoomNotis(memNo, rmNo);
         if(result>0) notificationsMapper.deleteNoti();
 
@@ -71,11 +71,11 @@ public class NotificationsService {
     }
 
     // 특정 프로젝트 방 알림 개수 가져오기 by PostNo
-    public int getRoomNotisByPostNo(int memNo, int postNo){
+    public int getRoomNotisByPostNo(String memNo, int postNo){
         return notificationsMapper.selectRoomNotisByPostNo(memNo, postNo);
     }
 
-    // 특정 프로젝트 방 알림 개수 가져오기 by PostNo
+    // 특정 프로젝트 방 알림 개수 가져오기 by rmNo
     public int getRoomNotisByRmNo(String rmNo){
         return notificationsMapper.selectRoomNotisByRmNo(rmNo);
     }

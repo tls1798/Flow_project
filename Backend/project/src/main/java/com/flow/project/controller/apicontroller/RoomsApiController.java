@@ -24,7 +24,7 @@ public class RoomsApiController {
 
     // 프로젝트 조회 (프로젝트 리스트에서 프로젝트 선택)
     @GetMapping("/members/{memNo}/rooms/{rmNo}")
-    public ResponseEntity<?> getSelectedRoom(@PathVariable String rmNo, @PathVariable int memNo){
+    public ResponseEntity<?> getSelectedRoom(@PathVariable String rmNo, @PathVariable String memNo){
         return ResponseEntity.status(HttpStatus.OK).body(roomsService.getSelectedRoom(rmNo, memNo));
     }
 

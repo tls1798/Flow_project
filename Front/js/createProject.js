@@ -1,5 +1,6 @@
 import {addProjectAjax, editProjectAjax} from './ajax.js'
 import {confirmOpen, confirmClose} from './confirm.js'
+import { memNo } from './ajax.js'
 
 // input, textarea 비우기
 const clearCreateProject = function(){
@@ -98,7 +99,7 @@ $('.js-submit-project').click(function(){
         return str;
     }
     var nowDate = new Date();
-    var rmNo = nowDate.YYYYMMDDHHMMSS()+window.localStorage.getItem('memNo');
+    var rmNo = nowDate.YYYYMMDDHHMMSS();
 
     if ($(this).html() == '프로젝트 만들기') {
         addProjectAjax(rmNo);

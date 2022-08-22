@@ -4,6 +4,8 @@ import com.flow.project.domain.AuthDTO;
 import com.flow.project.handler.ErrorCode;
 import com.flow.project.handler.UserException;
 import com.flow.project.jwt.JwtProvider;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,10 +40,23 @@ public class AuthService {
         }
         return result;
     }
+
     // 토큰 재발급
     public Map<String, Object> reissue(AuthDTO.GetNewAccessTokenDTO getNewAccessTokenDTO, HttpServletRequest request) {
         return jwtProvider.reissue(getNewAccessTokenDTO, request);
     }
 
+    // 프론트 인가를 위함
+    public Map<String, Object> validtokencheck(String accessToken) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(accessToken);
+        } catch (ExpiredJwtException e) {
+            result.put("error", "ExpiredJwtException");
+        }
+        return result;
+    }
 }
+
+
 

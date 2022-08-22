@@ -1,7 +1,9 @@
 import {getSearchResultAjax, getMemberAjax, getAllAlarmsAjax} from './ajax.js'
 import {confirmOpen, confirmClose} from './confirm.js'
 import { erralert } from './bookmark.js'
-import {logoutAjax} from './home.js'
+import { logoutAjax } from './home.js'
+import { memNo } from './ajax.js'
+
 // 모달, 팝업 display:none -> false, block -> true
 var searchPopupBool = false;
 let isPopBack = false;
@@ -131,7 +133,7 @@ $('.btn-alarm').click(function(){
 $(".btn-profile").click(function(e){
     if($('#accountLayer').css('display')=='none'){
         // 사용자 프로필 업데이트
-        var memInfo = getMemberAjax(window.localStorage.getItem('memNo'), memInfo);
+        var memInfo = getMemberAjax(memNo, memInfo);
         $('.user-info').find('strong').text(memInfo.memName);
 
         $(this).addClass('active');

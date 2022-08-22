@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Bookmark {
-    private int memNo;
+    private String memNo;
     private int postNo;
 
     @Getter
@@ -19,7 +19,7 @@ public class Bookmark {
         private String rmNo;
         private String postContent;
         private int CmCount;
-        private int memNo;
+        private String memNo;
         private int postNo;
     }
 }

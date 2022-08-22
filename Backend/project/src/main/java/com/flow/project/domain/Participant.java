@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 public class Participant {
 
     private String rmNo;
-    private int memNo;
-    private int rmAdmin;
+    private String memNo;
+    private String rmAdmin;
     private String adminName;
     private String memName;
 }
