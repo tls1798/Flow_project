@@ -799,6 +799,8 @@ export function editProjectAjax(title, content){
         success: function (result, status, xhr) {
             // topSettingBar 수정
             $('#projectTitle').text(title);
+            content = content.replaceAll('&lt', '<');
+            content = content.replaceAll('&gt', '>');
             $('#projectContents').text(content);
             
             // input, textarea 비우기
@@ -1752,10 +1754,17 @@ export function getAllProjectsByMeAjax() {
                     // 소켓으로 ProjectList값 담아서 넘기기 위한
                     ProjectList.push(result[i].rmNo);
 
+                    // 프로젝트 제목에 script 있으면 태그 제거 
+                    let rmTitle = result[i].rmTitle;
+                    if(rmTitle.indexOf('<script>')!=-1){
+                        rmTitle = rmTitle.replace(/</g, '&lt');
+                        rmTitle = rmTitle.replace(/>/g, '&gt'); 
+                    }
+
                     // 즐겨찾는 프로젝트
                     if(result[i].favoriteProject==true){
                         $('#MyStarProject').append(`
-                            <li class="project-item ui-state-default" data-id="`+result[i].rmNo+`" data-rm-title="`+result[i].rmTitle+`" data-rm-des="`+result[i].rmDes+`">
+                            <li class="project-item ui-state-default" data-id="`+result[i].rmNo+`" data-rm-title="`+rmTitle+`" data-rm-des="`+result[i].rmDes+`">}
                                 <a class="cursor-pointer">
                                     <!-- 알림 배지 -->
                                     <div class="flow-content-ct project-badge" style="display:none">0</div>
@@ -1763,7 +1772,7 @@ export function getAllProjectsByMeAjax() {
                                     <div class="color-code left-menu-type-1 color-code-1"></div>
                                     <div class="left-menu-type-con">
                                         <div class="project-star flow-content-star"></div>
-                                        <div class="flow-content-txt project-ttl">`+result[i].rmTitle+`</div>
+                                        <div class="flow-content-txt project-ttl">`+rmTitle+`</div>
                                         <div class="flow-content-b-c" style="display:block">
                                             <div class="flow-content-hm-txt"><i class="bi bi-person"></i></div>
                                             <span class="member-cnt">`+result[i].rmMemCount+`</span>
@@ -1776,7 +1785,7 @@ export function getAllProjectsByMeAjax() {
                     // 참여중 프로젝트
                     else {
                         $('#MyProject').append(`
-                            <li class="project-item ui-state-default" data-id="`+result[i].rmNo+`" data-rm-title="`+result[i].rmTitle+`" data-rm-des="`+result[i].rmDes+`">
+                            <li class="project-item ui-state-default" data-id="`+result[i].rmNo+`" data-rm-title="`+rmTitle+`" data-rm-des="`+result[i].rmDes+`">
                                 <a class="cursor-pointer">
                                     <!-- 알림 배지 -->
                                     <div class="flow-content-ct project-badge" style="display:none">0</div>
@@ -1784,7 +1793,7 @@ export function getAllProjectsByMeAjax() {
                                     <div class="color-code left-menu-type-1 color-code-1"></div>
                                     <div class="left-menu-type-con">
                                         <div class="project-star flow-content-star flow-content-star-un"></div>
-                                        <div class="flow-content-txt project-ttl">`+result[i].rmTitle+`</div>
+                                        <div class="flow-content-txt project-ttl">`+rmTitle+`</div>
                                         <div class="flow-content-b-c" style="display:block">
                                             <div class="flow-content-hm-txt"><i class="bi bi-person"></i></div>
                                             <span class="member-cnt">`+result[i].rmMemCount+`</span>
