@@ -122,13 +122,24 @@ $('.create-post-wrap').click(function(e){
         return false;
         }
 
-        const postTitle = $('#postTitle').val();
-        const postContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
-        const rmNo = $('#detailSettingProjectSrno').text();
+        let postTitle = $('#postTitle').val();
+        let postContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
+        let rmNo = $('#detailSettingProjectSrno').text();
 
         let postNo = 0;
         let ntCheck ='{';
         
+        // 글 제목에 script 있으면 태그 제거 
+        if(postTitle.indexOf('<script>')!=-1){
+            postTitle = postTitle.replace(/</g, '&lt');
+            postTitle = postTitle.replace(/>/g, '&gt'); 
+        }
+
+        // 글 내용에 script 있으면 태그 제거 
+        if(postContent.indexOf('<script>')!=-1){
+            postContent = postContent.replace(/</g, '&lt');
+            postContent = postContent.replace(/>/g, '&gt'); 
+        }
         addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck);
 
         postPopupClose();
@@ -188,6 +199,17 @@ $(document).on('click', '.post-option>ul',function(e){
             const editTitle = $(this).closest('.js-editor').find('input').val();
             const editContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
 
+            // 글 제목에 script 있으면 태그 제거 
+            if(editTitle.indexOf('<script>')!=-1){
+                editTitle = editTitle.replace(/</g, '&lt');
+                editTitle = editTitle.replace(/>/g, '&gt'); 
+            }
+            
+            // 글 내용에 script 있으면 태그 제거 
+            if(editContent.indexOf('<script>')!=-1){
+                editContent = editContent.replace(/</g, '&lt');
+                editContent = editContent.replace(/>/g, '&gt'); 
+            }
             editPostAjax(rmNo, postNo, editTitle, editContent, isBookmarkList, documentTitle, centerPopup);
         })
 

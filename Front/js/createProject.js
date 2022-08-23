@@ -109,6 +109,17 @@ $('.js-submit-project').click(function(){
         let title = $('#projectTitleInput').val();
         let content = $('#projectContentsInput').val();
 
+        // 프로젝트 제목에 script 있으면 태그 제거 
+        if(title.indexOf('<script>')!=-1){
+            title = title.replace(/</g, '&lt');
+            title = title.replace(/>/g, '&gt'); 
+        }
+        
+        // 프로젝트 내용에 script 있으면 태그 제거 
+        if(content.indexOf('<script>')!=-1){
+            content = content.replace(/</g, '&lt');
+            content = content.replace(/>/g, '&gt'); 
+        }
         editProjectAjax(title, content);
     }
 

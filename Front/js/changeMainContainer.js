@@ -34,6 +34,8 @@ export function getFeed(rmNo){
 const updateTopSettingBar = function (rmNo, rmTitle, rmDes, rmAdmin, favoriteProject) {
     $('#detailSettingProjectSrno').text(rmNo);
     $('#projectTitle').text(rmTitle);
+    rmDes = rmDes.replaceAll('&lt', '<');
+    rmDes = rmDes.replaceAll('&gt', '>');
     $('#projectContents').text(rmDes);
     $('#inviteTitle').text(rmTitle);
 

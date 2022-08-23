@@ -51,6 +51,12 @@ $(document).on('keyup','.comment-input',function(key){
 
         let cmNo = 0;
         let ntCheck ='{';
+        
+        // 댓글 내용에 script 있으면 태그 제거 
+        if(cmContent.indexOf('<script>')!=-1){
+            cmContent = cmContent.replace(/</g, '&lt');
+            cmContent = cmContent.replace(/>/g, '&gt'); 
+        }
         addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo);
     }
 })
@@ -78,7 +84,12 @@ $(document).on('click', '.comment-writer-menu',function(e){
 
                 // shift+enter -> 줄바꿈을 <br>로 바꾸어 db에 저장
                 cmContent = cmContent.replace(/(\n|\r\n)/g, '<br>');
-            
+                
+                // 댓글 내용에 script 있으면 태그 제거 
+                if(cmContent.indexOf('<script>')!=-1){
+                    cmContent = cmContent.replace(/</g, '&lt');
+                    cmContent = cmContent.replace(/>/g, '&gt'); 
+                }
                 editCommentAjax(postNo, cmContent, cmNo);
             }
         })

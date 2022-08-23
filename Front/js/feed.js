@@ -59,6 +59,12 @@ export function updateUnreadAlarmFunc(rmNo) {
 
             return true;
         }
+
+        // 댓글 내용에 script 있으면 태그 제거 X
+        if(content.indexOf('<script>') != -1){
+            content = content.replace(/</g, '&lt');
+            content = content.replace(/>/g, '&gt');
+        }
     
         $('#projectAlarmArea').css('display', 'block');
         $('#projectNotReadCount').text(++cnt);

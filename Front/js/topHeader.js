@@ -70,6 +70,12 @@ $('#searchPopupInput').keypress(function(e){
             erralert()
             return false;
         }
+
+        // 글 제목에 script 있으면 태그 제거 
+        if(searchItem.indexOf('<script>')!=-1){
+            searchItem = searchItem.replace(/</g, '&lt');
+            searchItem = searchItem.replace(/>/g, '&gt'); 
+        }
         getSearchResultAjax(searchItem);
 
         // 검색 팝업 닫기
