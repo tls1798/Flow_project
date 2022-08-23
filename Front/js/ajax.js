@@ -9,23 +9,7 @@ import {closeCenterPopup, centerSettingButtonClose} from './centerPostPopup.js';
 import {closeRightPostCard, settingButtonClose} from './rightPostCard.js'
 import { getFeed } from './changeMainContainer.js'
 
-export let memNo = window.localStorage.getItem('memNo');
-// main.html 막기 위함
-$(function () {
-        $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8818/api/auth/check/' + window.localStorage.getItem('accessToken'),
-            contentType: 'application/json; charset=utf-8',
-            beforeSend: function (xhr) {},
-            success: function (result, status, xhr) {
-                if (result.error != null)
-                    location.href='./login.html'
-             },
-            error: function (xhr, status, err) {
-                location.href='./login.html'
-            }
-       })
-})
+export let memNo=window.localStorage.getItem('memNo');
 
 // 알림 모두 가져오기
 export function getAllAlarmsAjax(){
@@ -882,8 +866,6 @@ export function removeProjectAjax(rmNo){
 
 // 상단고정 등록
 export function addPinAjax(postNo, postPin) {
-    $('.alert-pop').children().children().text('변경되었습니다.')
-    alert();
     $.ajax({
         type: 'POST',
         url: 'http://localhost:8818/api/rooms/posts/' + postNo + '/pin/' + postPin,
@@ -894,6 +876,8 @@ export function addPinAjax(postNo, postPin) {
         },
         success: function (result, status, xhr) {
             getPostAll(window.localStorage.getItem('rmNo'))
+            $('.alert-pop').children().children().text('변경되었습니다.')
+            alert();
         },
         error: function (xhr, status, err) {
             autoaccess();
@@ -1999,3 +1983,18 @@ export function getProjectAjax(rmNo){
         }
     });
 }
+
+// main.html 막기 위함
+$(function () {
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8818/api/auth/check/' + window.localStorage.getItem('accessToken'),
+        contentType: 'application/json; charset=utf-8',
+        beforeSend: function (xhr) {},
+        success: function (result, status, xhr) {
+         },
+        error: function (xhr, status, err) {
+            location.href='./login.html'
+        }
+   })
+})

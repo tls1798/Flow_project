@@ -47,14 +47,14 @@ public class AuthService {
     }
 
     // 프론트 인가를 위함
-    public Map<String, Object> validtokencheck(String accessToken) {
-        Map<String, Object> result = new HashMap<>();
+    public boolean validtokencheck(String accessToken) {
+
         try {
             Jwts.parser().setSigningKey("${jwt.secretA}").parseClaimsJws(accessToken);
         } catch (ExpiredJwtException e) {
-            result.put("error", "ExpiredJwtException");
+           return false;
         }
-        return result;
+        return true;
     }
 }
 

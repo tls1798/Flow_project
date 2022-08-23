@@ -77,7 +77,9 @@ public class AuthApiController {
     // 액세스 토큰이 유효하지 않다면 main.html 접근 막기 위함
     @GetMapping("/check/{accessToken}")
     public ResponseEntity<?> validtokencheck(@PathVariable String accessToken) {
-        return ResponseEntity.status(HttpStatus.OK).body(authService.validtokencheck(accessToken));
+        if(authService.validtokencheck(accessToken))
+            return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
 }
