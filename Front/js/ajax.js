@@ -546,7 +546,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo){
                 xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
-                socket.emit('room', [window.localStorage.getItem('rmNo'), 'addComment']);
+                socket.emit('room', [rmNo, 'addComment']);
             },
             error: function (xhr, status, err) {
                 autoaccess()

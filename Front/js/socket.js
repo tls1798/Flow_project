@@ -80,7 +80,7 @@ export function setting() {
             getAllAlarmsAjax();
 
             // 새 글 업데이트 버튼 활성화
-            if(Action!='delComment' && Action!='delPost' 
+            if((Action=='addComment' || Action=='addPost' || Action=='invite') 
                 && Projectroom == window.localStorage.getItem('rmNo')
                 && $('#detailTop').css('display')=='block'
                 && $('#searchResult').hasClass('d-none'))
