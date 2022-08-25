@@ -23,11 +23,11 @@ public class PassworedSecurityBean {
     public static PasswordEncoder passwordEncoder() {
 
         // encoding 기본형
-        String idForEncode = "sha2";
+        String idForEncode = "sha256";
 
         Map<String, PasswordEncoder> encoders = new HashMap<>();
 
-        encoders.put("sha2", new PasswordEncoder() {
+        encoders.put("sha256", new PasswordEncoder() {
             @Override
             public String encode(CharSequence rawPassword) {
                 String encrypted = Hashing.sha256().hashString(rawPassword.toString(), Charsets.UTF_8).toString();

@@ -428,7 +428,7 @@ export function addMembersToProjectAjax(jsonData, rmNo, ntCheck, memlist) {
                 xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
-                socket.emit('room',window.localStorage.getItem('rmNo'));
+                socket.emit('room', [window.localStorage.getItem('rmNo'), 'invite']);
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -546,7 +546,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo){
                 xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
-                socket.emit('room',window.localStorage.getItem('rmNo'));
+                socket.emit('room', [window.localStorage.getItem('rmNo'), 'addComment']);
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -608,7 +608,7 @@ export function removeCommentAjax(e, postNo, cmNo){
             }
             $('.remark-item[remark-srno='+cmNo+']').remove();
 
-            socket.emit('room',window.localStorage.getItem('rmNo'));
+            socket.emit('room', [window.localStorage.getItem('rmNo'), 'delComment']);
         },
         error: function (xhr, status, err) {
             autoaccess()
@@ -654,7 +654,7 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck){
                 xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
-                socket.emit('room',window.localStorage.getItem('rmNo'));
+                socket.emit('room', [window.localStorage.getItem('rmNo'), 'addPost']);
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -736,7 +736,7 @@ export function removePostAjax(rmNo, postNo, isBookmarkList, documentTitle, proj
             $('#postPopup').removeClass('flow-all-background-1')
             $('.alert-pop').children().children().text('삭제되었습니다.')
             alert()
-            socket.emit('room',window.localStorage.getItem('rmNo'));
+            socket.emit('room', [window.localStorage.getItem('rmNo'), 'delPost']);
         },
         error: function (xhr, status, err) {
             autoaccess()
@@ -1750,7 +1750,7 @@ export function getAllProjectsByMeAjax() {
                     // 즐겨찾는 프로젝트
                     if(result[i].favoriteProject==true){
                         $('#MyStarProject').append(`
-                            <li class="project-item ui-state-default" data-id="`+result[i].rmNo+`" data-rm-title="`+rmTitle+`" data-rm-des="`+result[i].rmDes+`">}
+                            <li class="project-item ui-state-default" data-id="`+result[i].rmNo+`" data-rm-title="`+rmTitle+`" data-rm-des="`+result[i].rmDes+`">
                                 <a class="cursor-pointer">
                                     <!-- 알림 배지 -->
                                     <div class="flow-content-ct project-badge" style="display:none">0</div>

@@ -96,6 +96,8 @@ export function updateUnreadAlarmFunc(rmNo) {
     if (cnt > 3) {
         $('#notReadAlarmMore').css('display', 'block');
         $('.not-read-alarm-item:eq(2)').css('padding', '10px 20px 20px 20px');
+    } else {
+        $('#notReadAlarmMore').css('display', 'none');
     }
 }
 

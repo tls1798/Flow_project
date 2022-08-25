@@ -75,15 +75,16 @@ export function setting() {
         socket.emit('setting', Projectroom);
 
         // 프로젝트가 늘어날 때 마다 on 하기 위해 forEach 안에
-        socket.on(Projectroom, () => {    
+        socket.on(Projectroom, (Action) => {    
             // 알림레이어 업데이트
             getAllAlarmsAjax();
 
             // 새 글 업데이트 버튼 활성화
-            if(Projectroom == window.localStorage.getItem('rmNo')
+            if(Action!='delComment' && Action!='delPost' 
+                && Projectroom == window.localStorage.getItem('rmNo')
                 && $('#detailTop').css('display')=='block'
                 && $('#searchResult').hasClass('d-none'))
-                $('.post-update-button-area').removeClass('d-none');
+                    $('.post-update-button-area').removeClass('d-none');
         })
     });
 }
