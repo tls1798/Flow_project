@@ -4,7 +4,7 @@ import {bookmarkList, alert} from './bookmark.js'
 import {updateRight} from './rightPostCard.js';
 import {postPopupClose, postInit, postClear} from './createPost.js'
 import {updateList} from './projectList.js';
-import {view, getPostAll} from './feed.js';
+import {view} from './feed.js';
 import {closeCenterPopup, centerSettingButtonClose} from './centerPostPopup.js';
 import {closeRightPostCard, settingButtonClose} from './rightPostCard.js'
 import { getFeed } from './changeMainContainer.js'
@@ -875,7 +875,7 @@ export function addPinAjax(postNo, postPin) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            getPostAll(window.localStorage.getItem('rmNo'))
+            getAllPostsPinByProjectAjax(window.localStorage.getItem('rmNo'))
             $('.alert-pop').children().children().text('변경되었습니다.')
             alert();
         },
@@ -948,6 +948,7 @@ export function getAllParticipantsAjax(rmNo) {
             }
         });
     }).then(() => {
+        // 누군가 접속했을 때, 접속 표시 on
         onlinelist.forEach(memNum => {
             $('.'+memNum+'').css("background-color","limegreen");
         })          
@@ -1038,6 +1039,7 @@ export function getAllPostsPinByProjectAjax(rmNo){
 export function getAllPostsByProjectAjax(rmNo, offset) {
     // 현재 프로젝트룸에게만 알림 보내기전에 rmNo 세팅
     window.localStorage.setItem('rmNo',rmNo)
+    // socket.js line:74
     socket.emit('setting', rmNo)
     
     // offset이 0이면 스크롤 위치 이동
@@ -1806,6 +1808,7 @@ export function getAllProjectsByMeAjax() {
         // 알림레이어 업데이트
         getAllAlarmsAjax();
     }).then(()=>{
+        // socket.js line:65
         setting();
     })
 }

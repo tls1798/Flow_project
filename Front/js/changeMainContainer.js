@@ -102,6 +102,10 @@ $(document).on('click', '.left-menu-item, .project-item, .logo-box', function(){
     if($('#popBack1>li').length > 0){
         initRightPostCard();
     }
+
+    // 새 글 업데이트 버튼 삭제
+    if(!$('.post-update-button-area').hasClass('d-none'))
+        $('.post-update-button-area').addClass('d-none');
     
     if(!$('#searchResult').hasClass('d-none')){
         $('#searchResult').addClass('d-none');

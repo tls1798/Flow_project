@@ -3,6 +3,7 @@ import { memNo } from './ajax.js'
 export let onlinelist = [];
 
 $(function () {
+    // app.js line:20
     socket.emit('online', memNo)
 
     // 초대받을시 프로젝트 리스트 알림 갱신
@@ -11,6 +12,7 @@ $(function () {
         getAllProjectsByMeAjax()
     })
 
+    // 누군가 접속했을 때 발생하는 이벤트
     // 접속중인 멤버 리스트에 담기
     socket.on('online', (onlinememNo) => {
         onlinelist.push(onlinememNo)
@@ -63,14 +65,25 @@ export function elapsedTime(date) {
 // 소켓 하나만 사용하기 위한 Export
 export const socket= io.connect('http://localhost:3333/flow');
 
+// 프로젝트 리스트 업데이트 시 실행되는 함수
+// 프로젝트 리스트를 돌면서 socket.emit('setting')
 export function setting() {
     // 멤버마다 각각의 프로젝트에 대한 방 설정과 통신을 위한 Foreach
 
     ProjectList.forEach(Projectroom => {
+        // app.js line:62
         socket.emit('setting', Projectroom);
+
+        // 프로젝트가 늘어날 때 마다 on 하기 위해 forEach 안에
         socket.on(Projectroom, () => {    
             // 알림레이어 업데이트
             getAllAlarmsAjax();
+
+            // 새 글 업데이트 버튼 활성화
+            if(Projectroom == window.localStorage.getItem('rmNo')
+                && $('#detailTop').css('display')=='block'
+                && $('#searchResult').hasClass('d-none'))
+                $('.post-update-button-area').removeClass('d-none');
         })
     });
 }
