@@ -135,7 +135,7 @@ $('#alarmTopCount').change(function () {
 
 // 새 글 업데이트 버튼 클릭
 $('.post-update-button-area').click(function(){
-    getPostAll(window.localStorage.getItem('rmNo'));
+    getPostAll($('#detailSettingProjectSrno').text());
     $('.post-update-button-area').addClass('d-none');
 })
 
