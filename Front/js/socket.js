@@ -79,7 +79,7 @@ export function setting() {
             // 알림레이어 업데이트
             getAllAlarmsAjax();
             // 새 글 업데이트 버튼 활성화
-            if((Action=='addComment' || Action=='addPost' || Action=='invite') 
+            if((Action=='addComment' || Action=='addPost') 
                 && Projectroom == window.localStorage.getItem('rmNo')
                 && $('#detailTop').css('display')=='block'
                 && $('#searchResult').hasClass('d-none'))

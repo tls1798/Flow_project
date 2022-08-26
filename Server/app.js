@@ -34,10 +34,10 @@ flow.on('connection', (socket) => {
 
     // 초대 갱신
     socket.on('invite', (memNo) => {
-        socket.join('online')
         memNo.forEach(memno => {
-            // socket.js line:10
-            flow.to('online').emit(memno)    
+            if(memberSocketId.has(memno)==true)
+                // socket.js line:10
+                flow.to('online').emit(memno)
         })
     })
 
