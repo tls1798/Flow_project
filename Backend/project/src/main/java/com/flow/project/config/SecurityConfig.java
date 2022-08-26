@@ -49,15 +49,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // Web swagger 관련 접속 허용
-    @Override
-    public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/v2/api-docs",
-                "/configuration/ui",
-                "/swagger-resources/**",
-                "/configuration/security",
-                "/swagger-ui.html",
-                "/webjars/**");
-    }
+//    @Override
+//    public void configure(WebSecurity web) {
+//        web.ignoring().antMatchers("/v2/api-docs",
+//                "/configuration/ui",
+//                "/swagger-resources/**",
+//                "/configuration/security",
+//                "/swagger-ui.html",
+//                "/webjars/**");
+//    }
 
     protected void configure(HttpSecurity http) throws Exception {
         http

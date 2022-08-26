@@ -1,5 +1,4 @@
 import { memNo } from './ajax.js'
-
 export function autoaccess() {
     let accessToken = window.localStorage.getItem('accessToken')
     let refreshToken = window.localStorage.getItem('refreshToken')

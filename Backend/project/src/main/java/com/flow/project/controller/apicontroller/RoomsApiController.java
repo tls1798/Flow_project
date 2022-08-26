@@ -24,7 +24,7 @@ public class RoomsApiController {
 
     // 프로젝트 조회 (프로젝트 리스트에서 프로젝트 선택)
     @GetMapping("/members/{memNo}/rooms/{rmNo}")
-    public ResponseEntity<?> getSelectedRoom(@PathVariable String rmNo, @PathVariable String memNo){
+    public ResponseEntity<?> getSelectedRoom(@PathVariable String rmNo, @PathVariable String memNo) {
         return ResponseEntity.status(HttpStatus.OK).body(roomsService.getSelectedRoom(rmNo, memNo));
     }
 
@@ -50,12 +50,12 @@ public class RoomsApiController {
         Rooms room = roomsService.removeRoom(rmNo);
 
         // 관련 알림 없을 때
-        if(notificationsService.getRoomNotisByRmNo(rmNo) == 0){
-            return room!=null ? ResponseEntity.ok(room) : ResponseEntity.badRequest().build();
+        if (notificationsService.getRoomNotisByRmNo(rmNo) == 0) {
+            return room != null ? ResponseEntity.ok(room) : ResponseEntity.badRequest().build();
         }
         // 관련 알림 있을 때 프로젝트 삭제 시, 관련 알림도 삭제
         else {
-            return room!=null && notificationsService.removeRoomNoti(rmNo)
+            return room != null && notificationsService.removeRoomNoti(rmNo)
                     ? ResponseEntity.ok(room)
                     : ResponseEntity.badRequest().build();
         }

@@ -1038,7 +1038,7 @@ export function getAllPostsPinByProjectAjax(rmNo){
 // 피드 내 글/댓글 가져오기
 export function getAllPostsByProjectAjax(rmNo, offset) {
     // 현재 프로젝트룸에게만 알림 보내기전에 rmNo 세팅
-    window.localStorage.setItem('rmNo',rmNo)
+    window.localStorage.setItem('rmNo', rmNo)
     // socket.js line:74
     socket.emit('setting', rmNo)
     

@@ -75,10 +75,9 @@ export function setting() {
         socket.emit('setting', Projectroom);
 
         // 프로젝트가 늘어날 때 마다 on 하기 위해 forEach 안에
-        socket.on(Projectroom, (Action) => {    
+        socket.on(Projectroom, (Action) => {  
             // 알림레이어 업데이트
             getAllAlarmsAjax();
-
             // 새 글 업데이트 버튼 활성화
             if((Action=='addComment' || Action=='addPost' || Action=='invite') 
                 && Projectroom == window.localStorage.getItem('rmNo')
