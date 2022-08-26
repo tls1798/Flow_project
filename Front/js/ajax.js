@@ -428,7 +428,7 @@ export function addMembersToProjectAjax(jsonData, rmNo, ntCheck, memlist) {
                 xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
-                socket.emit('room', [window.localStorage.getItem('rmNo'), 'invite']);
+                // socket.emit('room', [window.localStorage.getItem('rmNo'), 'invite']);
             },
             error: function (xhr, status, err) {
                 autoaccess()
