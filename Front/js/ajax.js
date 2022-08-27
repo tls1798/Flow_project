@@ -907,19 +907,21 @@ export function getAllParticipantsAjax(rmNo) {
                 // 관리자 제외 참여자 수 수정
                 $('#outerParticipantsCount').text(result.length - 1);
 
-                // 프로젝트 관리자
-                $('.participants-admin-span').append(`
-                    <li class="js-participant-item" data-id="`+ result[0].rmAdmin + `">
-                        <div class="post-author">
-                        <span class="js-participant-profile thumbnail size40 radius16" data=""><div class="online `+ result[0].rmAdmin + `"></div></span><dl class="post-author-info">
-                                <dt>
-                                    <strong class="js-participant-name author ellipsis">`+ result[0].adminName + `</strong>
-                                    <em class="position ellipsis" style="display:none" data=""></em>
-                                </dt>
-                            </dl>
-                        </div>
-                    </li>
-                `);
+                if(result.length != 0){
+                    // 프로젝트 관리자
+                    $('.participants-admin-span').append(`
+                        <li class="js-participant-item" data-id="`+ result[0].rmAdmin + `">
+                            <div class="post-author">
+                            <span class="js-participant-profile thumbnail size40 radius16" data=""><div class="online `+ result[0].rmAdmin + `"></div></span><dl class="post-author-info">
+                                    <dt>
+                                        <strong class="js-participant-name author ellipsis">`+ result[0].adminName + `</strong>
+                                        <em class="position ellipsis" style="display:none" data=""></em>
+                                    </dt>
+                                </dl>
+                            </div>
+                        </li>
+                    `);
+                }
 
                 // 참여자
                 for (var i = 0; i < result.length; i++) {

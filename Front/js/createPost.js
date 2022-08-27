@@ -165,8 +165,8 @@ $(document).on('click', '.post-option>ul',function(e){
         toastEditor();
         
         // 기존 값 가져오기
-        const title = $(this).closest('.post-card-scroll').find('.post-title').text();
-        const content = $(this).closest('.post-card-scroll').find('#originalPost')[0].innerHTML;
+        let title = $(this).closest('.post-card-scroll').find('.post-title').text();
+        let content = $(this).closest('.post-card-scroll').find('#originalPost')[0].innerHTML;
         const rmNo = $(this).closest('li').attr('data-project-srno');
         const postNo = $(this).closest('li').attr('data-post-srno');
         $('#postTitle').val(title);
@@ -196,8 +196,8 @@ $(document).on('click', '.post-option>ul',function(e){
         
         // 확인 버튼
         $("#createPostSubmit").off().on('click', function(){
-            const editTitle = $(this).closest('.js-editor').find('input').val();
-            const editContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
+            let editTitle = $(this).closest('.js-editor').find('input').val();
+            let editContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
 
             // 글 제목에 script 있으면 태그 제거 
             if(editTitle.indexOf('<script>')!=-1){

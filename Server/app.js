@@ -33,6 +33,7 @@ flow.on('connection', (socket) => {
     })
 
     // 초대 갱신
+    // ajax.js line:413
     socket.on('invite', (memNo) => {
         memNo.forEach(memno => {
             if(memberSocketId.has(memno)==true)
@@ -70,5 +71,6 @@ flow.on('connection', (socket) => {
     // 프로젝트 나가기
     socket.on('leave', (roomNo) => {
         socket.leave(roomNo)
+        socket.to('online').emit(roomNo, 'updateParticipant')
     })
 })

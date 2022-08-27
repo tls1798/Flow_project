@@ -19,12 +19,7 @@ $(function () {
 
         // 프로젝트가 있을경우에만 참여자 목록 갱신
         if (window.localStorage.getItem('rmNo') != null) {
-            if(getProjectAjax(window.localStorage.getItem('rmNo'))>0){
-                getAllParticipantsAjax(window.localStorage.getItem('rmNo'))
-            }
-            else{
-                localStorage.removeItem('rmNo');
-            }
+            getAllParticipantsAjax(window.localStorage.getItem('rmNo'))
         }
     })
     
@@ -84,6 +79,10 @@ export function setting() {
                 && $('#detailTop').css('display')=='block'
                 && $('#searchResult').hasClass('d-none'))
                     $('.post-update-button-area').removeClass('d-none');
+
+            // 누군가 프로젝트를 나갔을 때, 참여자 업데이트
+            if(Action=='updateParticipant')
+                getAllParticipantsAjax(Projectroom);
         })
     });
 }
