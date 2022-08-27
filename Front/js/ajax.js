@@ -1974,6 +1974,7 @@ export function getSearchResultAjax(searchItem){
 
 // 프로젝트 있는 지 확인
 export function getProjectAjax(rmNo){
+    let rm;
     $.ajax({
         type: 'GET',
         url: 'http://localhost:8818/api/rooms/'+rmNo,
@@ -1983,12 +1984,14 @@ export function getProjectAjax(rmNo){
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            return result;
+            rm = result;
         },
         error: function (xhr, status, err) {
             autoaccess()
         }
     });
+
+    return rm;
 }
 
 // main.html 막기 위함

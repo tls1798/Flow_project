@@ -1,5 +1,6 @@
-import {exitProjectAjax, removeProjectAjax, addFavoriteProjectAjax, deleteFavoriteProjectAjax} from './ajax.js';
+import {exitProjectAjax, removeProjectAjax, addFavoriteProjectAjax, deleteFavoriteProjectAjax, getProjectAjax} from './ajax.js';
 import {confirmOpen, confirmClose} from './confirm.js'
+import { erralert } from './bookmark.js';
 
 // 즐겨찾기 버튼
 $('#projectStar').click(function(e){
@@ -47,6 +48,18 @@ $('#detailSettingProjectUpdateBtn').click(function(){
 
 // 프로젝트 나가기
 $('#detailSettingProjectExitBtn').click(function(){
+    // 프로젝트 삭제 여부 확인
+    if(getProjectAjax(window.localStorage.getItem('rmNo')) == ''){
+        // 경고창
+        $('.alert-pop').children().children().text('삭제된 프로젝트입니다.');
+        erralert();
+
+        // 로고 클릭하여 프로젝트 리스트로
+        $('.logo-box').click();
+
+        return false;
+    }
+
     $('.popup-cont').text('프로젝트 나가기 시, 프로젝트 목록에서 삭제되며\n작성하신 게시물 확인이 불가합니다.');
     confirmOpen('exit-confirm');
 });

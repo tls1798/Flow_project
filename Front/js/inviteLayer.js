@@ -1,5 +1,6 @@
-import {getAllMembersAjax, addMembersToProjectAjax} from './ajax.js'
+import {getAllMembersAjax, addMembersToProjectAjax, getProjectAjax} from './ajax.js'
 import {confirmOpen, confirmClose} from './confirm.js'
+import { erralert } from './bookmark.js';
 
 // 초기화
 const clearInviteLayer = function(){
@@ -21,6 +22,18 @@ const closeInviteLayer = function(tar){
 
 // 초대하기 버튼 클릭 -> 첫 번째 팝업 display block
 $(document).on('click', '#openInviteLayerBtn, #noDetailDataBnt', function(){
+    // 프로젝트 삭제 여부 확인
+    if(getProjectAjax(window.localStorage.getItem('rmNo')) == ''){
+        // 경고창
+        $('.alert-pop').children().children().text('삭제된 프로젝트입니다.');
+        erralert();
+
+        // 로고 클릭하여 프로젝트 리스트로
+        $('.logo-box').click();
+
+        return false;
+    }
+
     $('#inviteLayer').css('display', 'block');
 })
 

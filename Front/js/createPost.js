@@ -1,4 +1,4 @@
-import {addPostAjax, editPostAjax, removePostAjax} from './ajax.js'
+import {addPostAjax, editPostAjax, removePostAjax, getProjectAjax} from './ajax.js'
 import {confirmOpen_post, confirmClose_post} from './confirm.js'
 import {initRightPostCard} from './rightPostCard.js'
 import fontSizePlugin from './fontSize.js';
@@ -109,18 +109,11 @@ $('#popBack2').click(function(e){
         confirmClose_post();
 })
 
-// 글 작성 영역 클릭 시 닫기 안되게
+// 글 작성 영역 클릭
 $('.create-post-wrap').click(function(e){
 
     // 글 쓰기 버튼 클릭 시
     if (e.target.type == 'submit') {
-        // 내용 없으면 경고창
-        const checkContent = $('.ProseMirror.toastui-editor-contents').text();
-        if(checkContent===""){
-        $('.alert-pop').children().children().text('내용을 입력하세요.')
-        erralert()
-        return false;
-        }
 
         let postTitle = $('#postTitle').val();
         let postContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
@@ -128,6 +121,29 @@ $('.create-post-wrap').click(function(e){
 
         let postNo = 0;
         let ntCheck ='{';
+
+        // 프로젝트 삭제 여부 확인
+        if(getProjectAjax(rmNo) == ''){
+            // 경고창
+            $('.alert-pop').children().children().text('삭제된 프로젝트입니다.');
+            erralert();
+
+            // 글 팝업 창 닫기
+            postPopupClose();
+
+            // 로고 클릭하여 프로젝트 리스트로
+            $('.logo-box').click();
+
+            return false;
+        }
+
+        // 내용 없으면 경고창
+        const checkContent = $('.ProseMirror.toastui-editor-contents').text();
+        if(checkContent===""){
+            $('.alert-pop').children().children().text('내용을 입력하세요.')
+            erralert()
+            return false;
+        }
         
         // 글 제목에 script 있으면 태그 제거 
         if(postTitle.indexOf('<script>')!=-1){
@@ -140,12 +156,14 @@ $('.create-post-wrap').click(function(e){
             postContent = postContent.replace(/</g, '&lt');
             postContent = postContent.replace(/>/g, '&gt'); 
         }
+
         addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck);
 
         postPopupClose();
         postClear();
-    } 
-    else{
+    }
+    else {
+        // 창 닫기 안되도록
         return false;
     }
 })
@@ -196,6 +214,22 @@ $(document).on('click', '.post-option>ul',function(e){
         
         // 확인 버튼
         $("#createPostSubmit").off().on('click', function(){
+
+            // 프로젝트 삭제 여부 확인
+            if(getProjectAjax(rmNo) == ''){
+                // 경고창
+                $('.alert-pop').children().children().text('삭제된 프로젝트입니다.');
+                erralert();
+
+                // 글 팝업 창 닫기
+                postPopupClose();
+
+                // 로고 클릭하여 프로젝트 리스트로
+                $('.logo-box').click();
+
+                return false;
+            }
+
             let editTitle = $(this).closest('.js-editor').find('input').val();
             let editContent = $('.ProseMirror.toastui-editor-contents')[0].innerHTML;
 
@@ -220,6 +254,22 @@ $(document).on('click', '.post-option>ul',function(e){
         const postNo = $(e.target).closest("[id^='post-']").attr('data-post-srno');
         documentTitle = $(document).prop('title');
         let projectTitle = '';
+
+        // 프로젝트 삭제 여부 확인
+        if(getProjectAjax(rmNo) == ''){
+            // 경고창
+            $('.alert-pop').children().children().text('삭제된 프로젝트입니다.');
+            erralert();
+
+            // 글 팝업 창 닫기
+            postPopupClose();
+
+            // 로고 클릭하여 프로젝트 리스트로
+            $('.logo-box').click();
+
+            return false;
+        }
+
         // 오른쪽 글 카드 있을 때
         if(e.target.id=='rightDelBtn'){
             projectTitle = $('.js-project-title-button').text();

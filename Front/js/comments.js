@@ -1,4 +1,5 @@
-import {addCommentAjax, editCommentAjax, removeCommentAjax} from './ajax.js'
+import {addCommentAjax, editCommentAjax, removeCommentAjax, getProjectAjax} from './ajax.js'
+import { erralert } from './bookmark.js';
 
 // Date format
 Date.prototype.YYYYMMDDHHMM = function () {
@@ -35,6 +36,18 @@ $(document).on('keyup','.comment-input',function(key){
         let rmNo= $(this).closest('li').attr('data-project-srno');
         let postNo= $(this).closest('li').attr('data-post-srno');
         let cmContent = this.innerText;
+
+        // 프로젝트 삭제 여부 확인
+        if(getProjectAjax(rmNo) == ''){
+            // 경고창
+            $('.alert-pop').children().children().text('삭제된 프로젝트입니다.');
+            erralert();
+
+            // 로고 클릭하여 프로젝트 리스트로
+            $('.logo-box').click();
+
+            return false;
+        }
 
         // 댓글 내용 없을 경우 경고창
         if(cmContent=='') {
@@ -78,6 +91,19 @@ $(document).on('click', '.comment-writer-menu',function(e){
         $(document).on('keyup', '.edit-comment-input', function (key) {
             if(key.keyCode == 13 && !key.shiftKey){
                 key.preventDefault();
+                
+                // 프로젝트 삭제 여부 확인
+                let rmNo= $(this).closest('#feed').attr('data-id');
+                if(getProjectAjax(rmNo) == ''){
+                    // 경고창
+                    $('.alert-pop').children().children().text('삭제된 프로젝트입니다.');
+                    erralert();
+
+                    // 로고 클릭하여 프로젝트 리스트로
+                    $('.logo-box').click();
+
+                    return false;
+                }
 
                 let postNo= $(this).closest('[id^="post"]').attr('data-post-srno');
                 let cmContent = this.innerText;
@@ -96,6 +122,19 @@ $(document).on('click', '.comment-writer-menu',function(e){
     }
     // 댓글 삭제
     else if(e.target.id=='cmDelBtn'){
+        // 프로젝트 삭제 여부 확인
+        let rmNo= $(this).closest('#feed').attr('data-id');
+        if(getProjectAjax(rmNo) == ''){
+            // 경고창
+            $('.alert-pop').children().children().text('삭제된 프로젝트입니다.');
+            erralert();
+
+            // 로고 클릭하여 프로젝트 리스트로
+            $('.logo-box').click();
+
+            return false;
+        }
+
         const postNo = $(this).closest('li').parent().closest('li').attr('data-post-srno');
         const cmNo = $(this).closest('li').attr('remark-srno');
 

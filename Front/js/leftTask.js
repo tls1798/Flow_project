@@ -18,6 +18,10 @@ $('.new-project-1').click(function(){
     $('.create-project').css('display', 'block');
     $('#templateReturnButton').css('display', 'block');
     $('.js-submit-project').html('프로젝트 만들기');
+
+    // 새 글 업데이트 버튼 삭제
+    if(!$('.post-update-button-area').hasClass('d-none'))
+        $('.post-update-button-area').addClass('d-none');
 });
 
 // 로고, 내 프로젝트 버튼 클릭 시 프로젝트 리스트 화면으로 + 내 프로젝트 메뉴 active

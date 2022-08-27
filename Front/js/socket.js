@@ -1,4 +1,4 @@
-import { getAllAlarmsAjax, ProjectList, getAllParticipantsAjax ,getAllProjectsByMeAjax, getProjectAjax} from './ajax.js';
+import { getAllAlarmsAjax, ProjectList, getAllParticipantsAjax ,getAllProjectsByMeAjax} from './ajax.js';
 import { memNo } from './ajax.js'
 export let onlinelist = [];
 
