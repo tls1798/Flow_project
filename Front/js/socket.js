@@ -10,6 +10,7 @@ $(function () {
     socket.on(memNo, () => {
         $('#projectBoardUl').find('li').remove();
         getAllProjectsByMeAjax()
+        getAllParticipantsAjax(window.localStorage.getItem('rmNo'))
     })
 
     // 누군가 접속했을 때 발생하는 이벤트

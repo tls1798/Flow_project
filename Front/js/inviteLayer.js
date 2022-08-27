@@ -177,6 +177,14 @@ $('#inviteMembers').click(function(){
         memlist.push(curMem)
     }
 
+    // 해당 방 참여자 curMem에 추가 -> 참여자 갱신
+    // 관리자
+    memlist.push($('.js-participant-item').attr('data-id'));
+    // 참여자
+    $('.participants-title.participants-member-span').find('li').each(function(i,ele){
+        memlist.push($(ele).attr('data-id'))
+    })
+
     jsonData += "]";
     ntCheck += "}";
 
