@@ -654,7 +654,7 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck){
                 xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
-                socket.emit('room', [window.localStorage.getItem('rmNo'), 'addPost']);
+                socket.emit('room', [rmNo, 'addPost']);
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -756,6 +756,8 @@ export function addProjectAjax(rmNo) {
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
+            getAllProjectsByMeAjax();
+            
             // 해당 프로젝트 피드로 이동
             getFeed(rmNo);
 
