@@ -2,6 +2,7 @@
 <html lang="ko">
 
 <head>
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,8 +22,8 @@
 
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../css/all-common.css">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="./css/all-common.css">
+    <link rel="stylesheet" href="./css/login.css">
 </head>
 
 <body>
@@ -65,7 +66,7 @@
                 <div class="password-detect">
                     <input id="findEmailInput" type="text" placeholder="이메일을 입력해주세요!" autocomplete="off" maxlength="50"
                         data-required-yn="Y" data-valid="email" data-empty-msg="이메일을 입력해주세요!"
-                        data-over-msg="이메일이 50자가 넘으셨습니다!" data-un-valid-msg="이메일 형식이 맞지 않습니다.">
+                        data-over-msg="이메일이 50자가 넘으셨습니다!" data-exist-mail="존재하지 않는 메일입니다" data-un-valid-msg="이메일 형식이 맞지 않습니다.">
                     <div class="js-password-alert password-alert-text"></div>
                 </div>
                 <a id="findSubmit" href="#" class="password-button">임시 비밀번호 발급 이메일 받기</a>
@@ -75,4 +76,4 @@
 </body>
 
 </html>
-<script type="module" src="../js/login.js"></script>
+<script type="module" src="./js/login.js"></script>

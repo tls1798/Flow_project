@@ -185,6 +185,37 @@
     color: #6449fc;
 }
 
+/* 새 글 업데이트 버튼 */
+.post-update-button-area {
+    position: absolute;
+    z-index: 10;
+    max-width: 355px;
+    left: 50%;
+    top: 130px;
+    transform: translate(-50%,0);
+}
+.post-update-button {
+    height: 50px;
+    line-height: 50px;
+    padding: 0 20px 0 12px;
+    background: linear-gradient(144.89deg,#404040 5.62%,#3e3e3e 93.29%);
+    box-shadow: 10px 10px 25px rgb(0 0 0 / 10%);
+    border-radius: 900px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: -.02em;
+}
+.post-update-button::before {
+    display: inline-block;
+    content: "";
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    background: url(https://flow.team/flow-renewal/assets/images/icons/icon_arrow_update.png);
+    vertical-align: middle;
+}
+
 /* 미확인 */
 .detail-section.unidentified-alert-section {
     margin: 0 0 20px 0;

@@ -36,7 +36,7 @@ public class EmailService {
         String msg1 = "인증번호 입력창에 아래 인증번호를 입력하세요.";
         String msg2 = "새로 발급된 패스워드 입니다";
         String content1 = "\t\t\t\t\t\t\t\t본 메일은 ‘플로우’ 시작 시, 본인<br>\t\t\t\t\t\t\t\t확인을 위해 자동으로 발송되는 메일입니다.";
-        String content2 = "\t\t\t\t\t\t\t\t본 메일은 ‘플로우’ 비밀번호 재발급시, 본인<br>\t\t\t\t\t\t\t\t확인을 위해 자동으로 발송되는 메일입니다.";
+        String content2 = "\t\t\t\t\t\t\t\t본 메일은 ‘플로우’ 비밀번호 재발급시, 발송되는 메일입니다.";
         message.addRecipients(RecipientType.TO, to);//보내는 대상
         message.setSubject((num == 1) ? title1 : title2);//제목
 
@@ -98,8 +98,9 @@ public class EmailService {
                 member.setMemPw(newPw);
                 if (authMapper.newPassword(member) > 0)
                     System.out.println("success");
-                else
+                else {
                     throw new UserException(ErrorCode.FailPwException);
+                }
             }
             emailSender.send(message);
         } catch (MailException es) {

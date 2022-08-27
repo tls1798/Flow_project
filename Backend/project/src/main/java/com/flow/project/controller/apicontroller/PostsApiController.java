@@ -46,17 +46,11 @@ public class PostsApiController {
     // 특정 프로젝트 방 글 삭제
     @DeleteMapping("/rooms/{rmNo}/posts/{postNo}/{memNo}")
     public ResponseEntity<?> removePost(@PathVariable String rmNo, @PathVariable int postNo, @PathVariable String memNo) {
-        // 관련 알림 없을 때
-        if (notificationsService.getRoomNotisByPostNo(memNo, postNo) == 0) {
-            return postsService.removePost(rmNo, postNo, memNo) > 0 ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
-        }
         // 관련 알림 있을 때 글 삭제 시, 관련 알림도 삭제
-        else {
-            return notificationsService.removePostNoti(postNo)
-                    && postsService.removePost(rmNo, postNo, memNo) > 0
-                    ? ResponseEntity.ok().build()
-                    : ResponseEntity.badRequest().build();
-        }
+        return notificationsService.removePostNoti(postNo)
+            && postsService.removePost(rmNo, postNo, memNo) > 0
+            ? ResponseEntity.ok().build()
+            : ResponseEntity.badRequest().build();
     }
 
     // 특정 글 상단고정

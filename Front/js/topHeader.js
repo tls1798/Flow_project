@@ -89,6 +89,10 @@ $('#searchPopupInput').keypress(function(e){
         $('#searchResult').removeClass('d-none');
         $('.top-setting-bar #topSettingBar').css('display', 'none');
 
+        // 새 글 업데이트 버튼 삭제
+        if(!$('.post-update-button-area').hasClass('d-none'))
+            $('.post-update-button-area').addClass('d-none');
+
         // 검색창에 검색어 넣고 닫기 버튼 추가
         $('.main-search-box input').val('검색 : '+searchItem);
         $('.main-search-box button').addClass('active');

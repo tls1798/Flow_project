@@ -2,6 +2,7 @@
 <html lang="ko">
 
 <head>
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +19,7 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <!-- 소켓 -->
-    <!-- <script src="../../Server/node_modules/socket.io/client-dist/socket.io.js"></script> -->
+    <!-- <script src="././Server/node_modules/socket.io/client-dist/socket.io.js"></script> -->
     <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
     
     <!-- Toast ui -->
@@ -28,44 +29,44 @@
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
 
     <!-- css -->
-    <link rel="stylesheet" href="../css/all-common.css">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/topHeader.css">
-    <link rel="stylesheet" href="../css/mainBodyWrap.css">
-    <link rel="stylesheet" href="../css/projectList.css">
-    <link rel="stylesheet" href="../css/topSettingBar.css">
-    <link rel="stylesheet" href="../css/leftTask.css">
-    <link rel="stylesheet" href="../css/createProject.css">
-    <link rel="stylesheet" href="../css/alarmLayer.css">
-    <link rel="stylesheet" href="../css/feed.css">
-    <link rel="stylesheet" href="../css/rightPostCard.css">
-    <link rel="stylesheet" href="../css/createPost.css">
-    <link rel="stylesheet" href="../css/inviteLayer.css">
-    <link rel="stylesheet" href="../css/profilePopup.css">
-    <link rel="stylesheet" href="../css/centerPostPopup.css">
-    <link rel="stylesheet" href="../css/search.css">
-    <link rel="stylesheet" href="../css/fontSize.css">
+    <link rel="stylesheet" href="./css/all-common.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/topHeader.css">
+    <link rel="stylesheet" href="./css/mainBodyWrap.css">
+    <link rel="stylesheet" href="./css/projectList.css">
+    <link rel="stylesheet" href="./css/topSettingBar.css">
+    <link rel="stylesheet" href="./css/leftTask.css">
+    <link rel="stylesheet" href="./css/createProject.css">
+    <link rel="stylesheet" href="./css/alarmLayer.css">
+    <link rel="stylesheet" href="./css/feed.css">
+    <link rel="stylesheet" href="./css/rightPostCard.css">
+    <link rel="stylesheet" href="./css/createPost.css">
+    <link rel="stylesheet" href="./css/inviteLayer.css">
+    <link rel="stylesheet" href="./css/profilePopup.css">
+    <link rel="stylesheet" href="./css/centerPostPopup.css">
+    <link rel="stylesheet" href="./css/search.css">
+    <link rel="stylesheet" href="./css/fontSize.css">
 
-    <script defer type="module" src="../js/projectList.js"></script>
-    <script defer type="module" src="../js/feed.js"></script>
-    <script defer type="module" src="../js/topSettingBar.js"></script>
-    <script defer type="module" src="../js/createProject.js"></script>
-    <script defer type="module" src="../js/topHeader.js"></script>
-    <script defer type="module" src="../js/alarmLayer.js"></script>
-    <script defer type="module" src="../js/profilePopup.js"></script>
-    <script defer type="module" src="../js/socket.js"> </script>
-    <script defer type="module" src="../js/autoAccess.js"></script>
-    <script defer type="module" src="../js/centerPostPopup.js"></script>
-    <script defer type="module" src="../js/leftTask.js"></script>
-    <script defer type="module" src="../js/changeMainContainer.js"></script>
-    <script defer type="module" src="../js/createPost.js"></script>
-    <script defer type="module" src="../js/inviteLayer.js"></script>
-    <script defer type="module" src="../js/comments.js"></script>
-    <script defer type="module" src="../js/rightPostCard.js"></script>
-    <script defer type="module" src="../js/bookmark.js"></script>
-    <script defer type="module" src="../js/search.js"></script>
-    <script defer type="module" src="../js/ajax.js"></script>
-    <script defer type="module" src="../js/fontSize.js"></script>
+    <script defer type="module" src="./js/projectList.js"></script>
+    <script defer type="module" src="./js/feed.js"></script>
+    <script defer type="module" src="./js/topSettingBar.js"></script>
+    <script defer type="module" src="./js/createProject.js"></script>
+    <script defer type="module" src="./js/topHeader.js"></script>
+    <script defer type="module" src="./js/alarmLayer.js"></script>
+    <script defer type="module" src="./js/profilePopup.js"></script>
+    <script defer type="module" src="./js/socket.js"> </script>
+    <script defer type="module" src="./js/autoAccess.js"></script>
+    <script defer type="module" src="./js/centerPostPopup.js"></script>
+    <script defer type="module" src="./js/leftTask.js"></script>
+    <script defer type="module" src="./js/changeMainContainer.js"></script>
+    <script defer type="module" src="./js/createPost.js"></script>
+    <script defer type="module" src="./js/inviteLayer.js"></script>
+    <script defer type="module" src="./js/comments.js"></script>
+    <script defer type="module" src="./js/rightPostCard.js"></script>
+    <script defer type="module" src="./js/bookmark.js"></script>
+    <script defer type="module" src="./js/search.js"></script>
+    <script defer type="module" src="./js/ajax.js"></script>
+    <script defer type="module" src="./js/fontSize.js"></script>
 
 </head>
 
@@ -75,16 +76,6 @@
     <div class="alert-wrap alert-pop" id="toastPopup" style="display:none" >
         <div class="alert-type success">
             <div class="text">적용되었습니다.</div>
-        </div>
-    </div>
-    <div class="alert-wrap alert-pop alert-del-project" id="toastPopup" style="display:none" >
-        <div class="alert-type error">
-            <div class="text">해당 프로젝트는 이미 삭제된 프로젝트입니다.</div>
-        </div>
-    </div>
-    <div class="alert-wrap alert-pop alert-null-cmContent" id="toastPopup" style="display:none" >
-        <div class="alert-type error">
-            <div class="text">댓글 내용을 입력하세요</div>
         </div>
     </div>
 
@@ -472,7 +463,12 @@
        
             <!-- 메인 컨테이너 -->
             <div class="main-act main-container">
-                
+
+                <!-- 새 글 업데이트 버튼 -->
+                <div id="newUpdate" class="post-update-button-area d-none" style="display: block;">
+                    <button type="button" class="post-update-button">새 글 업데이트</button>
+                </div>
+
                 <!-- 검색 창 -->
                 <div id="searchResult" class="all-search-section d-none" style="display: block;">
                     <div id="topSettingBar" class="main-header" style="display: block;">
@@ -581,7 +577,7 @@
                                 <div id="BoardArea" class="project-board-wr" style="display: block;">
                                     <div class="section-1">
                                         <ul id="projectBoardUl" class="project-group clearfix">
-                                            
+                                          
                                             <!-- 참여중인 프로젝트가 없을 때 -->
                                             <div id="projectNull" class="js-project-null project-null-t-1 mgt--5" style="display: none;">
                                                 <div class="project-null-t-2 ">

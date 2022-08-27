@@ -58,18 +58,10 @@ public class CommentsApiController {
     // 특정 게시 글 댓글 삭제
     @DeleteMapping("/posts/{postNo}/comments/{cmNo}/{memNo}")
     public ResponseEntity<?> removeComment(@PathVariable int postNo, @PathVariable int cmNo, @PathVariable String memNo) {
-        // 관련 알림 없을 때
-        if(notificationsService.getRoomNotisByPostNo(memNo, postNo) == 0){
-            return commentsService.removeComment(postNo, cmNo, memNo) > 0
-                    ? ResponseEntity.ok().build()
-                    : ResponseEntity.badRequest().build();
-        }
         // 관련 알림 있을 때 댓글 삭제 시, 관련 알림도 삭제
-        else {
-            return commentsService.removeComment(postNo, cmNo, memNo) > 0
-                    && notificationsService.removeCommentNoti(cmNo)
-                    ? ResponseEntity.ok().build()
-                    : ResponseEntity.badRequest().build();
-        }
+        return commentsService.removeComment(postNo, cmNo, memNo) > 0
+            && notificationsService.removeCommentNoti(cmNo)
+            ? ResponseEntity.ok().build()
+            : ResponseEntity.badRequest().build();
     }
 }

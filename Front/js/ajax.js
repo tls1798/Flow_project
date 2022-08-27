@@ -4,7 +4,7 @@ import {bookmarkList, alert} from './bookmark.js'
 import {updateRight} from './rightPostCard.js';
 import {postPopupClose, postInit, postClear} from './createPost.js'
 import {updateList} from './projectList.js';
-import {view, getPostAll} from './feed.js';
+import {view} from './feed.js';
 import {closeCenterPopup, centerSettingButtonClose} from './centerPostPopup.js';
 import {closeRightPostCard, settingButtonClose} from './rightPostCard.js'
 import { getFeed } from './changeMainContainer.js'
@@ -428,7 +428,7 @@ export function addMembersToProjectAjax(jsonData, rmNo, ntCheck, memlist) {
                 xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
-                socket.emit('room',window.localStorage.getItem('rmNo'));
+                // socket.emit('room', [window.localStorage.getItem('rmNo'), 'invite']);
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -546,7 +546,7 @@ export function addCommentAjax(key, rmNo, postNo, cmContent, ntCheck, cmNo){
                 xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
-                socket.emit('room',window.localStorage.getItem('rmNo'));
+                socket.emit('room', [rmNo, 'addComment']);
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -608,7 +608,7 @@ export function removeCommentAjax(e, postNo, cmNo){
             }
             $('.remark-item[remark-srno='+cmNo+']').remove();
 
-            socket.emit('room',window.localStorage.getItem('rmNo'));
+            socket.emit('room', [window.localStorage.getItem('rmNo'), 'delComment']);
         },
         error: function (xhr, status, err) {
             autoaccess()
@@ -654,7 +654,7 @@ export function addPostAjax(rmNo, postNo, postTitle, postContent, ntCheck){
                 xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
             },
             success: function (result, status, xhr) {
-                socket.emit('room',window.localStorage.getItem('rmNo'));
+                socket.emit('room', [rmNo, 'addPost']);
             },
             error: function (xhr, status, err) {
                 autoaccess()
@@ -736,7 +736,7 @@ export function removePostAjax(rmNo, postNo, isBookmarkList, documentTitle, proj
             $('#postPopup').removeClass('flow-all-background-1')
             $('.alert-pop').children().children().text('삭제되었습니다.')
             alert()
-            socket.emit('room',window.localStorage.getItem('rmNo'));
+            socket.emit('room', [window.localStorage.getItem('rmNo'), 'delPost']);
         },
         error: function (xhr, status, err) {
             autoaccess()
@@ -756,6 +756,8 @@ export function addProjectAjax(rmNo) {
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
+            getAllProjectsByMeAjax();
+            
             // 해당 프로젝트 피드로 이동
             getFeed(rmNo);
 
@@ -875,7 +877,7 @@ export function addPinAjax(postNo, postPin) {
             xhr.setRequestHeader("token", window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            getPostAll(window.localStorage.getItem('rmNo'))
+            getAllPostsPinByProjectAjax(window.localStorage.getItem('rmNo'))
             $('.alert-pop').children().children().text('변경되었습니다.')
             alert();
         },
@@ -905,19 +907,21 @@ export function getAllParticipantsAjax(rmNo) {
                 // 관리자 제외 참여자 수 수정
                 $('#outerParticipantsCount').text(result.length - 1);
 
-                // 프로젝트 관리자
-                $('.participants-admin-span').append(`
-                    <li class="js-participant-item" data-id="`+ result[0].rmAdmin + `">
-                        <div class="post-author">
-                        <span class="js-participant-profile thumbnail size40 radius16" data=""><div class="online `+ result[0].rmAdmin + `"></div></span><dl class="post-author-info">
-                                <dt>
-                                    <strong class="js-participant-name author ellipsis">`+ result[0].adminName + `</strong>
-                                    <em class="position ellipsis" style="display:none" data=""></em>
-                                </dt>
-                            </dl>
-                        </div>
-                    </li>
-                `);
+                if(result.length != 0){
+                    // 프로젝트 관리자
+                    $('.participants-admin-span').append(`
+                        <li class="js-participant-item" data-id="`+ result[0].rmAdmin + `">
+                            <div class="post-author">
+                            <span class="js-participant-profile thumbnail size40 radius16" data=""><div class="online `+ result[0].rmAdmin + `"></div></span><dl class="post-author-info">
+                                    <dt>
+                                        <strong class="js-participant-name author ellipsis">`+ result[0].adminName + `</strong>
+                                        <em class="position ellipsis" style="display:none" data=""></em>
+                                    </dt>
+                                </dl>
+                            </div>
+                        </li>
+                    `);
+                }
 
                 // 참여자
                 for (var i = 0; i < result.length; i++) {
@@ -948,6 +952,7 @@ export function getAllParticipantsAjax(rmNo) {
             }
         });
     }).then(() => {
+        // 누군가 접속했을 때, 접속 표시 on
         onlinelist.forEach(memNum => {
             $('.'+memNum+'').css("background-color","limegreen");
         })          
@@ -1037,7 +1042,8 @@ export function getAllPostsPinByProjectAjax(rmNo){
 // 피드 내 글/댓글 가져오기
 export function getAllPostsByProjectAjax(rmNo, offset) {
     // 현재 프로젝트룸에게만 알림 보내기전에 rmNo 세팅
-    window.localStorage.setItem('rmNo',rmNo)
+    window.localStorage.setItem('rmNo', rmNo)
+    // socket.js line:74
     socket.emit('setting', rmNo)
     
     // offset이 0이면 스크롤 위치 이동
@@ -1748,7 +1754,7 @@ export function getAllProjectsByMeAjax() {
                     // 즐겨찾는 프로젝트
                     if(result[i].favoriteProject==true){
                         $('#MyStarProject').append(`
-                            <li class="project-item ui-state-default" data-id="`+result[i].rmNo+`" data-rm-title="`+rmTitle+`" data-rm-des="`+result[i].rmDes+`">}
+                            <li class="project-item ui-state-default" data-id="`+result[i].rmNo+`" data-rm-title="`+rmTitle+`" data-rm-des="`+result[i].rmDes+`">
                                 <a class="cursor-pointer">
                                     <!-- 알림 배지 -->
                                     <div class="flow-content-ct project-badge" style="display:none">0</div>
@@ -1806,6 +1812,7 @@ export function getAllProjectsByMeAjax() {
         // 알림레이어 업데이트
         getAllAlarmsAjax();
     }).then(()=>{
+        // socket.js line:65
         setting();
     })
 }
@@ -1967,6 +1974,7 @@ export function getSearchResultAjax(searchItem){
 
 // 프로젝트 있는 지 확인
 export function getProjectAjax(rmNo){
+    let rm;
     $.ajax({
         type: 'GET',
         url: 'http://localhost:8818/api/rooms/'+rmNo,
@@ -1976,12 +1984,14 @@ export function getProjectAjax(rmNo){
             xhr.setRequestHeader("token",window.localStorage.getItem('accessToken'));
         },
         success: function (result, status, xhr) {
-            return result;
+            rm = result;
         },
         error: function (xhr, status, err) {
             autoaccess()
         }
     });
+
+    return rm;
 }
 
 // main.html 막기 위함

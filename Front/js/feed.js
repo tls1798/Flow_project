@@ -96,6 +96,8 @@ export function updateUnreadAlarmFunc(rmNo) {
     if (cnt > 3) {
         $('#notReadAlarmMore').css('display', 'block');
         $('.not-read-alarm-item:eq(2)').css('padding', '10px 20px 20px 20px');
+    } else {
+        $('#notReadAlarmMore').css('display', 'none');
     }
 }
 
@@ -110,10 +112,12 @@ $(document).scroll(function () {
     $('#projectParticipants').css('transform', 'translateX(' + (0 - $(document).scrollLeft()) + 'px');
 });
 
-// 알림레이어 변경될 시 프로젝트 알림 배지 업데이트
+// 알림레이어 변경될 시 미확인 알림/프로젝트 알림 배지 업데이트, 새 글 업데이트 버튼 활성화
 $('#alarmTopCount').change(function () {
+    // 미확인 알림 업데이트
     updateUnreadAlarmFunc($('#detailSettingProjectSrno').text());
 
+    // 프로젝트 알림 배지 업데이트
     $('.project-item').each(function (idx, item) {
         let rmNo = $(item).attr('data-id');
         
@@ -127,6 +131,12 @@ $('#alarmTopCount').change(function () {
             $('.project-item[data-id=' + rmNo + ']').find('.project-badge').text(cnt);
         }
     })
+})
+
+// 새 글 업데이트 버튼 클릭
+$('.post-update-button-area').click(function(){
+    getPostAll($('#detailSettingProjectSrno').text());
+    $('.post-update-button-area').addClass('d-none');
 })
 
 // 미확인 알림 더보기 클릭
