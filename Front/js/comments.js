@@ -93,7 +93,7 @@ $(document).on('click', '.comment-writer-menu',function(e){
                 key.preventDefault();
                 
                 // 프로젝트 삭제 여부 확인
-                let rmNo= $(this).closest('#feed').attr('data-id');
+                let rmNo= $('#detailSettingProjectSrno').text();
                 if(getProjectAjax(rmNo) == ''){
                     // 경고창
                     $('.alert-pop').children().children().text('삭제된 프로젝트입니다.');
@@ -123,7 +123,7 @@ $(document).on('click', '.comment-writer-menu',function(e){
     // 댓글 삭제
     else if(e.target.id=='cmDelBtn'){
         // 프로젝트 삭제 여부 확인
-        let rmNo= $(this).closest('#feed').attr('data-id');
+        let rmNo= $('#detailSettingProjectSrno').text();
         if(getProjectAjax(rmNo) == ''){
             // 경고창
             $('.alert-pop').children().children().text('삭제된 프로젝트입니다.');
