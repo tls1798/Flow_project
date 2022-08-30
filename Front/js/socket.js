@@ -59,7 +59,7 @@ export function elapsedTime(date) {
 }
 
 // 소켓 하나만 사용하기 위한 Export
-export const socket= io.connect('http://192.168.240.127:3333/flow');
+export const socket= io.connect('https://flow.beslee.pw/flow');
 
 // 프로젝트 리스트 업데이트 시 실행되는 함수
 // 프로젝트 리스트를 돌면서 socket.emit('setting')
