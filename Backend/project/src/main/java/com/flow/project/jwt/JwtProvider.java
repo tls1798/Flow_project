@@ -23,8 +23,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtProvider {
     private final AuthMapper authMapper;
-    private final long accessExpireTime = ( 60 * 60 * 1000L);   // 60분
-    private final long refreshExpireTime = (60 * 60 * 1000L) *24;   // 24시간
+    private final long accessExpireTime = ( 3 * 60 * 1000L);   // 3분
+    private final long refreshExpireTime = (60 * 60 * 1000L) *12;   // 12시간
     private final CustomUserDetailService customUserDetailService;
 
     // AccessToken 생성
