@@ -16,7 +16,7 @@ import java.util.Map;
 // hash256 암호화 및 복호화
 
 @Configuration
-public class PassworedSecurityBean {
+public class PasswordSecurityBean {
 
 
     @Bean
